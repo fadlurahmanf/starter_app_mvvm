@@ -7,7 +7,7 @@ name: "Build and Release SETUP CI DEMO"
 
 jobs:
   build:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v2.3.2
@@ -19,4 +19,9 @@ jobs:
         run: chmod +x gradlew
       - name: Build with gradle
         run: ./gradlew assembleDebug
-#        run: gradlew.bat assembleDebug
+      - name: Push to Releases
+          uses: ncipollo/release-action@v1
+          with:
+            artifact: "build/app/outputs/apk/*"
+            tag: v1.0.${{ github.run_number }}
+            token: ${{ secrets.CI_DEMO }}
