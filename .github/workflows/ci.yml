@@ -1,0 +1,25 @@
+on:
+  push:
+    branches: [ master ]
+name: "Build and Release SETUP CI DEMO"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+      - name: Setup JDK
+        uses: actions/setup-java@v1
+        with:
+          java-version: '12.x'
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+      - name: Build with gradle
+        run: ./gradlew assembleDebug
+      - name: Push to Releases
+        uses: ncipollo/release-action@v1
+        with:
+          artifacts: "app/build/outputs/apk/debug/*"
+          tag: v1.0.${{ github.run_number }}
+          token: ${{ secrets.CI_DEMO }}
