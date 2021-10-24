@@ -1,9 +1,11 @@
 package com.fadlurahmanf.starterappmvvm.ui
 
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
+import android.os.Build
+import android.os.Handler
+import android.view.WindowManager
 import com.fadlurahmanf.starterappmvvm.base.BaseActivity
 import com.fadlurahmanf.starterappmvvm.databinding.ActivitySplashBinding
+import com.fadlurahmanf.starterappmvvm.ui.example.ExampleActivity
 import dagger.android.AndroidInjection
 
 class SplashActivity : BaseActivity() {
@@ -11,6 +13,11 @@ class SplashActivity : BaseActivity() {
 
     override fun initSetup() {
         //todo
+        removeStatusBar()
+        Handler().postDelayed({
+            ExampleActivity.newInstance(this)
+            finish()
+        }, 3000)
     }
 
     override fun initLayout() {

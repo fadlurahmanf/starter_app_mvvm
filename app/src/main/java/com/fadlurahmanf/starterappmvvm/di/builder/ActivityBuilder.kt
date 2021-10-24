@@ -1,6 +1,6 @@
 package com.fadlurahmanf.starterappmvvm.di.builder
 
-import com.fadlurahmanf.starterappmvvm.ui.ExampleActivity
+import com.fadlurahmanf.starterappmvvm.ui.example.ExampleActivity
 import com.fadlurahmanf.starterappmvvm.ui.SplashActivity
 import dagger.Module
 import dagger.android.ContributesAndroidInjector

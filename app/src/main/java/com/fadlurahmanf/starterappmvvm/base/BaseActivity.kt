@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
+import android.view.WindowManager
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -30,8 +31,9 @@ abstract class BaseActivity():AppCompatActivity() {
 
     fun addsubscription(disposable: Disposable) = CompositeDisposable().add(disposable)
 
-    @RequiresApi(Build.VERSION_CODES.M)
-    fun checkPermission(activity:Activity, manifestPermission:String){
-        if (ContextCompat.checkSelfPermission(activity, manifestPermission)!=PackageManager.PERMISSION_GRANTED) requestPermissions(arrayOf(manifestPermission), 1)
+    fun removeStatusBar(){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            window.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
+        }
     }
 }
