@@ -20,8 +20,8 @@ jobs:
       - name: Build with gradle
         run: ./gradlew assembleDebug
       - name: Push to Releases
-          uses: ncipollo/release-action@v1
-          with:
-            artifact: "build/app/outputs/apk/*"
-            tag: v1.0.${{ github.run_number }}
-            token: ${{ secrets.CI_DEMO }}
+        uses: ncipollo/release-action@v1
+        with:
+          artifact: "build/app/outputs/apk/*"
+          tag: v1.0.${{ github.run_number }}
+          token: ${{ secrets.CI_DEMO }}
