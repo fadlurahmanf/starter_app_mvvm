@@ -17,4 +17,4 @@ jobs:
         with:
           java-version: 16
       - name: Build Apk
-        run: ./gradlew assembleDebug
+        run: gradlew.bat assembleDebug
