@@ -18,9 +18,3 @@ jobs:
           java-version: 16
       - name: Build Apk
         run: gradlew assembleDebug
-#      - name: Push to Releases
-#          uses: ncipollo/release-action@v1
-#          with:
-#            artifact: "build/app/outputs/flutter-apk/*"
-#            tag: v1.0.${{ github.run_number }}
-#            token: ${{ secrets.CI_DEMO }}
