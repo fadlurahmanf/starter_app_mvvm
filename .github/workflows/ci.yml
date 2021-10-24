@@ -16,5 +16,3 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: 16
-      - name: Run Tests
-        run: bash ./gradlew test --stacktrace
