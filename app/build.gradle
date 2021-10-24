@@ -14,8 +14,14 @@ android {
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
+        multiDexEnabled true
+
+        buildConfigField "String", "BASE_DEV_URL", "\"${devBaseUrl}\""
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+    buildFeatures{
+        viewBinding true
     }
 
     buildTypes {
@@ -58,4 +64,11 @@ dependencies {
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
     implementation 'com.squareup.retrofit2:adapter-rxjava3:2.9.0'
+
+    //rx shared preferences
+    implementation 'com.f2prateek.rx.preferences:rx-preferences:1.0.2'
+
+    //rx
+    implementation 'io.reactivex.rxjava3:rxandroid:3.0.0'
+    implementation 'io.reactivex.rxjava3:rxjava:3.1.1'
 }
