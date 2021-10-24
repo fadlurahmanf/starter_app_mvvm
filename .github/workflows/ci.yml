@@ -20,5 +20,5 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: 16
-#      - name: Build Apk
-#        run: gradlew assembleDebug
+      - name: Build Apk
+        run: gradlew assembleDebug
