@@ -8,7 +8,7 @@ name: "Build and Release SETUP CI DEMO"
 jobs:
   build:
     name: Build and Release
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v1
@@ -21,4 +21,4 @@ jobs:
         with:
           java-version: 16
       - name: Build Apk
-        run: ./gradlew assembleDebug --stacktrace
+        run: bash ./gradlew assembleDebug --stacktrace
