@@ -1,4 +1,4 @@
-package com.fadlurahmanf.datapandemi.di.builder
+package com.fadlurahmanf.starterappmvvm.di.builder
 
 import androidx.lifecycle.ViewModel
 import dagger.MapKey

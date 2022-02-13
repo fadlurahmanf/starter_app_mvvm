@@ -1,21 +1,27 @@
 package com.fadlurahmanf.starterappmvvm.base
 
-import android.app.Activity
-import android.content.pm.PackageManager
+
 import android.os.Build
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.WindowManager
-import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
+import androidx.viewbinding.ViewBinding
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.disposables.Disposable
 
-abstract class BaseActivity():AppCompatActivity() {
+typealias InflateActivity<T> = (LayoutInflater) -> T
+
+abstract class BaseActivity<VB:ViewBinding>(
+    var inflate:InflateActivity<VB>
+):AppCompatActivity() {
+
+    private var _binding:VB ?= null
+    val binding get() = _binding!!
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
         inject()
+        super.onCreate(savedInstanceState)
         initLayout()
         internalSetup()
         initSetup()
@@ -25,11 +31,14 @@ abstract class BaseActivity():AppCompatActivity() {
 
     abstract fun initSetup()
 
-    abstract fun initLayout()
+    private fun initLayout(){
+        _binding = inflate.invoke(layoutInflater)
+        setContentView(binding.root)
+    }
 
     abstract fun inject()
 
-    fun addsubscription(disposable: Disposable) = CompositeDisposable().add(disposable)
+    fun addSubscription(disposable: Disposable) = CompositeDisposable().add(disposable)
 
     fun removeStatusBar(){
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {

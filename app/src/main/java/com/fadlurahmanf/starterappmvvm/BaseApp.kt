@@ -3,21 +3,11 @@ package com.fadlurahmanf.starterappmvvm
 import android.app.Application
 import com.fadlurahmanf.starterappmvvm.di.component.ApplicationComponent
 import com.fadlurahmanf.starterappmvvm.di.component.DaggerApplicationComponent
-import dagger.android.AndroidInjector
-import dagger.android.DispatchingAndroidInjector
-import dagger.android.HasAndroidInjector
-import javax.inject.Inject
 
-class BaseApp : Application(), HasAndroidInjector {
 
-    @Inject
-    lateinit var androidInjector: DispatchingAndroidInjector<Any>
+class BaseApp : Application() {
 
     lateinit var applicationComponent: ApplicationComponent
-
-    override fun androidInjector(): AndroidInjector<Any> {
-        return  androidInjector
-    }
 
     override fun onCreate() {
         super.onCreate()
@@ -25,7 +15,9 @@ class BaseApp : Application(), HasAndroidInjector {
     }
 
     private fun initInjection(){
-        applicationComponent = DaggerApplicationComponent.builder().application(this).buildComponent()
+        applicationComponent = DaggerApplicationComponent.factory().create(this)
         applicationComponent.inject(this)
+//        applicationComponent = DaggerApplicationComponent.builder().application(this).buildComponent()
+//        applicationComponent.inject(this)
     }
 }
