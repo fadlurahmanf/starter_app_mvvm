@@ -8,6 +8,7 @@ import com.fadlurahmanf.starterappmvvm.databinding.ActivitySplashBinding
 import com.fadlurahmanf.starterappmvvm.ui.example.ExampleActivity
 import dagger.android.AndroidInjection
 
+//TES
 class SplashActivity : BaseActivity() {
     private lateinit var binding:ActivitySplashBinding
 
