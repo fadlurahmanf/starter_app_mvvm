@@ -1,6 +1,7 @@
 package com.fadlurahmanf.starterappmvvm.base.network
 
 import androidx.annotation.Nullable
+import com.bpp_app.module_payment_selector.data.interceptor.ContentTypeInterceptor
 import com.fadlurahmanf.starterappmvvm.BuildConfig
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -20,6 +21,7 @@ abstract class BaseNetwork<T>() {
 
     open fun okHttpClientBuilder(builder: OkHttpClient.Builder): OkHttpClient.Builder{
         return builder.addInterceptor(loggingInterceptor())
+            .addInterceptor(ContentTypeInterceptor())
     }
 
     fun provideClient(timeOut: Long): OkHttpClient {
@@ -38,7 +40,7 @@ abstract class BaseNetwork<T>() {
     }
 
     fun provideRetrofit(timeOut: Long): Retrofit {
-        return providesRetrofitBuilder().baseUrl(BASE_DEV_URL)
+        return providesRetrofitBuilder().baseUrl(getBaseUrl())
             .client(provideClient(timeOut))
             .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(RxJava3CallAdapterFactory.create())

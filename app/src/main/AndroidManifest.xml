@@ -2,15 +2,19 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.fadlurahmanf.starterappmvvm">
 
+    <uses-permission android:name="android.permission.INTERNET"/>
+
     <application
         android:name=".BaseApp"
         android:allowBackup="true"
+        android:usesCleartextTraffic="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.StarterAppMvvm">
-        <activity android:name=".ui.example.ExampleActivity"></activity>
+        <activity android:name=".ui.example.activity.ExampleActivity"
+            android:configChanges="orientation|screenSize"></activity>
         <activity android:name=".ui.SplashActivity" android:theme="@style/Theme.StarterAppMvvm.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
