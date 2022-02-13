@@ -12,7 +12,7 @@ import dagger.android.AndroidInjection
 import java.util.*
 import kotlin.concurrent.schedule
 
-
+//
 class SplashActivity : BaseActivity() {
     private lateinit var binding:ActivitySplashBinding
 
