@@ -13,9 +13,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.StarterAppMvvm">
-        <activity android:name=".ui.example.activity.ExampleActivity"
-            android:configChanges="orientation|screenSize"></activity>
-        <activity android:name=".ui.SplashActivity" android:theme="@style/Theme.StarterAppMvvm.NoActionBar">
+        <activity android:name=".ui.example.activity.ExampleActivity" android:configChanges="orientation|screenSize"></activity>
+        <activity android:name=".ui.SplashActivity"
+            android:theme="@style/Theme.StarterAppMvvm.NoActionBar"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

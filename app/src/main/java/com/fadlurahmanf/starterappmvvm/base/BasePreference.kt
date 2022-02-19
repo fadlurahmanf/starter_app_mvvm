@@ -46,7 +46,7 @@ abstract class BasePreference(context: Context) {
         return sharedPreferences?.getInt(key, devValue?:0)
     }
 
-    protected fun <T:Float> getData(key: String, defValue:Float?=null): Float?{
+    protected fun <T:Float> getData(key: String, defValue:Float?=null, classOfT:Class<T>): Float?{
         return sharedPreferences?.getFloat(key, defValue?:0f)
     }
 
@@ -75,5 +75,9 @@ abstract class BasePreference(context: Context) {
         }catch (e: Exception){
             null
         }
+    }
+
+    protected fun clearData(key: String){
+        sharedPreferences?.edit()?.remove(key)
     }
 }

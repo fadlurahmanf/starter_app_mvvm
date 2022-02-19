@@ -12,6 +12,9 @@ import javax.inject.Inject
 class ExampleViewModel @Inject constructor(
     var exampleEntity: ExampleEntity
 ):BaseViewModel() {
+    private var _testimonialError = MutableLiveData<String?>()
+    var testimonialError = _testimonialError
+
     private var _testimonialLoading = MutableLiveData<Boolean>()
     var testimonialLoading = _testimonialLoading
 
@@ -26,12 +29,12 @@ class ExampleViewModel @Inject constructor(
                 if (it.code == "100"){
                     _testimonial.postValue(it)
                 }else{
-                    println("MASUK ERROR SUCCESS ${it.message}")
+                    _testimonialError.postValue(it.message)
                 }
             },
             {
-                println("MASUK TESTIMONIAL ERROR ${it.message}")
                 _testimonialLoading.postValue(false)
+                _testimonialError.postValue(it.message)
             },
             {}
         ))
