@@ -14,11 +14,16 @@ class ExampleRepository @Inject constructor(
 
     var uuidString: String ?= null
     get() {
-        field = getData(UUID_WORK, null, String::class.java)
+        field = getString(UUID_WORK)
         return field
     }set(value) {
-        if (value == null) clearData(UUID_WORK)
-        else saveData(UUID_WORK, value)
-        field = value
+        if (value == null) {
+            clearData(UUID_WORK)
+            field = null
+        }
+        else {
+            saveString(UUID_WORK, value)
+            field = value
+        }
     }
 }
