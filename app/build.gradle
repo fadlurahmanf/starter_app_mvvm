@@ -50,9 +50,6 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
 
-    //kotlin extension
-    implementation "org.jetbrains.anko:anko-commons:$anko_version"
-
     //dagger
     implementation 'com.google.dagger:dagger:2.40.5'
     kapt 'com.google.dagger:dagger-compiler:2.40.5'
@@ -67,5 +64,11 @@ dependencies {
     implementation 'io.reactivex.rxjava3:rxandroid:3.0.0'
     implementation 'io.reactivex.rxjava3:rxjava:3.1.1'
 
+    //work
     implementation "androidx.work:work-runtime-ktx:2.7.1"
+
+    //mockito
+    testImplementation "org.mockito.kotlin:mockito-kotlin:4.0.0"
+    testImplementation "org.mockito:mockito-inline:4.0.0"
+    testImplementation "androidx.arch.core:core-testing:2.1.0"
 }

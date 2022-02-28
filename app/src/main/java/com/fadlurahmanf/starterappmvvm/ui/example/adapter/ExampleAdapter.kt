@@ -17,9 +17,8 @@ class ExampleAdapter(var list: ArrayList<TestimonialResponse>):RecyclerView.Adap
     lateinit var binding: ItemTestimonialBinding
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ExampleAdapter.ViewHolder {
-        binding = ItemTestimonialBinding.inflate(LayoutInflater.from(parent.context))
-        var view = LayoutInflater.from(parent.context).inflate(R.layout.item_testimonial, parent, false)
-        return ViewHolder(view)
+        binding = ItemTestimonialBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return ViewHolder(binding.root)
     }
 
     override fun onBindViewHolder(holder: ExampleAdapter.ViewHolder, position: Int) {

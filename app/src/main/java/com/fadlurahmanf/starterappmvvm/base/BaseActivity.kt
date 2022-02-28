@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewbinding.ViewBinding
+import com.fadlurahmanf.starterappmvvm.ui.core.dialog.DefaultLoadingDialog
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.disposables.Disposable
 
@@ -17,12 +18,12 @@ abstract class BaseActivity<VB:ViewBinding>(
 ):AppCompatActivity() {
 
     private var _binding:VB ?= null
-    val binding get() = _binding!!
+    val binding get() = _binding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         inject()
         super.onCreate(savedInstanceState)
-        initLayout()
+        setLayout()
         internalSetup()
         initSetup()
     }
@@ -31,9 +32,9 @@ abstract class BaseActivity<VB:ViewBinding>(
 
     abstract fun initSetup()
 
-    private fun initLayout(){
+    private fun setLayout(){
         _binding = inflate.invoke(layoutInflater)
-        setContentView(binding.root)
+        setContentView(binding?.root)
     }
 
     abstract fun inject()
@@ -43,6 +44,21 @@ abstract class BaseActivity<VB:ViewBinding>(
     fun removeStatusBar(){
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             window.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
+        }
+    }
+
+    private var loadingDialog:DefaultLoadingDialog ?= null
+    fun showLoadingDialog(){
+        if (loadingDialog == null){
+            loadingDialog = DefaultLoadingDialog()
+            loadingDialog?.show(supportFragmentManager, DefaultLoadingDialog::class.java.simpleName)
+        }
+    }
+
+    fun dismissDialog(){
+        if (loadingDialog != null){
+            loadingDialog?.dismiss()
+            loadingDialog = null
         }
     }
 }

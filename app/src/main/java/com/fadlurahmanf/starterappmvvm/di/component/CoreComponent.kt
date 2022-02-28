@@ -1,6 +1,7 @@
 package com.fadlurahmanf.starterappmvvm.di.component
 
 import com.fadlurahmanf.starterappmvvm.ui.SplashActivity
+import com.fadlurahmanf.starterappmvvm.ui.core.dialog.DefaultLoadingDialog
 import dagger.Subcomponent
 
 @Subcomponent
@@ -12,4 +13,5 @@ interface CoreComponent {
     }
 
     fun inject(activity:SplashActivity)
+    fun inject(dialog:DefaultLoadingDialog)
 }
