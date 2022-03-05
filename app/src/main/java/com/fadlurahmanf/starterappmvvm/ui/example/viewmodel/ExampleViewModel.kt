@@ -1,5 +1,6 @@
 package com.fadlurahmanf.starterappmvvm.ui.example.viewmodel
 
+import android.os.Handler
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.fadlurahmanf.starterappmvvm.base.BaseViewModel
@@ -16,7 +17,7 @@ class ExampleViewModel @Inject constructor(
     var exampleEntity: ExampleEntity,
     var exampleRepository: ExampleRepository
 ):BaseViewModel() {
-    private var exampleViewState = ExampleViewState()
+    private var exampleViewState = BaseViewState<BaseResponse<List<TestimonialResponse>>>()
 
     private var _testimonialError = MutableLiveData<String?>()
     var testimonialError = _testimonialError
@@ -27,7 +28,7 @@ class ExampleViewModel @Inject constructor(
     private var _testimonial = MutableLiveData<BaseResponse<List<TestimonialResponse>>>()
     var testimonial:LiveData<BaseResponse<List<TestimonialResponse>>> = _testimonial
 
-    private var _exampleState = MutableLiveData<ExampleViewState>()
+    private var _exampleState = MutableLiveData<BaseViewState<BaseResponse<List<TestimonialResponse>>>>()
     var exampleState = _exampleState
 
     fun getTestimonial(){
@@ -55,9 +56,11 @@ class ExampleViewModel @Inject constructor(
         addSubscription(exampleEntity.getTestimonial().uiSubscribe(
             {
                 if (it.code == 100){
+                    exampleViewState.state = STATE.SUCCESS
                     exampleViewState.data = it
                     _exampleState.postValue(exampleViewState)
                 }else{
+                    exampleViewState.state = STATE.FAILED
                     exampleViewState.error = it.message
                     _exampleState.postValue(exampleViewState)
                 }

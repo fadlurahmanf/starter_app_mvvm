@@ -4,4 +4,4 @@ import com.fadlurahmanf.starterappmvvm.base.BaseViewState
 import com.fadlurahmanf.starterappmvvm.data.response.core.BaseResponse
 import com.fadlurahmanf.starterappmvvm.data.response.example.TestimonialResponse
 
-class ExampleViewState():BaseViewState<BaseResponse<List<TestimonialResponse>>>() {}
+//class ExampleViewState():BaseViewState<BaseResponse<List<TestimonialResponse>>>() {}
