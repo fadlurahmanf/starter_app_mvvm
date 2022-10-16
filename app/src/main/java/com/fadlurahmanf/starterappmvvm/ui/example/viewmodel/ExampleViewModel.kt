@@ -1,13 +1,12 @@
 package com.fadlurahmanf.starterappmvvm.ui.example.viewmodel
 
-import android.os.Handler
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.fadlurahmanf.starterappmvvm.base.BaseViewModel
 import com.fadlurahmanf.starterappmvvm.base.BaseViewState
 import com.fadlurahmanf.starterappmvvm.base.STATE
 import com.fadlurahmanf.starterappmvvm.data.entity.example.ExampleEntity
-import com.fadlurahmanf.starterappmvvm.data.repository.example.ExampleRepository
+import com.fadlurahmanf.starterappmvvm.data.storage.example.ExampleSpStorage
 import com.fadlurahmanf.starterappmvvm.data.response.core.BaseResponse
 import com.fadlurahmanf.starterappmvvm.data.response.example.TestimonialResponse
 import com.fadlurahmanf.starterappmvvm.extension.uiSubscribe
@@ -15,7 +14,7 @@ import javax.inject.Inject
 
 class ExampleViewModel @Inject constructor(
     var exampleEntity: ExampleEntity,
-    var exampleRepository: ExampleRepository
+    var exampleSpStorage: ExampleSpStorage
 ):BaseViewModel() {
     private var exampleViewState = BaseViewState<BaseResponse<List<TestimonialResponse>>>()
 

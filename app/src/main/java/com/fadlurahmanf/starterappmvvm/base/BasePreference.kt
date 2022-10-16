@@ -1,9 +1,8 @@
 package com.fadlurahmanf.starterappmvvm.base
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.content.SharedPreferences
-import com.fadlurahmanf.starter_app_mvp.core.constant.ParamsKeySP
+import com.fadlurahmanf.starter_app_mvp.core.constant.AppSpKey
 import com.google.gson.Gson
 import org.json.JSONArray
 
@@ -16,7 +15,7 @@ abstract class BasePreference(context: Context) {
     }
 
     companion object{
-        const val SP_KEY:String = ParamsKeySP.PARAMS_SP_KEY
+        const val SP_KEY:String = AppSpKey.PARAMS_SP_KEY
     }
 
     protected fun saveString(key:String, value:String){
@@ -28,7 +27,7 @@ abstract class BasePreference(context: Context) {
     }
 
     protected fun saveInt(key: String, value: Int){
-        sharedPreferences?.edit()?.putInt(key, value?:0)?.apply()
+        sharedPreferences?.edit()?.putInt(key, value)?.apply()
     }
 
     protected fun getInt(key: String):Int?{
@@ -76,18 +75,18 @@ abstract class BasePreference(context: Context) {
 
     protected fun <T> getListData(key: String, classOfT:Class<T>): ArrayList<T>?{
         try {
-            var rawString:String? = getString(key)
-            var list:ArrayList<T> = arrayListOf<T>()
+            val rawString:String? = getString(key)
+            val list:ArrayList<T> = arrayListOf<T>()
             list.clear()
-            if (rawString!=null){
-                var jsonArray = JSONArray(rawString)
+            return if (rawString!=null){
+                val jsonArray = JSONArray(rawString)
                 for (i in 0 until jsonArray.length()){
-                    var row = jsonArray.getJSONObject(i)
+                    val row = jsonArray.getJSONObject(i)
                     list.add(Gson().fromJson(row.toString(), classOfT))
                 }
-                return list
+                list
             }else{
-                return null
+                null
             }
         }catch (e:Exception){
             return null

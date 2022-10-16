@@ -3,9 +3,8 @@ package com.fadlurahmanf.starterappmvvm.ui.example.viewmodel
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
 import com.fadlurahmanf.starterappmvvm.base.BaseViewState
-import com.fadlurahmanf.starterappmvvm.base.STATE
 import com.fadlurahmanf.starterappmvvm.data.entity.example.ExampleEntity
-import com.fadlurahmanf.starterappmvvm.data.repository.example.ExampleRepository
+import com.fadlurahmanf.starterappmvvm.data.storage.example.ExampleSpStorage
 import com.fadlurahmanf.starterappmvvm.data.response.core.BaseResponse
 import com.fadlurahmanf.starterappmvvm.data.response.example.TestimonialResponse
 import io.reactivex.rxjava3.android.plugins.RxAndroidPlugins
@@ -34,7 +33,7 @@ class ExampleViewModelTest {
     lateinit var exampleEntity: ExampleEntity
 
     @Mock
-    lateinit var exampleRepository: ExampleRepository
+    lateinit var exampleSpStorage: ExampleSpStorage
 
     @Mock
     lateinit var observerState: Observer<BaseViewState<BaseResponse<List<TestimonialResponse>>>>
@@ -45,7 +44,7 @@ class ExampleViewModelTest {
     @Before
     fun before(){
         MockitoAnnotations.openMocks(this)
-        exampleViewModel = ExampleViewModel(exampleEntity, exampleRepository)
+        exampleViewModel = ExampleViewModel(exampleEntity, exampleSpStorage)
 
         RxJavaPlugins.setIoSchedulerHandler { Schedulers.trampoline() }
         RxAndroidPlugins.setInitMainThreadSchedulerHandler { Schedulers.trampoline() }

@@ -1,12 +1,10 @@
-package com.fadlurahmanf.starterappmvvm.data.repository.example
+package com.fadlurahmanf.starterappmvvm.data.storage.example
 
 import android.content.Context
 import com.fadlurahmanf.starterappmvvm.base.BasePreference
-import com.fadlurahmanf.starterappmvvm.data.response.core.BaseResponse
-import com.fadlurahmanf.starterappmvvm.data.response.example.TestimonialResponse
 import javax.inject.Inject
 
-class ExampleRepository @Inject constructor(
+class ExampleSpStorage @Inject constructor(
     var context: Context
 ) : BasePreference(context) {
 

@@ -18,7 +18,7 @@ abstract class BaseActivity<VB:ViewBinding>(
 ):AppCompatActivity() {
 
     private var _binding:VB ?= null
-    val binding get() = _binding
+    val binding get() = _binding!!
 
     override fun onCreate(savedInstanceState: Bundle?) {
         inject()
@@ -34,7 +34,7 @@ abstract class BaseActivity<VB:ViewBinding>(
 
     private fun setLayout(){
         _binding = inflate.invoke(layoutInflater)
-        setContentView(binding?.root)
+        setContentView(binding.root)
     }
 
     abstract fun inject()

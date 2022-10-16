@@ -5,7 +5,7 @@ import com.fadlurahmanf.starterappmvvm.BaseApp
 import com.fadlurahmanf.starterappmvvm.base.BaseActivity
 import com.fadlurahmanf.starterappmvvm.databinding.ActivitySplashBinding
 import com.fadlurahmanf.starterappmvvm.di.component.CoreComponent
-import com.fadlurahmanf.starterappmvvm.ui.example.activity.ExampleActivity
+import com.fadlurahmanf.starterappmvvm.ui.example.activity.FirstExampleActivity
 import java.util.*
 import kotlin.concurrent.schedule
 
@@ -15,7 +15,7 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>(ActivitySplashBinding
 
     override fun initSetup() {
         Timer().schedule(3000){
-            val intent = Intent(this@SplashActivity, ExampleActivity::class.java)
+            val intent = Intent(this@SplashActivity, FirstExampleActivity::class.java)
             startActivity(intent)
             finish()
         }

@@ -2,27 +2,47 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.fadlurahmanf.starterappmvvm">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:name=".BaseApp"
         android:allowBackup="true"
-        android:usesCleartextTraffic="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:requestLegacyExternalStorage="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.StarterAppMvvm">
-        <activity android:name=".ui.example.activity.ExampleActivity" android:configChanges="orientation|screenSize"></activity>
-        <activity android:name=".ui.SplashActivity"
-            android:theme="@style/Theme.StarterAppMvvm.NoActionBar"
-            android:exported="true">
+        android:theme="@style/Theme.StarterAppMvvm"
+        android:usesCleartextTraffic="true">
+        <activity
+            android:name=".ui.core.activity.ImageViewerActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.core.activity.PdfViewerActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.example.activity.FirstExampleActivity"
+            android:configChanges="orientation|screenSize" />
+        <activity
+            android:name=".ui.SplashActivity"
+            android:exported="true"
+            android:theme="@style/Theme.StarterAppMvvm.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths" />
+        </provider>
     </application>
 
 </manifest>

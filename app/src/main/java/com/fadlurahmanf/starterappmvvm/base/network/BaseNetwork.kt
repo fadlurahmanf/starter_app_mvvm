@@ -32,8 +32,6 @@ abstract class BaseNetwork<T>() {
             .build()
     }
 
-    private val BASE_DEV_URL = BuildConfig.BASE_DEV_URL
-
 
     private fun providesRetrofitBuilder(): Retrofit.Builder{
         return Retrofit.Builder()
