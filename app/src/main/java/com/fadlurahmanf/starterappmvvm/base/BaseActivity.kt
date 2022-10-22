@@ -1,13 +1,18 @@
 package com.fadlurahmanf.starterappmvvm.base
 
 
+import android.content.Context
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.View
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewbinding.ViewBinding
+import com.fadlurahmanf.starterappmvvm.BaseApp
+import com.fadlurahmanf.starterappmvvm.di.component.ApplicationComponent
 import com.fadlurahmanf.starterappmvvm.ui.core.dialog.DefaultLoadingDialog
+import com.google.android.material.snackbar.Snackbar
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.disposables.Disposable
 
@@ -20,7 +25,11 @@ abstract class BaseActivity<VB:ViewBinding>(
     private var _binding:VB ?= null
     val binding get() = _binding!!
 
+    private var _appComponent:ApplicationComponent? = null
+    val appComponent get() = _appComponent!!
+
     override fun onCreate(savedInstanceState: Bundle?) {
+        _appComponent = (applicationContext as BaseApp).applicationComponent
         inject()
         super.onCreate(savedInstanceState)
         setLayout()
@@ -60,5 +69,9 @@ abstract class BaseActivity<VB:ViewBinding>(
             loadingDialog?.dismiss()
             loadingDialog = null
         }
+    }
+
+    fun showSnackBar(view:View?, message:String, duration: Int = Snackbar.LENGTH_SHORT){
+        Snackbar.make(view ?: binding.root, message, duration).show()
     }
 }

@@ -16,57 +16,38 @@ class ExampleViewModel @Inject constructor(
     var exampleEntity: ExampleEntity,
     var exampleSpStorage: ExampleSpStorage
 ):BaseViewModel() {
-    private var exampleViewState = BaseViewState<BaseResponse<List<TestimonialResponse>>>()
 
-    private var _testimonialError = MutableLiveData<String?>()
-    var testimonialError = _testimonialError
+    private var stateData = BaseViewState<BaseResponse<List<TestimonialResponse>>>()
 
-    private var _testimonialLoading = MutableLiveData<Boolean>()
-    var testimonialLoading = _testimonialLoading
-
-    private var _testimonial = MutableLiveData<BaseResponse<List<TestimonialResponse>>>()
-    var testimonial:LiveData<BaseResponse<List<TestimonialResponse>>> = _testimonial
-
-    private var _exampleState = MutableLiveData<BaseViewState<BaseResponse<List<TestimonialResponse>>>>()
-    var exampleState = _exampleState
+    private var _exampleState = MutableLiveData(stateData)
+    val exampleState get() : LiveData<BaseViewState<BaseResponse<List<TestimonialResponse>>>> = _exampleState
 
     fun getTestimonial(){
-        _testimonialLoading.postValue(true)
-        addSubscription(exampleEntity.getTestimonial().uiSubscribe(
-            {
-                _testimonialLoading.postValue(false)
-                if (it.code == 100){
-                    _testimonial.postValue(it)
-                }else{
-                    _testimonialError.postValue(it.message)
-                }
-            },
-            {
-                _testimonialLoading.postValue(false)
-                _testimonialError.postValue(it.message)
-            },
-            {}
-        ))
-    }
-
-    fun getTestimonialState(){
-        exampleViewState.state = STATE.LOADING
-        _exampleState.postValue(exampleViewState)
+        stateData = BaseViewState(
+            state = STATE.LOADING
+        )
+        _exampleState.value = stateData
         addSubscription(exampleEntity.getTestimonial().uiSubscribe(
             {
                 if (it.code == 100){
-                    exampleViewState.state = STATE.SUCCESS
-                    exampleViewState.data = it
-                    _exampleState.postValue(exampleViewState)
+                    stateData = BaseViewState(
+                        state = STATE.SUCCESS,
+                        data = it
+                    )
                 }else{
-                    exampleViewState.state = STATE.FAILED
-                    exampleViewState.error = it.message
-                    _exampleState.postValue(exampleViewState)
+                    stateData = BaseViewState(
+                        state = STATE.FAILED,
+                        error = it.message
+                    )
                 }
+                _exampleState.value = stateData
             },
             {
-                exampleViewState.error = it.message
-                _exampleState.postValue(exampleViewState)
+                stateData = BaseViewState(
+                    state = STATE.FAILED,
+                    error = it.message
+                )
+                _exampleState.value = stateData
             },
             {}
         ))

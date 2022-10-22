@@ -2,10 +2,6 @@ package com.fadlurahmanf.starterappmvvm.ui.example.activity
 
 import android.annotation.SuppressLint
 import android.content.Intent
-import android.net.Uri
-import android.provider.MediaStore
-import androidx.activity.result.PickVisualMediaRequest
-import androidx.activity.result.contract.ActivityResultContracts
 import com.fadlurahmanf.starterappmvvm.BaseApp
 import com.fadlurahmanf.starterappmvvm.base.BaseActivity
 import com.fadlurahmanf.starterappmvvm.base.STATE
@@ -29,23 +25,17 @@ class FirstExampleActivity : BaseActivity<ActivityFirstExampleBinding>(ActivityF
     lateinit var component:ExampleComponent
 
     @Inject
-    lateinit var viewModel:ExampleViewModel
-
-    @Inject
     lateinit var exampleSpStorage: ExampleSpStorage
 
     override fun initSetup() {
-        initObserver()
-
         binding.button2.setOnClickListener {
-            viewModel.getTestimonialState()
+            val intent = Intent(this, SecondExampleActivity::class.java)
+            startActivity(intent)
         }
 
         binding.button1.setOnClickListener {
             val encrypted = CryptoHelper.encrypt("tes tes")
-            println("masuk encrypted $encrypted")
             val decrypted = CryptoHelper.decrypt(encrypted?:"")
-            println("masuk decrypted $decrypted")
         }
 
         binding.buttonPickPdf.setOnClickListener {
@@ -65,7 +55,14 @@ class FirstExampleActivity : BaseActivity<ActivityFirstExampleBinding>(ActivityF
          * reference: https://developer.android.com/training/data-storage/shared/photopicker
          * */
         binding.buttonPickImageFromGallery.setOnClickListener {
-            pickMediaLauncher.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
+            // alternative:
+            // pickMediaLauncher.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
+            val intent = Intent()
+                .setType("image/*")
+                // .putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true) /** add this line if you want to pick multiple */
+                .setAction(Intent.ACTION_GET_CONTENT)
+                .addCategory(Intent.CATEGORY_OPENABLE)
+            startActivityForResult(Intent.createChooser(intent, "Select Multiple File"), 121)
         }
 
         binding.buttonImageViewer.setOnClickListener {
@@ -83,41 +80,26 @@ class FirstExampleActivity : BaseActivity<ActivityFirstExampleBinding>(ActivityF
             val intent = Intent(this, PdfViewerActivity::class.java)
             intent.putExtra(PdfViewerActivity.PDF, PdfModel(origin = PdfOrigin.FILE, path = uri.toString()))
             startActivity(intent)
-        }
-    }
-
-    private val pickMediaLauncher = registerForActivityResult(ActivityResultContracts.PickVisualMedia()){ data ->
-        data?.let {
-            val intent = Intent(this, ImageViewerActivity::class.java)
-            intent.putExtra(ImageViewerActivity.IMAGE, ImageModel(origin = ImageOrigin.URI, it.toString()))
-            startActivity(intent)
-        }
-    }
-
-
-    private fun initObserver() {
-
-        viewModel.exampleState.observe(this) {
-            when (it.state) {
-                STATE.LOADING -> {
-                    showLoadingDialog()
-                }
-                STATE.SUCCESS -> {
-                    dismissDialog()
-                    Snackbar.make(
-                        binding.root,
-                        "RESULT : ${it.data?.message}",
-                        Snackbar.LENGTH_LONG
-                    ).show()
-                }
-                STATE.FAILED -> {
-                    dismissDialog()
-                    Snackbar.make(binding.root, "RESULT : ${it.error}", Snackbar.LENGTH_LONG)
-                        .show()
-                }
+        }else if (resultCode == RESULT_OK && requestCode == 121){
+            data?.data?.let {
+                val intent = Intent(this, ImageViewerActivity::class.java)
+                intent.putExtra(ImageViewerActivity.IMAGE, ImageModel(origin = ImageOrigin.URI, path = it.toString()))
+                startActivity(intent)
             }
+
+//            for (i in 0 until data!!.clipData!!.itemCount) {
+//                val uri = data.clipData!!.getItemAt(i)
+//            }
         }
     }
+
+//    private val pickMediaLauncher = registerForActivityResult(ActivityResultContracts.PickVisualMedia()){ data ->
+//        data?.let {
+//            val intent = Intent(this, ImageViewerActivity::class.java)
+//            intent.putExtra(ImageViewerActivity.IMAGE, ImageModel(origin = ImageOrigin.URI, it.toString()))
+//            startActivity(intent)
+//        }
+//    }
 
 
     override fun inject() {

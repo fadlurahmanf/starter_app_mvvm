@@ -8,7 +8,6 @@ import com.fadlurahmanf.starterappmvvm.base.BaseActivity
 import com.fadlurahmanf.starterappmvvm.data.model.ImageModel
 import com.fadlurahmanf.starterappmvvm.data.model.ImageOrigin
 import com.fadlurahmanf.starterappmvvm.databinding.ActivityImageViewerBinding
-import com.ortiz.touchview.OnTouchImageViewListener
 
 class ImageViewerActivity : BaseActivity<ActivityImageViewerBinding>(ActivityImageViewerBinding::inflate) {
 

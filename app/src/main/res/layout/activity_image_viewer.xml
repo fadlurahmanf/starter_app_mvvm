@@ -16,4 +16,9 @@
         android:layout_height="match_parent"
         android:id="@+id/photo_view" />
 
+<!--    <com.fadlurahmanf.starterappmvvm.core.lib.ZoomableImageView-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:id="@+id/photo_view"/>-->
+
 </androidx.constraintlayout.widget.ConstraintLayout>
