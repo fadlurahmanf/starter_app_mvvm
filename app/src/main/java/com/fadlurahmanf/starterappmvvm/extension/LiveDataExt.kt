@@ -1,4 +1,4 @@
-package com.fadlurahmanf.datapandemi.extenson
+package com.fadlurahmanf.starterappmvvm.extension
 
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData

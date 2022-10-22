@@ -1,6 +1,7 @@
 package com.fadlurahmanf.starterappmvvm.base.network
 
 import androidx.annotation.Nullable
+import com.bpp_app.module_payment_selector.data.interceptor.ContentTypeInterceptor
 import com.fadlurahmanf.starterappmvvm.BuildConfig
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -14,15 +15,16 @@ abstract class BaseNetwork<T>() {
     @Nullable
     var service:T ?= null
 
-    fun loggingInterceptor(): HttpLoggingInterceptor {
+    private fun loggingInterceptor(): HttpLoggingInterceptor {
         return HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
     }
 
     open fun okHttpClientBuilder(builder: OkHttpClient.Builder): OkHttpClient.Builder{
         return builder.addInterceptor(loggingInterceptor())
+            .addInterceptor(ContentTypeInterceptor())
     }
 
-    fun provideClient(timeOut: Long): OkHttpClient {
+    private fun provideClient(timeOut: Long): OkHttpClient {
         return okHttpClientBuilder(OkHttpClient.Builder())
             .connectTimeout(timeOut, TimeUnit.SECONDS)
             .readTimeout(timeOut, TimeUnit.SECONDS)
@@ -30,15 +32,13 @@ abstract class BaseNetwork<T>() {
             .build()
     }
 
-    private val BASE_DEV_URL = BuildConfig.BASE_DEV_URL
 
-
-    fun providesRetrofitBuilder(): Retrofit.Builder{
+    private fun providesRetrofitBuilder(): Retrofit.Builder{
         return Retrofit.Builder()
     }
 
-    fun provideRetrofit(timeOut: Long): Retrofit {
-        return providesRetrofitBuilder().baseUrl(BASE_DEV_URL)
+    private fun provideRetrofit(timeOut: Long): Retrofit {
+        return providesRetrofitBuilder().baseUrl(getBaseUrl())
             .client(provideClient(timeOut))
             .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
