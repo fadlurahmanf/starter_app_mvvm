@@ -6,10 +6,10 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.fadlurahmanf.starterappmvvm.R
-import com.fadlurahmanf.starterappmvvm.data.response.example.TestimonialResponse
+import com.fadlurahmanf.starterappmvvm.dto.response.example.SurahResponse
 import com.fadlurahmanf.starterappmvvm.databinding.ItemTestimonialBinding
 
-class ExampleAdapter(var list: ArrayList<TestimonialResponse>):RecyclerView.Adapter<ExampleAdapter.ViewHolder>() {
+class ExampleAdapter(var list: ArrayList<SurahResponse>):RecyclerView.Adapter<ExampleAdapter.ViewHolder>() {
     inner class ViewHolder(view: View):RecyclerView.ViewHolder(view) {
         var tvQuotes:TextView = view.findViewById<TextView>(R.id.tv_quotes)
     }
@@ -23,8 +23,6 @@ class ExampleAdapter(var list: ArrayList<TestimonialResponse>):RecyclerView.Adap
 
     override fun onBindViewHolder(holder: ExampleAdapter.ViewHolder, position: Int) {
         var testimonial = list[position]
-
-        holder.tvQuotes.text = testimonial.quote?:"HALO"
     }
 
     override fun getItemCount(): Int {

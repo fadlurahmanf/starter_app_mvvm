@@ -4,7 +4,7 @@ import android.content.Context
 import com.fadlurahmanf.starterappmvvm.base.BasePreference
 import javax.inject.Inject
 
-class ExampleSpStorage @Inject constructor(
+class QuranStorageDatasource @Inject constructor(
     var context: Context
 ) : BasePreference(context) {
 

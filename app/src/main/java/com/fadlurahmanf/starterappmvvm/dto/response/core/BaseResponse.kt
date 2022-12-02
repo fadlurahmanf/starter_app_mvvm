@@ -1,4 +1,4 @@
-package com.fadlurahmanf.starterappmvvm.data.response.core
+package com.fadlurahmanf.starterappmvvm.dto.response.core
 
 import com.google.gson.annotations.SerializedName
 

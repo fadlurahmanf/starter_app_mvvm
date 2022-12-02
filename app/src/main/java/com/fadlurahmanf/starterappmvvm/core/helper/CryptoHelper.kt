@@ -1,4 +1,4 @@
-package com.fadlurahmanf.starterappmvvm.core.utilities
+package com.fadlurahmanf.starterappmvvm.core.helper
 
 import android.os.Build
 import java.security.*

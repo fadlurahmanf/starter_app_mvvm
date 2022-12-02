@@ -3,13 +3,11 @@ package com.fadlurahmanf.starterappmvvm.ui.core.activity
 import android.content.Intent
 import android.net.Uri
 import com.fadlurahmanf.starterappmvvm.base.BaseActivity
-import com.fadlurahmanf.starterappmvvm.data.model.PdfModel
-import com.fadlurahmanf.starterappmvvm.data.model.PdfOrigin
+import com.fadlurahmanf.starterappmvvm.dto.model.PdfModel
+import com.fadlurahmanf.starterappmvvm.dto.model.PdfOrigin
 import com.fadlurahmanf.starterappmvvm.databinding.ActivityPdfViewerBinding
 import com.github.barteksc.pdfviewer.listener.OnErrorListener
 import com.github.barteksc.pdfviewer.listener.OnRenderListener
-import java.io.File
-import java.net.URI
 
 class PdfViewerActivity : BaseActivity<ActivityPdfViewerBinding>(ActivityPdfViewerBinding::inflate),
     OnRenderListener, OnErrorListener {
@@ -18,7 +16,7 @@ class PdfViewerActivity : BaseActivity<ActivityPdfViewerBinding>(ActivityPdfView
         const val PDF = "PDF"
     }
 
-    var pdf:PdfModel? = null
+    var pdf: PdfModel? = null
 
     override fun initSetup() {
         pdf = intent.getParcelableExtra(PDF)

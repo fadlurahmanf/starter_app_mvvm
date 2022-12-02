@@ -2,6 +2,7 @@ package com.fadlurahmanf.starterappmvvm.ui
 
 import android.content.Intent
 import com.fadlurahmanf.starterappmvvm.BaseApp
+import com.fadlurahmanf.starterappmvvm.BuildConfig
 import com.fadlurahmanf.starterappmvvm.base.BaseActivity
 import com.fadlurahmanf.starterappmvvm.databinding.ActivitySplashBinding
 import com.fadlurahmanf.starterappmvvm.di.component.CoreComponent
@@ -14,6 +15,8 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>(ActivitySplashBinding
     lateinit var component:CoreComponent
 
     override fun initSetup() {
+        val type = BuildConfig.BUILD_TYPE
+        binding.tvEnv.text = type
         Timer().schedule(3000){
             val intent = Intent(this@SplashActivity, FirstExampleActivity::class.java)
             startActivity(intent)

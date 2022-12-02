@@ -1,12 +1,10 @@
 package com.fadlurahmanf.starterappmvvm.ui.core.activity
 
 import android.net.Uri
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
 import com.bumptech.glide.Glide
 import com.fadlurahmanf.starterappmvvm.base.BaseActivity
-import com.fadlurahmanf.starterappmvvm.data.model.ImageModel
-import com.fadlurahmanf.starterappmvvm.data.model.ImageOrigin
+import com.fadlurahmanf.starterappmvvm.dto.model.core.ImageModel
+import com.fadlurahmanf.starterappmvvm.dto.model.core.ImageOrigin
 import com.fadlurahmanf.starterappmvvm.databinding.ActivityImageViewerBinding
 
 class ImageViewerActivity : BaseActivity<ActivityImageViewerBinding>(ActivityImageViewerBinding::inflate) {
@@ -15,7 +13,7 @@ class ImageViewerActivity : BaseActivity<ActivityImageViewerBinding>(ActivityIma
         const val IMAGE = "IMAGE"
     }
 
-    private var image:ImageModel? = null
+    private var image: ImageModel? = null
 
     override fun initSetup() {
         image = intent.getParcelableExtra<ImageModel>(IMAGE)

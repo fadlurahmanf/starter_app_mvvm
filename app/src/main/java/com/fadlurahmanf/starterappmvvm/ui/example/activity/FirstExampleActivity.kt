@@ -1,23 +1,20 @@
 package com.fadlurahmanf.starterappmvvm.ui.example.activity
 
-import android.annotation.SuppressLint
 import android.content.Intent
 import com.fadlurahmanf.starterappmvvm.BaseApp
 import com.fadlurahmanf.starterappmvvm.base.BaseActivity
-import com.fadlurahmanf.starterappmvvm.base.STATE
-import com.fadlurahmanf.starterappmvvm.core.utilities.CryptoHelper
-import com.fadlurahmanf.starterappmvvm.data.model.ImageModel
-import com.fadlurahmanf.starterappmvvm.data.model.ImageOrigin
-import com.fadlurahmanf.starterappmvvm.data.model.PdfModel
-import com.fadlurahmanf.starterappmvvm.data.model.PdfOrigin
-import com.fadlurahmanf.starterappmvvm.data.storage.example.ExampleSpStorage
+import com.fadlurahmanf.starterappmvvm.core.helper.CryptoHelper
+import com.fadlurahmanf.starterappmvvm.core.helper.TranslationHelper
+import com.fadlurahmanf.starterappmvvm.dto.model.core.ImageModel
+import com.fadlurahmanf.starterappmvvm.dto.model.core.ImageOrigin
+import com.fadlurahmanf.starterappmvvm.dto.model.PdfModel
+import com.fadlurahmanf.starterappmvvm.dto.model.PdfOrigin
+import com.fadlurahmanf.starterappmvvm.data.storage.example.QuranStorageDatasource
 import com.fadlurahmanf.starterappmvvm.databinding.ActivityFirstExampleBinding
 import com.fadlurahmanf.starterappmvvm.di.component.ExampleComponent
 import com.fadlurahmanf.starterappmvvm.ui.core.activity.ImageViewerActivity
 import com.fadlurahmanf.starterappmvvm.ui.core.activity.PdfViewerActivity
-import com.fadlurahmanf.starterappmvvm.ui.example.viewmodel.ExampleViewModel
-import com.google.android.material.snackbar.Snackbar
-import java.util.*
+import java.util.Locale
 import javax.inject.Inject
 
 
@@ -25,9 +22,23 @@ class FirstExampleActivity : BaseActivity<ActivityFirstExampleBinding>(ActivityF
     lateinit var component:ExampleComponent
 
     @Inject
-    lateinit var exampleSpStorage: ExampleSpStorage
+    lateinit var quranStorageDatasource: QuranStorageDatasource
 
     override fun initSetup() {
+        val mLocale = TranslationHelper.getCurrentLocale(this)
+        println("masuk ${mLocale.language}")
+
+        binding.btnChangeLanguage.setOnClickListener {
+            val local = TranslationHelper.getCurrentLocale(this)
+            if(local.language == "en"){
+                TranslationHelper.changeLanguage(this, "in")
+            }else{
+                TranslationHelper.changeLanguage(this, "en")
+            }
+            recreate()
+        }
+
+
         binding.button2.setOnClickListener {
             val intent = Intent(this, SecondExampleActivity::class.java)
             startActivity(intent)
