@@ -23,6 +23,12 @@ android {
         buildConfigField "String", "BASE_DEV_URL", localProperties["BASE_DEV_URL"]
         buildConfigField "String", "BASE_STAGING_URL", localProperties["BASE_STAGING_URL"]
         buildConfigField "String", "BASE_PRODUCTION_URL", localProperties["BASE_PRODUCTION_URL"]
+        buildConfigField "String", "PUBLIC_KEY_DEV", localProperties["PUBLIC_KEY_DEV"]
+        buildConfigField "String", "PRIVATE_KEY_DEV", localProperties["PRIVATE_KEY_DEV"]
+        buildConfigField "String", "PUBLIC_KEY_STAGING", localProperties["PUBLIC_KEY_STAGING"]
+        buildConfigField "String", "PRIVATE_KEY_STAGING", localProperties["PRIVATE_KEY_STAGING"]
+        buildConfigField "String", "PUBLIC_KEY_PRODUCTION", localProperties["PUBLIC_KEY_PRODUCTION"]
+        buildConfigField "String", "PRIVATE_KEY_PRODUCTION", localProperties["PRIVATE_KEY_PRODUCTION"]
         buildConfigField "String", "ENV", "\"DEV\""
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"

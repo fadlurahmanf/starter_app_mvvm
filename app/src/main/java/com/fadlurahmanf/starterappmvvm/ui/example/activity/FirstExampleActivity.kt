@@ -1,9 +1,12 @@
 package com.fadlurahmanf.starterappmvvm.ui.example.activity
 
+import android.content.ClipData
+import android.content.ClipboardManager
+import android.content.Context
 import android.content.Intent
 import com.fadlurahmanf.starterappmvvm.BaseApp
 import com.fadlurahmanf.starterappmvvm.base.BaseActivity
-import com.fadlurahmanf.starterappmvvm.core.helper.CryptoHelper
+import com.fadlurahmanf.starterappmvvm.core.helper.RSAHelper
 import com.fadlurahmanf.starterappmvvm.core.helper.TranslationHelper
 import com.fadlurahmanf.starterappmvvm.data.storage.language.LanguageSpStorage
 import com.fadlurahmanf.starterappmvvm.dto.model.core.ImageModel
@@ -42,9 +45,25 @@ class FirstExampleActivity : BaseActivity<ActivityFirstExampleBinding>(ActivityF
             startActivity(intent)
         }
 
-        binding.button1.setOnClickListener {
-            val encrypted = CryptoHelper.encrypt("tes tes")
-            val decrypted = CryptoHelper.decrypt(encrypted?:"")
+        binding.btnGenerateKey.setOnClickListener {
+            RSAHelper.generateKey(RSAHelper.METHOD.PKCS1PEM)
+            val public = RSAHelper.encodedPublicKey(RSAHelper.publicKey)
+            val private = RSAHelper.encodedPrivateKey(RSAHelper.privateKey)
+
+            val cm = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+            val clipData = ClipData.newPlainText("text", "${public}{{BATAS}}${private}")
+            cm.setPrimaryClip(clipData)
+        }
+
+        var encryptedString = ""
+        binding.btnEncrypt.setOnClickListener{
+            encryptedString = RSAHelper.encrypt("tes tes") ?: ""
+            println("masuk $encryptedString")
+        }
+
+        binding.btnDecrypt.setOnClickListener{
+            var result = RSAHelper.decrypt(encryptedString)
+            println("masuk decrypt $result")
         }
 
         binding.buttonPickPdf.setOnClickListener {
