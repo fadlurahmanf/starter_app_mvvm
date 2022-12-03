@@ -1,4 +1,4 @@
-package com.fadlurahmanf.starterappmvvm.data.interceptor
+package com.fadlurahmanf.starterappmvvm.network.interceptor
 
 import okhttp3.Interceptor
 import okhttp3.Request

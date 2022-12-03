@@ -4,8 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.fadlurahmanf.starterappmvvm.base.BaseViewModel
 import com.fadlurahmanf.starterappmvvm.base.NetworkState
-import com.fadlurahmanf.starterappmvvm.data.entity.example.QuranDatasource
-import com.fadlurahmanf.starterappmvvm.data.storage.example.QuranStorageDatasource
+import com.fadlurahmanf.starterappmvvm.data.datasource.example.QuranDatasource
 import com.fadlurahmanf.starterappmvvm.dto.exception.CustomException
 import com.fadlurahmanf.starterappmvvm.dto.response.example.SurahResponse
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
@@ -14,7 +13,6 @@ import javax.inject.Inject
 
 class ListSurahViewModel @Inject constructor(
     var quranDatasource: QuranDatasource,
-    var quranStorageDatasource: QuranStorageDatasource
 ):BaseViewModel() {
 
     private var _surahsLive = MutableLiveData<NetworkState<List<SurahResponse>>>()
@@ -27,9 +25,9 @@ class ListSurahViewModel @Inject constructor(
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
                 {
-                    if(it.code == 200 && it.status == "OK" && it.data != null){
+                    if(it.code == 200 && it.status == "OK" && it.data?.surahs != null){
                         _surahsLive.value = NetworkState.Success(
-                            data = it.data!!
+                            data = it.data?.surahs!!
                         )
                     }else{
                         _surahsLive.value = NetworkState.Error(

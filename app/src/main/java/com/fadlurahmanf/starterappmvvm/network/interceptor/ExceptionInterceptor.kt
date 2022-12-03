@@ -1,4 +1,4 @@
-package com.fadlurahmanf.starterappmvvm.data.interceptor
+package com.fadlurahmanf.starterappmvvm.network.interceptor
 
 import com.fadlurahmanf.starterappmvvm.R
 import com.fadlurahmanf.starterappmvvm.dto.exception.CustomException

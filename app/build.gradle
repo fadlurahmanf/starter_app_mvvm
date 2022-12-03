@@ -38,8 +38,10 @@ android {
         }
         debug {
             applicationIdSuffix ".debug"
+            debuggable true
         }
         staging {
+            initWith debug
             applicationIdSuffix ".staging"
         }
     }

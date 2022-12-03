@@ -1,8 +1,8 @@
-package com.fadlurahmanf.starterappmvvm.base.network
+package com.fadlurahmanf.starterappmvvm.network
 
 import androidx.annotation.Nullable
-import com.fadlurahmanf.starterappmvvm.data.interceptor.ContentTypeInterceptor
-import com.fadlurahmanf.starterappmvvm.data.interceptor.ExceptionInterceptor
+import com.fadlurahmanf.starterappmvvm.network.interceptor.ContentTypeInterceptor
+import com.fadlurahmanf.starterappmvvm.network.interceptor.ExceptionInterceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit

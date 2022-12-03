@@ -3,7 +3,7 @@ package com.fadlurahmanf.starterappmvvm.ui.example.viewmodel
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
 import com.fadlurahmanf.starterappmvvm.base.BaseViewState
-import com.fadlurahmanf.starterappmvvm.data.entity.example.QuranDatasource
+import com.fadlurahmanf.starterappmvvm.data.datasource.example.QuranDatasource
 import com.fadlurahmanf.starterappmvvm.data.storage.example.QuranStorageDatasource
 import com.fadlurahmanf.starterappmvvm.dto.response.core.BaseResponse
 import com.fadlurahmanf.starterappmvvm.dto.response.example.SurahResponse

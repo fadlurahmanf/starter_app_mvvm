@@ -10,6 +10,7 @@ class TranslationHelper {
             return configuration.locale
         }
 
+        @Suppress("DEPRECATION")
         fun changeLanguage(context: Context, languageId:String){
             if(!checkIsSupported(languageId)) return
 
@@ -22,7 +23,7 @@ class TranslationHelper {
 
         }
 
-        fun checkIsSupported(languageId: String):Boolean{
+        private fun checkIsSupported(languageId: String):Boolean{
             return languageId == "en" || languageId == "in";
         }
     }

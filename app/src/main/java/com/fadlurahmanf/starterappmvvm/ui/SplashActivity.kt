@@ -4,19 +4,38 @@ import android.content.Intent
 import com.fadlurahmanf.starterappmvvm.BaseApp
 import com.fadlurahmanf.starterappmvvm.BuildConfig
 import com.fadlurahmanf.starterappmvvm.base.BaseActivity
+import com.fadlurahmanf.starterappmvvm.core.helper.TranslationHelper
+import com.fadlurahmanf.starterappmvvm.data.storage.language.LanguageSpStorage
 import com.fadlurahmanf.starterappmvvm.databinding.ActivitySplashBinding
 import com.fadlurahmanf.starterappmvvm.di.component.CoreComponent
 import com.fadlurahmanf.starterappmvvm.ui.example.activity.FirstExampleActivity
 import java.util.*
+import javax.inject.Inject
 import kotlin.concurrent.schedule
 
 
 class SplashActivity : BaseActivity<ActivitySplashBinding>(ActivitySplashBinding::inflate) {
     lateinit var component:CoreComponent
 
+    @Inject
+    lateinit var languageSpStorage: LanguageSpStorage
+
     override fun initSetup() {
         val type = BuildConfig.BUILD_TYPE
         binding.tvEnv.text = type
+
+        val local = TranslationHelper.getCurrentLocale(this)
+        if(languageSpStorage.languageId == null){
+            languageSpStorage.languageId = "en"
+            TranslationHelper.changeLanguage(this, "en")
+            recreate()
+            return
+        }else if(languageSpStorage.languageId != local.language){
+            TranslationHelper.changeLanguage(this, languageSpStorage.languageId!!)
+            recreate()
+            return
+        }
+
         Timer().schedule(3000){
             val intent = Intent(this@SplashActivity, FirstExampleActivity::class.java)
             startActivity(intent)

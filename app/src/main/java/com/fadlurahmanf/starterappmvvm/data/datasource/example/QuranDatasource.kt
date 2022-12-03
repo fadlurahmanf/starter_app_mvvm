@@ -1,7 +1,7 @@
-package com.fadlurahmanf.starterappmvvm.data.entity.example
+package com.fadlurahmanf.starterappmvvm.data.datasource.example
 
 import android.content.Context
-import com.fadlurahmanf.starterappmvvm.base.network.AbstractNetwork
+import com.fadlurahmanf.starterappmvvm.network.AbstractNetwork
 import com.fadlurahmanf.starterappmvvm.data.api.example.QuranAPI
 import javax.inject.Inject
 

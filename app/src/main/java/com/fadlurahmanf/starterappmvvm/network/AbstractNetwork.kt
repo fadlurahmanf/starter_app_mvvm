@@ -1,8 +1,8 @@
-package com.fadlurahmanf.starterappmvvm.base.network
+package com.fadlurahmanf.starterappmvvm.network
 
 import com.fadlurahmanf.starterappmvvm.BuildConfig
 
-abstract class  AuthAbstractNetwork<T>():BaseNetwork<T>(){
+abstract class  AuthAbstractNetwork<T>(): BaseNetwork<T>(){
     override fun getBaseUrl(): String {
         return when (BuildConfig.ENV) {
             "PRODUCTION" -> BuildConfig.BASE_PRODUCTION_URL
