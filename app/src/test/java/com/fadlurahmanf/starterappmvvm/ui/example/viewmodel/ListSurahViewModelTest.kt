@@ -45,7 +45,6 @@ class ListSurahViewModelTest{
         RxAndroidPlugins.setInitMainThreadSchedulerHandler { Schedulers.trampoline() }
 
         MockitoAnnotations.openMocks(this)
-
         viewModel = ListSurahViewModel(quranRepository = quranRepository)
     }
 
