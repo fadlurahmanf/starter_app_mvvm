@@ -1,90 +1,84 @@
 package com.fadlurahmanf.starterappmvvm.ui.example.viewmodel
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import androidx.lifecycle.Observer
-import com.fadlurahmanf.starterappmvvm.base.BaseViewState
-import com.fadlurahmanf.starterappmvvm.data.datasource.example.QuranDatasource
-import com.fadlurahmanf.starterappmvvm.data.storage.example.QuranStorageDatasource
-import com.fadlurahmanf.starterappmvvm.dto.response.core.BaseResponse
+import com.fadlurahmanf.starterappmvvm.base.NetworkState
+import com.fadlurahmanf.starterappmvvm.data.datasource.example.QuranRepository
+import com.fadlurahmanf.starterappmvvm.dto.exception.CustomException
+import com.fadlurahmanf.starterappmvvm.dto.response.example.BaseQuranResponse
 import com.fadlurahmanf.starterappmvvm.dto.response.example.SurahResponse
+import com.fadlurahmanf.starterappmvvm.dto.response.example.SurahsResponse
+import com.google.gson.Gson
 import io.reactivex.rxjava3.android.plugins.RxAndroidPlugins
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.plugins.RxJavaPlugins
 import io.reactivex.rxjava3.schedulers.Schedulers
-import org.junit.Assert.assertEquals
+import org.junit.Assert
+import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.rules.TestRule
 import org.junit.runner.RunWith
-import org.mockito.*
+import org.mockito.ArgumentMatcher
+import org.mockito.InjectMocks
+import org.mockito.Mock
+import org.mockito.Mockito
+import org.mockito.Mockito.inOrder
+import org.mockito.MockitoAnnotations
 import org.mockito.junit.MockitoJUnitRunner
 
 
 @RunWith(MockitoJUnitRunner::class)
-class ListSurahViewModelTest {
-
+class ListSurahViewModelTest{
     @get:Rule
-    var rule:TestRule = InstantTaskExecutorRule()
+    var rule: TestRule = InstantTaskExecutorRule()
 
-    lateinit var listSurahViewModel: ListSurahViewModel
-
-    @Mock
-    lateinit var quranDatasource: QuranDatasource
+    @InjectMocks
+    lateinit var viewModel: ListSurahViewModel
 
     @Mock
-    lateinit var quranStorageDatasource: QuranStorageDatasource
-
-    @Mock
-    lateinit var observerState: Observer<BaseViewState<BaseResponse<List<SurahResponse>>>>
-
-    @Captor
-    lateinit var argumentCaptor: ArgumentCaptor<BaseViewState<BaseResponse<List<SurahResponse>>>>
+    lateinit var quranRepository: QuranRepository
 
     @Before
-    fun before(){
-        MockitoAnnotations.openMocks(this)
-        listSurahViewModel = ListSurahViewModel(quranDatasource, quranStorageDatasource)
-
+    fun setup(){
         RxJavaPlugins.setIoSchedulerHandler { Schedulers.trampoline() }
         RxAndroidPlugins.setInitMainThreadSchedulerHandler { Schedulers.trampoline() }
 
+        MockitoAnnotations.openMocks(this)
+
+        viewModel = ListSurahViewModel(quranRepository = quranRepository)
     }
 
     @Test
-    fun `get_response_code_100`(){
-        var baseResponse : BaseResponse<List<SurahResponse>> = BaseResponse(code = 100, message = "OK", data = listOf())
-        Mockito.`when`(listSurahViewModel.quranDatasource.getSurahs()).thenReturn(
-            Observable.just(baseResponse)
-        )
+    fun `success fetch api`(){
+        Mockito.`when`(quranRepository.getSurahs("en.asad"))
+            .thenReturn(Observable.just(
+                BaseQuranResponse(
+                    code = 200,
+                    status = "OK",
+                    data = SurahsResponse(
+                        surahs = listOf()
+                    )
+                )
+            ))
 
-        listSurahViewModel.getSurahs()
-        Mockito.verify(quranDatasource, Mockito.times(1)).getSurahs()
-
-        assertEquals(100, listSurahViewModel.testimonial.value?.code)
-        assertEquals("OK", listSurahViewModel.testimonial.value?.message)
+        viewModel.getSurahs()
+        assertEquals(NetworkState.Success<List<SurahResponse>>(data = listOf()), viewModel.surahsLive.value)
     }
 
     @Test
-    fun `get_response_code_100_state`(){
-        var baseResponse : BaseResponse<List<SurahResponse>> = BaseResponse(code = 100, message = "OK")
+    fun `failed fetch api`(){
+        Mockito.`when`(quranRepository.getSurahs("en.asad"))
+            .thenReturn(Observable.just(
+                BaseQuranResponse(
+                    code = 400,
+                    status = "ERROR"
+                )
+            ))
 
-        Mockito.`when`(listSurahViewModel.quranDatasource.getSurahs()).thenReturn(
-            Observable.just(baseResponse)
-        )
-
-//        exampleViewModel.exampleState.observeForever(observer)
-        listSurahViewModel.getTestimonialState()
-
-
-        Mockito.verify(quranDatasource, Mockito.times(1)).getSurahs()
-
-//        assertEquals(100, exampleViewModel.exampleState.value?.data?.code)
-//        assertEquals(STATE.SUCCESS, exampleViewModel.exampleState.value?.state)
-//        assertEquals(null, exampleViewModel.exampleState.value?.error)
-
-//        exampleViewModel.exampleState.removeObserver(observer)
+        viewModel.getSurahs()
+        assertEquals(Gson().toJson(NetworkState.Error(exception = CustomException(
+            rawMessage = "ERROR"
+        ))),  Gson().toJson(viewModel.surahsLive.value))
     }
-
-
 }
