@@ -4,7 +4,7 @@ on:
 name: "CI CD KOTLIN"
 
 jobs:
-  setup:
+  init:
     runs-on: ubuntu-latest
     steps:
       - name: CHECKOUT
@@ -33,17 +33,29 @@ jobs:
         env:
           PRIVATE_KEY_DEV: ${{ secrets.PRIVATE_KEY_DEV }}
         run: echo PRIVATE_KEY_DEV=\"${{ secrets.PRIVATE_KEY_DEV }}\" >> local.properties
-      - name: CLEAN GRADLEW
+  test:
+    runs-on: ubuntu-latest
+    needs: init
+    steps:
+      - name: CLEAN GRADLE
         run: ./gradlew clean
-      - name: UNIT-TEST
+      - name: START UNIT TESTING
         run: ./gradlew test
-      - name: BUILD DEBUG APK
+  buildApk:
+    runs-on: ubuntu-latest
+    needs: test
+    steps:
+      - name: BUILD APK
         run: ./gradlew assembleDebug
-      - name: UPLOAD ARTIFACT
+      - name: UPLOAD ARTIFACT APK
         uses: actions/upload-artifact@v1
         with:
           name: apk
           path: app/build/outputs/apk/debug/app-debug.apk
+  apkInfo:
+    runs-on: ubuntu-latest
+    needs: setup
+    steps:
       - name: GET APK INFO
         id: apk-info
         uses: hkusu/apk-info-action@v1
@@ -51,19 +63,9 @@ jobs:
           apk-path: app/build/outputs/apk/debug/app-debug.apk
       - name: PRINT APK INFO
         run: |
+          echo '${{ steps.apk-info.outputs.version-name }}'
           echo '${{ steps.apk-info.outputs.version-code }}'
-#  apkInfo:
-#    runs-on: ubuntu-latest
-#    needs: setup
-#    steps:
-#      - name: GET APK INFO
-#        id: apk-info
-#        uses: hkusu/apk-info-action@v1
-#        with:
-#          apk-path: app/build/outputs/apk/debug/app-debug.apk
-#      - name: PRINT APK INFO
-#        run: |
-#          echo '${{ steps.apk-info.outputs.version-code }}'
+
 #  printApk:
 #    runs-on: ubuntu-latest
 #    needs: apkInfo
