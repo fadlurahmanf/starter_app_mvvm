@@ -6,7 +6,7 @@ plugins {
 }
 
 def localProperties = new Properties()
-localProperties.load(new FileInputStream(rootProject.file("./local.properties")))
+localProperties.load(new FileInputStream(rootProject.file("local.properties")))
 
 android {
     compileSdkVersion 33
@@ -38,7 +38,7 @@ android {
 
     buildTypes {
         Properties properties = new Properties()
-        properties.load(new FileInputStream(rootProject.file("./local.properties")))
+        properties.load(new FileInputStream(rootProject.file("local.properties")))
         def BASE_DEV_URL = properties.getProperty("BASE_DEV_URL")
         def BASE_STAGING_URL = properties.getProperty("BASE_STAGING_URL")
         def BASE_PRODUCTION_URL = properties.getProperty("BASE_PRODUCTION_URL")
