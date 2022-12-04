@@ -39,22 +39,22 @@ jobs:
         run: ./gradlew test
       - name: BUILD DEBUG APK
         run: ./gradlew assembleDebug
-  apkInfo:
-    runs-on: ubuntu-latest
-    outputs:
-      output1: echo "output1=ini output1" >> $GITHUB_OUTPUT
-    steps:
-      name: GET APK INFO
-      id: apk
-      uses: JantHsueh/get-apk-version-action@master
-      with:
-        apkPath: app/build/outputs/apk/debug/app-debug.apk
-  printApk:
-    runs-on: ubuntu-latest
-    needs: apkInfo
-    steps:
-      name: PRINT APK INFO
-      run: echo ${{needs.apkInfo.outputs.output1}}
+#  apkInfo:
+#    runs-on: ubuntu-latest
+#    outputs:
+#      output1: echo "output1=ini output1" >> $GITHUB_OUTPUT
+#    steps:
+#      name: GET APK INFO
+#      id: apk
+#      uses: JantHsueh/get-apk-info-action@1.0
+#      with:
+#        apkPath: app/build/outputs/apk/debug/app-debug.apk
+#  printApk:
+#    runs-on: ubuntu-latest
+#    needs: apkInfo
+#    steps:
+#      name: PRINT APK INFO
+#      run: echo ${{needs.apkInfo.outputs.output1}}
 
 
 #      - name: Setup JDK
