@@ -18,7 +18,7 @@ jobs:
       - name: ACCESS BASE DEV URL
         env:
           BASE_DEV_URL: ${{ secrets.BASE_DEV_URL }}
-        run: echo BASE_DEV_URL=\"$BASE_DEV_URL\" >> ./local.properties
+        run: echo BASE_DEV_URL=\"TES\" >> ./local.properties
       - name: ACCESS BASE STAGING URL
         env:
           BASE_STAGING_URL: ${{ secrets.BASE_STAGING_URL }}
