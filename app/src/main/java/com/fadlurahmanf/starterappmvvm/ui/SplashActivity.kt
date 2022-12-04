@@ -1,41 +1,50 @@
 package com.fadlurahmanf.starterappmvvm.ui
 
 import android.content.Intent
-import android.os.Build
-import android.os.Handler
-import android.os.Looper
-import android.view.WindowManager
+import com.fadlurahmanf.starterappmvvm.BaseApp
+import com.fadlurahmanf.starterappmvvm.BuildConfig
 import com.fadlurahmanf.starterappmvvm.base.BaseActivity
+import com.fadlurahmanf.starterappmvvm.core.helper.TranslationHelper
+import com.fadlurahmanf.starterappmvvm.data.storage.language.LanguageSpStorage
 import com.fadlurahmanf.starterappmvvm.databinding.ActivitySplashBinding
-import com.fadlurahmanf.starterappmvvm.ui.example.ExampleActivity
-import dagger.android.AndroidInjection
+import com.fadlurahmanf.starterappmvvm.di.component.CoreComponent
+import com.fadlurahmanf.starterappmvvm.ui.example.activity.FirstExampleActivity
 import java.util.*
+import javax.inject.Inject
 import kotlin.concurrent.schedule
 
 
-class SplashActivity : BaseActivity() {
-    private lateinit var binding:ActivitySplashBinding
+class SplashActivity : BaseActivity<ActivitySplashBinding>(ActivitySplashBinding::inflate) {
+    lateinit var component:CoreComponent
+
+    @Inject
+    lateinit var languageSpStorage: LanguageSpStorage
 
     override fun initSetup() {
-        //todo
-        removeStatusBar()
-//        Handler().postDelayed({
-//            ExampleActivity.newInstance(this)
-//            finish()
-//        }, 3000)
+        val type = BuildConfig.BUILD_TYPE
+        binding.tvEnv.text = type
+
+        val local = TranslationHelper.getCurrentLocale(this)
+        if(languageSpStorage.languageId == null){
+            languageSpStorage.languageId = "en"
+            TranslationHelper.changeLanguage(this, "en")
+            recreate()
+            return
+        }else if(languageSpStorage.languageId != local.language){
+            TranslationHelper.changeLanguage(this, languageSpStorage.languageId!!)
+            recreate()
+            return
+        }
+
         Timer().schedule(3000){
-            val intent = Intent(this@SplashActivity, ExampleActivity::class.java)
+            val intent = Intent(this@SplashActivity, FirstExampleActivity::class.java)
             startActivity(intent)
             finish()
         }
     }
 
-    override fun initLayout() {
-        binding = ActivitySplashBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-    }
-
     override fun inject() {
-        AndroidInjection.inject(this)
+        component = (applicationContext as BaseApp).applicationComponent.coreComponent().create()
+        component.inject(this)
     }
 }
