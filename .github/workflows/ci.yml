@@ -9,32 +9,32 @@ jobs:
     steps:
       - name: CHECKOUT
         uses: actions/checkout@v3
+      - name: CLEAN GRADLEW
+        run: ./gradlew clean
       - name: CHECK FOLDER
         run: ls
       - name: CREATE LOCAL PROPERTIES
         run: touch local.properties
-      - name: CHECK FOLDER
-        run: ls
       - name: ACCESS BASE DEV URL
         env:
           BASE_DEV_URL: ${{ secrets.BASE_DEV_URL }}
-        run: echo BASE_DEV_URL="BASE_DEV_URL" >> local.properties
+        run: echo BASE_DEV_URL=\"${{ secrets.BASE_DEV_URL }}\" >> local.properties
       - name: ACCESS BASE STAGING URL
         env:
           BASE_STAGING_URL: ${{ secrets.BASE_STAGING_URL }}
-        run: echo BASE_STAGING_URL="BASE STAGING" >> local.properties
+        run: echo BASE_STAGING_URL=\"${{ secrets.BASE_STAGING_URL }}\" >> local.properties
       - name: ACCESS BASE PRODUCTION URL
         env:
           BASE_PRODUCTION_URL: ${{ secrets.BASE_PRODUCTION_URL }}
-        run: echo BASE_PRODUCTION_URL="BASE PRODUCTION" >> local.properties
+        run: echo BASE_PRODUCTION_URL=\"${{ secrets.BASE_PRODUCTION_URL }}\" >> local.properties
       - name: ACCESS PUBLIC KEY DEV
         env:
           PUBLIC_KEY_DEV: ${{ secrets.PUBLIC_KEY_DEV }}
-        run: echo PUBLIC_KEY_DEV="PUBLIC KEY" >> local.properties
+        run: echo PUBLIC_KEY_DEV=\"${{ secrets.PUBLIC_KEY_DEV }}\" >> local.properties
       - name: ACCESS PRIVATE KEY DEV
         env:
           PRIVATE_KEY_DEV: ${{ secrets.PRIVATE_KEY_DEV }}
-        run: echo PRIVATE_KEY_DEV="PRIVATE KEY" >> local.properties
+        run: echo PRIVATE_KEY_DEV=\"${{ secrets.PRIVATE_KEY_DEV }}\" >> local.properties
       - name: UNIT-TEST
         run: ./gradlew test
 #      - name: Setup JDK
