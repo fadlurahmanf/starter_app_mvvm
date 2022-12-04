@@ -9,8 +9,6 @@ jobs:
     steps:
       - name: CHECKOUT
         uses: actions/checkout@v3
-      - name: CLEAN GRADLEW
-        run: ./gradlew clean
       - name: CHECK FOLDER
         run: ls
       - name: CREATE LOCAL PROPERTIES
@@ -35,6 +33,8 @@ jobs:
         env:
           PRIVATE_KEY_DEV: ${{ secrets.PRIVATE_KEY_DEV }}
         run: echo PRIVATE_KEY_DEV=\"${{ secrets.PRIVATE_KEY_DEV }}\" >> local.properties
+      - name: CLEAN GRADLEW
+        run: ./gradlew clean
       - name: UNIT-TEST
         run: ./gradlew test
 #      - name: Setup JDK
