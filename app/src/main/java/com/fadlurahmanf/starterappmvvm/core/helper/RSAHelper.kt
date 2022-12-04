@@ -37,13 +37,13 @@ class RSAHelper {
         lateinit var privateKey: PrivateKey
 
         private var encodedPublicKey = when (BuildConfig.BUILD_TYPE) {
-            "release" -> BuildConfig.PUBLIC_KEY_PRODUCTION
-            "staging" -> BuildConfig.PUBLIC_KEY_STAGING
+            "release" -> "BuildConfig.PUBLIC_KEY_PRODUCTION"
+            "staging" -> "BuildConfig.PUBLIC_KEY_STAGING"
             else -> BuildConfig.PUBLIC_KEY_DEV
         }
         private var encodedPrivateKey = when (BuildConfig.BUILD_TYPE) {
-            "release" -> BuildConfig.PRIVATE_KEY_PRODUCTION
-            "staging" -> BuildConfig.PRIVATE_KEY_STAGING
+            "release" -> "BuildConfig.PRIVATE_KEY_PRODUCTION"
+            "staging" -> "BuildConfig.PRIVATE_KEY_STAGING"
             else -> BuildConfig.PRIVATE_KEY_DEV
         }
         fun generateKey(method: METHOD): KeyPair {

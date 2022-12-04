@@ -9,6 +9,26 @@ jobs:
     steps:
       - name: CHECKOUT
         uses: actions/checkout@v3
+      - name: ACCESS BASE DEV URL
+        env:
+          BUILD_DEV_URL: ${{ secrets.BUILD_DEV_URL }}
+        run: echo BUILD_DEV_URL=\"BUILD_DEV_URL\" > ./local.properties
+      - name: ACCESS BASE STAGING URL
+        env:
+          BUILD_DEV_URL: ${{ secrets.BASE_STAGING_URL }}
+        run: echo BASE_STAGING_URL=\"BASE_STAGING_URL\" > ./local.properties
+      - name: ACCESS BASE PRODUCTION URL
+        env:
+          BUILD_DEV_URL: ${{ secrets.BASE_PRODUCTION_URL }}
+        run: echo BASE_PRODUCTION_URL=\"BASE_PRODUCTION_URL\" > ./local.properties
+      - name: ACCESS PUBLIC KEY DEV
+        env:
+          BUILD_DEV_URL: ${{ secrets.PUBLIC_KEY_DEV }}
+        run: echo PUBLIC_KEY_DEV=\"PUBLIC_KEY_DEV\" > ./local.properties
+      - name: ACCESS PRIVATE KEY DEV
+        env:
+          BUILD_DEV_URL: ${{ secrets.PRIVATE_KEY_DEV }}
+        run: echo PRIVATE_KEY_DEV=\"PRIVATE_KEY_DEV\" > ./local.properties
       - name: UNIT-TEST
         run: ./gradlew test
 #      - name: Setup JDK
