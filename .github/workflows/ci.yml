@@ -37,12 +37,6 @@ jobs:
         run: ./gradlew clean
       - name: START UNIT TESTING
         run: ./gradlew test
-  buildApk:
-    runs-on: ubuntu-latest
-    needs: init
-    steps:
-      - name: CHECKOUT
-        uses: actions/checkout@v3
       - name: BUILD APK
         run: ./gradlew assembleDebug
       - name: UPLOAD ARTIFACT APK
@@ -50,14 +44,6 @@ jobs:
         with:
           name: apk
           path: app/build/outputs/apk/debug/app-debug.apk
-  apkInfo:
-    runs-on: ubuntu-latest
-    needs: buildApk
-    steps:
-      - name: CHECKOUT
-        uses: actions/checkout@v3
-      - name: CREATE LOCAL PROPERTIES
-        run: touch local.properties
       - name: GET APK INFO
         id: apk-info
         uses: hkusu/apk-info-action@v1
@@ -67,6 +53,7 @@ jobs:
         run: |
           echo '${{ steps.apk-info.outputs.version-name }}'
           echo '${{ steps.apk-info.outputs.version-code }}'
+
 
 #  printApk:
 #    runs-on: ubuntu-latest
