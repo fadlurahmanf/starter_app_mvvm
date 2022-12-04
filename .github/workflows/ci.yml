@@ -56,6 +56,8 @@ jobs:
     steps:
       - name: CHECKOUT
         uses: actions/checkout@v3
+      - name: CREATE LOCAL PROPERTIES
+        run: touch local.properties
       - name: GET APK INFO
         id: apk-info
         uses: hkusu/apk-info-action@v1
