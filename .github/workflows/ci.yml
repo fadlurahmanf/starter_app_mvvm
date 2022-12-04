@@ -9,6 +9,8 @@ jobs:
     steps:
       - name: CHECKOUT
         uses: actions/checkout@v3
+      - name: CHECK FOLDER
+        run: ls
       - name: ACCESS BASE DEV URL
         env:
           BUILD_DEV_URL: ${{ secrets.BASE_DEV_URL }}
