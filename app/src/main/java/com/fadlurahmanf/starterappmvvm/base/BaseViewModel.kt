@@ -5,5 +5,5 @@ import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.disposables.Disposable
 
 abstract class BaseViewModel:ViewModel() {
-    fun addSubscription(disposable: Disposable) = CompositeDisposable().add(disposable)
+    fun disposable() = CompositeDisposable()
 }

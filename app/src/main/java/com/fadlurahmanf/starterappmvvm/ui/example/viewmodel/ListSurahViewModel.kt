@@ -23,7 +23,7 @@ class ListSurahViewModel @Inject constructor(
 
     fun getSurahs(){
         _surahsLive.value = NetworkState.Loading
-        addSubscription(quranRepository.getSurahs("en.asad")
+        disposable().add(quranRepository.getSurahs("en.asad")
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
