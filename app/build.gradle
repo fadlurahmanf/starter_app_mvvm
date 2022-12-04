@@ -7,6 +7,11 @@ plugins {
 
 def localProperties = new Properties()
 localProperties.load(new FileInputStream(rootProject.file("local.properties")))
+def BASE_DEV_URL = localProperties.getProperty("BASE_DEV_URL")
+def BASE_STAGING_URL = localProperties.getProperty("BASE_STAGING_URL")
+def BASE_PRODUCTION_URL = localProperties.getProperty("BASE_PRODUCTION_URL")
+def PUBLIC_KEY_DEV = localProperties.getProperty("PUBLIC_KEY_DEV")
+def PRIVATE_KEY_DEV = localProperties.getProperty("PRIVATE_KEY_DEV")
 
 android {
     compileSdkVersion 33
@@ -20,11 +25,11 @@ android {
         versionName "1.0"
         multiDexEnabled true
 
-//        buildConfigField "String", "BASE_DEV_URL", localProperties["BASE_DEV_URL"]
-//        buildConfigField "String", "BASE_STAGING_URL", localProperties["BASE_STAGING_URL"]
-//        buildConfigField "String", "BASE_PRODUCTION_URL", localProperties["BASE_PRODUCTION_URL"]
-//        buildConfigField "String", "PUBLIC_KEY_DEV", localProperties["PUBLIC_KEY_DEV"]
-//        buildConfigField "String", "PRIVATE_KEY_DEV", localProperties["PRIVATE_KEY_DEV"]
+        buildConfigField "String", "BASE_DEV_URL", BASE_DEV_URL
+        buildConfigField "String", "BASE_STAGING_URL", BASE_STAGING_URL
+        buildConfigField "String", "BASE_PRODUCTION_URL", BASE_PRODUCTION_URL
+        buildConfigField "String", "PUBLIC_KEY_DEV", PUBLIC_KEY_DEV
+        buildConfigField "String", "PRIVATE_KEY_DEV", PRIVATE_KEY_DEV
 //        buildConfigField "String", "PUBLIC_KEY_STAGING", localProperties["PUBLIC_KEY_STAGING"]
 //        buildConfigField "String", "PRIVATE_KEY_STAGING", localProperties["PRIVATE_KEY_STAGING"]
 //        buildConfigField "String", "PUBLIC_KEY_PRODUCTION", localProperties["PUBLIC_KEY_PRODUCTION"]
@@ -37,40 +42,40 @@ android {
     }
 
     buildTypes {
-        Properties properties = new Properties()
-        properties.load(new FileInputStream(rootProject.file("local.properties")))
-        def BASE_DEV_URL = properties.getProperty("BASE_DEV_URL")
-        def BASE_STAGING_URL = properties.getProperty("BASE_STAGING_URL")
-        def BASE_PRODUCTION_URL = properties.getProperty("BASE_PRODUCTION_URL")
-        def PUBLIC_KEY_DEV = properties.getProperty("PUBLIC_KEY_DEV")
-        def PRIVATE_KEY_DEV = properties.getProperty("PRIVATE_KEY_DEV")
+//        Properties properties = new Properties()
+//        properties.load(new FileInputStream(rootProject.file("local.properties")))
+//        def BASE_DEV_URL = properties.getProperty("BASE_DEV_URL")
+//        def BASE_STAGING_URL = properties.getProperty("BASE_STAGING_URL")
+//        def BASE_PRODUCTION_URL = properties.getProperty("BASE_PRODUCTION_URL")
+//        def PUBLIC_KEY_DEV = properties.getProperty("PUBLIC_KEY_DEV")
+//        def PRIVATE_KEY_DEV = properties.getProperty("PRIVATE_KEY_DEV")
 
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            buildConfigField "String", "BASE_DEV_URL", BASE_DEV_URL
-            buildConfigField "String", "BASE_STAGING_URL", BASE_STAGING_URL
-            buildConfigField "String", "BASE_PRODUCTION_URL", BASE_PRODUCTION_URL
-            buildConfigField "String", "PUBLIC_KEY_DEV", PUBLIC_KEY_DEV
-            buildConfigField "String", "PRIVATE_KEY_DEV", PRIVATE_KEY_DEV
+//            buildConfigField "String", "BASE_DEV_URL", BASE_DEV_URL
+//            buildConfigField "String", "BASE_STAGING_URL", BASE_STAGING_URL
+//            buildConfigField "String", "BASE_PRODUCTION_URL", BASE_PRODUCTION_URL
+//            buildConfigField "String", "PUBLIC_KEY_DEV", PUBLIC_KEY_DEV
+//            buildConfigField "String", "PRIVATE_KEY_DEV", PRIVATE_KEY_DEV
         }
         debug {
             applicationIdSuffix ".debug"
             debuggable true
-            buildConfigField "String", "BASE_DEV_URL", BASE_DEV_URL
-            buildConfigField "String", "BASE_STAGING_URL", BASE_STAGING_URL
-            buildConfigField "String", "BASE_PRODUCTION_URL", BASE_PRODUCTION_URL
-            buildConfigField "String", "PUBLIC_KEY_DEV", PUBLIC_KEY_DEV
-            buildConfigField "String", "PRIVATE_KEY_DEV", PRIVATE_KEY_DEV
+//            buildConfigField "String", "BASE_DEV_URL", BASE_DEV_URL
+//            buildConfigField "String", "BASE_STAGING_URL", BASE_STAGING_URL
+//            buildConfigField "String", "BASE_PRODUCTION_URL", BASE_PRODUCTION_URL
+//            buildConfigField "String", "PUBLIC_KEY_DEV", PUBLIC_KEY_DEV
+//            buildConfigField "String", "PRIVATE_KEY_DEV", PRIVATE_KEY_DEV
         }
         staging {
             initWith debug
             applicationIdSuffix ".staging"
-            buildConfigField "String", "BASE_DEV_URL", BASE_DEV_URL
-            buildConfigField "String", "BASE_STAGING_URL", BASE_STAGING_URL
-            buildConfigField "String", "BASE_PRODUCTION_URL", BASE_PRODUCTION_URL
-            buildConfigField "String", "PUBLIC_KEY_DEV", PUBLIC_KEY_DEV
-            buildConfigField "String", "PRIVATE_KEY_DEV", PRIVATE_KEY_DEV
+//            buildConfigField "String", "BASE_DEV_URL", BASE_DEV_URL
+//            buildConfigField "String", "BASE_STAGING_URL", BASE_STAGING_URL
+//            buildConfigField "String", "BASE_PRODUCTION_URL", BASE_PRODUCTION_URL
+//            buildConfigField "String", "PUBLIC_KEY_DEV", PUBLIC_KEY_DEV
+//            buildConfigField "String", "PRIVATE_KEY_DEV", PRIVATE_KEY_DEV
         }
     }
     compileOptions {
