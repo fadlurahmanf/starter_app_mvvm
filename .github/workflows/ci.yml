@@ -54,7 +54,7 @@ jobs:
           path: app/build/outputs/apk/debug/app-debug.apk
   apkInfo:
     runs-on: ubuntu-latest
-    needs: setup
+    needs: buildApk
     steps:
       - name: GET APK INFO
         id: apk-info
