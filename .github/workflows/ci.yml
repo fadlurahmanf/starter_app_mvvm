@@ -37,6 +37,8 @@ jobs:
     runs-on: ubuntu-latest
     needs: init
     steps:
+      - name: CHECKOUT
+        uses: actions/checkout@v3
       - name: CLEAN GRADLE
         run: ./gradlew clean
       - name: START UNIT TESTING
@@ -45,6 +47,8 @@ jobs:
     runs-on: ubuntu-latest
     needs: test
     steps:
+      - name: CHECKOUT
+        uses: actions/checkout@v3
       - name: BUILD APK
         run: ./gradlew assembleDebug
       - name: UPLOAD ARTIFACT APK
@@ -56,6 +60,8 @@ jobs:
     runs-on: ubuntu-latest
     needs: buildApk
     steps:
+      - name: CHECKOUT
+        uses: actions/checkout@v3
       - name: GET APK INFO
         id: apk-info
         uses: hkusu/apk-info-action@v1
