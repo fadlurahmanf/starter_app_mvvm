@@ -47,7 +47,7 @@ jobs:
         id: apk-info
         uses: hkusu/apk-info-action@v1
         with:
-          apkPath: app/build/outputs/apk/debug/app-debug.apk
+          apk-path: app/build/outputs/apk/debug/app-debug.apk
       - name: PRINT APK INFO
         run: |
           echo '${{ steps.apk-info.outputs.version-code }}'
