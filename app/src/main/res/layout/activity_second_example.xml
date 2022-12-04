@@ -12,4 +12,10 @@
         android:layout_height="wrap_content"
         android:id="@+id/tv_status"
         android:text="STATE"/>
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/rv"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:listitem="@layout/item_surah"/>
 </LinearLayout>

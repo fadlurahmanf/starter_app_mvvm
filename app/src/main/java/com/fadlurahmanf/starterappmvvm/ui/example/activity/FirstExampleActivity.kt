@@ -1,23 +1,22 @@
 package com.fadlurahmanf.starterappmvvm.ui.example.activity
 
-import android.annotation.SuppressLint
+import android.content.ClipData
+import android.content.ClipboardManager
+import android.content.Context
 import android.content.Intent
 import com.fadlurahmanf.starterappmvvm.BaseApp
 import com.fadlurahmanf.starterappmvvm.base.BaseActivity
-import com.fadlurahmanf.starterappmvvm.base.STATE
-import com.fadlurahmanf.starterappmvvm.core.utilities.CryptoHelper
-import com.fadlurahmanf.starterappmvvm.data.model.ImageModel
-import com.fadlurahmanf.starterappmvvm.data.model.ImageOrigin
-import com.fadlurahmanf.starterappmvvm.data.model.PdfModel
-import com.fadlurahmanf.starterappmvvm.data.model.PdfOrigin
-import com.fadlurahmanf.starterappmvvm.data.storage.example.ExampleSpStorage
+import com.fadlurahmanf.starterappmvvm.core.helper.RSAHelper
+import com.fadlurahmanf.starterappmvvm.core.helper.TranslationHelper
+import com.fadlurahmanf.starterappmvvm.data.storage.language.LanguageSpStorage
+import com.fadlurahmanf.starterappmvvm.dto.model.core.ImageModel
+import com.fadlurahmanf.starterappmvvm.dto.model.core.ImageOrigin
+import com.fadlurahmanf.starterappmvvm.dto.model.PdfModel
+import com.fadlurahmanf.starterappmvvm.dto.model.PdfOrigin
 import com.fadlurahmanf.starterappmvvm.databinding.ActivityFirstExampleBinding
 import com.fadlurahmanf.starterappmvvm.di.component.ExampleComponent
 import com.fadlurahmanf.starterappmvvm.ui.core.activity.ImageViewerActivity
 import com.fadlurahmanf.starterappmvvm.ui.core.activity.PdfViewerActivity
-import com.fadlurahmanf.starterappmvvm.ui.example.viewmodel.ExampleViewModel
-import com.google.android.material.snackbar.Snackbar
-import java.util.*
 import javax.inject.Inject
 
 
@@ -25,17 +24,46 @@ class FirstExampleActivity : BaseActivity<ActivityFirstExampleBinding>(ActivityF
     lateinit var component:ExampleComponent
 
     @Inject
-    lateinit var exampleSpStorage: ExampleSpStorage
+    lateinit var languageSpStorage: LanguageSpStorage
 
     override fun initSetup() {
+        binding.btnChangeLanguage.setOnClickListener {
+            val local = TranslationHelper.getCurrentLocale(this)
+            if(local.language == "en"){
+                TranslationHelper.changeLanguage(this, "in")
+                languageSpStorage.languageId = "in"
+            }else{
+                TranslationHelper.changeLanguage(this, "en")
+                languageSpStorage.languageId = "in"
+            }
+            recreate()
+        }
+
+
         binding.button2.setOnClickListener {
             val intent = Intent(this, SecondExampleActivity::class.java)
             startActivity(intent)
         }
 
-        binding.button1.setOnClickListener {
-            val encrypted = CryptoHelper.encrypt("tes tes")
-            val decrypted = CryptoHelper.decrypt(encrypted?:"")
+        binding.btnGenerateKey.setOnClickListener {
+            RSAHelper.generateKey(RSAHelper.METHOD.PKCS1PEM)
+            val public = RSAHelper.encodedPublicKey(RSAHelper.publicKey)
+            val private = RSAHelper.encodedPrivateKey(RSAHelper.privateKey)
+
+            val cm = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+            val clipData = ClipData.newPlainText("text", "${public}{{BATAS}}${private}")
+            cm.setPrimaryClip(clipData)
+        }
+
+        var encryptedString = ""
+        binding.btnEncrypt.setOnClickListener{
+            encryptedString = RSAHelper.encrypt("tes tes") ?: ""
+            println("masuk $encryptedString")
+        }
+
+        binding.btnDecrypt.setOnClickListener{
+            var result = RSAHelper.decrypt(encryptedString)
+            println("masuk decrypt $result")
         }
 
         binding.buttonPickPdf.setOnClickListener {

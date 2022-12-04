@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">starter app mvvm</string>
     <string name="exception_offline">Seems like you didn\'t have connection. Please try gain later</string>

@@ -1,32 +1,53 @@
 package com.fadlurahmanf.starterappmvvm.ui.example.activity
 
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
+import android.view.View
 import com.fadlurahmanf.starterappmvvm.base.BaseActivity
+import com.fadlurahmanf.starterappmvvm.base.NetworkState
 import com.fadlurahmanf.starterappmvvm.base.STATE
 import com.fadlurahmanf.starterappmvvm.databinding.ActivitySecondExampleBinding
 import com.fadlurahmanf.starterappmvvm.di.component.ExampleComponent
-import com.fadlurahmanf.starterappmvvm.ui.example.viewmodel.ExampleViewModel
+import com.fadlurahmanf.starterappmvvm.dto.response.example.SurahResponse
+import com.fadlurahmanf.starterappmvvm.ui.example.adapter.ListSurahAdapter
+import com.fadlurahmanf.starterappmvvm.ui.example.viewmodel.ListSurahViewModel
 import javax.inject.Inject
 
 class SecondExampleActivity : BaseActivity<ActivitySecondExampleBinding>(ActivitySecondExampleBinding::inflate) {
 
     @Inject
-    lateinit var viewModel:ExampleViewModel
+    lateinit var viewModel:ListSurahViewModel
 
     override fun initSetup() {
+        initAdapter()
         initObserver()
-        viewModel.getTestimonial()
+        viewModel.getSurahs()
+    }
+
+    private lateinit var adapter: ListSurahAdapter
+    private var surahs:ArrayList<SurahResponse> = arrayListOf()
+    private fun initAdapter() {
+        adapter = ListSurahAdapter()
+        adapter.setupList(surahs)
+        binding.rv.adapter = adapter
+        adapter.notifyDataSetChanged()
     }
 
     private fun initObserver() {
-        viewModel.exampleState.observe(this){
-            if (it.state == STATE.FAILED){
-                binding.tvStatus.text = "FAILED"
-            }else if(it.state == STATE.LOADING){
-                binding.tvStatus.text = "LOADING"
-            }else if (it.state == STATE.SUCCESS){
-                binding.tvStatus.text = "SUCCESS"
+        viewModel.surahsLive.observe(this){
+            when(it){
+                is NetworkState.Loading -> {
+                    binding.tvStatus.text = "LOADING"
+                    binding.tvStatus.visibility = View.VISIBLE
+                }
+                is NetworkState.Error -> {
+                    binding.tvStatus.text = it.exception.toProperMessage(this)
+                    binding.tvStatus.visibility = View.VISIBLE
+                }
+                is NetworkState.Success -> {
+                    binding.tvStatus.text = "SUCCESS"
+                    binding.tvStatus.visibility = View.GONE
+                    adapter.setupList(ArrayList(it.data))
+                    adapter.notifyDataSetChanged()
+                }
             }
         }
     }
