@@ -2,6 +2,7 @@ package com.fadlurahmanf.starterappmvvm.core.helper
 
 import android.os.Build
 import com.fadlurahmanf.starterappmvvm.BuildConfig
+import com.fadlurahmanf.starterappmvvm.constant.BuildTypeConstant
 import java.security.*
 import java.security.spec.PKCS8EncodedKeySpec
 import java.security.spec.X509EncodedKeySpec
@@ -37,15 +38,16 @@ class RSAHelper {
         lateinit var privateKey: PrivateKey
 
         private var encodedPublicKey = when (BuildConfig.BUILD_TYPE) {
-            "release" -> "BuildConfig.PUBLIC_KEY_PRODUCTION"
-            "staging" -> "BuildConfig.PUBLIC_KEY_STAGING"
+            BuildTypeConstant.production -> "BuildConfig.PUBLIC_KEY_PRODUCTION"
+            BuildTypeConstant.staging -> "BuildConfig.PUBLIC_KEY_STAGING"
             else -> BuildConfig.PUBLIC_KEY_DEV
         }
         private var encodedPrivateKey = when (BuildConfig.BUILD_TYPE) {
-            "release" -> "BuildConfig.PRIVATE_KEY_PRODUCTION"
-            "staging" -> "BuildConfig.PRIVATE_KEY_STAGING"
+            BuildTypeConstant.production -> "BuildConfig.PRIVATE_KEY_PRODUCTION"
+            BuildTypeConstant.staging -> ""
             else -> BuildConfig.PRIVATE_KEY_DEV
         }
+
         fun generateKey(method: METHOD): KeyPair {
             this.method = method
             val keyGen = KeyPairGenerator.getInstance("RSA")
@@ -62,12 +64,10 @@ class RSAHelper {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                         val mEncoded = Base64.getEncoder().encodeToString(publicKey.encoded)
                         val mPublicKeyString = "${PKCS1PEM_PREFIX_PUBLIC}\n${mEncoded}\n${PKCS1PEM_SUFFIX_PUBLIC}"
-                        println("publicKey: $mPublicKeyString")
                         mPublicKeyString
                     } else {
                         val mEncoded = android.util.Base64.encodeToString(publicKey.encoded, android.util.Base64.DEFAULT)
                         val mPublicKeyString = "${PKCS1PEM_PREFIX_PUBLIC}\n${mEncoded}\n${PKCS1PEM_SUFFIX_PUBLIC}"
-                        println("publicKey: $mPublicKeyString")
                         mPublicKeyString
                     }
                 }
@@ -75,12 +75,10 @@ class RSAHelper {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                         val mEncoded = Base64.getEncoder().encodeToString(publicKey.encoded)
                         val mPublicKeyString = "${PKCS8PEM_PREFIX_PUBLIC}\n${mEncoded}\n${PKCS8PEM_SUFFIX_PUBLIC}"
-                        println("publicKey: $mPublicKeyString")
                         mPublicKeyString
                     } else {
                         val mEncoded = android.util.Base64.encodeToString(publicKey.encoded, android.util.Base64.DEFAULT)
                         val mPublicKeyString = "${PKCS8PEM_PREFIX_PUBLIC}\n${mEncoded}\n${PKCS8PEM_SUFFIX_PUBLIC}"
-                        println("publicKey: $mPublicKeyString")
                         mPublicKeyString
                     }
                 }
@@ -93,12 +91,10 @@ class RSAHelper {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                         val mEncoded = Base64.getEncoder().encodeToString(privateKey.encoded)
                         val mPrivateKeyString = "${PKCS1PEM_PREFIX_PRIVATE}\n${mEncoded}\n${PKCS1PEM_SUFFIX_PRIVATE}"
-                        println("privateKey: $mPrivateKeyString")
                         return mPrivateKeyString
                     } else {
                         val mEncoded = android.util.Base64.encodeToString(privateKey.encoded, android.util.Base64.DEFAULT)
                         val mPrivateKeyString = "${PKCS1PEM_PREFIX_PRIVATE}\n${mEncoded}\n${PKCS1PEM_SUFFIX_PRIVATE}"
-                        println("privateKey: $mPrivateKeyString")
                         return mPrivateKeyString
                     }
                 }
@@ -106,12 +102,10 @@ class RSAHelper {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                         val mEncoded = Base64.getEncoder().encodeToString(privateKey.encoded)
                         val mPrivateKeyString = "${PKCS1PEM_PREFIX_PRIVATE}\n${mEncoded}\n${PKCS1PEM_SUFFIX_PRIVATE}"
-                        println("privateKey: $mPrivateKeyString")
                         return mPrivateKeyString
                     } else {
                         val mEncoded = android.util.Base64.encodeToString(privateKey.encoded, android.util.Base64.DEFAULT)
                         val mPrivateKeyString = "${PKCS8PEM_PREFIX_PRIVATE}\n${mEncoded}\n${PKCS8PEM_SUFFIX_PRIVATE}"
-                        println("privateKey: $mPrivateKeyString")
                         return mPrivateKeyString
                     }
                 }
@@ -155,25 +149,25 @@ class RSAHelper {
 
         fun encrypt(plainText:String, method: METHOD = METHOD.PKCS1PEM):String?{
             this.method = method
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 val cipher = Cipher.getInstance("RSA/ECB/PKCS1Padding")
                 cipher.init(Cipher.ENCRYPT_MODE, loadPublicKey())
                 val encryptedBytes = cipher.doFinal(plainText.toByteArray());
-                return Base64.getEncoder().encodeToString(encryptedBytes)
+                Base64.getEncoder().encodeToString(encryptedBytes)
             } else {
-                return null
+                null
             }
         }
 
 
         fun decrypt(encrypted:String, method: METHOD = METHOD.PKCS1PEM):String?{
             this.method = method
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 val cipher = Cipher.getInstance("RSA/ECB/PKCS1Padding")
                 cipher.init(Cipher.DECRYPT_MODE, loadPrivateKey());
-                return String(cipher.doFinal(Base64.getDecoder().decode(encrypted)))
+                String(cipher.doFinal(Base64.getDecoder().decode(encrypted)))
             } else {
-                return null
+                null
             }
         }
     }

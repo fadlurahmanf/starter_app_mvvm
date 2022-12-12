@@ -12,6 +12,8 @@ def BASE_STAGING_URL = localProperties.getProperty("BASE_STAGING_URL")
 def BASE_PRODUCTION_URL = localProperties.getProperty("BASE_PRODUCTION_URL")
 def PUBLIC_KEY_DEV = localProperties.getProperty("PUBLIC_KEY_DEV")
 def PRIVATE_KEY_DEV = localProperties.getProperty("PRIVATE_KEY_DEV")
+def PUBLIC_KEY_STAGING = localProperties.getProperty("PUBLIC_KEY_STAGING")
+def PRIVATE_KEY_STAGING = localProperties.getProperty("PRIVATE_KEY_STAGING")
 
 android {
     compileSdkVersion 33
@@ -30,8 +32,8 @@ android {
         buildConfigField "String", "BASE_PRODUCTION_URL", BASE_PRODUCTION_URL
         buildConfigField "String", "PUBLIC_KEY_DEV", PUBLIC_KEY_DEV
         buildConfigField "String", "PRIVATE_KEY_DEV", PRIVATE_KEY_DEV
-//        buildConfigField "String", "PUBLIC_KEY_STAGING", localProperties["PUBLIC_KEY_STAGING"]
-//        buildConfigField "String", "PRIVATE_KEY_STAGING", localProperties["PRIVATE_KEY_STAGING"]
+        buildConfigField "String", "PUBLIC_KEY_STAGING", PUBLIC_KEY_STAGING
+        buildConfigField "String", "PRIVATE_KEY_STAGING", PRIVATE_KEY_STAGING
 //        buildConfigField "String", "PUBLIC_KEY_PRODUCTION", localProperties["PUBLIC_KEY_PRODUCTION"]
 //        buildConfigField "String", "PRIVATE_KEY_PRODUCTION", localProperties["PRIVATE_KEY_PRODUCTION"]
 

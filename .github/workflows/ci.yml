@@ -1,7 +1,7 @@
 on:
   push:
     branches: [ master ]
-name: "CI CD KOTLIN"
+name: "DEPLOY APK"
 
 jobs:
   init:
@@ -33,6 +33,14 @@ jobs:
         env:
           PRIVATE_KEY_DEV: ${{ secrets.PRIVATE_KEY_DEV }}
         run: echo PRIVATE_KEY_DEV=\"${{ secrets.PRIVATE_KEY_DEV }}\" >> local.properties
+      - name: ACCESS PUBLIC KEY STAGING
+        env:
+          PUBLIC_KEY_STAGING: ${{ secrets.PUBLIC_KEY_DEV }}
+        run: echo PUBLIC_KEY_STAGING=\"${{ secrets.PUBLIC_KEY_DEV }}\" >> local.properties
+      - name: ACCESS PRIVATE KEY STAGING
+        env:
+          PRIVATE_KEY_STAGING: ${{ secrets.PRIVATE_KEY_DEV }}
+        run: echo PRIVATE_KEY_STAGING=\"${{ secrets.PRIVATE_KEY_DEV }}\" >> local.properties
       - name: CLEAN GRADLE
         run: ./gradlew clean
       - name: START UNIT TESTING
