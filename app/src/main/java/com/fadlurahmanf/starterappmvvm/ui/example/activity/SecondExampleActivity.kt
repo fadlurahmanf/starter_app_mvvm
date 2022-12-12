@@ -3,7 +3,6 @@ package com.fadlurahmanf.starterappmvvm.ui.example.activity
 import android.view.View
 import com.fadlurahmanf.starterappmvvm.base.BaseActivity
 import com.fadlurahmanf.starterappmvvm.base.NetworkState
-import com.fadlurahmanf.starterappmvvm.base.STATE
 import com.fadlurahmanf.starterappmvvm.databinding.ActivitySecondExampleBinding
 import com.fadlurahmanf.starterappmvvm.di.component.ExampleComponent
 import com.fadlurahmanf.starterappmvvm.dto.response.example.SurahResponse
@@ -48,6 +47,7 @@ class SecondExampleActivity : BaseActivity<ActivitySecondExampleBinding>(Activit
                     adapter.setupList(ArrayList(it.data))
                     adapter.notifyDataSetChanged()
                 }
+                else -> {}
             }
         }
     }

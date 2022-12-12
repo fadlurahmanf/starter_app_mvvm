@@ -11,8 +11,8 @@ import com.fadlurahmanf.starterappmvvm.core.helper.TranslationHelper
 import com.fadlurahmanf.starterappmvvm.data.storage.language.LanguageSpStorage
 import com.fadlurahmanf.starterappmvvm.dto.model.core.ImageModel
 import com.fadlurahmanf.starterappmvvm.dto.model.core.ImageOrigin
-import com.fadlurahmanf.starterappmvvm.dto.model.PdfModel
-import com.fadlurahmanf.starterappmvvm.dto.model.PdfOrigin
+import com.fadlurahmanf.starterappmvvm.dto.model.core.PdfModel
+import com.fadlurahmanf.starterappmvvm.dto.model.core.PdfOrigin
 import com.fadlurahmanf.starterappmvvm.databinding.ActivityFirstExampleBinding
 import com.fadlurahmanf.starterappmvvm.di.component.ExampleComponent
 import com.fadlurahmanf.starterappmvvm.ui.core.activity.ImageViewerActivity

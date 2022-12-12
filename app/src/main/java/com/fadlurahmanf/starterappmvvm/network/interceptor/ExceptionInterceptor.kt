@@ -1,9 +1,11 @@
 package com.fadlurahmanf.starterappmvvm.network.interceptor
 
 import com.fadlurahmanf.starterappmvvm.R
+import com.fadlurahmanf.starterappmvvm.constant.ExceptionConstant
 import com.fadlurahmanf.starterappmvvm.dto.exception.CustomException
 import okhttp3.Interceptor
 import okhttp3.Response
+import retrofit2.HttpException
 import java.net.UnknownHostException
 
 class ExceptionInterceptor: Interceptor {
@@ -12,16 +14,20 @@ class ExceptionInterceptor: Interceptor {
             val request = chain.request()
             return chain.proceed(request)
         }catch (e:Exception){
-            if(e is UnknownHostException){
-                R.string.exception_offline;
-                throw CustomException(
-                    rawMessage = "exception_offline",
-                    rawMessageId = R.string.exception_offline
-                )
-            }else{
-                throw CustomException(
-                    rawMessage = e.message
-                )
+            when (e) {
+                is HttpException -> {
+                    throw CustomException()
+                }
+                is UnknownHostException -> {
+                    throw CustomException(
+                        rawMessage = ExceptionConstant.offline
+                    )
+                }
+                else -> {
+                    throw CustomException(
+                        rawMessage = e.message
+                    )
+                }
             }
         }
     }

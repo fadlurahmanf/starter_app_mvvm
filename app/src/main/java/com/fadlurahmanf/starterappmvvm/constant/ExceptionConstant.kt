@@ -1,0 +1,9 @@
+package com.fadlurahmanf.starterappmvvm.constant
+
+class ExceptionConstant {
+    companion object{
+        const val offline = "exception_offline"
+        const val timeout = "exception_timeout"
+        const val serverError = "exception_server_error"
+    }
+}

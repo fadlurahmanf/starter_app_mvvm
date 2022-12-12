@@ -18,7 +18,7 @@ class ListSurahViewModel @Inject constructor(
     var quranRepository: QuranRepository
 ):BaseViewModel() {
 
-    private var _surahsLive = MutableLiveData<NetworkState<List<SurahResponse>>>()
+    private val _surahsLive = MutableLiveData<NetworkState<List<SurahResponse>>>()
     val surahsLive get() : LiveData<NetworkState<List<SurahResponse>>> = _surahsLive
 
     fun getSurahs(){

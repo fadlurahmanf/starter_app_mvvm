@@ -3,8 +3,8 @@ package com.fadlurahmanf.starterappmvvm.ui.core.activity
 import android.content.Intent
 import android.net.Uri
 import com.fadlurahmanf.starterappmvvm.base.BaseActivity
-import com.fadlurahmanf.starterappmvvm.dto.model.PdfModel
-import com.fadlurahmanf.starterappmvvm.dto.model.PdfOrigin
+import com.fadlurahmanf.starterappmvvm.dto.model.core.PdfModel
+import com.fadlurahmanf.starterappmvvm.dto.model.core.PdfOrigin
 import com.fadlurahmanf.starterappmvvm.databinding.ActivityPdfViewerBinding
 import com.github.barteksc.pdfviewer.listener.OnErrorListener
 import com.github.barteksc.pdfviewer.listener.OnRenderListener
