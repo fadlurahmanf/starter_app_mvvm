@@ -2,7 +2,9 @@
 
 Android Kotlin menggunakan Architecture MVVM
 
-- Implemented Github Action untuk release apk di github release
+### CI CD
+
+Menggunakan Github actions. Setiap melakukan push, akan mentrigger testing & build APK
 
 ### Offline First
 
