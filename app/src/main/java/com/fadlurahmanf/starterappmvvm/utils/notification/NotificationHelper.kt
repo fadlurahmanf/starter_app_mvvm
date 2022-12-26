@@ -1,0 +1,42 @@
+package com.fadlurahmanf.starterappmvvm.utils.notification
+
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.app.PendingIntent
+import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.Intent
+import android.os.Build
+import android.os.Bundle
+import android.widget.RemoteViews
+import androidx.core.app.NotificationCompat
+import com.fadlurahmanf.starterappmvvm.R
+import javax.inject.Inject
+
+class NotificationHelper @Inject constructor(
+    var context: Context
+) {
+    companion object{
+        const val GENERAL_CHANNEL_ID = "GENERAL_CHANNEL_ID"
+        const val GENERAL_CHANNEL = "General"
+        const val GENERAL_CHANNEL_DESCRIPTION = "General Description"
+    }
+
+    init {
+        createGeneralChannel()
+    }
+
+    private fun createGeneralChannel(){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val importance = NotificationManager.IMPORTANCE_HIGH
+            val channel = NotificationChannel(GENERAL_CHANNEL_ID, GENERAL_CHANNEL, importance).apply {
+                description = GENERAL_CHANNEL_DESCRIPTION
+            }
+            val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            notificationManager.createNotificationChannel(channel)
+        }
+    }
+
+    val builder = NotificationCompat.Builder(context, GENERAL_CHANNEL_ID)
+        .setSmallIcon(R.drawable.il_logo_bankmas)
+}

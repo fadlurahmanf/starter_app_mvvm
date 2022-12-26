@@ -58,7 +58,7 @@ abstract class BasePreference(context: Context) {
 
     protected fun <T> getData(key: String, classOfT:Class<T>): T?{
         return try {
-            var rawString:String? = getString(key)
+            val rawString:String? = getString(key)
             if (rawString != null){
                 Gson().fromJson(rawString, classOfT)
             }else{

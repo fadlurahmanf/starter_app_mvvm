@@ -3,7 +3,12 @@
     package="com.fadlurahmanf.starterappmvvm">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.USE_FULL_SCREEN_INTENT"/>
+    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM"/>
+    <uses-permission android:name="android.permission.USE_EXACT_ALARM"/>
 
     <application
         android:name=".BaseApp"
@@ -15,6 +20,17 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.StarterAppMvvm"
         android:usesCleartextTraffic="true">
+        <activity
+            android:name=".ui.notification.FullScreenNotification"
+            android:showOnLockScreen="true"
+            android:exported="true">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+            <intent-filter>
+                <action android:name="com.fadlurahmanf.callkit.ACTION_CALL_INCOMING" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".ui.example.activity.SecondExampleActivity"
             android:exported="false" />
@@ -47,6 +63,20 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/provider_paths" />
         </provider>
+
+        <receiver
+            android:name=".utils.notification.NotificationBroadcastReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.fadlurahmanf.callkit.ACTION_CALL_INCOMING" />
+                <action android:name="com.fadlurahmanf.callkit.ACTION_ACCEPT_CALL" />
+                <action android:name="com.fadlurahmanf.callkit.ACTION_DECLINED_CALL" />
+            </intent-filter>
+        </receiver>
+
+        <service
+            android:name=".utils.notification.NotificationPlayerService"
+            android:exported="true" />
     </application>
 
 </manifest>

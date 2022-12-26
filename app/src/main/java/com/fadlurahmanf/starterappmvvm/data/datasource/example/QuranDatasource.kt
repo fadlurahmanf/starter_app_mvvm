@@ -19,10 +19,10 @@ class QuranRepository @Inject constructor(
     var quranRoomDatasource: QuranRoomDatasource
 ){
     fun getSurahs(edition: String):Observable<BaseQuranResponse<SurahsResponse>>{
-        if(ConnectivityHelper.isNetworkAvailable(context)){
-            return getSurahsFromApi(edition)
+        return if(ConnectivityHelper.isNetworkAvailable(context)){
+            getSurahsFromApi(edition)
         }else{
-            return getSurahsFromDb()
+            getSurahsFromDb()
         }
     }
 
@@ -32,6 +32,7 @@ class QuranRepository @Inject constructor(
                 Log.d(LogKey.DEBUG, "getSurahsFromApi")
                 if(it.code == 200 && it.status == "OK" && it.data?.surahs != null){
                     Log.d(LogKey.DEBUG, "insert all surah to room")
+
                     quranRoomDatasource.insertAll(it.data!!.surahs)
                 }
             }
