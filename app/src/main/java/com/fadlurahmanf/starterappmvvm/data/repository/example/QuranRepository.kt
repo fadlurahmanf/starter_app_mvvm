@@ -1,22 +1,20 @@
-package com.fadlurahmanf.starterappmvvm.data.datasource.example
+package com.fadlurahmanf.starterappmvvm.data.repository.example
 
 import android.content.Context
 import android.util.Log
 import com.fadlurahmanf.starterappmvvm.constant.LogKey
 import com.fadlurahmanf.starterappmvvm.core.helper.ConnectivityHelper
-import com.fadlurahmanf.starterappmvvm.network.AbstractNetwork
-import com.fadlurahmanf.starterappmvvm.data.api.example.QuranAPI
+import com.fadlurahmanf.starterappmvvm.data.api.datasource.example.QuranDatasource
 import com.fadlurahmanf.starterappmvvm.data.room.datasource.QuranRoomDatasource
 import com.fadlurahmanf.starterappmvvm.dto.response.example.BaseQuranResponse
 import com.fadlurahmanf.starterappmvvm.dto.response.example.SurahsResponse
 import io.reactivex.rxjava3.core.Observable
-import io.reactivex.rxjava3.schedulers.Schedulers
 import javax.inject.Inject
 
 class QuranRepository @Inject constructor(
-    var context: Context,
-    var quranDatasource: QuranDatasource,
-    var quranRoomDatasource: QuranRoomDatasource
+    private var context: Context,
+    private var quranDatasource: QuranDatasource,
+    private var quranRoomDatasource: QuranRoomDatasource
 ){
     fun getSurahs(edition: String):Observable<BaseQuranResponse<SurahsResponse>>{
         return if(ConnectivityHelper.isNetworkAvailable(context)){
@@ -53,15 +51,4 @@ class QuranRepository @Inject constructor(
             }
 
     }
-}
-
-class QuranDatasource @Inject constructor(
-    var context: Context
-): AbstractNetwork<QuranAPI>() {
-    override fun getApi(): Class<QuranAPI> {
-        return QuranAPI::class.java
-    }
-
-    fun getSurahs(edition:String) = networkService(30).getSurahs(edition)
-
 }

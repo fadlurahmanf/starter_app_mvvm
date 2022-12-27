@@ -1,16 +1,13 @@
 package com.fadlurahmanf.starterappmvvm.ui.example.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.fadlurahmanf.starterappmvvm.base.BaseViewModel
 import com.fadlurahmanf.starterappmvvm.base.NetworkState
-import com.fadlurahmanf.starterappmvvm.data.datasource.example.QuranDatasource
-import com.fadlurahmanf.starterappmvvm.data.datasource.example.QuranRepository
+import com.fadlurahmanf.starterappmvvm.data.repository.example.QuranRepository
 import com.fadlurahmanf.starterappmvvm.dto.exception.CustomException
 import com.fadlurahmanf.starterappmvvm.dto.response.example.SurahResponse
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
-import io.reactivex.rxjava3.core.Scheduler
 import io.reactivex.rxjava3.schedulers.Schedulers
 import javax.inject.Inject
 

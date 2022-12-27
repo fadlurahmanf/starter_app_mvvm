@@ -1,7 +1,6 @@
 package com.fadlurahmanf.starterappmvvm.base
 
 
-import android.content.Context
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -64,7 +63,7 @@ abstract class BaseActivity<VB:ViewBinding>(
         }
     }
 
-    fun dismissDialog(){
+    fun dismissLoadingDialog(){
         if (loadingDialog != null){
             loadingDialog?.dismiss()
             loadingDialog = null

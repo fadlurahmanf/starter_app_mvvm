@@ -2,7 +2,7 @@ package com.fadlurahmanf.starterappmvvm.ui.example.viewmodel
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.fadlurahmanf.starterappmvvm.base.NetworkState
-import com.fadlurahmanf.starterappmvvm.data.datasource.example.QuranRepository
+import com.fadlurahmanf.starterappmvvm.data.repository.example.QuranRepository
 import com.fadlurahmanf.starterappmvvm.dto.exception.CustomException
 import com.fadlurahmanf.starterappmvvm.dto.response.example.BaseQuranResponse
 import com.fadlurahmanf.starterappmvvm.dto.response.example.SurahResponse
@@ -12,18 +12,15 @@ import io.reactivex.rxjava3.android.plugins.RxAndroidPlugins
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.plugins.RxJavaPlugins
 import io.reactivex.rxjava3.schedulers.Schedulers
-import org.junit.Assert
 import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.rules.TestRule
 import org.junit.runner.RunWith
-import org.mockito.ArgumentMatcher
 import org.mockito.InjectMocks
 import org.mockito.Mock
 import org.mockito.Mockito
-import org.mockito.Mockito.inOrder
 import org.mockito.MockitoAnnotations
 import org.mockito.junit.MockitoJUnitRunner
 

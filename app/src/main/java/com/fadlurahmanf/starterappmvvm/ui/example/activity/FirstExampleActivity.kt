@@ -3,7 +3,6 @@ package com.fadlurahmanf.starterappmvvm.ui.example.activity
 import android.app.AlarmManager
 import android.app.PendingIntent
 import android.app.PendingIntent.FLAG_IMMUTABLE
-import android.app.PendingIntent.getBroadcast
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
@@ -17,7 +16,7 @@ import com.fadlurahmanf.starterappmvvm.R
 import com.fadlurahmanf.starterappmvvm.base.BaseActivity
 import com.fadlurahmanf.starterappmvvm.core.helper.RSAHelper
 import com.fadlurahmanf.starterappmvvm.core.helper.TranslationHelper
-import com.fadlurahmanf.starterappmvvm.data.storage.language.LanguageSpStorage
+import com.fadlurahmanf.starterappmvvm.data.storage.example.LanguageSpStorage
 import com.fadlurahmanf.starterappmvvm.dto.model.core.ImageModel
 import com.fadlurahmanf.starterappmvvm.dto.model.core.ImageOrigin
 import com.fadlurahmanf.starterappmvvm.dto.model.core.PdfModel
@@ -29,7 +28,6 @@ import com.fadlurahmanf.starterappmvvm.ui.core.activity.PdfViewerActivity
 import com.fadlurahmanf.starterappmvvm.utils.notification.CallNotificationCallHelper
 import com.fadlurahmanf.starterappmvvm.utils.notification.NotificationBroadcastReceiver
 import com.fadlurahmanf.starterappmvvm.utils.notification.NotificationHelper
-import com.fadlurahmanf.starterappmvvm.utils.notification.NotificationPlayerService
 import java.util.Calendar
 import javax.inject.Inject
 import kotlin.random.Random
@@ -60,6 +58,11 @@ class FirstExampleActivity : BaseActivity<ActivityFirstExampleBinding>(ActivityF
 
         binding.button2.setOnClickListener {
             val intent = Intent(this, SecondExampleActivity::class.java)
+            startActivity(intent)
+        }
+
+        binding.btnGoToLogin.setOnClickListener {
+            val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
         }
 

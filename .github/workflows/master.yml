@@ -15,6 +15,10 @@ jobs:
         run: touch local.properties
       - name: ACCESS BASE DEV URL
         env:
+          BASE_DEV_URL: ${{ secrets.BASE_QURAN_URL }}
+        run: echo BASE_QURAN_URL=\"${{ secrets.BASE_QURAN_URL }}\" >> local.properties
+      - name: ACCESS BASE DEV URL
+        env:
           BASE_DEV_URL: ${{ secrets.BASE_DEV_URL }}
         run: echo BASE_DEV_URL=\"${{ secrets.BASE_DEV_URL }}\" >> local.properties
       - name: ACCESS BASE STAGING URL

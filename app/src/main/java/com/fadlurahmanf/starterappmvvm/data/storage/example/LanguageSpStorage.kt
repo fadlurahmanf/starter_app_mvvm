@@ -1,4 +1,4 @@
-package com.fadlurahmanf.starterappmvvm.data.storage.language
+package com.fadlurahmanf.starterappmvvm.data.storage.example
 
 import android.content.Context
 import com.fadlurahmanf.starterappmvvm.base.BasePreference
@@ -12,12 +12,12 @@ class LanguageSpStorage @Inject constructor(
     get() {
         return getString(SpKey.LANGUAGE_ID)
     }set(value) {
-        if (value != null){
+        field = if (value != null){
             saveString(SpKey.LANGUAGE_ID, value)
-            field = value
+            value
         }else{
             clearData(SpKey.LANGUAGE_ID)
-            field = null
+            null
         }
     }
 }
