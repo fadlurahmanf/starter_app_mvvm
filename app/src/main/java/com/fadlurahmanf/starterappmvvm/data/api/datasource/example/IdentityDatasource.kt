@@ -6,7 +6,7 @@ import com.fadlurahmanf.starterappmvvm.network.IdentityNetwork
 import com.google.gson.JsonObject
 import javax.inject.Inject
 
-class LoginDatasource @Inject constructor(
+class IdentityDatasource @Inject constructor(
     var context: Context
 ): IdentityNetwork<AuthApi>() {
     override fun getApi(): Class<AuthApi> {
@@ -14,4 +14,6 @@ class LoginDatasource @Inject constructor(
     }
 
     fun login(body: JsonObject) = networkService(30).login(body)
+
+    fun syncRefreshToken(body: JsonObject) = networkService(30).refreshToken(body)
 }

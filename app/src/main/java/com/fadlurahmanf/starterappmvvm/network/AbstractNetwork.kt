@@ -1,6 +1,8 @@
 package com.fadlurahmanf.starterappmvvm.network
 
+import android.content.Context
 import com.fadlurahmanf.starterappmvvm.BuildConfig
+import com.fadlurahmanf.starterappmvvm.network.authenticator.TokenAuthenticator
 import okhttp3.OkHttpClient
 
 abstract class IdentityNetwork<T>():AbstractNetwork<T>(){
@@ -9,27 +11,25 @@ abstract class IdentityNetwork<T>():AbstractNetwork<T>(){
     }
 }
 
-abstract class  AuthAbstractNetwork<T>(): BaseNetwork<T>(){
+abstract class CIFNetwork<T>(context: Context):AuthAbstractNetwork<T>(context){
     override fun getBaseUrl(): String {
-        return when (BuildConfig.BUILD_TYPE) {
-            "release" -> BuildConfig.BASE_PRODUCTION_URL
-            "staging" -> BuildConfig.BASE_STAGING_URL
-            else -> BuildConfig.BASE_DEV_URL
-        }
+        return "${super.getBaseUrl()}${BuildConfig.CIF_PREFIX}"
     }
+}
+
+abstract class  AuthAbstractNetwork<T>(
+    var context: Context
+): BaseNetwork<T>(){
+    override fun getBaseUrl(): String = BuildConfig.BASE_URL
 
     override fun okHttpClientBuilder(builder: OkHttpClient.Builder): OkHttpClient.Builder {
-        return builder.authenticator(TokenAuthenticator())
+        return builder.authenticator(TokenAuthenticator(context))
     }
 }
 
 abstract class  AbstractNetwork<T>(): BaseNetwork<T>(){
     override fun getBaseUrl(): String {
-        return when (BuildConfig.BUILD_TYPE) {
-            "release" -> BuildConfig.BASE_PRODUCTION_URL
-            "staging" -> BuildConfig.BASE_STAGING_URL
-            else -> BuildConfig.BASE_DEV_URL
-        }
+        return BuildConfig.BASE_URL
     }
 }
 

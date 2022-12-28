@@ -12,7 +12,13 @@ class ExceptionInterceptor: Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
         try {
             val request = chain.request()
-            return chain.proceed(request)
+            val response = chain.proceed(request)
+            if (response.code == 401){
+                throw CustomException(
+                    rawMessage = ExceptionConstant.unauthorized
+                )
+            }
+            return response
         }catch (e:Exception){
             when (e) {
                 is HttpException -> {
@@ -22,6 +28,9 @@ class ExceptionInterceptor: Interceptor {
                     throw CustomException(
                         rawMessage = ExceptionConstant.offline
                     )
+                }
+                is CustomException -> {
+                    throw e
                 }
                 else -> {
                     throw CustomException(

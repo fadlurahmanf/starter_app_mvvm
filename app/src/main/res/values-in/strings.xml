@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">starter app mvvm</string>
+    <string name="exception_unauthorized">Token Anda Tidak Valid</string>
     <string name="exception_offline">Sepertinya anda tidak memiliki koneksi internet. Silahkan coba lagi nanti</string>
     <string name="exception_general">Ada kendala, silahkan coba lagi nanti</string>
 </resources>

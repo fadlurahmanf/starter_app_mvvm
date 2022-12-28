@@ -12,6 +12,7 @@ def BASE_DEV_URL = localProperties.getProperty("BASE_DEV_URL")
 def BASE_STAGING_URL = localProperties.getProperty("BASE_STAGING_URL")
 def BASE_PRODUCTION_URL = localProperties.getProperty("BASE_PRODUCTION_URL")
 def IDENTITY_PREFIX = localProperties.getProperty("IDENTITY_PREFIX")
+def CIF_PREFIX = localProperties.getProperty("CIF_PREFIX")
 def PUBLIC_KEY_DEV = localProperties.getProperty("PUBLIC_KEY_DEV")
 def PRIVATE_KEY_DEV = localProperties.getProperty("PRIVATE_KEY_DEV")
 def PUBLIC_KEY_STAGING = localProperties.getProperty("PUBLIC_KEY_STAGING")
@@ -30,16 +31,12 @@ android {
         multiDexEnabled true
 
         buildConfigField "String", "BASE_QURAN_URL", BASE_QURAN_URL
-        buildConfigField "String", "BASE_DEV_URL", BASE_DEV_URL
-        buildConfigField "String", "BASE_STAGING_URL", BASE_STAGING_URL
-        buildConfigField "String", "BASE_PRODUCTION_URL", BASE_PRODUCTION_URL
         buildConfigField "String", "IDENTITY_PREFIX", IDENTITY_PREFIX
+        buildConfigField "String", "CIF_PREFIX", CIF_PREFIX
         buildConfigField "String", "PUBLIC_KEY_DEV", PUBLIC_KEY_DEV
         buildConfigField "String", "PRIVATE_KEY_DEV", PRIVATE_KEY_DEV
         buildConfigField "String", "PUBLIC_KEY_STAGING", PUBLIC_KEY_STAGING
         buildConfigField "String", "PRIVATE_KEY_STAGING", PRIVATE_KEY_STAGING
-//        buildConfigField "String", "PUBLIC_KEY_PRODUCTION", localProperties["PUBLIC_KEY_PRODUCTION"]
-//        buildConfigField "String", "PRIVATE_KEY_PRODUCTION", localProperties["PRIVATE_KEY_PRODUCTION"]
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -51,14 +48,18 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            buildConfigField "String", "BASE_URL", BASE_PRODUCTION_URL
         }
         debug {
             applicationIdSuffix ".debug"
             debuggable true
+            buildConfigField "String", "BASE_URL", BASE_DEV_URL
         }
         staging {
             initWith debug
             applicationIdSuffix ".staging"
+            buildConfigField "String", "BASE_URL", BASE_STAGING_URL
+
         }
     }
     compileOptions {

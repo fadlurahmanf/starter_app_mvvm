@@ -3,7 +3,7 @@ package com.fadlurahmanf.starterappmvvm.ui.example.viewmodel
 import androidx.lifecycle.MutableLiveData
 import com.fadlurahmanf.starterappmvvm.base.BaseViewModel
 import com.fadlurahmanf.starterappmvvm.base.NetworkState
-import com.fadlurahmanf.starterappmvvm.data.repository.example.LoginRepository
+import com.fadlurahmanf.starterappmvvm.data.repository.example.IdentityRepository
 import com.fadlurahmanf.starterappmvvm.dto.response.example.LoginResponse
 import com.fadlurahmanf.starterappmvvm.extension.toErrorState
 import com.google.gson.JsonObject
@@ -12,7 +12,7 @@ import io.reactivex.rxjava3.schedulers.Schedulers
 import javax.inject.Inject
 
 class LoginViewModel @Inject constructor(
-    var loginRepository: LoginRepository
+    var identityRepository: IdentityRepository
 ):BaseViewModel() {
     private var _loginState = MutableLiveData<NetworkState<LoginResponse>>()
     val loginState get() = _loginState
@@ -27,7 +27,7 @@ class LoginViewModel @Inject constructor(
             addProperty("phoneNumber", "08123123123")
             addProperty("password", "Abcd1234")
         }
-        disposable().add(loginRepository.login(body)
+        disposable().add(identityRepository.login(body)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
@@ -46,6 +46,6 @@ class LoginViewModel @Inject constructor(
     }
 
     fun saveToken(data:LoginResponse){
-        loginRepository.saveAuthToken(data)
+        identityRepository.saveAuthToken(data)
     }
 }
