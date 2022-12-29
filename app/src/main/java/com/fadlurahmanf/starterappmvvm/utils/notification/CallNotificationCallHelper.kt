@@ -17,7 +17,7 @@ class CallNotificationCallHelper(var context: Context) {
     companion object{
         const val CALL_CHANNEL_ID = "CALL_CHANNEL_ID"
         const val CALL_CHANNEL = "Call"
-        const val CALL_CHANNEL_DESCRIPTION = "Call"
+        const val CALL_CHANNEL_DESCRIPTION = "Call Description"
 
         const val EXTRA_NOTIFICATION_ID = "EXTRA_NOTIFICATION_ID"
         const val EXTRA_CALLER_NAME = "EXTRA_CALLER_NAME"

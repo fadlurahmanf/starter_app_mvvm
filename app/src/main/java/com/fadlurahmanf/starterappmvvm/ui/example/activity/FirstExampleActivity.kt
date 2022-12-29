@@ -1,34 +1,40 @@
 package com.fadlurahmanf.starterappmvvm.ui.example.activity
 
 import android.app.AlarmManager
+import android.app.DownloadManager
 import android.app.PendingIntent
 import android.app.PendingIntent.FLAG_IMMUTABLE
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import com.fadlurahmanf.starterappmvvm.BaseApp
 import com.fadlurahmanf.starterappmvvm.R
 import com.fadlurahmanf.starterappmvvm.base.BaseActivity
+import com.fadlurahmanf.starterappmvvm.constant.NotificationConstant
 import com.fadlurahmanf.starterappmvvm.core.helper.RSAHelper
 import com.fadlurahmanf.starterappmvvm.core.helper.TranslationHelper
 import com.fadlurahmanf.starterappmvvm.data.storage.example.LanguageSpStorage
+import com.fadlurahmanf.starterappmvvm.databinding.ActivityFirstExampleBinding
+import com.fadlurahmanf.starterappmvvm.di.component.ExampleComponent
 import com.fadlurahmanf.starterappmvvm.dto.model.core.ImageModel
 import com.fadlurahmanf.starterappmvvm.dto.model.core.ImageOrigin
 import com.fadlurahmanf.starterappmvvm.dto.model.core.PdfModel
 import com.fadlurahmanf.starterappmvvm.dto.model.core.PdfOrigin
-import com.fadlurahmanf.starterappmvvm.databinding.ActivityFirstExampleBinding
-import com.fadlurahmanf.starterappmvvm.di.component.ExampleComponent
 import com.fadlurahmanf.starterappmvvm.ui.core.activity.ImageViewerActivity
 import com.fadlurahmanf.starterappmvvm.ui.core.activity.PdfViewerActivity
+import com.fadlurahmanf.starterappmvvm.utils.download.DownloadHelper
+import com.fadlurahmanf.starterappmvvm.utils.download.DownloadNotificationHelper
 import com.fadlurahmanf.starterappmvvm.utils.notification.CallNotificationCallHelper
 import com.fadlurahmanf.starterappmvvm.utils.notification.NotificationBroadcastReceiver
 import com.fadlurahmanf.starterappmvvm.utils.notification.NotificationHelper
-import java.util.Calendar
+import java.util.*
 import javax.inject.Inject
 import kotlin.random.Random
 
@@ -184,8 +190,26 @@ class FirstExampleActivity : BaseActivity<ActivityFirstExampleBinding>(ActivityF
                 )
             }
         }
-    }
 
+        binding.btnDownload.setOnClickListener {
+            DownloadHelper.startService(
+                this,
+                101,
+                "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
+            )
+        }
+
+        binding.btnRemove.setOnClickListener {
+
+        }
+
+        binding.btnStartForgroundNotification.setOnClickListener {
+        }
+
+        binding.btnStopForgroundNotification.setOnClickListener {
+            DownloadHelper.stopService(this)
+        }
+    }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
