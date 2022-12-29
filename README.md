@@ -13,3 +13,5 @@ Data yang terambil di internet akan tersimpan oleh dao. Ketika melakukan fetch A
 ### Download
 
 Aplikasi ini menggunakan Download Manager dalam Foreground Service. Untuk update progress dalam notification, menggunakan Handler dan akan looping setiap 3 detik, untuk mengupdate progress sesuai NOTIFICATION_ID dalam Foreground Servicenya
+
+![alt text](https://github.com/fadlurahmanf/starter_app_mvvm/blob/master/proof/download.jpg?raw=true)
