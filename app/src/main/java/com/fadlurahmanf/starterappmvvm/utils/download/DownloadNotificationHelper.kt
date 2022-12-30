@@ -59,8 +59,8 @@ class DownloadNotificationHelper(var context: Context) {
         val id = data.getInt(EXTRA_NOTIFICATION_ID)
         val builder = NotificationCompat.Builder(context, DOWNLOAD_CHANNEL_ID)
             .setSmallIcon(R.drawable.il_logo_bankmas)
-            .setContentTitle("Download")
-            .setContentText("Download Progress")
+            .setContentTitle("tffajari - Download")
+            .setContentText("tffajari - Download Progress")
 
         if (progress > total){
             builder.setProgress(1, 1,false)

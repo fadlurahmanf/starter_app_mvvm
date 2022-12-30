@@ -30,20 +30,8 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/btn_generate_key"
-            android:text="Generate Key"/>
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:id="@+id/btn_encrypt"
-            android:text="Encrypt"/>
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/btn_decrypt"
-            android:text="Decrypt"/>
+            android:text="Encrypt Decrypt Text"/>
 
         <Button
             android:layout_width="wrap_content"

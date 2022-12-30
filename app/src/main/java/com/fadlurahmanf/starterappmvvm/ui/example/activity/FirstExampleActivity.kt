@@ -72,25 +72,9 @@ class FirstExampleActivity : BaseActivity<ActivityFirstExampleBinding>(ActivityF
             startActivity(intent)
         }
 
-        binding.btnGenerateKey.setOnClickListener {
-            RSAHelper.generateKey(RSAHelper.METHOD.PKCS1PEM)
-            val public = RSAHelper.encodedPublicKey(RSAHelper.publicKey)
-            val private = RSAHelper.encodedPrivateKey(RSAHelper.privateKey)
-
-            val cm = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-            val clipData = ClipData.newPlainText("text", "${public}{{BATAS}}${private}")
-            cm.setPrimaryClip(clipData)
-        }
-
-        var encryptedString = ""
-        binding.btnEncrypt.setOnClickListener{
-            encryptedString = RSAHelper.encrypt("tes tes") ?: ""
-            println("masuk $encryptedString")
-        }
-
-        binding.btnDecrypt.setOnClickListener{
-            var result = RSAHelper.decrypt(encryptedString)
-            println("masuk decrypt $result")
+        binding.btnEncrypt.setOnClickListener {
+            val intent = Intent(this, ExampleEncryptDecryptActivity::class.java)
+            startActivity(intent)
         }
 
         binding.buttonPickPdf.setOnClickListener {
