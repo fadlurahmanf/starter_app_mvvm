@@ -14,6 +14,7 @@ class NotificationBroadcastReceiver: BroadcastReceiver(){
         const val ACTION_ACCEPT_CALL = "com.fadlurahmanf.callkit.ACTION_ACCEPT_CALL"
         const val ACTION_DECLINED_CALL = "com.fadlurahmanf.callkit.ACTION_DECLINED_CALL"
     }
+
     override fun onReceive(context: Context?, intent: Intent?) {
         if (context == null) return
         notifHelper = CallNotificationCallHelper(context = context)
@@ -22,7 +23,7 @@ class NotificationBroadcastReceiver: BroadcastReceiver(){
         when(action){
             ACTION_CALL_INCOMING -> {
                 if (intent.extras != null){
-                    notifHelper.showIncomingCallNotification(intent.extras!!)
+                    notifHelper.showIncomingCallNotification(intent.extras!!.getBundle(EXTRA_DATA)!!)
                     val mIntentBroadcast = Intent(context, NotificationPlayerService::class.java)
                     context.startService(mIntentBroadcast)
                 }

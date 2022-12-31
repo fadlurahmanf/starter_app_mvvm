@@ -1,24 +1,22 @@
 package com.fadlurahmanf.starterappmvvm.ui.example.activity
 
 import android.app.AlarmManager
-import android.app.DownloadManager
 import android.app.PendingIntent
 import android.app.PendingIntent.FLAG_IMMUTABLE
-import android.content.ClipData
-import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
-import android.net.Uri
+import android.graphics.Bitmap
+import android.graphics.drawable.Drawable
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.target.CustomTarget
+import com.bumptech.glide.request.transition.Transition
 import com.fadlurahmanf.starterappmvvm.BaseApp
 import com.fadlurahmanf.starterappmvvm.R
 import com.fadlurahmanf.starterappmvvm.base.BaseActivity
-import com.fadlurahmanf.starterappmvvm.constant.NotificationConstant
-import com.fadlurahmanf.starterappmvvm.core.helper.RSAHelper
 import com.fadlurahmanf.starterappmvvm.core.helper.TranslationHelper
 import com.fadlurahmanf.starterappmvvm.data.storage.example.LanguageSpStorage
 import com.fadlurahmanf.starterappmvvm.databinding.ActivityFirstExampleBinding
@@ -30,13 +28,13 @@ import com.fadlurahmanf.starterappmvvm.dto.model.core.PdfOrigin
 import com.fadlurahmanf.starterappmvvm.ui.core.activity.ImageViewerActivity
 import com.fadlurahmanf.starterappmvvm.ui.core.activity.PdfViewerActivity
 import com.fadlurahmanf.starterappmvvm.utils.download.DownloadHelper
-import com.fadlurahmanf.starterappmvvm.utils.download.DownloadNotificationHelper
 import com.fadlurahmanf.starterappmvvm.utils.notification.CallNotificationCallHelper
 import com.fadlurahmanf.starterappmvvm.utils.notification.NotificationBroadcastReceiver
 import com.fadlurahmanf.starterappmvvm.utils.notification.NotificationHelper
 import java.util.*
 import javax.inject.Inject
 import kotlin.random.Random
+import kotlin.random.nextInt
 
 
 class FirstExampleActivity : BaseActivity<ActivityFirstExampleBinding>(ActivityFirstExampleBinding::inflate) {
@@ -45,10 +43,10 @@ class FirstExampleActivity : BaseActivity<ActivityFirstExampleBinding>(ActivityF
     @Inject
     lateinit var languageSpStorage: LanguageSpStorage
 
-    @Inject
     lateinit var notificationHelper: NotificationHelper
 
     override fun initSetup() {
+        notificationHelper = NotificationHelper(this)
         binding.btnChangeLanguage.setOnClickListener {
             val local = TranslationHelper.getCurrentLocale(this)
             if(local.language == "en"){
@@ -111,15 +109,51 @@ class FirstExampleActivity : BaseActivity<ActivityFirstExampleBinding>(ActivityF
             startActivity(intent)
         }
 
+        val pendingIntentFlag = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+            PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
+        }else{
+            PendingIntent.FLAG_UPDATE_CURRENT
+        }
+
         binding.btnShowNotif.setOnClickListener {
+            val intent = Intent(this, LoginActivity::class.java)
+            val pendingIntent = PendingIntent.getActivity(this, 0, intent, pendingIntentFlag)
             val builder = notificationHelper.builder
             builder.setContentTitle("Example Title Notification")
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
+                .setAutoCancel(true)
                 .setContentText("Example Body Notification")
+                .setContentIntent(pendingIntent)
 
-            with(NotificationManagerCompat.from(this)){
-                notify(Random.nextInt(999), builder.build())
-            }
+            notificationHelper.notificationManager
+                .notify(Random.nextInt(999), builder.build())
+        }
+
+        binding.btnShowNotifPicture.setOnClickListener {
+            val imageUrl = "https://raw.githubusercontent.com/TutorialsBuzz/cdn/main/android.jpg"
+
+            val builder = notificationHelper.builder
+            builder.setContentTitle("Example Image Notification")
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
+                .setContentText("Example Image Notification")
+
+            Glide.with(this)
+                .asBitmap()
+                .load(imageUrl)
+                .into(object : CustomTarget<Bitmap>(){
+                    override fun onResourceReady(
+                        resource: Bitmap,
+                        transition: Transition<in Bitmap>?
+                    ) {
+                        builder.setLargeIcon(resource)
+                        builder.setStyle(NotificationCompat.BigPictureStyle().bigPicture(resource))
+                        notificationHelper.notificationManager
+                            .notify(Random.nextInt(999), builder.build())
+                    }
+
+                    override fun onLoadCleared(placeholder: Drawable?) {}
+
+                })
         }
 
         binding.btnShowNotif1Action.setOnClickListener {
@@ -143,7 +177,7 @@ class FirstExampleActivity : BaseActivity<ActivityFirstExampleBinding>(ActivityF
             val data = Bundle()
             data.apply {
                 putInt(CallNotificationCallHelper.EXTRA_NOTIFICATION_ID, 1)
-                putString(CallNotificationCallHelper.EXTRA_CALLER_NAME, "Bank MAS")
+                putString(CallNotificationCallHelper.EXTRA_CALLER_NAME, "tffajari")
             }
             intent.apply {
                 action = NotificationBroadcastReceiver.ACTION_CALL_INCOMING
@@ -159,7 +193,7 @@ class FirstExampleActivity : BaseActivity<ActivityFirstExampleBinding>(ActivityF
             val data = Bundle()
             data.apply {
                 putInt(CallNotificationCallHelper.EXTRA_NOTIFICATION_ID, 1)
-                putString(CallNotificationCallHelper.EXTRA_CALLER_NAME, "Bank MAS")
+                putString(CallNotificationCallHelper.EXTRA_CALLER_NAME, "tffajari")
             }
             intent.apply {
                 action = NotificationBroadcastReceiver.ACTION_CALL_INCOMING

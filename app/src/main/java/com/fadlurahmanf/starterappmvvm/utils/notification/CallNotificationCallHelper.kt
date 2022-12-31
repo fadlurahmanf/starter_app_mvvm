@@ -71,7 +71,7 @@ class CallNotificationCallHelper(var context: Context) {
     private fun createNotificationView(remoteViews: RemoteViews, data: Bundle){
         remoteViews.setTextViewText(
             R.id.tv_caller_name,
-            "TES TESTES"
+            data.getString(EXTRA_CALLER_NAME) ?: "Bank MAS"
         )
         remoteViews.setOnClickPendingIntent(
             R.id.iv_accept,

@@ -13,7 +13,7 @@ import androidx.core.app.NotificationCompat
 import com.fadlurahmanf.starterappmvvm.R
 import javax.inject.Inject
 
-class NotificationHelper @Inject constructor(
+class NotificationHelper(
     var context: Context
 ) {
     companion object{
@@ -21,6 +21,8 @@ class NotificationHelper @Inject constructor(
         const val GENERAL_CHANNEL = "General"
         const val GENERAL_CHANNEL_DESCRIPTION = "General Description"
     }
+
+    var notificationManager: NotificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
     init {
         createGeneralChannel()

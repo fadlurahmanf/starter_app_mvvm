@@ -29,9 +29,10 @@ class DownloadNotificationHelper(var context: Context) {
 
     private fun createDownloadChannel(){
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val importance = NotificationManager.IMPORTANCE_HIGH
+            val importance = NotificationManager.IMPORTANCE_LOW
             val channel = NotificationChannel(DOWNLOAD_CHANNEL_ID, DOWNLOAD_CHANNEL, importance).apply {
                 description = DOWNLOAD_CHANNEL_DESCRIPTION
+                setSound(null, null)
             }
             val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
             notificationManager.createNotificationChannel(channel)
@@ -47,6 +48,8 @@ class DownloadNotificationHelper(var context: Context) {
             .setContentTitle("Download")
             .setContentText("Download Progress")
             .setProgress(1, 0, false)
+            .setPriority(NotificationCompat.PRIORITY_LOW)
+
 
         return builder.build()
     }
