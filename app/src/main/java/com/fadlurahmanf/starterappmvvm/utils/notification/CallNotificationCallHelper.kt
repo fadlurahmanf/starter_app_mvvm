@@ -12,6 +12,7 @@ import android.widget.RemoteViews
 import androidx.core.app.NotificationCompat
 import com.fadlurahmanf.starterappmvvm.R
 import com.fadlurahmanf.starterappmvvm.ui.notification.FullScreenNotification
+import com.fadlurahmanf.starterappmvvm.ui.notification.FullScreenNotification.Companion.ACTION_ENDED_CALL
 
 class CallNotificationCallHelper(var context: Context) {
     companion object{
@@ -51,7 +52,7 @@ class CallNotificationCallHelper(var context: Context) {
         builder.setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
         builder.setOngoing(true)
         builder.setWhen(0)
-        builder.setTimeoutAfter(0L)
+        builder.setTimeoutAfter(5000L)
         builder.setOnlyAlertOnce(true)
         builder.setFullScreenIntent(getFullScreenIntent(notificationId), true)
         builder.setDeleteIntent(getDeleteIntent(notificationId))
@@ -81,7 +82,6 @@ class CallNotificationCallHelper(var context: Context) {
     }
 
     private fun getFullScreenIntent(notificationId: Int):PendingIntent{
-        println("masuk notifId $notificationId")
         val intent = Intent(context, FullScreenNotification::class.java)
         val data = Bundle()
         data.apply {
@@ -132,9 +132,14 @@ class CallNotificationCallHelper(var context: Context) {
         return PendingIntent.getBroadcast(context, notificationId, intent, getFlagPendingIntent())
     }
 
-    fun cancelNotification(notificationId: Int){
+    private fun cancelNotification(notificationId: Int){
         val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         notificationManager.cancel(notificationId)
+    }
+
+    fun endedCallNotification(notificationId: Int){
+        context.sendBroadcast(Intent(ACTION_ENDED_CALL))
+        cancelNotification(notificationId)
     }
 
     private fun getFlagPendingIntent():Int{

@@ -7,9 +7,8 @@ import android.os.Bundle
 import android.util.Log
 import com.fadlurahmanf.starterappmvvm.constant.NotificationConstant
 import com.fadlurahmanf.starterappmvvm.ui.example.activity.CallActivity
-import com.fadlurahmanf.starterappmvvm.ui.example.activity.LoginActivity
 
-class   NotificationBroadcastReceiver: BroadcastReceiver(){
+class NotificationBroadcastReceiver: BroadcastReceiver(){
     private lateinit var notifHelper:CallNotificationCallHelper
     companion object{
         const val EXTRA_DATA = "EXTRA_DATA"
@@ -95,15 +94,15 @@ class   NotificationBroadcastReceiver: BroadcastReceiver(){
             }
             ACTION_ACCEPT_CALL -> {
                 val notificationId:Int = intent.extras?.getBundle(EXTRA_DATA)?.getInt(CallNotificationCallHelper.EXTRA_NOTIFICATION_ID)!!
-                notifHelper.cancelNotification(notificationId = notificationId)
+                notifHelper.endedCallNotification(notificationId = notificationId)
                 context.stopService(Intent(context, NotificationPlayerService::class.java))
-                val intent = Intent(context, CallActivity::class.java)
-                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-                context.startActivity(intent)
+                val p0Intent = Intent(context, CallActivity::class.java)
+                p0Intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+                context.startActivity(p0Intent)
             }
             ACTION_DECLINED_CALL -> {
                 val notificationId:Int = intent.extras?.getBundle(EXTRA_DATA)?.getInt(CallNotificationCallHelper.EXTRA_NOTIFICATION_ID)!!
-                notifHelper.cancelNotification(notificationId = notificationId)
+                notifHelper.endedCallNotification(notificationId = notificationId)
                 context.stopService(Intent(context, NotificationPlayerService::class.java))
             }
         }

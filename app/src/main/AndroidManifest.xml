@@ -44,6 +44,7 @@
                 <action android:name="com.fadlurahmanf.callkit.ACTION_CALL_INCOMING" />
                 <action android:name="com.fadlurahmanf.callkit.ACTION_ACCEPT_CALL" />
                 <action android:name="com.fadlurahmanf.callkit.ACTION_DECLINED_CALL" />
+                <action android:name="com.fadlurahmanf.callkit.ACTION_ENDED_CALL" />
             </intent-filter>
         </activity>
         <activity
@@ -64,7 +65,6 @@
             android:theme="@style/Theme.StarterAppMvvm.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -86,6 +86,7 @@
                 <action android:name="com.fadlurahmanf.callkit.ACTION_CALL_INCOMING" />
                 <action android:name="com.fadlurahmanf.callkit.ACTION_ACCEPT_CALL" />
                 <action android:name="com.fadlurahmanf.callkit.ACTION_DECLINED_CALL" />
+                <action android:name="com.fadlurahmanf.callkit.ACTION_ENDED_CALL" />
             </intent-filter>
         </receiver>
 

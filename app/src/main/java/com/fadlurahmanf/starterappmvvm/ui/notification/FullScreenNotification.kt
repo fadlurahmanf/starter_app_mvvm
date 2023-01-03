@@ -21,12 +21,15 @@ import com.fadlurahmanf.starterappmvvm.utils.notification.NotificationBroadcastR
 class FullScreenNotification : AppCompatActivity() {
     lateinit var acceptBtn:ImageView
     lateinit var declinedBtn:ImageView
+    companion object{
+        const val ACTION_ENDED_CALL = "com.fadlurahmanf.callkit.ACTION_ENDED_CALL"
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_full_screen_notification)
         acceptBtn = findViewById<ImageView>(R.id.iv_accept)
         declinedBtn = findViewById<ImageView>(R.id.iv_decline)
-        println("masuk sini ${this.intent.extras?.getBundle(NotificationBroadcastReceiver.EXTRA_DATA)?.getInt(CallNotificationCallHelper.EXTRA_NOTIFICATION_ID)}")
+        registerReceiver(receiver, IntentFilter(ACTION_ENDED_CALL))
 
         acceptBtn.setOnClickListener {
             NotificationBroadcastReceiver.sendBroadcastAcceptCall(this)
@@ -54,7 +57,18 @@ class FullScreenNotification : AppCompatActivity() {
         }
     }
 
+    private val receiver = object : BroadcastReceiver() {
+        override fun onReceive(context: Context?, intent: Intent?) {
+            when(intent?.action){
+                ACTION_ENDED_CALL -> {
+                    finishAndRemoveTask()
+                }
+            }
+        }
+    }
+
     override fun onDestroy() {
+        unregisterReceiver(receiver)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1) {
             setShowWhenLocked(false)
             setTurnScreenOn(false)

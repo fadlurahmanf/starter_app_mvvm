@@ -16,6 +16,7 @@ class NotificationPlayerService:Service() {
 
     override fun onCreate() {
         Log.d("NotifService", "onCreate")
+        audioManager = getSystemService(Context.AUDIO_SERVICE) as AudioManager
         super.onCreate()
     }
 
@@ -43,7 +44,6 @@ class NotificationPlayerService:Service() {
         } else {
             getSystemService(VIBRATOR_SERVICE) as Vibrator
         }
-        audioManager = getSystemService(Context.AUDIO_SERVICE) as AudioManager
         when(audioManager?.ringerMode){
             AudioManager.RINGER_MODE_SILENT -> {}
             else -> {
@@ -58,12 +58,16 @@ class NotificationPlayerService:Service() {
 
     private var mediaPlayer:MediaPlayer? = null
     private fun startMediaPlayer(){
-        val notifUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_RINGTONE)
-        mediaPlayer = MediaPlayer()
-        mediaPlayer?.setDataSource(applicationContext, notifUri)
-        mediaPlayer?.prepare()
-        mediaPlayer?.isLooping = true
-        mediaPlayer?.start()
+        when(audioManager?.ringerMode){
+            AudioManager.RINGER_MODE_NORMAL -> {
+                val notifUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_RINGTONE)
+                mediaPlayer = MediaPlayer()
+                mediaPlayer?.setDataSource(applicationContext, notifUri)
+                mediaPlayer?.prepare()
+                mediaPlayer?.isLooping = true
+                mediaPlayer?.start()
+            }
+        }
     }
 
     override fun onDestroy() {
