@@ -21,21 +21,21 @@
         android:theme="@style/Theme.StarterAppMvvm"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".ui.example.activity.CallActivity"
-            android:exported="true">
+            android:name=".ui.webrtc.PrepareCallActivity"
+            android:exported="false">
         </activity>
+        <activity
+            android:name=".ui.example.activity.CallActivity"
+            android:exported="true"></activity>
         <activity
             android:name=".ui.example.activity.ExampleEncryptDecryptActivity"
-            android:exported="false">
-        </activity>
+            android:exported="false"></activity>
         <activity
             android:name=".ui.example.activity.AfterLoginActivity"
-            android:exported="false">
-        </activity>
+            android:exported="false"></activity>
         <activity
             android:name=".ui.example.activity.LoginActivity"
-            android:exported="false">
-        </activity>
+            android:exported="false"></activity>
         <activity
             android:name=".ui.notification.FullScreenNotification"
             android:exported="true"
@@ -65,6 +65,7 @@
             android:theme="@style/Theme.StarterAppMvvm.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

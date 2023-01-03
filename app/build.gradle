@@ -79,7 +79,6 @@ dependencies {
     implementation 'com.google.android.material:material:1.7.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     testImplementation 'junit:junit:4.+'
-    //batas
 //    implementation 'androidx.activity:activity-ktx:1.6.0'
     androidTestImplementation 'androidx.test.ext:junit:1.1.4'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.0'
@@ -107,16 +106,22 @@ dependencies {
 
     //mockito
     testImplementation "org.mockito:mockito-core:4.9.0"
-    testImplementation "org.mockito:mockito-inline:4.0.0"
+    testImplementation "org.mockito:mockito-inline:4.7.0"
     testImplementation "androidx.arch.core:core-testing:2.1.0"
 
     implementation 'com.github.barteksc:android-pdf-viewer:2.8.2'
 
     implementation 'com.github.MikeOrtiz:TouchImageView:3.2.1'
 
+    // room dao
     implementation("androidx.room:room-runtime:$room_version")
     kapt("androidx.room:room-compiler:$room_version")
     implementation("androidx.room:room-ktx:$room_version")
     implementation("androidx.room:room-paging:2.4.3")
     implementation "androidx.room:room-rxjava3:$room_version"
+
+    // web rtc
+    implementation("org.webrtc:google-webrtc:1.0.32006")
+    implementation 'org.java-websocket:Java-WebSocket:1.5.3'
+
 }

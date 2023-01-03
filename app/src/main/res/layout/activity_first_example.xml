@@ -14,6 +14,17 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="Show Loading"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/btn_show_loading"
+            android:text="Show Loading"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:text="@string/change_language"/>
 
         <Button
@@ -187,6 +198,17 @@
             android:layout_height="wrap_content"
             android:id="@+id/btn_stop_forground_notification"
             android:text="Stop Foreground Notif"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Prepare Call"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/btn_prepare_call"
+            android:text="Start prepare call"/>
     </LinearLayout>
 
 </ScrollView>

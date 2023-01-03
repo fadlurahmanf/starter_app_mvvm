@@ -9,12 +9,24 @@ class DefaultLoadingDialog:BaseDialog<DialogDefaultLoadingBinding>(DialogDefault
 
     lateinit var component:CoreComponent
 
+    companion object{
+        const val IS_CANCELABLE = "CANCELABLE"
+    }
+
+    private var isDialogCancelable:Boolean = false
+    private var isDialogCancelTouchOutside:Boolean = false
+
     override fun inject() {
         component = (requireActivity().applicationContext as BaseApp).applicationComponent.coreComponent().create()
         component.inject(this)
     }
 
     override fun setup() {
+        initData()
+        isCancelable = isDialogCancelable
+    }
 
+    private fun initData() {
+        isDialogCancelable = arguments?.getBoolean(IS_CANCELABLE, false) ?: false
     }
 }

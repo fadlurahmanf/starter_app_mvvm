@@ -56,9 +56,13 @@ abstract class BaseActivity<VB:ViewBinding>(
     }
 
     private var loadingDialog:DefaultLoadingDialog ?= null
-    fun showLoadingDialog(){
+    fun showLoadingDialog(isCancelable:Boolean = false){
+        dismissLoadingDialog()
         if (loadingDialog == null){
             loadingDialog = DefaultLoadingDialog()
+            loadingDialog!!.arguments = Bundle().apply {
+                putBoolean(DefaultLoadingDialog.IS_CANCELABLE, isCancelable)
+            }
             loadingDialog?.show(supportFragmentManager, DefaultLoadingDialog::class.java.simpleName)
         }
     }

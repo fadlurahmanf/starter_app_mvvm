@@ -27,6 +27,7 @@ import com.fadlurahmanf.starterappmvvm.dto.model.core.PdfModel
 import com.fadlurahmanf.starterappmvvm.dto.model.core.PdfOrigin
 import com.fadlurahmanf.starterappmvvm.ui.core.activity.ImageViewerActivity
 import com.fadlurahmanf.starterappmvvm.ui.core.activity.PdfViewerActivity
+import com.fadlurahmanf.starterappmvvm.ui.webrtc.PrepareCallActivity
 import com.fadlurahmanf.starterappmvvm.utils.download.DownloadHelper
 import com.fadlurahmanf.starterappmvvm.utils.notification.CallNotificationCallHelper
 import com.fadlurahmanf.starterappmvvm.utils.notification.NotificationBroadcastReceiver
@@ -46,6 +47,10 @@ class FirstExampleActivity : BaseActivity<ActivityFirstExampleBinding>(ActivityF
     lateinit var notificationHelper: NotificationHelper
 
     override fun initSetup() {
+        binding.btnShowLoading.setOnClickListener {
+            showLoadingDialog()
+        }
+
         notificationHelper = NotificationHelper(this)
         binding.btnChangeLanguage.setOnClickListener {
             val local = TranslationHelper.getCurrentLocale(this)
@@ -207,6 +212,11 @@ class FirstExampleActivity : BaseActivity<ActivityFirstExampleBinding>(ActivityF
 
         binding.btnStopForgroundNotification.setOnClickListener {
             DownloadHelper.stopService(this)
+        }
+
+        binding.btnPrepareCall.setOnClickListener {
+            val intent = Intent(this, PrepareCallActivity::class.java)
+            startActivity(intent)
         }
     }
 
