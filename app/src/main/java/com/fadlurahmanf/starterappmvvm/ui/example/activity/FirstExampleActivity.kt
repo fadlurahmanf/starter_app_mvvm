@@ -173,38 +173,19 @@ class FirstExampleActivity : BaseActivity<ActivityFirstExampleBinding>(ActivityF
         }
 
         binding.btnIncomingCallNotification.setOnClickListener {
-            val intent = Intent(this, NotificationBroadcastReceiver::class.java)
-            val data = Bundle()
-            data.apply {
-                putInt(CallNotificationCallHelper.EXTRA_NOTIFICATION_ID, 1)
-                putString(CallNotificationCallHelper.EXTRA_CALLER_NAME, "tffajari")
-            }
-            intent.apply {
-                action = NotificationBroadcastReceiver.ACTION_CALL_INCOMING
-                putExtra(NotificationBroadcastReceiver.EXTRA_DATA, data)
-            }
-            sendBroadcast(intent)
+            NotificationBroadcastReceiver.sendBroadcastIncomingCall(this)
         }
 
         binding.btnScheduleIncomingNotification.setOnClickListener {
             val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
             val calendar = Calendar.getInstance()
-            val intent = Intent(this, NotificationBroadcastReceiver::class.java)
-            val data = Bundle()
-            data.apply {
-                putInt(CallNotificationCallHelper.EXTRA_NOTIFICATION_ID, 1)
-                putString(CallNotificationCallHelper.EXTRA_CALLER_NAME, "tffajari")
-            }
-            intent.apply {
-                action = NotificationBroadcastReceiver.ACTION_CALL_INCOMING
-                putExtra(NotificationBroadcastReceiver.EXTRA_DATA, data)
-            }
+            val p0Intent = NotificationBroadcastReceiver.getIntentIncomingCall(this)
             calendar.add(Calendar.SECOND, 10)
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 alarmManager.setExactAndAllowWhileIdle(
                     AlarmManager.RTC,
                     calendar.timeInMillis,
-                    PendingIntent.getBroadcast(this, 1, intent, PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT)
+                    PendingIntent.getBroadcast(this, 1, p0Intent, PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT)
                 )
             }
         }

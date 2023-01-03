@@ -3,24 +3,89 @@ package com.fadlurahmanf.starterappmvvm.utils.notification
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import android.os.Bundle
 import android.util.Log
+import com.fadlurahmanf.starterappmvvm.constant.NotificationConstant
+import com.fadlurahmanf.starterappmvvm.ui.example.activity.CallActivity
+import com.fadlurahmanf.starterappmvvm.ui.example.activity.LoginActivity
 
-class NotificationBroadcastReceiver: BroadcastReceiver(){
+class   NotificationBroadcastReceiver: BroadcastReceiver(){
     private lateinit var notifHelper:CallNotificationCallHelper
     companion object{
         const val EXTRA_DATA = "EXTRA_DATA"
-
         const val ACTION_CALL_INCOMING = "com.fadlurahmanf.callkit.ACTION_CALL_INCOMING"
         const val ACTION_ACCEPT_CALL = "com.fadlurahmanf.callkit.ACTION_ACCEPT_CALL"
         const val ACTION_DECLINED_CALL = "com.fadlurahmanf.callkit.ACTION_DECLINED_CALL"
+
+        fun sendBroadcast(context: Context, action:String, data:Bundle){
+            val intent = Intent(context, NotificationBroadcastReceiver::class.java)
+            intent.apply {
+                this.action = action
+                putExtra(EXTRA_DATA, data)
+            }
+            context.sendBroadcast(intent)
+        }
+
+        fun sendBroadcastIncomingCall(context: Context, actionCallerName:String = "DEFAULT ACTION CALLER NAME"){
+            val intent = Intent(context, NotificationBroadcastReceiver::class.java)
+            val data = Bundle()
+            data.apply {
+                putInt(CallNotificationCallHelper.EXTRA_NOTIFICATION_ID, NotificationConstant.INCOMING_CALL_NOTIFICATION)
+                putString(CallNotificationCallHelper.EXTRA_CALLER_NAME, actionCallerName)
+            }
+            intent.apply {
+                this.action = ACTION_CALL_INCOMING
+                putExtra(EXTRA_DATA, data)
+            }
+            context.sendBroadcast(intent)
+        }
+
+        fun sendBroadcastAcceptCall(context: Context){
+            val intent = Intent(context, NotificationBroadcastReceiver::class.java)
+            val data = Bundle()
+            data.apply {
+                putInt(CallNotificationCallHelper.EXTRA_NOTIFICATION_ID, NotificationConstant.INCOMING_CALL_NOTIFICATION)
+            }
+            intent.apply {
+                this.action = ACTION_ACCEPT_CALL
+                putExtra(EXTRA_DATA, data)
+            }
+            context.sendBroadcast(intent)
+        }
+
+        fun sendBroadcastDeclinedCall(context: Context){
+            val intent = Intent(context, NotificationBroadcastReceiver::class.java)
+            val data = Bundle()
+            data.apply {
+                putInt(CallNotificationCallHelper.EXTRA_NOTIFICATION_ID, NotificationConstant.INCOMING_CALL_NOTIFICATION)
+            }
+            intent.apply {
+                this.action = ACTION_DECLINED_CALL
+                putExtra(EXTRA_DATA, data)
+            }
+            context.sendBroadcast(intent)
+        }
+
+        fun getIntentIncomingCall(context: Context, actionCallerName:String = "DEFAULT ACTION CALLER NAME"):Intent{
+            val intent = Intent(context, NotificationBroadcastReceiver::class.java)
+            val data = Bundle()
+            data.apply {
+                putInt(CallNotificationCallHelper.EXTRA_NOTIFICATION_ID, NotificationConstant.INCOMING_CALL_NOTIFICATION)
+                putString(CallNotificationCallHelper.EXTRA_CALLER_NAME, actionCallerName)
+            }
+            intent.apply {
+                this.action = ACTION_CALL_INCOMING
+                putExtra(EXTRA_DATA, data)
+            }
+            return intent
+        }
     }
 
     override fun onReceive(context: Context?, intent: Intent?) {
+        Log.d("NotifBroadcaster", "onReceive: action -> ${intent?.action}")
         if (context == null) return
         notifHelper = CallNotificationCallHelper(context = context)
-        val action = intent?.action
-        Log.d("NotifBroadcaster", "onReceive: $action")
-        when(action){
+        when(intent?.action){
             ACTION_CALL_INCOMING -> {
                 if (intent.extras != null){
                     notifHelper.showIncomingCallNotification(intent.extras!!.getBundle(EXTRA_DATA)!!)
@@ -29,11 +94,16 @@ class NotificationBroadcastReceiver: BroadcastReceiver(){
                 }
             }
             ACTION_ACCEPT_CALL -> {
-                notifHelper.cancelNotification(notificationId = intent.getIntExtra(CallNotificationCallHelper.EXTRA_NOTIFICATION_ID, 0))
+                val notificationId:Int = intent.extras?.getBundle(EXTRA_DATA)?.getInt(CallNotificationCallHelper.EXTRA_NOTIFICATION_ID)!!
+                notifHelper.cancelNotification(notificationId = notificationId)
                 context.stopService(Intent(context, NotificationPlayerService::class.java))
+                val intent = Intent(context, CallActivity::class.java)
+                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+                context.startActivity(intent)
             }
             ACTION_DECLINED_CALL -> {
-                notifHelper.cancelNotification(notificationId = intent.getIntExtra(CallNotificationCallHelper.EXTRA_NOTIFICATION_ID, 0))
+                val notificationId:Int = intent.extras?.getBundle(EXTRA_DATA)?.getInt(CallNotificationCallHelper.EXTRA_NOTIFICATION_ID)!!
+                notifHelper.cancelNotification(notificationId = notificationId)
                 context.stopService(Intent(context, NotificationPlayerService::class.java))
             }
         }

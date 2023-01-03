@@ -70,21 +70,26 @@ class CallNotificationCallHelper(var context: Context) {
 
     private fun createNotificationView(remoteViews: RemoteViews, data: Bundle){
         remoteViews.setTextViewText(
-            R.id.tv_caller_name,
-            data.getString(EXTRA_CALLER_NAME) ?: "Bank MAS"
+            R.id.tv_caller_name, data.getString(EXTRA_CALLER_NAME) ?: "Bank MAS"
         )
         remoteViews.setOnClickPendingIntent(
-            R.id.iv_accept,
-            getAcceptIntent(notificationId = data.getInt(EXTRA_NOTIFICATION_ID))
+            R.id.iv_accept, getAcceptIntent(notificationId = data.getInt(EXTRA_NOTIFICATION_ID))
         )
         remoteViews.setOnClickPendingIntent(
-            R.id.iv_decline,
-            getDeclinedIntent(notificationId = data.getInt(EXTRA_NOTIFICATION_ID))
+            R.id.iv_decline, getDeclinedIntent(notificationId = data.getInt(EXTRA_NOTIFICATION_ID))
         )
     }
 
     private fun getFullScreenIntent(notificationId: Int):PendingIntent{
+        println("masuk notifId $notificationId")
         val intent = Intent(context, FullScreenNotification::class.java)
+        val data = Bundle()
+        data.apply {
+            putInt(EXTRA_NOTIFICATION_ID, notificationId)
+        }
+        intent.apply {
+            putExtra(NotificationBroadcastReceiver.EXTRA_DATA, data)
+        }
         return PendingIntent.getActivity(context, notificationId, intent, getFlagPendingIntent())
     }
 

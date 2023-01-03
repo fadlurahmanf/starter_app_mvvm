@@ -31,7 +31,7 @@ class NotificationPlayerService:Service() {
         prepareMediaPlayer()
         startMediaPlayer()
         playVibrator()
-        return Service.START_STICKY
+        return Service.START_NOT_STICKY
     }
 
     private var vibrator:Vibrator? = null
@@ -69,6 +69,7 @@ class NotificationPlayerService:Service() {
     override fun onDestroy() {
         Log.d("NotifService", "onDestroy")
         vibrator?.cancel()
+        vibrator = null
         mediaPlayer?.stop()
         mediaPlayer?.release()
         mediaPlayer = null
