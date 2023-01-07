@@ -28,6 +28,14 @@ Aplikasi ini menggunakan Download Manager dalam Foreground Service. Untuk update
 
 ![alt text](https://github.com/fadlurahmanf/starter_app_mvvm/blob/master/proof/download.jpg?raw=true)
 
+### Call Notification
+
+#### On Screen Notification
+[Example Video](https://firebasestorage.googleapis.com/v0/b/firsttesting-631b4.appspot.com/o/call_notif_on_screen.MOV?alt=media&token=a99a4b13-c872-48c4-9fd6-7376b4bd7992)
+
+#### On LockScreen Notification
+[Example On LockScreen Notification](https://firebasestorage.googleapis.com/v0/b/firsttesting-631b4.appspot.com/o/call_notif_on_lock.MOV?alt=media&token=209853bf-e443-4090-8bd1-9d8d7af5d818)
+
 
 ### Chucker / HTTP Inspector
 
