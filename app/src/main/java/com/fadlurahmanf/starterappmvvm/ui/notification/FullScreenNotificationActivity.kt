@@ -11,15 +11,9 @@ import android.os.Bundle
 import android.view.WindowManager
 import android.widget.ImageView
 import com.fadlurahmanf.starterappmvvm.R
-import com.fadlurahmanf.starterappmvvm.ui.example.activity.CallActivity
-import com.fadlurahmanf.starterappmvvm.utils.notification.CallNotificationCallHelper
 import com.fadlurahmanf.starterappmvvm.utils.notification.NotificationBroadcastReceiver
-import com.fadlurahmanf.starterappmvvm.utils.notification.NotificationBroadcastReceiver.Companion.ACTION_ACCEPT_CALL
-import com.fadlurahmanf.starterappmvvm.utils.notification.NotificationBroadcastReceiver.Companion.ACTION_CALL_INCOMING
-import com.fadlurahmanf.starterappmvvm.utils.notification.NotificationBroadcastReceiver.Companion.ACTION_DECLINED_CALL
-import org.webrtc.PeerConnection
 
-class FullScreenNotification : AppCompatActivity() {
+class FullScreenNotificationActivity : AppCompatActivity() {
     lateinit var acceptBtn:ImageView
     lateinit var declinedBtn:ImageView
     companion object{
@@ -54,7 +48,7 @@ class FullScreenNotification : AppCompatActivity() {
 
         val keyguardManager = getSystemService(Context.KEYGUARD_SERVICE) as KeyguardManager
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            keyguardManager.requestDismissKeyguard(this@FullScreenNotification, null)
+            keyguardManager.requestDismissKeyguard(this@FullScreenNotificationActivity, null)
         }
     }
 

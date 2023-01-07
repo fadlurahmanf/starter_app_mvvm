@@ -6,8 +6,8 @@ import com.fadlurahmanf.starterappmvvm.network.AbstractQuranNetwork
 import javax.inject.Inject
 
 class QuranDatasource @Inject constructor(
-    var context: Context
-): AbstractQuranNetwork<QuranAPI>() {
+    context: Context
+): AbstractQuranNetwork<QuranAPI>(context) {
     override fun getApi(): Class<QuranAPI> {
         return QuranAPI::class.java
     }

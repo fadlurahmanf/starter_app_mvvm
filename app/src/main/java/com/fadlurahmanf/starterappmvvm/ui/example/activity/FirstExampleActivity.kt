@@ -8,12 +8,12 @@ import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
 import android.os.Build
-import android.os.Bundle
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
+import com.chuckerteam.chucker.api.Chucker
 import com.fadlurahmanf.starterappmvvm.BaseApp
 import com.fadlurahmanf.starterappmvvm.R
 import com.fadlurahmanf.starterappmvvm.base.BaseActivity
@@ -29,13 +29,11 @@ import com.fadlurahmanf.starterappmvvm.ui.core.activity.ImageViewerActivity
 import com.fadlurahmanf.starterappmvvm.ui.core.activity.PdfViewerActivity
 import com.fadlurahmanf.starterappmvvm.ui.webrtc.PrepareCallActivity
 import com.fadlurahmanf.starterappmvvm.utils.download.DownloadHelper
-import com.fadlurahmanf.starterappmvvm.utils.notification.CallNotificationCallHelper
 import com.fadlurahmanf.starterappmvvm.utils.notification.NotificationBroadcastReceiver
 import com.fadlurahmanf.starterappmvvm.utils.notification.NotificationHelper
 import java.util.*
 import javax.inject.Inject
 import kotlin.random.Random
-import kotlin.random.nextInt
 
 
 class FirstExampleActivity : BaseActivity<ActivityFirstExampleBinding>(ActivityFirstExampleBinding::inflate) {
@@ -72,6 +70,11 @@ class FirstExampleActivity : BaseActivity<ActivityFirstExampleBinding>(ActivityF
 
         binding.btnGoToLogin.setOnClickListener {
             val intent = Intent(this, LoginActivity::class.java)
+            startActivity(intent)
+        }
+
+        binding.btnSeeLogChucker.setOnClickListener {
+            val intent = Chucker.getLaunchIntent(this)
             startActivity(intent)
         }
 

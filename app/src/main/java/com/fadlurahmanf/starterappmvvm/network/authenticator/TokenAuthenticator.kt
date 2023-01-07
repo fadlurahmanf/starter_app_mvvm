@@ -2,7 +2,11 @@ package com.fadlurahmanf.starterappmvvm.network.authenticator
 
 import android.content.Context
 import android.util.Log
+import com.chuckerteam.chucker.api.ChuckerCollector
+import com.chuckerteam.chucker.api.ChuckerInterceptor
+import com.chuckerteam.chucker.api.RetentionManager
 import com.fadlurahmanf.starterappmvvm.BuildConfig
+import com.fadlurahmanf.starterappmvvm.constant.BuildTypeConstant
 import com.fadlurahmanf.starterappmvvm.constant.SpKey
 import com.fadlurahmanf.starterappmvvm.data.api.path.example.AuthApi
 import com.fadlurahmanf.starterappmvvm.data.repository.example.IdentityRepository
@@ -46,13 +50,34 @@ class TokenAuthenticator(
     private fun sharedPreference() = context
         .getSharedPreferences(SpKey.SP_KEY, Context.MODE_PRIVATE)
 
-    private fun client() = OkHttpClient.Builder()
-        .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.HEADERS))
-        .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
-        .connectTimeout(30, TimeUnit.SECONDS)
-        .readTimeout(30, TimeUnit.SECONDS)
-        .writeTimeout(30, TimeUnit.SECONDS)
-        .build()
+    private val type = BuildConfig.BUILD_TYPE
+    private fun chuckerInterceptor(): ChuckerInterceptor {
+        val chuckerCollector = ChuckerCollector(
+            context = context,
+            showNotification = type == BuildTypeConstant.dev,
+            retentionPeriod = RetentionManager.Period.ONE_HOUR
+        )
+
+        return ChuckerInterceptor.Builder(context)
+            .collector(chuckerCollector)
+            .maxContentLength(Long.MAX_VALUE)
+            .alwaysReadResponseBody(true)
+            .build()
+    }
+
+    private fun client(): OkHttpClient {
+        val clientBuilder = OkHttpClient.Builder()
+        if (type != BuildTypeConstant.production){
+            clientBuilder.addInterceptor(chuckerInterceptor())
+        }
+        return clientBuilder
+            .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.HEADERS))
+            .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
+            .connectTimeout(30, TimeUnit.SECONDS)
+            .readTimeout(30, TimeUnit.SECONDS)
+            .writeTimeout(30, TimeUnit.SECONDS)
+            .build()
+    }
 
     private fun api() = Retrofit.Builder()
         .baseUrl(BuildConfig.BASE_URL+BuildConfig.IDENTITY_PREFIX)

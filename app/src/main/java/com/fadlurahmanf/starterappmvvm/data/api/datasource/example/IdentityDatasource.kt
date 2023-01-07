@@ -7,8 +7,8 @@ import com.google.gson.JsonObject
 import javax.inject.Inject
 
 class IdentityDatasource @Inject constructor(
-    var context: Context
-): IdentityNetwork<AuthApi>() {
+    context: Context
+): IdentityNetwork<AuthApi>(context) {
     override fun getApi(): Class<AuthApi> {
         return AuthApi::class.java
     }

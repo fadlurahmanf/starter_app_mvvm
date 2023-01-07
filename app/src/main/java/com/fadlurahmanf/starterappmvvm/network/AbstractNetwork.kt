@@ -5,7 +5,7 @@ import com.fadlurahmanf.starterappmvvm.BuildConfig
 import com.fadlurahmanf.starterappmvvm.network.authenticator.TokenAuthenticator
 import okhttp3.OkHttpClient
 
-abstract class IdentityNetwork<T>():AbstractNetwork<T>(){
+abstract class IdentityNetwork<T>(context: Context):AbstractNetwork<T>(context){
     override fun getBaseUrl(): String {
         return "${super.getBaseUrl()}${BuildConfig.IDENTITY_PREFIX}"
     }
@@ -18,22 +18,23 @@ abstract class CIFNetwork<T>(context: Context):AuthAbstractNetwork<T>(context){
 }
 
 abstract class  AuthAbstractNetwork<T>(
-    var context: Context
-): BaseNetwork<T>(){
+    context: Context
+): BaseNetwork<T>(context){
     override fun getBaseUrl(): String = BuildConfig.BASE_URL
 
     override fun okHttpClientBuilder(builder: OkHttpClient.Builder): OkHttpClient.Builder {
-        return builder.authenticator(TokenAuthenticator(context))
+        return super.okHttpClientBuilder(builder)
+            .authenticator(TokenAuthenticator(context))
     }
 }
 
-abstract class  AbstractNetwork<T>(): BaseNetwork<T>(){
+abstract class  AbstractNetwork<T>(context:Context): BaseNetwork<T>(context){
     override fun getBaseUrl(): String {
         return BuildConfig.BASE_URL
     }
 }
 
-abstract class AbstractQuranNetwork<T>(): BaseNetwork<T>() {
+abstract class AbstractQuranNetwork<T>(context: Context): BaseNetwork<T>(context) {
 
     override fun getBaseUrl(): String = BuildConfig.BASE_QURAN_URL
 

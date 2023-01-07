@@ -37,7 +37,7 @@
             android:name=".ui.example.activity.LoginActivity"
             android:exported="false"></activity>
         <activity
-            android:name=".ui.notification.FullScreenNotification"
+            android:name=".ui.notification.FullScreenNotificationActivity"
             android:exported="true"
             android:showOnLockScreen="true">
             <intent-filter>
