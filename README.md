@@ -27,3 +27,14 @@ Data yang terambil di internet akan tersimpan oleh dao. Ketika melakukan fetch A
 Aplikasi ini menggunakan Download Manager dalam Foreground Service. Untuk update progress dalam notification, menggunakan Handler dan akan looping setiap 3 detik, untuk mengupdate progress sesuai NOTIFICATION_ID dalam Foreground Servicenya
 
 ![alt text](https://github.com/fadlurahmanf/starter_app_mvvm/blob/master/proof/download.jpg?raw=true)
+
+
+### Chucker / HTTP Inspector
+
+Aplikasi ini menggunakan [chucker](https://github.com/ChuckerTeam/chucker) library untuk melihat http request/response berdasarkan POV QA/Tester
+
+#### Chucker Activity
+![alt text](https://github.com/fadlurahmanf/starter_app_mvvm/blob/master/proof/chucker_1.jpg?raw=true)
+
+#### Chucker Detail
+![alt text](https://github.com/fadlurahmanf/starter_app_mvvm/blob/master/proof/chucker_2.jpg?raw=true)
