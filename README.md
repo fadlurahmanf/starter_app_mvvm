@@ -33,7 +33,13 @@ Aplikasi ini menggunakan Download Manager dalam Foreground Service. Untuk update
 
 Aplikasi ini menggunakan [chucker](https://github.com/ChuckerTeam/chucker) library untuk melihat http request/response berdasarkan POV QA/Tester
 
+#### Chucker Notification
+![alt text](https://github.com/fadlurahmanf/starter_app_mvvm/blob/master/proof/chucker_3.jpg?raw=true)
+
 #### Chucker Activity
+
+Shaking phone inside activity which extend BaseActivity to launch ChuckActivity
+
 ![alt text](https://github.com/fadlurahmanf/starter_app_mvvm/blob/master/proof/chucker_1.jpg?raw=true)
 
 #### Chucker Detail
