@@ -39,8 +39,6 @@ class DownloadNotificationHelper(var context: Context) {
         }
     }
 
-    private var notificationView:RemoteViews? = null
-    private var smallNotificationView: RemoteViews? = null
     fun prepareDownload(): Notification{
         createDownloadChannel()
         val builder = NotificationCompat.Builder(context, DOWNLOAD_CHANNEL_ID)

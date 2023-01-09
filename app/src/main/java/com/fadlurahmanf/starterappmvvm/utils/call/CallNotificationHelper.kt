@@ -1,4 +1,4 @@
-package com.fadlurahmanf.starterappmvvm.utils.notification
+package com.fadlurahmanf.starterappmvvm.utils.call
 
 import android.app.Notification
 import android.app.NotificationChannel
@@ -14,7 +14,7 @@ import com.fadlurahmanf.starterappmvvm.R
 import com.fadlurahmanf.starterappmvvm.ui.notification.FullScreenNotificationActivity
 import com.fadlurahmanf.starterappmvvm.ui.notification.FullScreenNotificationActivity.Companion.ACTION_ENDED_CALL
 
-class CallNotificationCallHelper(var context: Context) {
+class CallNotificationHelper(var context: Context) {
     companion object{
         const val CALL_CHANNEL_ID = "CALL_CHANNEL_ID"
         const val CALL_CHANNEL = "Call"
@@ -88,46 +88,46 @@ class CallNotificationCallHelper(var context: Context) {
             putInt(EXTRA_NOTIFICATION_ID, notificationId)
         }
         intent.apply {
-            putExtra(NotificationBroadcastReceiver.EXTRA_DATA, data)
+            putExtra(CallBroadcastReceiver.EXTRA_DATA, data)
         }
         return PendingIntent.getActivity(context, notificationId, intent, getFlagPendingIntent())
     }
 
     private fun getDeleteIntent(notificationId: Int):PendingIntent{
-        val intent = Intent(context, NotificationBroadcastReceiver::class.java)
+        val intent = Intent(context, CallBroadcastReceiver::class.java)
         val data = Bundle()
         data.apply {
             putInt(EXTRA_NOTIFICATION_ID, notificationId)
         }
         intent.apply {
-            action = NotificationBroadcastReceiver.ACTION_DECLINED_CALL
-            putExtra(NotificationBroadcastReceiver.EXTRA_DATA, data)
+            action = CallBroadcastReceiver.ACTION_DECLINED_CALL
+            putExtra(CallBroadcastReceiver.EXTRA_DATA, data)
         }
         return PendingIntent.getBroadcast(context, notificationId, intent, getFlagPendingIntent())
     }
 
     private fun getAcceptIntent(notificationId: Int): PendingIntent {
-        val intent = Intent(context, NotificationBroadcastReceiver::class.java)
+        val intent = Intent(context, CallBroadcastReceiver::class.java)
         val data = Bundle()
         data.apply {
             putInt(EXTRA_NOTIFICATION_ID, notificationId)
         }
         intent.apply {
-            action = NotificationBroadcastReceiver.ACTION_ACCEPT_CALL
-            putExtra(NotificationBroadcastReceiver.EXTRA_DATA, data)
+            action = CallBroadcastReceiver.ACTION_ACCEPT_CALL
+            putExtra(CallBroadcastReceiver.EXTRA_DATA, data)
         }
         return PendingIntent.getBroadcast(context, notificationId, intent, getFlagPendingIntent())
     }
 
     private fun getDeclinedIntent(notificationId:Int): PendingIntent {
-        val intent = Intent(context, NotificationBroadcastReceiver::class.java)
+        val intent = Intent(context, CallBroadcastReceiver::class.java)
         val data = Bundle()
         data.apply {
             putInt(EXTRA_NOTIFICATION_ID, notificationId)
         }
         intent.apply {
-            action = NotificationBroadcastReceiver.ACTION_DECLINED_CALL
-            putExtra(NotificationBroadcastReceiver.EXTRA_DATA, data)
+            action = CallBroadcastReceiver.ACTION_DECLINED_CALL
+            putExtra(CallBroadcastReceiver.EXTRA_DATA, data)
         }
         return PendingIntent.getBroadcast(context, notificationId, intent, getFlagPendingIntent())
     }

@@ -27,9 +27,9 @@ import com.fadlurahmanf.starterappmvvm.dto.model.core.PdfModel
 import com.fadlurahmanf.starterappmvvm.dto.model.core.PdfOrigin
 import com.fadlurahmanf.starterappmvvm.ui.core.activity.ImageViewerActivity
 import com.fadlurahmanf.starterappmvvm.ui.core.activity.PdfViewerActivity
-import com.fadlurahmanf.starterappmvvm.ui.webrtc.PrepareCallActivity
-import com.fadlurahmanf.starterappmvvm.utils.download.DownloadHelper
-import com.fadlurahmanf.starterappmvvm.utils.notification.NotificationBroadcastReceiver
+import com.fadlurahmanf.starterappmvvm.utils.download.DownloadService
+import com.fadlurahmanf.starterappmvvm.utils.media.MediaPlayerService
+import com.fadlurahmanf.starterappmvvm.utils.call.CallBroadcastReceiver
 import com.fadlurahmanf.starterappmvvm.utils.notification.NotificationHelper
 import java.util.*
 import javax.inject.Inject
@@ -165,7 +165,7 @@ class FirstExampleActivity : BaseActivity<ActivityFirstExampleBinding>(ActivityF
         }
 
         binding.btnShowNotif1Action.setOnClickListener {
-            val intent = Intent(this, NotificationBroadcastReceiver::class.java).apply {
+            val intent = Intent(this, CallBroadcastReceiver::class.java).apply {
                 action = "SNOOZE"
             }
             val snoozePendingIntent = PendingIntent.getBroadcast(this, 0, intent, FLAG_IMMUTABLE)
@@ -181,13 +181,13 @@ class FirstExampleActivity : BaseActivity<ActivityFirstExampleBinding>(ActivityF
         }
 
         binding.btnIncomingCallNotification.setOnClickListener {
-            NotificationBroadcastReceiver.sendBroadcastIncomingCall(this)
+            CallBroadcastReceiver.sendBroadcastIncomingCall(this)
         }
 
         binding.btnScheduleIncomingNotification.setOnClickListener {
             val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
             val calendar = Calendar.getInstance()
-            val p0Intent = NotificationBroadcastReceiver.getIntentIncomingCall(this)
+            val p0Intent = CallBroadcastReceiver.getIntentIncomingCall(this)
             calendar.add(Calendar.SECOND, 10)
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 alarmManager.setExactAndAllowWhileIdle(
@@ -199,27 +199,14 @@ class FirstExampleActivity : BaseActivity<ActivityFirstExampleBinding>(ActivityF
         }
 
         binding.btnDownload.setOnClickListener {
-            DownloadHelper.startService(
+            DownloadService.startService(
                 this,
-                101,
                 "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
             )
         }
 
-        binding.btnRemove.setOnClickListener {
-
-        }
-
-        binding.btnStartForgroundNotification.setOnClickListener {
-        }
-
-        binding.btnStopForgroundNotification.setOnClickListener {
-            DownloadHelper.stopService(this)
-        }
-
-        binding.btnPrepareCall.setOnClickListener {
-            val intent = Intent(this, PrepareCallActivity::class.java)
-            startActivity(intent)
+        binding.btnPlayAudioForeground.setOnClickListener {
+            MediaPlayerService.playAudio(this, "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3")
         }
     }
 

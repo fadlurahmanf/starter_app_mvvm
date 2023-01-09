@@ -11,7 +11,7 @@ import android.os.Bundle
 import android.view.WindowManager
 import android.widget.ImageView
 import com.fadlurahmanf.starterappmvvm.R
-import com.fadlurahmanf.starterappmvvm.utils.notification.NotificationBroadcastReceiver
+import com.fadlurahmanf.starterappmvvm.utils.call.CallBroadcastReceiver
 
 class FullScreenNotificationActivity : AppCompatActivity() {
     lateinit var acceptBtn:ImageView
@@ -27,12 +27,12 @@ class FullScreenNotificationActivity : AppCompatActivity() {
         registerReceiver(receiver, IntentFilter(ACTION_ENDED_CALL))
 
         acceptBtn.setOnClickListener {
-            NotificationBroadcastReceiver.sendBroadcastAcceptCall(this)
+            CallBroadcastReceiver.sendBroadcastAcceptCall(this)
             finish()
         }
 
         declinedBtn.setOnClickListener {
-            NotificationBroadcastReceiver.sendBroadcastDeclinedCall(this)
+            CallBroadcastReceiver.sendBroadcastDeclinedCall(this)
             finish()
         }
 

@@ -81,7 +81,7 @@
         </provider>
 
         <receiver
-            android:name=".utils.notification.NotificationBroadcastReceiver"
+            android:name=".utils.call.CallBroadcastReceiver"
             android:exported="true">
             <intent-filter>
                 <action android:name="com.fadlurahmanf.callkit.ACTION_CALL_INCOMING" />
@@ -92,9 +92,22 @@
         </receiver>
 
         <service
-            android:name=".utils.notification.NotificationPlayerService"
+            android:name=".utils.call.CallNotificationPlayerService"
             android:exported="true" />
-        <service android:name=".utils.download.DownloadHelper" />
+        <service android:name=".utils.download.DownloadService"
+            android:exported="true"/>
+
+        <service android:name=".utils.media.MediaPlayerService"
+            android:exported="true"/>
+
+        <receiver android:name=".utils.media.MediaPlayerReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.fadlurahmanf.mediaPlayer.ACTION_PAUSE"/>
+                <action android:name="com.fadlurahmanf.mediaPlayer.ACTION_RESUME"/>
+                <action android:name="com.fadlurahmanf.mediaPlayer.ACTION_STOP"/>
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

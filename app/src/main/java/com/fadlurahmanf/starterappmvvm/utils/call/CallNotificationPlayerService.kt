@@ -1,4 +1,4 @@
-package com.fadlurahmanf.starterappmvvm.utils.notification
+package com.fadlurahmanf.starterappmvvm.utils.call
 
 import android.app.Service
 import android.content.Context
@@ -9,7 +9,7 @@ import android.media.RingtoneManager
 import android.os.*
 import android.util.Log
 
-class NotificationPlayerService:Service() {
+class CallNotificationPlayerService:Service() {
     override fun onBind(intent: Intent?): IBinder? {
         return null
     }

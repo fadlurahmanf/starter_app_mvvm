@@ -11,10 +11,11 @@ import android.os.Handler
 import android.os.IBinder
 import android.os.Looper
 import androidx.core.content.ContextCompat
+import com.fadlurahmanf.starterappmvvm.constant.NotificationConstant
 import java.io.File
 import kotlin.random.Random
 
-class DownloadHelper:Service() {
+class DownloadService:Service() {
     private lateinit var downloadManager:DownloadManager
     private lateinit var notificationHelper:DownloadNotificationHelper
     private lateinit var handler: Handler
@@ -24,19 +25,18 @@ class DownloadHelper:Service() {
         const val DOWNLOAD_URL = "DOWNLOAD_URL"
         fun startService(
             context: Context,
-            notificationId:Int,
             url:String,
         ){
-            val intent = Intent(context, DownloadHelper::class.java)
+            val intent = Intent(context, DownloadService::class.java)
             intent.apply {
-                putExtra(DownloadNotificationHelper.EXTRA_NOTIFICATION_ID, notificationId)
+                putExtra(DownloadNotificationHelper.EXTRA_NOTIFICATION_ID, NotificationConstant.DOWNLOAD_NOTIFICATION_ID)
                 putExtra(DOWNLOAD_URL, url)
             }
             ContextCompat.startForegroundService(context, intent)
         }
 
         fun stopService(context: Context){
-            val intent = Intent(context, DownloadHelper::class.java)
+            val intent = Intent(context, DownloadService::class.java)
             context.stopService(intent)
         }
     }
