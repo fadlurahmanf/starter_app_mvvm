@@ -6,11 +6,14 @@ import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
 import android.os.Build
+import android.os.Bundle
+import android.support.v4.media.MediaMetadataCompat
 import android.support.v4.media.session.MediaSessionCompat
 import android.support.v4.media.session.PlaybackStateCompat
 import androidx.core.app.NotificationCompat
 import androidx.media.session.MediaButtonReceiver
 import com.fadlurahmanf.starterappmvvm.R
+import com.fadlurahmanf.starterappmvvm.utils.logging.logd
 
 class MediaPlayerNotificationHelper(
     var context: Context
@@ -19,6 +22,13 @@ class MediaPlayerNotificationHelper(
         const val MEDIA_PLAYER_CHANNEL_ID = "MEDIA_PLAYER_CHANNEL_ID"
         const val MEDIA_PLAYER_CHANNEL = "MEDIA_PLAYER_CHANNEL"
         const val MEDIA_PLAYER_CHANNEL_DESCRIPTION = "Media Player Notification"
+
+        const val STATE_PLAYING = "STATE_PLAYING"
+        const val STATE_PAUSED = "STATE_PAUSED"
+
+        const val EXTRA_STATE = "EXTRA_STATE"
+        const val EXTRA_DURATION_AUDIO = "EXTRA_DURATION_AUDIO"
+        const val EXTRA_CURRENT_POSITION = "EXTRA_CURRENT_POSITION"
     }
 
     init {
@@ -36,8 +46,29 @@ class MediaPlayerNotificationHelper(
         }
     }
 
-    private fun getBasedNotification(): NotificationCompat.Builder {
+    private fun getBasedNotification(data: Bundle): NotificationCompat.Builder {
+        val isPlay = (data.getString(EXTRA_STATE) == STATE_PLAYING)
+        val duration:Int = data.getInt(EXTRA_DURATION_AUDIO, 0)
+        val currentPosition = data.getInt(EXTRA_CURRENT_POSITION, 0)
+
         val mediaSession = MediaSessionCompat(context, "MediaPlayerService")
+        mediaSession.setPlaybackState(PlaybackStateCompat.Builder()
+                .setState(if (isPlay) PlaybackStateCompat.STATE_PLAYING else PlaybackStateCompat.STATE_PAUSED, currentPosition.toLong(), 1f)
+                .setActions(PlaybackStateCompat.ACTION_SEEK_TO)
+                .build())
+        mediaSession.setMetadata(MediaMetadataCompat.Builder()
+                .putString(MediaMetadataCompat.METADATA_KEY_TITLE, "Title")
+                .putString(MediaMetadataCompat.METADATA_KEY_ARTIST, "Artist")
+                .putLong(MediaMetadataCompat.METADATA_KEY_DURATION, duration.toLong())
+                .build())
+        mediaSession.setCallback(object : MediaSessionCompat.Callback() {
+            override fun onSeekTo(pos: Long) {
+                super.onSeekTo(pos)
+                logd("audioSeekTo: $pos")
+                val intent = MediaPlayerReceiver.getSeekToIntent(context, pos)
+                context.sendBroadcast(intent)
+            }
+        })
         val mediaStyle = androidx.media.app.NotificationCompat.MediaStyle()
             .setMediaSession(mediaSession.sessionToken)
             .setShowActionsInCompactView(0, 1, 2)
@@ -45,13 +76,11 @@ class MediaPlayerNotificationHelper(
             context,
             MEDIA_PLAYER_CHANNEL_ID
         ).setSmallIcon(R.drawable.il_logo_bankmas)
-            .setContentTitle("Track - Title")
-            .setContentText("Artist - Album")
             .setStyle(mediaStyle)
     }
 
-    fun getPlayedMediaNotification(): Notification {
-        return getBasedNotification()
+    fun getPlayedMediaNotification(data:Bundle): Notification {
+        return getBasedNotification(data)
             .addAction(NotificationCompat.Action(
                 R.drawable.ic_round_skip_previous,
                 "Previous",
@@ -71,8 +100,8 @@ class MediaPlayerNotificationHelper(
             .build()
     }
 
-    fun getPausedNotification(): Notification {
-        return getBasedNotification()
+    fun getPausedNotification(data: Bundle): Notification {
+        return getBasedNotification(data)
             .addAction(NotificationCompat.Action(
                 R.drawable.ic_round_skip_previous,
                 "Previous",

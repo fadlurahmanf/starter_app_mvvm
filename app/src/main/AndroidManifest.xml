@@ -106,6 +106,7 @@
                 <action android:name="com.fadlurahmanf.mediaPlayer.ACTION_PAUSE"/>
                 <action android:name="com.fadlurahmanf.mediaPlayer.ACTION_RESUME"/>
                 <action android:name="com.fadlurahmanf.mediaPlayer.ACTION_STOP"/>
+                <action android:name="com.fadlurahmanf.mediaPlayer.ACTION_SEEK_TO"/>
             </intent-filter>
         </receiver>
     </application>

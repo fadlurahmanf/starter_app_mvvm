@@ -12,6 +12,8 @@ class MediaPlayerReceiver:BroadcastReceiver() {
         const val ACTION_NEXT = "com.fadlurahmanf.mediaPlayer.ACTION_NEXT"
         const val ACTION_PREVIOUS = "com.fadlurahmanf.mediaPlayer.ACTION_PREVIOUS"
         const val ACTION_STOP = "com.fadlurahmanf.mediaPlayer.ACTION_STOP"
+        const val ACTION_SEEK_TO = "com.fadlurahmanf.mediaPlayer.ACTION_SEEK_TO"
+        const val SEEK_TO_POSITION = "SEEK_TO_POSITION"
 
         fun getResume(context: Context):Intent{
             val intent = Intent(context, MediaPlayerReceiver::class.java)
@@ -36,13 +38,23 @@ class MediaPlayerReceiver:BroadcastReceiver() {
             }
             return intent
         }
+
+        fun getSeekToIntent(context: Context, position:Long):Intent{
+            val intent = Intent(context, MediaPlayerReceiver::class.java)
+            intent.apply {
+                action = ACTION_SEEK_TO
+                putExtra(SEEK_TO_POSITION, position)
+            }
+            logd("receiver SeekTo $position")
+            return intent
+        }
     }
 
     override fun onReceive(context: Context?, intent: Intent?) {
         if(context == null) return
         val notifHelper = MediaPlayerNotificationHelper(context)
         val action = intent?.action
-        logd("masuk action ${action}")
+        logd("onReceive action $action")
         when(action){
             ACTION_PAUSE -> {
                 MediaPlayerService.pauseAudio(context)
@@ -52,6 +64,11 @@ class MediaPlayerReceiver:BroadcastReceiver() {
             }
             ACTION_STOP -> {
                 MediaPlayerService.stopAudio(context)
+            }
+            ACTION_SEEK_TO -> {
+                val seekToPosition = intent.getLongExtra(SEEK_TO_POSITION, 0L)
+                MediaPlayerService.seekMediaPlayer(context, seekToPosition)
+                logd("receiver ACTION SeekTo $seekToPosition")
             }
         }
     }
