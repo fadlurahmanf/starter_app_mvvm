@@ -7,6 +7,13 @@ import android.util.AttributeSet
 import android.view.View
 import androidx.annotation.RequiresApi
 
+/**
+ * Reference: [
+ * https://medium.com/@rey5137/let-s-drill-a-hole-in-your-view-e7f53fa23376
+ * https://stackoverflow.com/questions/18387814/drawing-on-canvas-porterduff-mode-clear-draws-black-why,
+ * https://www.google.com/url?sa=i&url=https%3A%2F%2Fblog.budiharso.info%2F2016%2F01%2F09%2FCreate-hole-in-android-view%2F&psig=AOvVaw1H6CAwEK6lTQtNTQQf4gRg&ust=1674365656463000&source=images&cd=vfe&ved=0CBEQjhxqFwoTCJjzlKP41_wCFQAAAAAdAAAAABAE
+ * ]
+ * */
 class QrisOverlayView(context: Context, attrs: AttributeSet): View(context, attrs){
 
     @RequiresApi(Build.VERSION_CODES.Q)
