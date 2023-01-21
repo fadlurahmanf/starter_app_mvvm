@@ -31,8 +31,7 @@ class QrisOverlayView(context: Context, attrs: AttributeSet): View(context, attr
 
         val width = width.toFloat() - viewportMargin
         val height = width * 0.7.toFloat()
-        val rect = RectF(viewportMargin.toFloat(), viewportMargin.toFloat(), width, height)
-        val frame = RectF(viewportMargin.toFloat() - 2, viewportMargin.toFloat() - 2, width + 4, height + 4)
+        val frame = RectF(viewportMargin.toFloat() - 2, viewportMargin.toFloat() + 250, width + 4, height + 250)
         val path = Path()
         val stroke = Paint()
         stroke.isAntiAlias = true

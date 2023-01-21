@@ -1,5 +1,6 @@
 package com.fadlurahmanf.starterappmvvm.ui.example.activity
 
+import android.content.Intent
 import androidx.camera.core.CameraSelector
 import androidx.camera.core.ImageAnalysis
 import androidx.camera.core.ImageAnalysis.STRATEGY_KEEP_ONLY_LATEST
@@ -22,8 +23,25 @@ class QrisActivity : BaseActivity<ActivityQrisBinding>(ActivityQrisBinding::infl
         startCamera()
     }
 
+    private var isSuccessGetQris = false
+
     private fun startCamera() {
         val cameraProviderFuture = ProcessCameraProvider.getInstance(this)
+        val qrisListener = object : QRCodeAnalyzer.QrisListener{
+            override fun onSuccessGetQris(value: String) {
+                if (!isSuccessGetQris){
+                    isSuccessGetQris = true
+                    val intent = Intent(this@QrisActivity, FirstExampleActivity::class.java)
+                    startActivity(intent)
+                }
+            }
+
+            override fun onFailedGetQris(exception: java.lang.Exception) {
+
+            }
+        }
+
+
         cameraProviderFuture.addListener({
             val cameraProvider = cameraProviderFuture.get()
             val preview = Preview.Builder()
@@ -36,7 +54,7 @@ class QrisActivity : BaseActivity<ActivityQrisBinding>(ActivityQrisBinding::infl
                 .setBackpressureStrategy(STRATEGY_KEEP_ONLY_LATEST)
                 .build()
                 .also {
-                    it.setAnalyzer(cameraExecutor, QRCodeAnalyzer())
+                    it.setAnalyzer(cameraExecutor, QRCodeAnalyzer(qrisListener))
                 }
 
             val cameraSelector = CameraSelector.DEFAULT_BACK_CAMERA
