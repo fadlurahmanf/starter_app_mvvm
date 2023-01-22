@@ -21,6 +21,12 @@ def PRIVATE_KEY_STAGING = localProperties.getProperty("PRIVATE_KEY_STAGING")
 def PUBLIC_KEY_PRODUCTION = localProperties.getProperty("PUBLIC_KEY_PRODUCTION")
 def PRIVATE_KEY_PRODUCTION = localProperties.getProperty("PRIVATE_KEY_PRODUCTION")
 
+def keystoreProperties = new Properties()
+def keystorePropertiesFile = rootProject.file('key.properties')
+if (keystorePropertiesFile.exists()) {
+    keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+}
+
 android {
     compileSdkVersion 33
     buildToolsVersion "30.0.3"
@@ -29,7 +35,7 @@ android {
         applicationId "com.fadlurahmanf.starterappmvvm"
         minSdkVersion 21
         targetSdkVersion 33
-        versionCode 1
+        versionCode 5
         versionName "0.1.0"
         multiDexEnabled true
 
@@ -43,8 +49,17 @@ android {
         viewBinding true
     }
 
+    signingConfigs {
+        release {
+            storeFile file('../keystore.jks')
+            keyAlias keystoreProperties['keyAlias']
+            keyPassword keystoreProperties['keyPassword']
+            storePassword keystoreProperties['storePassword']
+        }
+    }
     buildTypes {
         release {
+            signingConfig signingConfigs.release
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
