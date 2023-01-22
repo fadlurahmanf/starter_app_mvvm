@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">starter app mvvm</string>
+    <string name="change_language">Change Language</string>
+    <string name="exception_unauthorized">token tidak valid</string>
     <string name="exception_offline">Seems like you didn\'t have connection. Please try gain later</string>
     <string name="exception_general">something happened, please try again later</string>
 </resources>

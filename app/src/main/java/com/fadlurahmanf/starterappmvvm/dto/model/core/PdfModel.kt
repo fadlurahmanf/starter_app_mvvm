@@ -1,4 +1,4 @@
-package com.fadlurahmanf.starterappmvvm.dto.model
+package com.fadlurahmanf.starterappmvvm.dto.model.core
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize

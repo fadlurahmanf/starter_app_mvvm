@@ -2,6 +2,7 @@ package com.fadlurahmanf.starterappmvvm.core.helper
 
 import android.os.Build
 import com.fadlurahmanf.starterappmvvm.BuildConfig
+import com.fadlurahmanf.starterappmvvm.constant.BuildTypeConstant
 import java.security.*
 import java.security.spec.PKCS8EncodedKeySpec
 import java.security.spec.X509EncodedKeySpec
@@ -36,17 +37,11 @@ class RSAHelper {
         lateinit var publicKey: PublicKey
         lateinit var privateKey: PrivateKey
 
-        private var encodedPublicKey = when (BuildConfig.BUILD_TYPE) {
-            "release" -> "BuildConfig.PUBLIC_KEY_PRODUCTION"
-            "staging" -> "BuildConfig.PUBLIC_KEY_STAGING"
-            else -> BuildConfig.PUBLIC_KEY_DEV
-        }
-        private var encodedPrivateKey = when (BuildConfig.BUILD_TYPE) {
-            "release" -> "BuildConfig.PRIVATE_KEY_PRODUCTION"
-            "staging" -> "BuildConfig.PRIVATE_KEY_STAGING"
-            else -> BuildConfig.PRIVATE_KEY_DEV
-        }
-        fun generateKey(method: METHOD): KeyPair {
+        private var encodedPublicKey = BuildConfig.PUBLIC_KEY
+
+        private var encodedPrivateKey = BuildConfig.PRIVATE_KEY
+
+        fun generateKey(method: METHOD = METHOD.PKCS1PEM): KeyPair {
             this.method = method
             val keyGen = KeyPairGenerator.getInstance("RSA")
             keyGen.initialize(1024)
@@ -62,12 +57,10 @@ class RSAHelper {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                         val mEncoded = Base64.getEncoder().encodeToString(publicKey.encoded)
                         val mPublicKeyString = "${PKCS1PEM_PREFIX_PUBLIC}\n${mEncoded}\n${PKCS1PEM_SUFFIX_PUBLIC}"
-                        println("publicKey: $mPublicKeyString")
                         mPublicKeyString
                     } else {
                         val mEncoded = android.util.Base64.encodeToString(publicKey.encoded, android.util.Base64.DEFAULT)
                         val mPublicKeyString = "${PKCS1PEM_PREFIX_PUBLIC}\n${mEncoded}\n${PKCS1PEM_SUFFIX_PUBLIC}"
-                        println("publicKey: $mPublicKeyString")
                         mPublicKeyString
                     }
                 }
@@ -75,12 +68,10 @@ class RSAHelper {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                         val mEncoded = Base64.getEncoder().encodeToString(publicKey.encoded)
                         val mPublicKeyString = "${PKCS8PEM_PREFIX_PUBLIC}\n${mEncoded}\n${PKCS8PEM_SUFFIX_PUBLIC}"
-                        println("publicKey: $mPublicKeyString")
                         mPublicKeyString
                     } else {
                         val mEncoded = android.util.Base64.encodeToString(publicKey.encoded, android.util.Base64.DEFAULT)
                         val mPublicKeyString = "${PKCS8PEM_PREFIX_PUBLIC}\n${mEncoded}\n${PKCS8PEM_SUFFIX_PUBLIC}"
-                        println("publicKey: $mPublicKeyString")
                         mPublicKeyString
                     }
                 }
@@ -92,88 +83,81 @@ class RSAHelper {
                 METHOD.PKCS1PEM -> {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                         val mEncoded = Base64.getEncoder().encodeToString(privateKey.encoded)
-                        val mPrivateKeyString = "${PKCS1PEM_PREFIX_PRIVATE}\n${mEncoded}\n${PKCS1PEM_SUFFIX_PRIVATE}"
-                        println("privateKey: $mPrivateKeyString")
-                        return mPrivateKeyString
+                        return "$PKCS1PEM_PREFIX_PRIVATE\n${mEncoded}\n$PKCS1PEM_SUFFIX_PRIVATE"
                     } else {
-                        val mEncoded = android.util.Base64.encodeToString(privateKey.encoded, android.util.Base64.DEFAULT)
-                        val mPrivateKeyString = "${PKCS1PEM_PREFIX_PRIVATE}\n${mEncoded}\n${PKCS1PEM_SUFFIX_PRIVATE}"
-                        println("privateKey: $mPrivateKeyString")
-                        return mPrivateKeyString
+                        val mEncoded = android.util.Base64.encodeToString(
+                            privateKey.encoded,
+                            android.util.Base64.DEFAULT
+                        )
+                        return "$PKCS1PEM_PREFIX_PRIVATE\n${mEncoded}\n$PKCS1PEM_SUFFIX_PRIVATE"
                     }
                 }
                 else -> {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                         val mEncoded = Base64.getEncoder().encodeToString(privateKey.encoded)
-                        val mPrivateKeyString = "${PKCS1PEM_PREFIX_PRIVATE}\n${mEncoded}\n${PKCS1PEM_SUFFIX_PRIVATE}"
-                        println("privateKey: $mPrivateKeyString")
-                        return mPrivateKeyString
+                        return "$PKCS1PEM_PREFIX_PRIVATE\n${mEncoded}\n$PKCS1PEM_SUFFIX_PRIVATE"
                     } else {
-                        val mEncoded = android.util.Base64.encodeToString(privateKey.encoded, android.util.Base64.DEFAULT)
-                        val mPrivateKeyString = "${PKCS8PEM_PREFIX_PRIVATE}\n${mEncoded}\n${PKCS8PEM_SUFFIX_PRIVATE}"
-                        println("privateKey: $mPrivateKeyString")
-                        return mPrivateKeyString
+                        val mEncoded = android.util.Base64.encodeToString(
+                            privateKey.encoded,
+                            android.util.Base64.DEFAULT
+                        )
+                        return "$PKCS8PEM_PREFIX_PRIVATE\n${mEncoded}\n$PKCS8PEM_SUFFIX_PRIVATE"
                     }
                 }
             }
         }
 
         private fun loadPublicKey(): PublicKey? {
-            return when(method){
-                METHOD.PKCS1PEM -> {
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                        val mKey = encodedPublicKey
-                        val data = Base64.getDecoder().decode(mKey.toByteArray())
-                        val spec = X509EncodedKeySpec(data)
-                        val fact: KeyFactory = KeyFactory.getInstance("RSA")
-                        return fact.generatePublic(spec)
-                    }else{
-                        return null
-                    }
-                }
-                else -> {
-                    null
-                }
+            return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                val mKey = encodedPublicKey
+                val data = Base64.getDecoder().decode(mKey.toByteArray())
+                val spec = X509EncodedKeySpec(data)
+                val fact: KeyFactory = KeyFactory.getInstance("RSA")
+                fact.generatePublic(spec)
+            } else {
+                val mKey = encodedPublicKey
+                val data = android.util.Base64.decode(mKey.toByteArray(), android.util.Base64.DEFAULT)
+                val spec = X509EncodedKeySpec(data)
+                val fact: KeyFactory = KeyFactory.getInstance("RSA")
+                fact.generatePublic(spec)
             }
         }
 
         private fun loadPrivateKey():PrivateKey? {
-            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+            return if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
                 val mKey = encodedPrivateKey
                 val data = Base64.getDecoder().decode(mKey.toByteArray())
                 val spec = PKCS8EncodedKeySpec(data)
                 val fact: KeyFactory = KeyFactory.getInstance("RSA")
-                return fact.generatePrivate(spec)
+                fact.generatePrivate(spec)
             }else{
                 val mKey = encodedPrivateKey
                 val data = android.util.Base64.decode(mKey.toByteArray(), android.util.Base64.DEFAULT)
                 val spec = PKCS8EncodedKeySpec(data)
                 val fact: KeyFactory = KeyFactory.getInstance("RSA")
-                return fact.generatePrivate(spec)
+                fact.generatePrivate(spec)
             }
         }
 
-        fun encrypt(plainText:String, method: METHOD = METHOD.PKCS1PEM):String?{
-            this.method = method
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+        fun encrypt(plainText:String):String?{
+            return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 val cipher = Cipher.getInstance("RSA/ECB/PKCS1Padding")
                 cipher.init(Cipher.ENCRYPT_MODE, loadPublicKey())
                 val encryptedBytes = cipher.doFinal(plainText.toByteArray());
-                return Base64.getEncoder().encodeToString(encryptedBytes)
+                Base64.getEncoder().encodeToString(encryptedBytes)
             } else {
-                return null
+                null
             }
         }
 
 
-        fun decrypt(encrypted:String, method: METHOD = METHOD.PKCS1PEM):String?{
-            this.method = method
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+        fun decrypt(encrypted:String):String?{
+            return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 val cipher = Cipher.getInstance("RSA/ECB/PKCS1Padding")
                 cipher.init(Cipher.DECRYPT_MODE, loadPrivateKey());
-                return String(cipher.doFinal(Base64.getDecoder().decode(encrypted)))
+                String(cipher.doFinal(Base64.getDecoder().decode(encrypted)))
             } else {
-                return null
+                null
             }
         }
     }

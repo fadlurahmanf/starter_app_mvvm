@@ -3,7 +3,17 @@
     package="com.fadlurahmanf.starterappmvvm">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.USE_FULL_SCREEN_INTENT" />
+    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
+    <uses-permission android:name="android.permission.USE_EXACT_ALARM" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+
+    <uses-feature android:name="android.hardware.camera.any"/>
+    <uses-feature android:name="android.hardware.camera.autofocus" />
 
     <application
         android:name=".BaseApp"
@@ -15,6 +25,39 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.StarterAppMvvm"
         android:usesCleartextTraffic="true">
+        <activity
+            android:name=".ui.example.activity.QrisActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".ui.webrtc.PrepareCallActivity"
+            android:exported="false"/>
+        <activity
+            android:name=".ui.example.activity.CallActivity"
+            android:exported="true" />
+        <activity
+            android:name=".ui.example.activity.ExampleEncryptDecryptActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.example.activity.AfterLoginActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.example.activity.LoginActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.notification.FullScreenNotificationActivity"
+            android:exported="true"
+            android:showOnLockScreen="true">
+            <intent-filter>
+                <action android:name="com.fadlurahmanf.callkit.ACTION_CALL_INCOMING" />
+                <action android:name="com.fadlurahmanf.callkit.ACTION_ACCEPT_CALL" />
+                <action android:name="com.fadlurahmanf.callkit.ACTION_DECLINED_CALL" />
+                <action android:name="com.fadlurahmanf.callkit.ACTION_ENDED_CALL" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".ui.example.activity.SecondExampleActivity"
             android:exported="false" />
@@ -47,6 +90,45 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/provider_paths" />
         </provider>
+
+        <receiver
+            android:name=".utils.call.CallBroadcastReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.fadlurahmanf.callkit.ACTION_CALL_INCOMING" />
+                <action android:name="com.fadlurahmanf.callkit.ACTION_ACCEPT_CALL" />
+                <action android:name="com.fadlurahmanf.callkit.ACTION_DECLINED_CALL" />
+                <action android:name="com.fadlurahmanf.callkit.ACTION_ENDED_CALL" />
+            </intent-filter>
+        </receiver>
+
+        <service
+            android:name=".utils.call.CallNotificationPlayerService"
+            android:exported="true" />
+        <service
+            android:name=".utils.download.DownloadService"
+            android:exported="true" />
+        <service
+            android:name=".utils.media.MediaPlayerService"
+            android:exported="true" />
+
+        <receiver
+            android:name=".utils.media.MediaPlayerReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.fadlurahmanf.mediaPlayer.ACTION_PAUSE" />
+                <action android:name="com.fadlurahmanf.mediaPlayer.ACTION_RESUME" />
+                <action android:name="com.fadlurahmanf.mediaPlayer.ACTION_STOP" />
+                <action android:name="com.fadlurahmanf.mediaPlayer.ACTION_SEEK_TO" />
+            </intent-filter>
+        </receiver>
+
+        <service android:name=".utils.fcm.FCMHelper"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
     </application>
 
 </manifest>

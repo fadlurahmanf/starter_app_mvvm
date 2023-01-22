@@ -1,6 +1,12 @@
 package com.fadlurahmanf.starterappmvvm.network
 
+import android.content.Context
 import androidx.annotation.Nullable
+import com.chuckerteam.chucker.api.ChuckerCollector
+import com.chuckerteam.chucker.api.ChuckerInterceptor
+import com.chuckerteam.chucker.api.RetentionManager
+import com.fadlurahmanf.starterappmvvm.BuildConfig
+import com.fadlurahmanf.starterappmvvm.constant.BuildTypeConstant
 import com.fadlurahmanf.starterappmvvm.network.interceptor.ContentTypeInterceptor
 import com.fadlurahmanf.starterappmvvm.network.interceptor.ExceptionInterceptor
 import okhttp3.OkHttpClient
@@ -10,18 +16,38 @@ import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
-abstract class BaseNetwork<T>() {
+abstract class BaseNetwork<T>(var context: Context) {
 
     @Nullable
     var service:T ?= null
 
     private fun loggingInterceptor(): HttpLoggingInterceptor {
-        return HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
+        return HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.HEADERS)
+            .setLevel(HttpLoggingInterceptor.Level.BODY)
+    }
+
+    private val type:String = BuildConfig.BUILD_TYPE
+    private fun chuckerInterceptor(): ChuckerInterceptor {
+
+        val chuckerCollector = ChuckerCollector(
+            context = context,
+            showNotification = type == BuildTypeConstant.dev,
+            retentionPeriod = RetentionManager.Period.ONE_HOUR
+        )
+
+        return ChuckerInterceptor.Builder(context)
+            .collector(chuckerCollector)
+            .maxContentLength(Long.MAX_VALUE)
+            .alwaysReadResponseBody(true)
+            .build()
     }
 
     open fun okHttpClientBuilder(builder: OkHttpClient.Builder): OkHttpClient.Builder{
-        return builder.addInterceptor(loggingInterceptor())
-            .addInterceptor(ContentTypeInterceptor())
+        val p0 = builder.addInterceptor(loggingInterceptor())
+        if (type != BuildTypeConstant.production){
+            p0.addInterceptor(chuckerInterceptor())
+        }
+        return p0.addInterceptor(ContentTypeInterceptor())
             .addInterceptor(ExceptionInterceptor())
     }
 
