@@ -55,10 +55,12 @@ jobs:
         run: echo PRIVATE_KEY_PRODUCTION=\"${{ secrets.PRIVATE_KEY_PRODUCTION }}\" >> local.properties
       - name: CHECK LOCAL PROPERTIES
         run: cat local.properties
-#      - name: CLEAN GRADLE
-#        run: ./gradlew clean
-      - name: START UNIT TESTING
-        run: ./gradlew test
+      - name: Setup Gradle
+        uses: gradle/gradle-build-action@v2
+      - name: CLEAN GRADLE
+        run: ./gradlew clean
+#      - name: START UNIT TESTING
+#        run: ./gradlew test
 #      - name: BUILD APK
 #        run: ./gradlew assembleDebug
 #      - name: UPLOAD ARTIFACT APK
