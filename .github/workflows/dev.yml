@@ -59,7 +59,7 @@ jobs:
           CIF_PREFIX: ${{ vars.CIF_PREFIX }}
         run: |
           - echo IDENTITY_PREFIX=\"${{ vars.IDENTITY_PREFIX }}\" >> local.properties
-          - echo CIF_PREFIX=\"${{ vars.CIF_PREFIX }}\" >> local.properties
+#          - echo CIF_PREFIX=\"${{ vars.CIF_PREFIX }}\" >> local.properties
       - name: CHECK LOCAL PROPERTIES
         run: cat local.properties
       - name: Setup Gradle
