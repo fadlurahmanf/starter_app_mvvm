@@ -92,3 +92,10 @@ jobs:
           artifacts: app/build/outputs/apk/dev/release/app-dev-release-unsigned.apk
           tag: v${{ steps.apk-info.outputs.version-name }}(${{ steps.apk-info.outputs.version-code }})-${{ github.run_number }}
           token: ${{ secrets.TOKEN_CI_CD }}
+      - name: upload artifact to Firebase App Distribution
+        uses: wzieba/Firebase-Distribution-Github-Action@v1
+        with:
+          appId: ${{ secrets.FIREBASE_APP_ID_DEV }}
+          serviceCredentialsFileContent: ${{ secrets.SECRET_FILE_CONTENT }}
+          groups: testers
+          file: app/build/outputs/apk/dev/release/app-dev-release-unsigned.apk
