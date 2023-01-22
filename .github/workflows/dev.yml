@@ -82,7 +82,7 @@ jobs:
         run: ./gradlew test
       - name: BUILD DEV APK
         run: ./gradlew assembleDevRelease
-      - name: BUILD APK FLAVOR DEV RELEASE
+      - name: UPLOAD APK FLAVOR DEV RELEASE
         uses: actions/upload-artifact@v1
         with:
           name: apk
