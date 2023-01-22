@@ -31,8 +31,9 @@ class QrisActivity : BaseActivity<ActivityQrisBinding>(ActivityQrisBinding::infl
             override fun onSuccessGetQris(value: String) {
                 if (!isSuccessGetQris){
                     isSuccessGetQris = true
-                    val intent = Intent(this@QrisActivity, FirstExampleActivity::class.java)
-                    startActivity(intent)
+                    val intent = Intent()
+                    intent.putExtra("RESULT", value)
+                    setResult(RESULT_OK, intent)
                 }
             }
 
@@ -60,7 +61,6 @@ class QrisActivity : BaseActivity<ActivityQrisBinding>(ActivityQrisBinding::infl
             val cameraSelector = CameraSelector.DEFAULT_BACK_CAMERA
             try {
                 cameraProvider.unbindAll()
-
                 cameraProvider.bindToLifecycle(
                     this, cameraSelector, preview, imageAnalyzer
                 )

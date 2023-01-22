@@ -8,6 +8,10 @@ import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
 import android.os.Build
+import androidx.activity.result.ActivityResultCallback
+import androidx.activity.result.contract.ActivityResultContract
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.camera.core.ExperimentalGetImage
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import com.bumptech.glide.Glide
@@ -35,7 +39,7 @@ import java.util.*
 import javax.inject.Inject
 import kotlin.random.Random
 
-
+@ExperimentalGetImage
 class FirstExampleActivity : BaseActivity<ActivityFirstExampleBinding>(ActivityFirstExampleBinding::inflate) {
     lateinit var component:ExampleComponent
 
@@ -118,7 +122,7 @@ class FirstExampleActivity : BaseActivity<ActivityFirstExampleBinding>(ActivityF
         }
 
         val pendingIntentFlag = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
-            PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
+            FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
         }else{
             PendingIntent.FLAG_UPDATE_CURRENT
         }
@@ -185,7 +189,7 @@ class FirstExampleActivity : BaseActivity<ActivityFirstExampleBinding>(ActivityF
         }
 
         binding.btnScheduleIncomingNotification.setOnClickListener {
-            val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
+            val alarmManager = getSystemService(ALARM_SERVICE) as AlarmManager
             val calendar = Calendar.getInstance()
             val p0Intent = CallBroadcastReceiver.getIntentIncomingCall(this)
             calendar.add(Calendar.SECOND, 10)
@@ -193,7 +197,7 @@ class FirstExampleActivity : BaseActivity<ActivityFirstExampleBinding>(ActivityF
                 alarmManager.setExactAndAllowWhileIdle(
                     AlarmManager.RTC,
                     calendar.timeInMillis,
-                    PendingIntent.getBroadcast(this, 1, p0Intent, PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT)
+                    PendingIntent.getBroadcast(this, 1, p0Intent, FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT)
                 )
             }
         }
@@ -208,13 +212,33 @@ class FirstExampleActivity : BaseActivity<ActivityFirstExampleBinding>(ActivityF
         binding.btnPlayAudioForeground.setOnClickListener {
             MediaPlayerService.playAudio(this, "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3")
         }
+
+        binding.btnQris.setOnClickListener {
+            cameraPermissionLauncher.launch(android.Manifest.permission.CAMERA)
+        }
     }
+
+    private var cameraPermissionLauncher = registerForActivityResult(
+        ActivityResultContracts.RequestPermission(),
+        ActivityResultCallback {
+            val intent = Intent(this, QrisActivity::class.java)
+            qrisActivityLauncher.launch(intent)
+        }
+    )
+
+    private var qrisActivityLauncher = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult(),
+        ActivityResultCallback {
+            if (it.resultCode == RESULT_OK){
+                showSnackBar(binding.root, it.data?.getStringExtra("RESULT") ?: "NULL")
+            }
+        }
+    )
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if(resultCode == RESULT_OK && requestCode == 111){
             val uri = data!!.data
-
             val intent = Intent(this, PdfViewerActivity::class.java)
             intent.putExtra(PdfViewerActivity.PDF, PdfModel(origin = PdfOrigin.FILE, path = uri.toString()))
             startActivity(intent)

@@ -34,7 +34,7 @@
         </activity>
         <activity
             android:name=".ui.webrtc.PrepareCallActivity"
-            android:exported="false"></activity>
+            android:exported="false"/>
         <activity
             android:name=".ui.example.activity.CallActivity"
             android:exported="true" />
@@ -122,6 +122,8 @@
                 <action android:name="com.fadlurahmanf.mediaPlayer.ACTION_SEEK_TO" />
             </intent-filter>
         </receiver>
+
+        <service android:name=".utils.fcm.FCMHelper"/>
     </application>
 
 </manifest>

@@ -1,6 +1,7 @@
 package com.fadlurahmanf.starterappmvvm.ui
 
 import android.content.Intent
+import androidx.camera.core.ExperimentalGetImage
 import com.fadlurahmanf.starterappmvvm.BaseApp
 import com.fadlurahmanf.starterappmvvm.BuildConfig
 import com.fadlurahmanf.starterappmvvm.base.BaseActivity
@@ -9,11 +10,13 @@ import com.fadlurahmanf.starterappmvvm.data.storage.example.LanguageSpStorage
 import com.fadlurahmanf.starterappmvvm.databinding.ActivitySplashBinding
 import com.fadlurahmanf.starterappmvvm.di.component.CoreComponent
 import com.fadlurahmanf.starterappmvvm.ui.example.activity.FirstExampleActivity
+import com.fadlurahmanf.starterappmvvm.utils.logging.logd
 import java.util.*
 import javax.inject.Inject
 import kotlin.concurrent.schedule
 
 
+@ExperimentalGetImage
 class SplashActivity : BaseActivity<ActivitySplashBinding>(ActivitySplashBinding::inflate) {
     lateinit var component:CoreComponent
 

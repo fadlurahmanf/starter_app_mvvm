@@ -3,6 +3,7 @@ plugins {
     id 'kotlin-android'
     id 'kotlin-kapt'
     id 'kotlin-parcelize'
+    id 'com.google.gms.google-services'
 }
 
 def localProperties = new Properties()
@@ -48,18 +49,23 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            buildConfigField "String", "BASE_URL", BASE_PRODUCTION_URL
         }
         debug {
-            applicationIdSuffix ".debug"
             debuggable true
+        }
+    }
+    flavorDimensions += "version"
+    productFlavors {
+        dev {
+            applicationIdSuffix ".dev"
             buildConfigField "String", "BASE_URL", BASE_DEV_URL
         }
         staging {
-            initWith debug
             applicationIdSuffix ".staging"
             buildConfigField "String", "BASE_URL", BASE_STAGING_URL
-
+        }
+        production {
+            buildConfigField "String", "BASE_URL", BASE_PRODUCTION_URL
         }
     }
     compileOptions {
@@ -117,7 +123,7 @@ dependencies {
     implementation("androidx.room:room-runtime:$room_version")
     kapt("androidx.room:room-compiler:$room_version")
     implementation("androidx.room:room-ktx:$room_version")
-    implementation("androidx.room:room-paging:2.4.3")
+    implementation("androidx.room:room-paging:$room_version")
     implementation "androidx.room:room-rxjava3:$room_version"
 
     // web rtc
@@ -131,10 +137,11 @@ dependencies {
     def lifecycle_version = "2.5.1"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
 
-    def camerax_version = "1.0.1"
+    def camerax_version = "1.2.0"
     implementation "androidx.camera:camera-camera2:$camerax_version"
     implementation "androidx.camera:camera-lifecycle:$camerax_version"
     implementation "androidx.camera:camera-view:1.0.0-alpha28"
     implementation 'com.google.mlkit:barcode-scanning:17.0.3'
 
+    implementation("com.google.firebase:firebase-messaging:23.1.1")
 }
