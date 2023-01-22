@@ -66,12 +66,12 @@ jobs:
         uses: gradle/gradle-build-action@v2
         with:
           gradle-version: 7.4
-      - name: CLEAN GRADLE
+      - name: CLEAN BUILD
         run: ./gradlew clean
-#      - name: START UNIT TESTING
-#        run: ./gradlew test
-#      - name: BUILD APK
-#        run: ./gradlew assembleDebug
+      - name: START UNIT TESTING
+        run: ./gradlew test
+      - name: BUILD DEV APK
+        run: ./gradlew assembleDevRelease
 #      - name: UPLOAD ARTIFACT APK
 #        uses: actions/upload-artifact@v1
 #        with:
