@@ -24,11 +24,11 @@ jobs:
       - name: CONFIG BASE STAGING URL
         env:
           STAGING_URL: ${{ secrets.BASE_STAGING_URL }}
-        run: echo BASE_STAGING_URL=\"${{ secrets.BASE_STAGING_URL }}\" >> local.properties
+        run: echo STAGING_URL=\"${{ secrets.BASE_STAGING_URL }}\" >> local.properties
       - name: CONFIG BASE PRODUCTION URL
         env:
           PRODUCTION_URL: ${{ secrets.BASE_PRODUCTION_URL }}
-        run: echo BASE_PRODUCTION_URL=\"${{ secrets.BASE_PRODUCTION_URL }}\" >> local.properties
+        run: echo PRODUCTION_URL=\"${{ secrets.BASE_PRODUCTION_URL }}\" >> local.properties
       - name: CONFIG PUBLIC KEY DEV
         env:
           PUBLIC_KEY_DEV: ${{ secrets.PUBLIC_KEY_DEV }}
