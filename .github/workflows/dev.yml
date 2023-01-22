@@ -20,7 +20,7 @@ jobs:
       - name: CONFIG BASE DEV URL
         env:
           DEV_URL: ${{ secrets.BASE_DEV_URL }}
-        run: echo BASE_DEV_URL=\"${{ secrets.BASE_DEV_URL }}\" >> local.properties
+        run: echo DEV_URL=\"${{ secrets.BASE_DEV_URL }}\" >> local.properties
       - name: CONFIG BASE STAGING URL
         env:
           STAGING_URL: ${{ secrets.BASE_STAGING_URL }}
