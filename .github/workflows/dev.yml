@@ -86,12 +86,12 @@ jobs:
         uses: actions/upload-artifact@v1
         with:
           name: apk
-          path: app/dev/release/app-dev-release.apk
+          path: app/build/outputs/apk/dev/release/app-dev-release.apk
       - name: GET APK INFO
         id: apk-info
         uses: hkusu/apk-info-action@v1
         with:
-          apk-path: app/dev/release/app-dev-release.apk
+          apk-path: app/build/outputs/apk/dev/release/app-dev-release.apk
       - name: PRINT APK INFO
         run: |
           echo '${{ steps.apk-info.outputs.version-name }}'
@@ -99,7 +99,7 @@ jobs:
       - name: UPLOAD APK TO GITHUB RELEASE
         uses: ncipollo/release-action@v1
         with:
-          artifacts: app/dev/release/app-dev-release.apk
+          artifacts: app/build/outputs/apk/dev/release/app-dev-release.apk
           tag: v${{ steps.apk-info.outputs.version-name }}(${{ steps.apk-info.outputs.version-code }})-${{ github.run_number }}
           token: ${{ secrets.TOKEN_CI_CD }}
       - name: UPLOAD APK TO FIREBASE DISTRIBUTION
@@ -108,4 +108,4 @@ jobs:
           appId: ${{ secrets.FIREBASE_APP_ID_DEV }}
           serviceCredentialsFileContent: ${{ secrets.SECRET_FILE_CONTENT }}
           groups: testers
-          file: app/dev/release/app-dev-release.apk
+          file: app/build/outputs/apk/dev/release/app-dev-release.apk
