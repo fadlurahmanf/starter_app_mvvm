@@ -19,7 +19,7 @@ jobs:
         run: echo BASE_QURAN_URL=\"${{ secrets.BASE_QURAN_URL }}\" >> local.properties
       - name: CONFIG BASE DEV URL
         env:
-          BASE_DEV_URL: ${{ secrets.BASE_DEV_URL }}
+          DEV_URL: ${{ secrets.BASE_DEV_URL }}
         run: echo BASE_DEV_URL=\"${{ secrets.BASE_DEV_URL }}\" >> local.properties
       - name: CONFIG BASE STAGING URL
         env:
