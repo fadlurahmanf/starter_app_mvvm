@@ -52,7 +52,7 @@ class CallNotificationHelper(var context: Context) {
         builder.setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
         builder.setOngoing(true)
         builder.setWhen(0)
-        builder.setTimeoutAfter(5000L)
+        builder.setTimeoutAfter(60000L)
         builder.setOnlyAlertOnce(true)
         builder.setFullScreenIntent(getFullScreenIntent(notificationId), true)
         builder.setDeleteIntent(getDeleteIntent(notificationId))

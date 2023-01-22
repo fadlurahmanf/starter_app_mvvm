@@ -34,7 +34,9 @@ import com.fadlurahmanf.starterappmvvm.ui.core.activity.PdfViewerActivity
 import com.fadlurahmanf.starterappmvvm.utils.download.DownloadService
 import com.fadlurahmanf.starterappmvvm.utils.media.MediaPlayerService
 import com.fadlurahmanf.starterappmvvm.utils.call.CallBroadcastReceiver
+import com.fadlurahmanf.starterappmvvm.utils.logging.logd
 import com.fadlurahmanf.starterappmvvm.utils.notification.NotificationHelper
+import com.google.firebase.messaging.FirebaseMessaging
 import java.util.*
 import javax.inject.Inject
 import kotlin.random.Random
@@ -215,6 +217,12 @@ class FirstExampleActivity : BaseActivity<ActivityFirstExampleBinding>(ActivityF
 
         binding.btnQris.setOnClickListener {
             cameraPermissionLauncher.launch(android.Manifest.permission.CAMERA)
+        }
+
+        binding.btnGetToken.setOnClickListener {
+            FirebaseMessaging.getInstance().token.addOnSuccessListener {
+                logd("token FCM: $it")
+            }
         }
     }
 
