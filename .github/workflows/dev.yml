@@ -86,13 +86,13 @@ jobs:
         run: |
           echo '${{ steps.apk-info.outputs.version-name }}'
           echo '${{ steps.apk-info.outputs.version-code }}'
-      - name: Push to Releases
+      - name: UPLOAD APK TO GITHUB RELEASE
         uses: ncipollo/release-action@v1
         with:
           artifacts: app/build/outputs/apk/dev/release/app-dev-release-unsigned.apk
           tag: v${{ steps.apk-info.outputs.version-name }}(${{ steps.apk-info.outputs.version-code }})-${{ github.run_number }}
           token: ${{ secrets.TOKEN_CI_CD }}
-      - name: upload artifact to Firebase App Distribution
+      - name: UPLOAD APK TO FIREBASE DISTRIBUTION
         uses: wzieba/Firebase-Distribution-Github-Action@v1
         with:
           appId: ${{ secrets.FIREBASE_APP_ID_DEV }}
