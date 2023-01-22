@@ -9,9 +9,9 @@ plugins {
 def localProperties = new Properties()
 localProperties.load(new FileInputStream(rootProject.file("local.properties")))
 def BASE_QURAN_URL = localProperties.getProperty("BASE_QURAN_URL")
-def BASE_DEV_URL = localProperties.getProperty("BASE_DEV_URL")
-def BASE_STAGING_URL = localProperties.getProperty("BASE_STAGING_URL")
-def BASE_PRODUCTION_URL = localProperties.getProperty("BASE_PRODUCTION_URL")
+def DEV_URL = localProperties.getProperty("DEV_URL")
+def STAGING_URL = localProperties.getProperty("STAGING_URL")
+def PRODUCTION_URL = localProperties.getProperty("PRODUCTION_URL")
 def IDENTITY_PREFIX = localProperties.getProperty("IDENTITY_PREFIX")
 def CIF_PREFIX = localProperties.getProperty("CIF_PREFIX")
 def PUBLIC_KEY_DEV = localProperties.getProperty("PUBLIC_KEY_DEV")
@@ -36,10 +36,6 @@ android {
         buildConfigField "String", "BASE_QURAN_URL", BASE_QURAN_URL
         buildConfigField "String", "IDENTITY_PREFIX", IDENTITY_PREFIX
         buildConfigField "String", "CIF_PREFIX", CIF_PREFIX
-//        buildConfigField "String", "PUBLIC_KEY_DEV", PUBLIC_KEY_DEV
-//        buildConfigField "String", "PRIVATE_KEY_DEV", PRIVATE_KEY_DEV
-//        buildConfigField "String", "PUBLIC_KEY_STAGING", PUBLIC_KEY_STAGING
-//        buildConfigField "String", "PRIVATE_KEY_STAGING", PRIVATE_KEY_STAGING
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -60,18 +56,18 @@ android {
     productFlavors {
         dev {
             applicationIdSuffix ".dev"
-            buildConfigField "String", "BASE_URL", BASE_DEV_URL
+            buildConfigField "String", "BASE_URL", DEV_URL
             buildConfigField "String", "PUBLIC_KEY", PUBLIC_KEY_DEV
             buildConfigField "String", "PRIVATE_KEY", PRIVATE_KEY_DEV
         }
         staging {
             applicationIdSuffix ".staging"
-            buildConfigField "String", "BASE_URL", BASE_STAGING_URL
+            buildConfigField "String", "BASE_URL", STAGING_URL
             buildConfigField "String", "PUBLIC_KEY", PUBLIC_KEY_STAGING
             buildConfigField "String", "PRIVATE_KEY", PRIVATE_KEY_STAGING
         }
         production {
-            buildConfigField "String", "BASE_URL", BASE_PRODUCTION_URL
+            buildConfigField "String", "BASE_URL", PRODUCTION_URL
             buildConfigField "String", "PUBLIC_KEY", PUBLIC_KEY_PRODUCTION
             buildConfigField "String", "PRIVATE_KEY", PRIVATE_KEY_PRODUCTION
         }
