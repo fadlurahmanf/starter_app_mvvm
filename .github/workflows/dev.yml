@@ -72,23 +72,23 @@ jobs:
         run: ./gradlew test
       - name: BUILD DEV APK
         run: ./gradlew assembleDevRelease
-#      - name: UPLOAD ARTIFACT APK
-#        uses: actions/upload-artifact@v1
-#        with:
-#          name: apk
-#          path: app/build/outputs/apk/debug/app-debug.apk
-#      - name: GET APK INFO
-#        id: apk-info
-#        uses: hkusu/apk-info-action@v1
-#        with:
-#          apk-path: app/build/outputs/apk/debug/app-debug.apk
-#      - name: PRINT APK INFO
-#        run: |
-#          echo '${{ steps.apk-info.outputs.version-name }}'
-#          echo '${{ steps.apk-info.outputs.version-code }}'
-#      - name: Push to Releases
-#        uses: ncipollo/release-action@v1
-#        with:
-#          artifacts: app/build/outputs/apk/debug/app-debug.apk
-#          tag: v${{ steps.apk-info.outputs.version-name }}(${{ steps.apk-info.outputs.version-code }})-${{ github.run_number }}
-#          token: ${{ secrets.TOKEN_CI_CD }}
+      - name: BUILD APK FLAVOR DEV RELEASE
+        uses: actions/upload-artifact@v1
+        with:
+          name: apk
+          path: app/build/outputs/apk/dev/release/app-dev-release-unsigned.apk
+      - name: GET APK INFO
+        id: apk-info
+        uses: hkusu/apk-info-action@v1
+        with:
+          apk-path: app/build/outputs/apk/dev/release/app-dev-release-unsigned.apk
+      - name: PRINT APK INFO
+        run: |
+          echo '${{ steps.apk-info.outputs.version-name }}'
+          echo '${{ steps.apk-info.outputs.version-code }}'
+      - name: Push to Releases
+        uses: ncipollo/release-action@v1
+        with:
+          artifacts: app/build/outputs/apk/dev/release/app-dev-release-unsigned.apk
+          tag: v${{ steps.apk-info.outputs.version-name }}(${{ steps.apk-info.outputs.version-code }})-${{ github.run_number }}
+          token: ${{ secrets.TOKEN_CI_CD }}
