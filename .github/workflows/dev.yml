@@ -12,7 +12,6 @@ jobs:
       - name: CHECK FOLDER
         run: ls
       - name: CREATE KEY PROPERTIES
-        env:
         run: |
           echo ${{ secrets.BASE64_KEYSTORE_DEV }} | base64 -d > keystore.jks
           touch key.properties
