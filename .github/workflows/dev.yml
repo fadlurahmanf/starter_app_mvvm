@@ -53,6 +53,10 @@ jobs:
         env:
           PRIVATE_KEY_STAGING: ${{ secrets.PRIVATE_KEY_PRODUCTION }}
         run: echo PRIVATE_KEY_PRODUCTION=\"${{ secrets.PRIVATE_KEY_PRODUCTION }}\" >> local.properties
+      - name: CONFIG ALL PREFIX URL
+        run : |
+          - echo IDENTITY_PREFIX=\"{{ $IDENTITY_PREFIX }}\" >> local.properties
+          - echo CIF_PREFIX=\"{{ $CIF_PREFIX }}\" >> local.properties
       - name: CHECK LOCAL PROPERTIES
         run: cat local.properties
       - name: Setup Gradle
