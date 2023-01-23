@@ -4,6 +4,8 @@ import android.content.Context
 import androidx.annotation.StringRes
 import com.fadlurahmanf.starterappmvvm.R
 import com.fadlurahmanf.starterappmvvm.constant.ExceptionConstant
+import com.fadlurahmanf.starterappmvvm.utils.logging.cLoge
+import com.fadlurahmanf.starterappmvvm.utils.logging.logd
 import okio.IOException
 
 class CustomException(
@@ -35,7 +37,8 @@ class CustomException(
                     else context.getString(identifierUppercase)
                 }
             }
-        }catch (e:Exception){
+        } catch (e:Exception) {
+            context.cLoge(e)
             return context.getString(R.string.exception_general)
         }
     }

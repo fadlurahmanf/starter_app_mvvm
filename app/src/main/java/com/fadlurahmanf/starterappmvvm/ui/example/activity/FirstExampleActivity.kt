@@ -33,6 +33,7 @@ import com.fadlurahmanf.starterappmvvm.dto.model.core.PdfModel
 import com.fadlurahmanf.starterappmvvm.dto.model.core.PdfOrigin
 import com.fadlurahmanf.starterappmvvm.ui.core.activity.ImageViewerActivity
 import com.fadlurahmanf.starterappmvvm.ui.core.activity.PdfViewerActivity
+import com.fadlurahmanf.starterappmvvm.ui.core.activity.VideoPlayerActivity
 import com.fadlurahmanf.starterappmvvm.utils.download.DownloadService
 import com.fadlurahmanf.starterappmvvm.utils.media.MediaPlayerService
 import com.fadlurahmanf.starterappmvvm.utils.call.CallBroadcastReceiver
@@ -229,6 +230,11 @@ class FirstExampleActivity : BaseActivity<ActivityFirstExampleBinding>(ActivityF
             FirebaseMessaging.getInstance().token.addOnSuccessListener {
                 logd("token FCM: $it")
             }
+        }
+
+        binding.btnPlayRemoteVideo.setOnClickListener {
+            val intent = Intent(this, VideoPlayerActivity::class.java)
+            startActivity(intent)
         }
     }
 
