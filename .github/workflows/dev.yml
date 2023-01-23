@@ -1,0 +1,111 @@
+on:
+  push:
+    branches: [ dev ]
+name: "DEPLOY APK"
+
+jobs:
+  init:
+    runs-on: ubuntu-latest
+    steps:
+      - name: CHECKOUT
+        uses: actions/checkout@v3
+      - name: CHECK FOLDER
+        run: ls
+      - name: CREATE KEY PROPERTIES
+        run: |
+          echo ${{ secrets.BASE64_KEYSTORE_DEV }} | base64 -d > keystore.jks
+          touch key.properties
+          ls
+          echo "storeFile=../keystore.jks" >> key.properties
+          echo "keyAlias=${{ vars.ALIAS_KEY_DEV }}" >> key.properties
+          echo "keyPassword=${{ secrets.KEY_PASSWORD_DEV }}" >> key.properties
+          echo "storePassword=${{ secrets.STORE_PASSWORD_DEV }}" >> key.properties
+          cat key.properties
+      - name: CREATE LOCAL PROPERTIES
+        run: touch local.properties
+      - name: CONFIG BASE QURAN URL
+        env:
+          BASE_DEV_URL: ${{ secrets.BASE_QURAN_URL }}
+        run: echo BASE_QURAN_URL=\"${{ secrets.BASE_QURAN_URL }}\" >> local.properties
+      - name: CONFIG BASE DEV URL
+        env:
+          DEV_URL: ${{ secrets.BASE_DEV_URL }}
+        run: echo DEV_URL=\"${{ secrets.BASE_DEV_URL }}\" >> local.properties
+      - name: CONFIG BASE STAGING URL
+        env:
+          STAGING_URL: ${{ secrets.BASE_STAGING_URL }}
+        run: echo STAGING_URL=\"${{ secrets.BASE_STAGING_URL }}\" >> local.properties
+      - name: CONFIG BASE PRODUCTION URL
+        env:
+          PRODUCTION_URL: ${{ secrets.BASE_PRODUCTION_URL }}
+        run: echo PRODUCTION_URL=\"${{ secrets.BASE_PRODUCTION_URL }}\" >> local.properties
+      - name: CONFIG PUBLIC KEY DEV
+        env:
+          PUBLIC_KEY_DEV: ${{ secrets.PUBLIC_KEY_DEV }}
+        run: echo PUBLIC_KEY_DEV=\"${{ secrets.PUBLIC_KEY_DEV }}\" >> local.properties
+      - name: CONFIG PRIVATE KEY DEV
+        env:
+          PRIVATE_KEY_DEV: ${{ secrets.PRIVATE_KEY_DEV }}
+        run: echo PRIVATE_KEY_DEV=\"${{ secrets.PRIVATE_KEY_DEV }}\" >> local.properties
+      - name: CONFIG PUBLIC KEY STAGING
+        env:
+          PUBLIC_KEY_STAGING: ${{ secrets.PUBLIC_KEY_STAGING }}
+        run: echo PUBLIC_KEY_STAGING=\"${{ secrets.PUBLIC_KEY_STAGING }}\" >> local.properties
+      - name: CONFIG PRIVATE KEY STAGING
+        env:
+          PRIVATE_KEY_STAGING: ${{ secrets.PRIVATE_KEY_STAGING }}
+        run: echo PRIVATE_KEY_STAGING=\"${{ secrets.PRIVATE_KEY_STAGING }}\" >> local.properties
+      - name: CONFIG PUBLIC KEY PRODUCTION
+        env:
+          PUBLIC_KEY_STAGING: ${{ secrets.PUBLIC_KEY_PRODUCTION }}
+        run: echo PUBLIC_KEY_PRODUCTION=\"${{ secrets.PUBLIC_KEY_PRODUCTION }}\" >> local.properties
+      - name: CONFIG PRIVATE KEY PRODUCTION
+        env:
+          PRIVATE_KEY_STAGING: ${{ secrets.PRIVATE_KEY_PRODUCTION }}
+        run: echo PRIVATE_KEY_PRODUCTION=\"${{ secrets.PRIVATE_KEY_PRODUCTION }}\" >> local.properties
+      - name: CONFIG ALL PREFIX URL
+        env:
+          IDENTITY_PREFIX: ${{ vars.IDENTITY_PREFIX }}
+          CIF_PREFIX: ${{ vars.CIF_PREFIX }}
+        run: |
+          echo IDENTITY_PREFIX=\"${{ vars.IDENTITY_PREFIX }}\" >> local.properties
+          echo CIF_PREFIX=\"${{ vars.CIF_PREFIX }}\" >> local.properties
+      - name: CHECK LOCAL PROPERTIES
+        run: cat local.properties
+      - name: Setup Gradle
+        uses: gradle/gradle-build-action@v2
+        with:
+          gradle-version: 7.4
+      - name: CLEAN BUILD
+        run: ./gradlew clean
+      - name: START UNIT TESTING
+        run: ./gradlew test
+      - name: BUILD DEV APK
+        run: ./gradlew assembleDevRelease
+      - name: UPLOAD APK FLAVOR DEV RELEASE
+        uses: actions/upload-artifact@v1
+        with:
+          name: apk
+          path: app/build/outputs/apk/dev/release/app-dev-release.apk
+      - name: GET APK INFO
+        id: apk-info
+        uses: hkusu/apk-info-action@v1
+        with:
+          apk-path: app/build/outputs/apk/dev/release/app-dev-release.apk
+      - name: PRINT APK INFO
+        run: |
+          echo '${{ steps.apk-info.outputs.version-name }}'
+          echo '${{ steps.apk-info.outputs.version-code }}'
+      - name: UPLOAD APK TO GITHUB RELEASE
+        uses: ncipollo/release-action@v1
+        with:
+          artifacts: app/build/outputs/apk/dev/release/app-dev-release.apk
+          tag: v${{ steps.apk-info.outputs.version-name }}(${{ steps.apk-info.outputs.version-code }})-${{ github.run_number }}
+          token: ${{ secrets.TOKEN_CI_CD }}
+      - name: UPLOAD APK TO FIREBASE DISTRIBUTION
+        uses: wzieba/Firebase-Distribution-Github-Action@v1
+        with:
+          appId: ${{ secrets.FIREBASE_APP_ID_DEV }}
+          serviceCredentialsFileContent: ${{ secrets.SECRET_FILE_CONTENT }}
+          groups: testers
+          file: app/build/outputs/apk/dev/release/app-dev-release.apk

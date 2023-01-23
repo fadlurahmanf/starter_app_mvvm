@@ -1,7 +1,7 @@
 package com.fadlurahmanf.starterappmvvm.constant
 
-object BuildTypeConstant {
-    const val dev = "debug"
+object BuildFlavorConstant {
+    const val dev = "dev"
     const val staging = "staging"
-    const val production = "release"
+    const val production = "production"
 }

@@ -2,7 +2,6 @@ package com.fadlurahmanf.starterappmvvm.core.helper
 
 import android.os.Build
 import com.fadlurahmanf.starterappmvvm.BuildConfig
-import com.fadlurahmanf.starterappmvvm.constant.BuildTypeConstant
 import java.security.*
 import java.security.spec.PKCS8EncodedKeySpec
 import java.security.spec.X509EncodedKeySpec
@@ -51,7 +50,7 @@ class RSAHelper {
             return keypair
         }
 
-        fun encodedPublicKey(publicKey: PublicKey):String?{
+        fun encodedPublicKey(publicKey: PublicKey):String{
             return when (method) {
                 METHOD.PKCS1PEM -> {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {

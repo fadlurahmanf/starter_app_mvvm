@@ -6,7 +6,7 @@ import com.chuckerteam.chucker.api.ChuckerCollector
 import com.chuckerteam.chucker.api.ChuckerInterceptor
 import com.chuckerteam.chucker.api.RetentionManager
 import com.fadlurahmanf.starterappmvvm.BuildConfig
-import com.fadlurahmanf.starterappmvvm.constant.BuildTypeConstant
+import com.fadlurahmanf.starterappmvvm.constant.BuildFlavorConstant
 import com.fadlurahmanf.starterappmvvm.network.interceptor.ContentTypeInterceptor
 import com.fadlurahmanf.starterappmvvm.network.interceptor.ExceptionInterceptor
 import okhttp3.OkHttpClient
@@ -26,12 +26,12 @@ abstract class BaseNetwork<T>(var context: Context) {
             .setLevel(HttpLoggingInterceptor.Level.BODY)
     }
 
-    private val type:String = BuildConfig.BUILD_TYPE
+    private val type:String = BuildConfig.FLAVOR
     private fun chuckerInterceptor(): ChuckerInterceptor {
 
         val chuckerCollector = ChuckerCollector(
             context = context,
-            showNotification = type == BuildTypeConstant.dev,
+            showNotification = type != BuildFlavorConstant.production,
             retentionPeriod = RetentionManager.Period.ONE_HOUR
         )
 
@@ -44,7 +44,7 @@ abstract class BaseNetwork<T>(var context: Context) {
 
     open fun okHttpClientBuilder(builder: OkHttpClient.Builder): OkHttpClient.Builder{
         val p0 = builder.addInterceptor(loggingInterceptor())
-        if (type != BuildTypeConstant.production){
+        if (type != BuildFlavorConstant.production){
             p0.addInterceptor(chuckerInterceptor())
         }
         return p0.addInterceptor(ContentTypeInterceptor())
