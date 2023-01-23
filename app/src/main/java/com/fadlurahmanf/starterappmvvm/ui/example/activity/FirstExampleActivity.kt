@@ -19,8 +19,10 @@ import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
 import com.chuckerteam.chucker.api.Chucker
 import com.fadlurahmanf.starterappmvvm.BaseApp
+import com.fadlurahmanf.starterappmvvm.BuildConfig
 import com.fadlurahmanf.starterappmvvm.R
 import com.fadlurahmanf.starterappmvvm.base.BaseActivity
+import com.fadlurahmanf.starterappmvvm.constant.BuildFlavorConstant
 import com.fadlurahmanf.starterappmvvm.core.helper.TranslationHelper
 import com.fadlurahmanf.starterappmvvm.data.storage.example.LanguageSpStorage
 import com.fadlurahmanf.starterappmvvm.databinding.ActivityFirstExampleBinding
@@ -80,8 +82,12 @@ class FirstExampleActivity : BaseActivity<ActivityFirstExampleBinding>(ActivityF
         }
 
         binding.btnSeeLogChucker.setOnClickListener {
-            val intent = Chucker.getLaunchIntent(this)
-            startActivity(intent)
+            if(BuildConfig.FLAVOR != BuildFlavorConstant.production){
+                val intent = Chucker.getLaunchIntent(this)
+                startActivity(intent)
+            }else{
+                showSnackBar(binding.root, "only in dev or staging")
+            }
         }
 
         binding.btnEncrypt.setOnClickListener {

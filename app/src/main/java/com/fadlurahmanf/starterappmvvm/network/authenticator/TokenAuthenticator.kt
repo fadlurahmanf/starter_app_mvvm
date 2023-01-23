@@ -6,19 +6,16 @@ import com.chuckerteam.chucker.api.ChuckerCollector
 import com.chuckerteam.chucker.api.ChuckerInterceptor
 import com.chuckerteam.chucker.api.RetentionManager
 import com.fadlurahmanf.starterappmvvm.BuildConfig
-import com.fadlurahmanf.starterappmvvm.constant.BuildTypeConstant
+import com.fadlurahmanf.starterappmvvm.constant.BuildFlavorConstant
 import com.fadlurahmanf.starterappmvvm.constant.SpKey
 import com.fadlurahmanf.starterappmvvm.data.api.path.example.AuthApi
-import com.fadlurahmanf.starterappmvvm.data.repository.example.IdentityRepository
 import com.google.gson.JsonObject
-import kotlinx.coroutines.coroutineScope
 import okhttp3.*
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
-import javax.inject.Inject
 
 
 class TokenAuthenticator(
@@ -54,7 +51,7 @@ class TokenAuthenticator(
     private fun chuckerInterceptor(): ChuckerInterceptor {
         val chuckerCollector = ChuckerCollector(
             context = context,
-            showNotification = type == BuildTypeConstant.dev,
+            showNotification = type != BuildFlavorConstant.dev,
             retentionPeriod = RetentionManager.Period.ONE_HOUR
         )
 
@@ -67,7 +64,7 @@ class TokenAuthenticator(
 
     private fun client(): OkHttpClient {
         val clientBuilder = OkHttpClient.Builder()
-        if (type != BuildTypeConstant.production){
+        if (type != BuildFlavorConstant.production){
             clientBuilder.addInterceptor(chuckerInterceptor())
         }
         return clientBuilder
