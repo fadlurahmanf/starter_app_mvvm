@@ -6,6 +6,9 @@ Android Kotlin menggunakan Architecture MVVM
 
 Menggunakan Github actions. Setiap melakukan push, akan mentrigger testing & build APK
 
+Distribution menggunakan Firebase App Distribution & Akan Available di Github Release
+![alt text](https://github.com/fadlurahmanf/starter_app_mvvm/blob/master/proof/firebase_app_distribution.png?raw=true)
+
 ### Encrypt Decrypt
 
 Encrypt & Decrypt menggunakan algoritma RSA
