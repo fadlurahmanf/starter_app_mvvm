@@ -1,41 +1,51 @@
 package com.fadlurahmanf.starterappmvvm.ui.core.activity
 
+import android.app.AlertDialog
 import android.content.Context
 import android.media.AudioDeviceInfo
 import android.media.AudioManager
-import android.media.tv.TvTrackInfo.TYPE_VIDEO
 import android.net.Uri
 import android.os.Build
 import android.os.Handler
 import android.os.Looper
-import android.util.Pair
 import com.fadlurahmanf.starterappmvvm.base.BaseActivity
 import com.fadlurahmanf.starterappmvvm.databinding.ActivityVideoPlayerBinding
-import com.google.android.exoplayer2.C
-import com.google.android.exoplayer2.ExoPlayer
-import com.google.android.exoplayer2.Format
-import com.google.android.exoplayer2.MediaItem
-import com.google.android.exoplayer2.Player
-import com.google.android.exoplayer2.Tracks
+import com.fadlurahmanf.starterappmvvm.utils.logging.logd
+import com.google.android.exoplayer2.*
 import com.google.android.exoplayer2.source.ProgressiveMediaSource
 import com.google.android.exoplayer2.source.TrackGroup
-import com.google.android.exoplayer2.source.hls.HlsDataSourceFactory
 import com.google.android.exoplayer2.source.hls.HlsMediaSource
 import com.google.android.exoplayer2.trackselection.*
-import com.google.android.exoplayer2.trackselection.DefaultTrackSelector.SelectionOverride
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSource
 import com.google.android.exoplayer2.upstream.FileDataSource
-import com.google.android.exoplayer2.video.MediaCodecVideoRenderer
 import java.io.File
+import kotlin.math.max
 
 
-class VideoPlayerActivity :
-    BaseActivity<ActivityVideoPlayerBinding>(ActivityVideoPlayerBinding::inflate) {
+class VideoPlayerActivity : BaseActivity<ActivityVideoPlayerBinding>(ActivityVideoPlayerBinding::inflate) {
     private lateinit var baseVideoPlayer: BaseVideoPlayer
 
-    private var listener = object : BaseVideoPlayer.BaseVideoPlayerListener {
+    private var videoFormatList = arrayListOf<Format>()
+    private var currentFormatId:String? = null
+    private val listener = object : BaseVideoPlayer.BaseVideoPlayerListener {
         override fun onProgressChanged(position: Long) {
 
+        }
+
+        override fun onGetQualityOfVideoChanged(map: HashMap<String, Format>) {
+            super.onGetQualityOfVideoChanged(map)
+            videoFormatList.clear()
+            val values = map.values.toList()
+            for (i in values.indices){
+                logd("onGetQualityOfVideoChanged ${values[i].width}x${values[i].height} & ${"${max(values[i].width, values[i].height)}p"}")
+                videoFormatList.add(values[i])
+            }
+        }
+
+        override fun onQualityVideoChanged(formatId: String, pixel: Int) {
+            super.onQualityVideoChanged(formatId, pixel)
+            logd("onQualityVideoChanged $formatId & ${"${pixel}p"}")
+            currentFormatId = formatId
         }
     }
 
@@ -43,8 +53,45 @@ class VideoPlayerActivity :
         baseVideoPlayer = BaseVideoPlayer(this)
         baseVideoPlayer.addListener(listener)
         binding.exoPlayer.player = baseVideoPlayer.exoPlayer
+        binding.exoPlayer.useController = false
 
         baseVideoPlayer.playHlsRemoteAudio("https://bitdash-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8")
+
+        initAction()
+    }
+
+    private fun initAction() {
+        binding.ivPause.setOnClickListener {
+            val builder = AlertDialog.Builder(this)
+            val array = arrayOfNulls<String>(videoFormatList.size)
+            var checkedItem:Int = 0
+            for (i in videoFormatList.indices){
+                val width = videoFormatList[i].width
+                val height = videoFormatList[i].height
+                val max = max(width, height)
+                if (videoFormatList[i].id == currentFormatId){
+                    checkedItem = i
+                }
+                array[i] = "${max}p"
+            }
+            builder.setNegativeButton("Cancel"){
+                dialog, _ ->
+                dialog.dismiss()
+            }
+            builder.setPositiveButton("Apply"){
+                dialog, _ ->
+                if (videoFormatList[checkedItem].id != null){
+                    baseVideoPlayer.selectQualityOfVideo(videoFormatList[checkedItem].id!!)
+                }
+                dialog.dismiss()
+            }
+            builder.setSingleChoiceItems(array, checkedItem
+            ) { _, which ->
+                checkedItem = which
+            }
+
+            builder.create().show()
+        }
     }
 
     override fun onDestroy() {
@@ -76,7 +123,7 @@ class BaseVideoPlayer(var context: Context) {
                 callback!!.onPlayerStateChanged(playbackState)
 
                 if (playbackState == Player.STATE_READY){
-
+                    getQualityOfVideo()
                 }
             }
         }
@@ -131,36 +178,71 @@ class BaseVideoPlayer(var context: Context) {
         handler.postDelayed(runnable, 1000)
     }
 
+    /**
+     * Playing video from internet with HLS type
+     * HLS support multiple quality
+     * */
     fun playHlsRemoteAudio(url: String){
         exoPlayer.setMediaSource(mediaSourceFromHLS(url))
         exoPlayer.prepare()
         handler.postDelayed(runnable, 1000)
     }
 
+    private lateinit var trackGroup:TrackGroup
     private fun getQualityOfVideo(){
         val map = hashMapOf<String, Format>()
-        var trackGroup:TrackGroup? = null
-        exoPlayer.currentTracks.groups.filter {
+        val groups = exoPlayer.currentTracks.groups.filter {
             it.type == C.TRACK_TYPE_VIDEO
-        }.forEach {
-            trackGroup = it.mediaTrackGroup
-            println("masuk batas")
-            for (i in 0 until it.length){
-                map[it.getTrackFormat(i).toString()] = it.getTrackFormat(i)
-                println("masuk ${it.getTrackFormat(i).height} x ${it.getTrackFormat(i).width}")
+        }
+        if (groups.isNotEmpty()){
+            val group = groups[0]
+            trackGroup = group.mediaTrackGroup
+            for (i in 0 until trackGroup.length){
+                val format = trackGroup.getFormat(i)
+                if (format.id != null){
+                    map[format.id!!] = format
+                }
+            }
+            callback!!.onGetQualityOfVideoChanged(map)
+            val currentFormat = exoPlayer.videoFormat
+            val max = max(currentFormat?.height?:0, currentFormat?.width?:0)
+            if (currentFormat?.id != null){
+                callback!!.onQualityVideoChanged(currentFormat.id!!, max)
             }
         }
-        callback!!.onGetQualityOfVideoChanged(map)
-        println("masuk sekarang ${exoPlayer.videoFormat?.height} and ${exoPlayer.videoFormat?.width}")
-//        trackSelector.parameters = trackSelector.parameters.buildUpon()
-//            .addOverride(TrackSelectionOverride(trackGroup!!, 0))
-//            .build()
+    }
+
+    fun selectQualityOfVideo(formatId: String){
+        var index:Int? = null
+        for (i in 0 until trackGroup.length){
+            val format = trackGroup.getFormat(i)
+            if (format.id == formatId){
+                index = i
+                break
+            }
+        }
+        if (index != null){
+            trackSelector.parameters = trackSelector.parameters.buildUpon()
+                .addOverride(TrackSelectionOverride(trackGroup, index))
+                .build()
+        }
+    }
+
+    private var currentFormatId:String? = null
+    private fun checkVideoQualityChanged(){
+        val width = exoPlayer.videoFormat?.width
+        val height = exoPlayer.videoFormat?.height
+        val max = max(width?:0, height?:0)
+        if (exoPlayer.videoFormat?.id != null && exoPlayer.videoFormat?.id != null
+            && currentFormatId != exoPlayer.videoFormat?.id){
+            if (callback != null){
+                currentFormatId = exoPlayer.videoFormat?.id
+                callback!!.onQualityVideoChanged(exoPlayer.videoFormat!!.id!!, max)
+            }
+        }
     }
 
     private fun checkAudioOutput() {
-        if (exoPlayer.playbackState == Player.STATE_READY){
-            getQualityOfVideo()
-        }
         val isWiredHeadsetOn = audioManager.isWiredHeadsetOn
         val isBluetoothA2dpOn = audioManager.isBluetoothA2dpOn
         val isBluetoothScoOn = audioManager.isBluetoothScoOn
@@ -207,10 +289,12 @@ class BaseVideoPlayer(var context: Context) {
         fun onAudioOutputChanged(output:OutputAudioDevice){}
         fun onProgressChanged(position:Long)
         fun onGetQualityOfVideoChanged(map: HashMap<String, Format>){}
+        fun onQualityVideoChanged(formatId:String, pixel:Int){}
     }
 
     private val runnable = object : Runnable {
         override fun run() {
+            checkVideoQualityChanged()
             checkAudioOutput()
             checkAudioPosition()
             handler.postDelayed(this, 1000)

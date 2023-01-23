@@ -27,6 +27,7 @@
         android:usesCleartextTraffic="true">
         <activity
             android:name=".ui.core.activity.VideoPlayerActivity"
+            android:theme="@style/FullScreenActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
