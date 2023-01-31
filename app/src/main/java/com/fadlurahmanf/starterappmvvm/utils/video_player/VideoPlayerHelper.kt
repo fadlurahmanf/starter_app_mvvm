@@ -40,8 +40,11 @@ class VideoPlayerHelper(var context: Context) {
 
     var state = Player.STATE_IDLE
     var isPlaying = false
+    var isAlreadyInitialized:Boolean? = null
     var currentQFormat:QualityVideoFormat? = null
     var outputAudio:OutputAudioDevice? = null
+    var duration:Long = 0L
+    var position:Long = 0L
 
     private val exoPlayerListener = object : Player.Listener {
         override fun onPlaybackStateChanged(playbackState: Int) {
@@ -49,7 +52,8 @@ class VideoPlayerHelper(var context: Context) {
             if (callback != null) {
                 state = playbackState
                 callback!!.onPlayerStateChanged(playbackState)
-                if (playbackState == Player.STATE_READY){
+                if (playbackState == Player.STATE_READY && isAlreadyInitialized != true){
+                    isAlreadyInitialized = true
                     getQualityOfVideo()
                 }
             }
@@ -144,10 +148,9 @@ class VideoPlayerHelper(var context: Context) {
                 callback!!.onGetQualityOfVideoChanged(map.values.toList())
             }
             val currentFormat = exoPlayer.videoFormat
-            if (callback != null && currentFormat?.id != null){
-                this.currentQFormat = convertFormatToQualityVideoFormat(currentFormat)
-                currentFormatId = this.currentQFormat?.formatId
-                callback!!.onQualityVideoChanged(format = this.currentQFormat!!)
+            if (callback != null && currentFormat?.id != null && currentQFormat?.formatId != currentFormat.id){
+                currentQFormat = convertFormatToQualityVideoFormat(currentFormat)
+                callback!!.onQualityVideoChanged(format = currentQFormat!!)
             }
         }
     }
@@ -178,12 +181,9 @@ class VideoPlayerHelper(var context: Context) {
         }
     }
 
-    private var currentFormatId:String? = null
     private fun checkVideoQualityChanged(){
         val format = exoPlayer.videoFormat
-        if (exoPlayer.videoFormat?.id != null
-            && currentFormatId != exoPlayer.videoFormat?.id){
-            currentFormatId = exoPlayer.videoFormat?.id
+        if (exoPlayer.videoFormat?.id != null && currentQFormat?.formatId != exoPlayer.videoFormat?.id){
             this.currentQFormat = convertFormatToQualityVideoFormat(format = format!!)
             if (callback != null){
                 callback!!.onQualityVideoChanged(this.currentQFormat!!)
@@ -246,6 +246,8 @@ class VideoPlayerHelper(var context: Context) {
 
     private fun checkAudioPosition(){
         if (callback != null){
+            duration = exoPlayer.duration
+            position = exoPlayer.currentPosition
             callback!!.onDurationChanged(exoPlayer.duration)
             callback!!.onProgressChanged(exoPlayer.currentPosition)
         }
@@ -259,6 +261,22 @@ class VideoPlayerHelper(var context: Context) {
         fun onAudioOutputChanged(output: OutputAudioDevice){}
         fun onGetQualityOfVideoChanged(qualities: List<QualityVideoFormat>){}
         fun onQualityVideoChanged(format:QualityVideoFormat){}
+    }
+
+    fun seekPrevious(){
+        if (position < (10 * 1000)){
+            exoPlayer.seekTo(0)
+        }else{
+            exoPlayer.seekTo(position - (10 * 1000))
+        }
+    }
+
+    fun seekNext(){
+        if ((position + 10 * 1000) >= duration){
+            exoPlayer.seekTo(duration - (1 * 1000))
+        }else{
+            exoPlayer.seekTo(position + (10 * 1000))
+        }
     }
 
     private val runnable = object : Runnable {

@@ -3,16 +3,20 @@ package com.fadlurahmanf.starterappmvvm.ui.core.activity
 import android.app.AlertDialog
 import android.graphics.Bitmap
 import android.media.MediaMetadataRetriever
-import android.net.Uri
+import android.widget.SeekBar
+import androidx.core.content.ContextCompat
+import com.fadlurahmanf.starterappmvvm.R
 import com.fadlurahmanf.starterappmvvm.base.BaseActivity
 import com.fadlurahmanf.starterappmvvm.databinding.ActivityVideoPlayerBinding
 import com.fadlurahmanf.starterappmvvm.utils.logging.logd
 import com.fadlurahmanf.starterappmvvm.utils.video_player.VideoPlayerHelper
 import com.github.rubensousa.previewseekbar.PreviewBar
 import com.github.rubensousa.previewseekbar.PreviewLoader
+import com.google.android.exoplayer2.Player
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import wseemann.media.FFmpegMediaMetadataRetriever
 
 
 class VideoPlayerActivity : BaseActivity<ActivityVideoPlayerBinding>(ActivityVideoPlayerBinding::inflate) {
@@ -44,6 +48,21 @@ class VideoPlayerActivity : BaseActivity<ActivityVideoPlayerBinding>(ActivityVid
             logd("onQualityVideoChanged ${format.formatId} & ${"${format.formatPixel}p"} & ${format.formatName}")
             currentFormatId = format.formatId
             currentQFormat = format
+            binding.tvQuality.text = format.formatName ?: "Auto"
+        }
+
+        override fun onIsPlayingChanged(isPlaying: Boolean) {
+            super.onIsPlayingChanged(isPlaying)
+
+        }
+
+        override fun onPlayerStateChanged(state: Int) {
+            super.onPlayerStateChanged(state)
+            if (state == Player.STATE_IDLE || state == Player.STATE_ENDED){
+                binding.ivPlayOrPause.setImageDrawable(ContextCompat.getDrawable(this@VideoPlayerActivity, R.drawable.ic_round_play_arrow))
+            }else{
+                binding.ivPlayOrPause.setImageDrawable(ContextCompat.getDrawable(this@VideoPlayerActivity, R.drawable.ic_round_pause))
+            }
         }
     }
 
@@ -57,7 +76,7 @@ class VideoPlayerActivity : BaseActivity<ActivityVideoPlayerBinding>(ActivityVid
     }
 
     private fun initAction() {
-        binding.ivPause.setOnClickListener {
+        binding.tvQuality.setOnClickListener {
             val builder = AlertDialog.Builder(this)
             val array = arrayOfNulls<String>(videoFormatList.size)
             var checkedItem:Int = 0
@@ -92,30 +111,26 @@ class VideoPlayerActivity : BaseActivity<ActivityVideoPlayerBinding>(ActivityVid
                 println("MASUK END ${bitmap != null}")
             }
         }
-        binding.seekBar.setPreviewLoader(previewLoader)
-        binding.seekBar.max = 1
-
-
-        binding.seekBar.addOnScrubListener(object : PreviewBar.OnScrubListener{
-            override fun onScrubStart(previewBar: PreviewBar?) {
-                videoPlayerHelper.exoPlayer.playWhenReady = false
-            }
-
-            override fun onScrubMove(previewBar: PreviewBar?, progress: Int, fromUser: Boolean) {
+        binding.seekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
                 videoPlayerHelper.exoPlayer.seekTo(progress.toLong())
             }
 
-            override fun onScrubStop(previewBar: PreviewBar?) {
+            override fun onStartTrackingTouch(seekBar: SeekBar?) {
+                videoPlayerHelper.exoPlayer.playWhenReady = false
+            }
+
+            override fun onStopTrackingTouch(seekBar: SeekBar?) {
                 videoPlayerHelper.exoPlayer.playWhenReady = true
             }
 
         })
     }
 
-    private val retriever = MediaMetadataRetriever()
+    private val retriever = FFmpegMediaMetadataRetriever()
     private fun getBitmap(time:Long):Bitmap?{
         try {
-            retriever.setDataSource(this, Uri.parse("https://bitdash-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8"))
+            retriever.setDataSource("https://bitdash-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8")
             return retriever.getFrameAtTime(time, MediaMetadataRetriever.OPTION_CLOSEST_SYNC)
         }catch (e:Exception){
             e.printStackTrace()
