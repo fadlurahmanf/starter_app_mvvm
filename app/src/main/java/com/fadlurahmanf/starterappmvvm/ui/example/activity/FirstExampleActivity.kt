@@ -236,6 +236,11 @@ class FirstExampleActivity : BaseActivity<ActivityFirstExampleBinding>(ActivityF
             val intent = Intent(this, VideoPlayerActivity::class.java)
             startActivity(intent)
         }
+
+        binding.btnGoToNsd.setOnClickListener {
+            val intent = Intent(this, NetworkServiceDiscoveryActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     private var cameraPermissionLauncher = registerForActivityResult(
