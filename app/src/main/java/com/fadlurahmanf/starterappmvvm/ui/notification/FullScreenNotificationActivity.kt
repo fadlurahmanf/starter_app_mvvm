@@ -16,7 +16,7 @@ import com.fadlurahmanf.starterappmvvm.utils.call.CallBroadcastReceiver
 class FullScreenNotificationActivity : AppCompatActivity() {
     lateinit var acceptBtn:ImageView
     lateinit var declinedBtn:ImageView
-    companion object{
+    companion object {
         const val ACTION_ENDED_CALL = "com.fadlurahmanf.callkit.ACTION_ENDED_CALL"
     }
     override fun onCreate(savedInstanceState: Bundle?) {

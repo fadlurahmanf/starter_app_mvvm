@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.fadlurahmanf.starterappmvvm">
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -12,7 +13,7 @@
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
 
-    <uses-feature android:name="android.hardware.camera.any"/>
+    <uses-feature android:name="android.hardware.camera.any" />
     <uses-feature android:name="android.hardware.camera.autofocus" />
 
     <application
@@ -26,6 +27,24 @@
         android:theme="@style/Theme.StarterAppMvvm"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".ui.example.activity.NetworkServiceDiscoveryActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".ui.core.activity.VideoPlayerActivity"
+            android:supportsPictureInPicture="true"
+            android:exported="false"
+            android:launchMode="singleTask"
+            android:configChanges="screenSize|smallestScreenSize|screenLayout|orientation"
+            android:theme="@style/FullScreenActivity">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".ui.example.activity.QrisActivity"
             android:exported="false">
             <meta-data
@@ -34,7 +53,7 @@
         </activity>
         <activity
             android:name=".ui.webrtc.PrepareCallActivity"
-            android:exported="false"/>
+            android:exported="false" />
         <activity
             android:name=".ui.example.activity.CallActivity"
             android:exported="true" />
@@ -123,7 +142,8 @@
             </intent-filter>
         </receiver>
 
-        <service android:name=".utils.fcm.FCMHelper"
+        <service
+            android:name=".utils.fcm.FCMHelper"
             android:exported="true">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />

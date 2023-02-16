@@ -112,29 +112,24 @@ abstract class BaseActivity<VB:ViewBinding>(
     }
 
     override fun onResume() {
-        logd("onResume")
         super.onResume()
     }
 
     override fun onStart() {
-        logd("onStart")
         super.onStart()
         initShakingListener()
     }
 
     override fun onPause() {
-        logd("onPause")
         super.onPause()
     }
 
     override fun onStop() {
-        logd("onStop")
         sensorManager!!.unregisterListener(sensorListener)
         super.onStop()
     }
 
     override fun onDestroy() {
-        logd("onDestroy")
         super.onDestroy()
     }
 

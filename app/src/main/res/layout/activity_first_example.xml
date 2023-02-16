@@ -209,6 +209,28 @@
             android:layout_height="wrap_content"
             android:id="@+id/btn_get_token"
             android:text="GET FCM TOKEN"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="PLAY REMOTE VIDEO"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/btn_play_remote_video"
+            android:text="PLAY REMOTE VIDEO"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="GO TO NSD"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/btn_go_to_nsd"
+            android:text="NSD"/>
     </LinearLayout>
 
 </ScrollView>
