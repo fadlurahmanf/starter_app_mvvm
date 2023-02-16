@@ -1,8 +1,17 @@
 package com.fadlurahmanf.starterappmvvm.ui.core.activity
 
 import android.app.AlertDialog
+import android.app.PendingIntent
+import android.app.PictureInPictureParams
+import android.app.PictureInPictureUiState
+import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.Intent
+import android.content.IntentFilter
+import android.content.res.Configuration
 import android.graphics.Bitmap
 import android.media.MediaMetadataRetriever
+import android.os.Build
 import android.widget.SeekBar
 import androidx.core.content.ContextCompat
 import com.fadlurahmanf.starterappmvvm.R
@@ -10,7 +19,6 @@ import com.fadlurahmanf.starterappmvvm.base.BaseActivity
 import com.fadlurahmanf.starterappmvvm.databinding.ActivityVideoPlayerBinding
 import com.fadlurahmanf.starterappmvvm.utils.logging.logd
 import com.fadlurahmanf.starterappmvvm.utils.video_player.VideoPlayerHelper
-import com.github.rubensousa.previewseekbar.PreviewBar
 import com.github.rubensousa.previewseekbar.PreviewLoader
 import com.google.android.exoplayer2.Player
 import kotlinx.coroutines.Dispatchers
@@ -49,11 +57,6 @@ class VideoPlayerActivity : BaseActivity<ActivityVideoPlayerBinding>(ActivityVid
             currentFormatId = format.formatId
             currentQFormat = format
             binding.tvQuality.text = format.formatName ?: "Auto"
-        }
-
-        override fun onIsPlayingChanged(isPlaying: Boolean) {
-            super.onIsPlayingChanged(isPlaying)
-
         }
 
         override fun onPlayerStateChanged(state: Int) {
@@ -104,13 +107,7 @@ class VideoPlayerActivity : BaseActivity<ActivityVideoPlayerBinding>(ActivityVid
 
             builder.create().show()
         }
-        val previewLoader = PreviewLoader { currentPosition, max ->
-            GlobalScope.launch(Dispatchers.IO) {
-                println("MASUK START $currentPosition")
-                val bitmap = getBitmap(currentPosition)
-                println("MASUK END ${bitmap != null}")
-            }
-        }
+
         binding.seekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
                 videoPlayerHelper.exoPlayer.seekTo(progress.toLong())
@@ -127,23 +124,6 @@ class VideoPlayerActivity : BaseActivity<ActivityVideoPlayerBinding>(ActivityVid
         })
     }
 
-    private val retriever = FFmpegMediaMetadataRetriever()
-    private fun getBitmap(time:Long):Bitmap?{
-        try {
-            retriever.setDataSource("https://bitdash-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8")
-            return retriever.getFrameAtTime(time, MediaMetadataRetriever.OPTION_CLOSEST_SYNC)
-        }catch (e:Exception){
-            e.printStackTrace()
-        } finally {
-            try {
-                retriever.release()
-            } catch (e:Exception){
-                e.printStackTrace()
-            }
-        }
-        return null
-    }
-
     override fun onDestroy() {
         super.onDestroy()
         videoPlayerHelper.removeListener()
@@ -152,5 +132,29 @@ class VideoPlayerActivity : BaseActivity<ActivityVideoPlayerBinding>(ActivityVid
 
     override fun inject() {
 
+    }
+
+    override fun onStop() {
+        super.onStop()
+        videoPlayerHelper.removeListener()
+        videoPlayerHelper.destroyExoPlayer()
+    }
+
+    override fun onResume() {
+        super.onResume()
+    }
+
+    override fun onUserLeaveHint() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            enterPictureInPictureMode(PictureInPictureParams.Builder()
+                .build())
+        }else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            enterPictureInPictureMode()
+        }
+        super.onUserLeaveHint()
+    }
+
+    override fun onPictureInPictureUiStateChanged(pipState: PictureInPictureUiState) {
+        super.onPictureInPictureUiStateChanged(pipState)
     }
 }

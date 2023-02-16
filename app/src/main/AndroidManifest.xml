@@ -35,7 +35,10 @@
         </activity>
         <activity
             android:name=".ui.core.activity.VideoPlayerActivity"
+            android:supportsPictureInPicture="true"
             android:exported="false"
+            android:launchMode="singleTask"
+            android:configChanges="screenSize|smallestScreenSize|screenLayout|orientation"
             android:theme="@style/FullScreenActivity">
             <meta-data
                 android:name="android.app.lib_name"
