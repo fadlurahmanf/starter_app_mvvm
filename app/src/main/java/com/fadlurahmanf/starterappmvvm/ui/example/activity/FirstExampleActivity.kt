@@ -241,6 +241,11 @@ class FirstExampleActivity : BaseActivity<ActivityFirstExampleBinding>(ActivityF
             val intent = Intent(this, NetworkServiceDiscoveryActivity::class.java)
             startActivity(intent)
         }
+
+        binding.btnGoToGallery.setOnClickListener {
+            val intent = Intent(this, GalleryActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     private var cameraPermissionLauncher = registerForActivityResult(

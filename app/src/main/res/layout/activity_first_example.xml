@@ -231,6 +231,17 @@
             android:layout_height="wrap_content"
             android:id="@+id/btn_go_to_nsd"
             android:text="NSD"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="GO TO GAKKERY"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/btn_go_to_gallery"
+            android:text="Gallery"/>
     </LinearLayout>
 
 </ScrollView>

@@ -27,6 +27,13 @@
         android:theme="@style/Theme.StarterAppMvvm"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".ui.example.activity.GalleryActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".ui.example.activity.NetworkServiceDiscoveryActivity"
             android:exported="false">
             <meta-data
@@ -35,10 +42,10 @@
         </activity>
         <activity
             android:name=".ui.core.activity.VideoPlayerActivity"
-            android:supportsPictureInPicture="true"
+            android:configChanges="screenSize|smallestScreenSize|screenLayout|orientation"
             android:exported="false"
             android:launchMode="singleTask"
-            android:configChanges="screenSize|smallestScreenSize|screenLayout|orientation"
+            android:supportsPictureInPicture="true"
             android:theme="@style/FullScreenActivity">
             <meta-data
                 android:name="android.app.lib_name"

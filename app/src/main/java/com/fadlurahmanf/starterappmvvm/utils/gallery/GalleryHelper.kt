@@ -14,7 +14,7 @@ class GalleryHelper(var context: Context) {
             if (allowedExtensions == null) return true
             var result = false
             for (i in allowedExtensions.indices){
-                if (path.contains(allowedExtensions[i], ignoreCase = true)){
+                if (path.lowercase().contains(allowedExtensions[i].lowercase(), ignoreCase = true)){
                     result = true
                     break
                 }
