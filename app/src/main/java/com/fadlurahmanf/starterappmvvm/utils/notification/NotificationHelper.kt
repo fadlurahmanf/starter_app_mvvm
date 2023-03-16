@@ -1,5 +1,6 @@
 package com.fadlurahmanf.starterappmvvm.utils.notification
 
+import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Context
@@ -35,4 +36,11 @@ class NotificationHelper(
 
     val builder = NotificationCompat.Builder(context, GENERAL_CHANNEL_ID)
         .setSmallIcon(R.drawable.il_logo_bankmas)
+
+    fun showNotification(id:Int, title:String, body:String){
+        builder.setContentTitle(title)
+            .setContentText(body)
+
+        notificationManager.notify(id, builder.build())
+    }
 }

@@ -10,7 +10,10 @@ import com.fadlurahmanf.starterappmvvm.data.storage.example.LanguageSpStorage
 import com.fadlurahmanf.starterappmvvm.databinding.ActivitySplashBinding
 import com.fadlurahmanf.starterappmvvm.di.component.CoreComponent
 import com.fadlurahmanf.starterappmvvm.ui.example.activity.FirstExampleActivity
+import com.fadlurahmanf.starterappmvvm.utils.logging.cLoge
+import com.fadlurahmanf.starterappmvvm.utils.logging.cLogi
 import com.fadlurahmanf.starterappmvvm.utils.logging.logd
+import com.google.firebase.messaging.FirebaseMessaging
 import java.util.*
 import javax.inject.Inject
 import kotlin.concurrent.schedule
@@ -26,6 +29,11 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>(ActivitySplashBinding
     override fun initSetup() {
         val type = BuildConfig.BUILD_TYPE
         binding.tvEnv.text = type
+
+        FirebaseMessaging.getInstance().token.addOnCompleteListener {
+            cLogi(it.result, "INFO TOKEN FIREBASE")
+            logd("TOKEN FIREBASE: ${it.result}")
+        }
 
         val local = TranslationHelper.getCurrentLocale(this)
         if(languageSpStorage.languageId == null){

@@ -150,7 +150,7 @@
         </receiver>
 
         <service
-            android:name=".utils.fcm.FCMHelper"
+            android:name=".utils.fcm.FCMService"
             android:exported="true">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />

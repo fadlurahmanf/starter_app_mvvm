@@ -31,6 +31,17 @@ fun Context.cLoge(message:Throwable){
         message)
 }
 
+fun Context.cLogi(message:String, tag:String){
+    ChuckerCollector(this).onError(
+        tag,
+        Throwable(message))
+}
+fun Context.cLogi(message:String){
+    ChuckerCollector(this).onError(
+        "INFO",
+        Throwable(message))
+}
+
 fun Context.cLoge(message:String){
     ChuckerCollector(this).onError(
         "DEFAULT_TAG",

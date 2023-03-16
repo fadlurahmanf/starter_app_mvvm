@@ -100,7 +100,6 @@ class GalleryHelper(var context: Context) {
                     val bucketId = bucketIdColumn?.let { cursor.getLong(it) }
                     val date = dateAddedColumn?.let { cursor.getString(it) }
                     val contentUri = id?.let { ContentUris.withAppendedId(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, it) }
-
                     if (path != null && filterExtension(allowedExtensions, path)){
                         list.add(MediaGalleryModel(
                             id = id,
