@@ -1,6 +1,7 @@
 package com.fadlurahmanf.starterappmvvm.ui
 
 import android.content.Intent
+import android.os.Environment
 import androidx.camera.core.ExperimentalGetImage
 import com.fadlurahmanf.starterappmvvm.BaseApp
 import com.fadlurahmanf.starterappmvvm.BuildConfig
@@ -12,8 +13,11 @@ import com.fadlurahmanf.starterappmvvm.di.component.CoreComponent
 import com.fadlurahmanf.starterappmvvm.ui.example.activity.FirstExampleActivity
 import com.fadlurahmanf.starterappmvvm.utils.logging.cLoge
 import com.fadlurahmanf.starterappmvvm.utils.logging.cLogi
+import com.fadlurahmanf.starterappmvvm.utils.logging.createNewLoggerFile
 import com.fadlurahmanf.starterappmvvm.utils.logging.logd
 import com.google.firebase.messaging.FirebaseMessaging
+import java.io.File
+import java.io.FileWriter
 import java.util.*
 import javax.inject.Inject
 import kotlin.concurrent.schedule
@@ -27,12 +31,13 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>(ActivitySplashBinding
     lateinit var languageSpStorage: LanguageSpStorage
 
     override fun initSetup() {
+        createNewLoggerFile()
+
         val type = BuildConfig.BUILD_TYPE
         binding.tvEnv.text = type
 
         FirebaseMessaging.getInstance().token.addOnCompleteListener {
-            cLogi(it.result, "INFO TOKEN FIREBASE")
-            logd("TOKEN FIREBASE: ${it.result}")
+            logd("TOKEN FIREBASE", it.result)
         }
 
         val local = TranslationHelper.getCurrentLocale(this)
