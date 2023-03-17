@@ -175,4 +175,8 @@ dependencies {
     implementation 'com.github.rubensousa:previewseekbar-exoplayer:2.18.1.0'
     implementation 'com.github.wseemann:FFmpegMediaMetadataRetriever-core:1.0.19'
     implementation 'com.github.wseemann:FFmpegMediaMetadataRetriever-native:1.0.19'
+
+    implementation platform('com.google.firebase:firebase-bom:31.2.3')
+    implementation 'com.google.firebase:firebase-config-ktx'
+    implementation 'com.google.firebase:firebase-analytics-ktx'
 }

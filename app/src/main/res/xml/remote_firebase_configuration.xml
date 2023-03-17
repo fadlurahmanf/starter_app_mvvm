@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<defaultsMap xmlns:android="http://schemas.android.com/apk/res/android">
+    <entry>
+        <key>btn_pdf_from_file</key>
+        <value>true</value>
+    </entry>
+</defaultsMap>

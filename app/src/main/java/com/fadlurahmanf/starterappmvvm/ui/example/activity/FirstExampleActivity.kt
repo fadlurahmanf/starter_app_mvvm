@@ -8,6 +8,7 @@ import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
 import android.os.Build
+import android.view.View
 import androidx.activity.result.ActivityResultCallback
 import androidx.activity.result.contract.ActivityResultContract
 import androidx.activity.result.contract.ActivityResultContracts
@@ -38,8 +39,11 @@ import com.fadlurahmanf.starterappmvvm.utils.download.DownloadService
 import com.fadlurahmanf.starterappmvvm.utils.media.MediaPlayerService
 import com.fadlurahmanf.starterappmvvm.utils.call.CallBroadcastReceiver
 import com.fadlurahmanf.starterappmvvm.utils.logging.logd
+import com.fadlurahmanf.starterappmvvm.utils.logging.loge
 import com.fadlurahmanf.starterappmvvm.utils.notification.NotificationHelper
 import com.google.firebase.messaging.FirebaseMessaging
+import com.google.firebase.remoteconfig.FirebaseRemoteConfig
+import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings
 import java.util.*
 import javax.inject.Inject
 import kotlin.random.Random
@@ -53,7 +57,19 @@ class FirstExampleActivity : BaseActivity<ActivityFirstExampleBinding>(ActivityF
 
     lateinit var notificationHelper: NotificationHelper
 
+    private var isVisibleBtnPdfFromFile:Boolean = true
+
     override fun initSetup() {
+        remoteConfig.fetchAndActivate().addOnCompleteListener {
+            if (it.isSuccessful){
+                logd("REMOTE CONFIG SUCCESS")
+                isVisibleBtnPdfFromFile = remoteConfig.getBoolean("btn_pdf_from_file")
+                binding.buttonPickPdf.visibility = if(isVisibleBtnPdfFromFile) View.VISIBLE else View.INVISIBLE
+            }else{
+                loge("REMOTE CONFIG FAILED")
+            }
+        }
+
         binding.btnShowLoading.setOnClickListener {
             showLoadingDialog()
         }

@@ -15,11 +15,15 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.viewbinding.ViewBinding
 import com.chuckerteam.chucker.api.Chucker
 import com.fadlurahmanf.starterappmvvm.BaseApp
+import com.fadlurahmanf.starterappmvvm.R
 import com.fadlurahmanf.starterappmvvm.di.component.ApplicationComponent
 import com.fadlurahmanf.starterappmvvm.utils.logging.cLoge
 import com.fadlurahmanf.starterappmvvm.ui.core.dialog.DefaultLoadingDialog
 import com.fadlurahmanf.starterappmvvm.utils.logging.logd
+import com.fadlurahmanf.starterappmvvm.utils.logging.loge
 import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.remoteconfig.FirebaseRemoteConfig
+import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.disposables.Disposable
 import java.lang.Math.sqrt
@@ -41,9 +45,9 @@ abstract class BaseActivity<VB:ViewBinding>(
         inject()
         super.onCreate(savedInstanceState)
         setLayout()
+        initRemoteConfigFirebase()
         internalSetup()
         initSetup()
-        logd("onCreate")
     }
 
     private fun initShakingListener() {
@@ -54,6 +58,17 @@ abstract class BaseActivity<VB:ViewBinding>(
         sensorManager!!.registerListener(sensorListener, sensorManager!!.getDefaultSensor(Sensor.TYPE_ACCELEROMETER), SensorManager.SENSOR_DELAY_NORMAL)
     }
 
+    lateinit var remoteConfig: FirebaseRemoteConfig
+    open fun initRemoteConfigFirebase(){
+        remoteConfig = FirebaseRemoteConfig.getInstance()
+
+        val configSettings = FirebaseRemoteConfigSettings.Builder()
+            .setMinimumFetchIntervalInSeconds(60)
+            .build()
+
+        remoteConfig.setConfigSettingsAsync(configSettings)
+        remoteConfig.setDefaultsAsync(R.xml.remote_firebase_configuration)
+    }
 
     open fun internalSetup(){}
 
