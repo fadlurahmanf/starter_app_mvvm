@@ -25,7 +25,7 @@ import kotlin.concurrent.schedule
 
 @ExperimentalGetImage
 class SplashActivity : BaseActivity<ActivitySplashBinding>(ActivitySplashBinding::inflate) {
-    lateinit var component:CoreComponent
+    lateinit var component: CoreComponent
 
     @Inject
     lateinit var languageSpStorage: LanguageSpStorage
@@ -41,18 +41,18 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>(ActivitySplashBinding
         }
 
         val local = TranslationHelper.getCurrentLocale(this)
-        if(languageSpStorage.languageId == null){
+        if (languageSpStorage.languageId == null) {
             languageSpStorage.languageId = "en"
             TranslationHelper.changeLanguage(this, "en")
             recreate()
             return
-        }else if(languageSpStorage.languageId != local.language){
+        } else if (languageSpStorage.languageId != local.language) {
             TranslationHelper.changeLanguage(this, languageSpStorage.languageId!!)
             recreate()
             return
         }
 
-        Timer().schedule(3000){
+        Timer().schedule(3000) {
             val intent = Intent(this@SplashActivity, FirstExampleActivity::class.java)
             startActivity(intent)
             finish()
