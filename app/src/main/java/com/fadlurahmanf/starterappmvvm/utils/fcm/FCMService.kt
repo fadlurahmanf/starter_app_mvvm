@@ -12,9 +12,8 @@ class FCMService:FirebaseMessagingService() {
     }
 
     override fun onMessageReceived(message: RemoteMessage) {
-        val notificationHelper = NotificationHelper(applicationContext)
-
         super.onMessageReceived(message)
+        val notificationHelper = NotificationHelper(applicationContext)
         logd("onMessageReceived title: ${message.notification?.title}")
         logd("onMessageReceived body: ${message.notification?.body}")
         logd("onMessageReceived data: ${message.data}")
@@ -23,10 +22,10 @@ class FCMService:FirebaseMessagingService() {
         }else if(message.data["type"] == "stop-videocall"){
             CallBroadcastReceiver.sendBroadcastDeclinedCall(applicationContext)
         }else{
-            if (message.data["title"] != null && message.data["body"] != null){
-                notificationHelper.showNotification(1, message.data["title"]!!, message.data["body"]!!)
-            }else if(message.notification?.title != null && message.notification?.body != null){
+            if(message.notification?.title != null && message.notification?.body != null){
                 notificationHelper.showNotification(1, message.notification!!.title!!, message.notification!!.body!!)
+            }else if (message.data["title"] != null && message.data["body"] != null){
+                notificationHelper.showNotification(1, message.data["title"]!!, message.data["body"]!!)
             }
         }
     }
