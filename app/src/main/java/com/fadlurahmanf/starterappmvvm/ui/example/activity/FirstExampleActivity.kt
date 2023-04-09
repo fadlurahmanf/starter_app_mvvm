@@ -3,18 +3,18 @@ package com.fadlurahmanf.starterappmvvm.ui.example.activity
 import android.app.AlarmManager
 import android.app.PendingIntent
 import android.app.PendingIntent.FLAG_IMMUTABLE
-import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
 import android.os.Build
 import android.view.View
 import androidx.activity.result.ActivityResultCallback
-import androidx.activity.result.contract.ActivityResultContract
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.camera.core.ExperimentalGetImage
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
+import com.appsflyer.AppsFlyerLib
+import com.appsflyer.attribution.AppsFlyerRequestListener
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
@@ -23,8 +23,9 @@ import com.fadlurahmanf.starterappmvvm.BaseApp
 import com.fadlurahmanf.starterappmvvm.BuildConfig
 import com.fadlurahmanf.starterappmvvm.R
 import com.fadlurahmanf.starterappmvvm.base.BaseActivity
+import com.fadlurahmanf.starterappmvvm.constant.AnalyticEvent
 import com.fadlurahmanf.starterappmvvm.constant.BuildFlavorConstant
-import com.fadlurahmanf.starterappmvvm.core.helper.TranslationHelper
+import com.fadlurahmanf.starterappmvvm.utils.language.TranslationHelper
 import com.fadlurahmanf.starterappmvvm.data.storage.example.LanguageSpStorage
 import com.fadlurahmanf.starterappmvvm.databinding.ActivityFirstExampleBinding
 import com.fadlurahmanf.starterappmvvm.di.component.ExampleComponent
@@ -35,15 +36,15 @@ import com.fadlurahmanf.starterappmvvm.dto.model.core.PdfOrigin
 import com.fadlurahmanf.starterappmvvm.ui.core.activity.ImageViewerActivity
 import com.fadlurahmanf.starterappmvvm.ui.core.activity.PdfViewerActivity
 import com.fadlurahmanf.starterappmvvm.ui.core.activity.VideoPlayerActivity
+import com.fadlurahmanf.starterappmvvm.utils.analytic.AnalyticHelper
 import com.fadlurahmanf.starterappmvvm.utils.download.DownloadService
 import com.fadlurahmanf.starterappmvvm.utils.media.MediaPlayerService
 import com.fadlurahmanf.starterappmvvm.utils.call.CallBroadcastReceiver
 import com.fadlurahmanf.starterappmvvm.utils.logging.logd
 import com.fadlurahmanf.starterappmvvm.utils.logging.loge
 import com.fadlurahmanf.starterappmvvm.utils.notification.NotificationHelper
+import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.messaging.FirebaseMessaging
-import com.google.firebase.remoteconfig.FirebaseRemoteConfig
-import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings
 import java.util.*
 import javax.inject.Inject
 import kotlin.random.Random
@@ -76,6 +77,7 @@ class FirstExampleActivity : BaseActivity<ActivityFirstExampleBinding>(ActivityF
 
         notificationHelper = NotificationHelper(this)
         binding.btnChangeLanguage.setOnClickListener {
+            AnalyticHelper.logEvent(this, AnalyticEvent.btn_change_language)
             val local = TranslationHelper.getCurrentLocale(this)
             if(local.language == "en"){
                 TranslationHelper.changeLanguage(this, "in")
@@ -89,11 +91,13 @@ class FirstExampleActivity : BaseActivity<ActivityFirstExampleBinding>(ActivityF
 
 
         binding.button2.setOnClickListener {
+            AnalyticHelper.logEvent(this, AnalyticEvent.btn_second_example_click)
             val intent = Intent(this, SecondExampleActivity::class.java)
             startActivity(intent)
         }
 
         binding.btnGoToLogin.setOnClickListener {
+            AnalyticHelper.logEvent(this, AnalyticEvent.btn_login_click)
             val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
         }
@@ -108,6 +112,7 @@ class FirstExampleActivity : BaseActivity<ActivityFirstExampleBinding>(ActivityF
         }
 
         binding.btnEncrypt.setOnClickListener {
+            AnalyticHelper.logEvent(this, AnalyticEvent.btn_encrypt_click)
             val intent = Intent(this, ExampleEncryptDecryptActivity::class.java)
             startActivity(intent)
         }
@@ -153,6 +158,7 @@ class FirstExampleActivity : BaseActivity<ActivityFirstExampleBinding>(ActivityF
         }
 
         binding.btnShowNotif.setOnClickListener {
+            AnalyticHelper.logEvent(this, AnalyticEvent.btn_show_notif_click)
             val intent = Intent(this, LoginActivity::class.java)
             val pendingIntent = PendingIntent.getActivity(this, 0, intent, pendingIntentFlag)
             val builder = notificationHelper.builder
@@ -235,20 +241,24 @@ class FirstExampleActivity : BaseActivity<ActivityFirstExampleBinding>(ActivityF
         }
 
         binding.btnPlayAudioForeground.setOnClickListener {
+            AnalyticHelper.logEvent(this, AnalyticEvent.btn_play_audio_foreground)
             MediaPlayerService.playAudio(this, "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3")
         }
 
         binding.btnQris.setOnClickListener {
+            AnalyticHelper.logEvent(this, AnalyticEvent.btn_qris_click)
             cameraPermissionLauncher.launch(android.Manifest.permission.CAMERA)
         }
 
         binding.btnGetToken.setOnClickListener {
+            AnalyticHelper.logEvent(this, AnalyticEvent.btn_get_fcm_token)
             FirebaseMessaging.getInstance().token.addOnSuccessListener {
                 logd("token FCM: $it")
             }
         }
 
         binding.btnPlayRemoteVideo.setOnClickListener {
+            AnalyticHelper.logEvent(this, AnalyticEvent.btn_play_remote_video)
             val intent = Intent(this, VideoPlayerActivity::class.java)
             startActivity(intent)
         }
@@ -259,6 +269,7 @@ class FirstExampleActivity : BaseActivity<ActivityFirstExampleBinding>(ActivityF
         }
 
         binding.btnGoToGallery.setOnClickListener {
+            AnalyticHelper.logEvent(this, AnalyticEvent.btn_gallery_click)
             val intent = Intent(this, GalleryActivity::class.java)
             startActivity(intent)
         }

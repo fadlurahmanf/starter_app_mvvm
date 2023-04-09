@@ -1,4 +1,4 @@
-package com.fadlurahmanf.starterappmvvm.core.helper
+package com.fadlurahmanf.starterappmvvm.utils.encrypt
 
 import android.os.Build
 import com.fadlurahmanf.starterappmvvm.BuildConfig
@@ -41,7 +41,7 @@ class RSAHelper {
         private var encodedPrivateKey = BuildConfig.PRIVATE_KEY
 
         fun generateKey(method: METHOD = METHOD.PKCS1PEM): KeyPair {
-            this.method = method
+            Companion.method = method
             val keyGen = KeyPairGenerator.getInstance("RSA")
             keyGen.initialize(1024)
             val keypair = keyGen.generateKeyPair()
@@ -55,22 +55,22 @@ class RSAHelper {
                 METHOD.PKCS1PEM -> {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                         val mEncoded = Base64.getEncoder().encodeToString(publicKey.encoded)
-                        val mPublicKeyString = "${PKCS1PEM_PREFIX_PUBLIC}\n${mEncoded}\n${PKCS1PEM_SUFFIX_PUBLIC}"
+                        val mPublicKeyString = "$PKCS1PEM_PREFIX_PUBLIC\n${mEncoded}\n$PKCS1PEM_SUFFIX_PUBLIC"
                         mPublicKeyString
                     } else {
                         val mEncoded = android.util.Base64.encodeToString(publicKey.encoded, android.util.Base64.DEFAULT)
-                        val mPublicKeyString = "${PKCS1PEM_PREFIX_PUBLIC}\n${mEncoded}\n${PKCS1PEM_SUFFIX_PUBLIC}"
+                        val mPublicKeyString = "$PKCS1PEM_PREFIX_PUBLIC\n${mEncoded}\n$PKCS1PEM_SUFFIX_PUBLIC"
                         mPublicKeyString
                     }
                 }
                 else -> {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                         val mEncoded = Base64.getEncoder().encodeToString(publicKey.encoded)
-                        val mPublicKeyString = "${PKCS8PEM_PREFIX_PUBLIC}\n${mEncoded}\n${PKCS8PEM_SUFFIX_PUBLIC}"
+                        val mPublicKeyString = "$PKCS8PEM_PREFIX_PUBLIC\n${mEncoded}\n$PKCS8PEM_SUFFIX_PUBLIC"
                         mPublicKeyString
                     } else {
                         val mEncoded = android.util.Base64.encodeToString(publicKey.encoded, android.util.Base64.DEFAULT)
-                        val mPublicKeyString = "${PKCS8PEM_PREFIX_PUBLIC}\n${mEncoded}\n${PKCS8PEM_SUFFIX_PUBLIC}"
+                        val mPublicKeyString = "$PKCS8PEM_PREFIX_PUBLIC\n${mEncoded}\n$PKCS8PEM_SUFFIX_PUBLIC"
                         mPublicKeyString
                     }
                 }

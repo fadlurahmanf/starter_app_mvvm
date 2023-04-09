@@ -71,7 +71,8 @@ private fun isDevFlavor(): Boolean = BuildConfig.FLAVOR == "dev"
 fun createNewLoggerFile() {
     if (isDevFlavor()) {
         val loggerFile = loggerFile()
-        if (loggerFile.createNewFile()) {
+        if (!loggerFile.exists()) {
+            loggerFile.createNewFile()
             Log.d("DEFAULT_TAG", "CREATED NEW LOGGER FILE ${loggerFile.path}")
             newTextToLogger(loggerFile())
         } else {

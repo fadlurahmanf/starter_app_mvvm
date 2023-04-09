@@ -1,4 +1,4 @@
-package com.fadlurahmanf.starterappmvvm.core.helper
+package com.fadlurahmanf.starterappmvvm.utils.language
 
 import android.content.Context
 import java.util.Locale

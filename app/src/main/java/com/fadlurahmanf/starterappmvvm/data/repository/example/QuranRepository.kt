@@ -3,7 +3,7 @@ package com.fadlurahmanf.starterappmvvm.data.repository.example
 import android.content.Context
 import android.util.Log
 import com.fadlurahmanf.starterappmvvm.constant.LogKey
-import com.fadlurahmanf.starterappmvvm.core.helper.ConnectivityHelper
+import com.fadlurahmanf.starterappmvvm.utils.connectivity.ConnectivityHelper
 import com.fadlurahmanf.starterappmvvm.data.api.datasource.example.QuranDatasource
 import com.fadlurahmanf.starterappmvvm.data.room.datasource.QuranRoomDatasource
 import com.fadlurahmanf.starterappmvvm.dto.response.example.BaseQuranResponse

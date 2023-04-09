@@ -1,4 +1,4 @@
-package com.fadlurahmanf.starterappmvvm.core.helper
+package com.fadlurahmanf.starterappmvvm.utils.connectivity
 
 import android.content.Context
 import android.net.ConnectivityManager

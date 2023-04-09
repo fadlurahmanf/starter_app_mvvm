@@ -3,10 +3,8 @@ package com.fadlurahmanf.starterappmvvm.ui.example.activity
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
 import com.fadlurahmanf.starterappmvvm.base.BaseActivity
-import com.fadlurahmanf.starterappmvvm.core.helper.RSAHelper
+import com.fadlurahmanf.starterappmvvm.utils.encrypt.RSAHelper
 import com.fadlurahmanf.starterappmvvm.databinding.ActivityExampleEncryptDecryptBinding
 
 class ExampleEncryptDecryptActivity : BaseActivity<ActivityExampleEncryptDecryptBinding>(ActivityExampleEncryptDecryptBinding::inflate) {
