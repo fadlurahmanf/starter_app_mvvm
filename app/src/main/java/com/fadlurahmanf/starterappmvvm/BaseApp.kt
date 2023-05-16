@@ -4,6 +4,8 @@ import android.app.Application
 import com.appsflyer.AppsFlyerConversionListener
 import com.appsflyer.AppsFlyerLib
 import com.appsflyer.attribution.AppsFlyerRequestListener
+import com.facebook.FacebookSdk
+import com.facebook.LoggingBehavior
 import com.fadlurahmanf.starterappmvvm.di.component.ApplicationComponent
 import com.fadlurahmanf.starterappmvvm.di.component.DaggerApplicationComponent
 import com.fadlurahmanf.starterappmvvm.utils.logging.logd
@@ -22,6 +24,7 @@ class BaseApp : Application() {
     private fun setupAppsFlyer() {
         if(BuildConfig.BUILD_TYPE.contains("debug", ignoreCase = true)){
             AppsFlyerLib.getInstance().setDebugLog(true)
+            FacebookSdk.setIsDebugEnabled(true)
         }else{
             AppsFlyerLib.getInstance().setDebugLog(false)
         }

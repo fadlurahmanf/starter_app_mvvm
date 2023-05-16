@@ -182,4 +182,5 @@ dependencies {
 
 
     implementation 'com.appsflyer:af-android-sdk:6.9.0'
+    implementation 'com.facebook.android:facebook-android-sdk:[4,5)'
 }

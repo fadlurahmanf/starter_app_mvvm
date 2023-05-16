@@ -4,4 +4,8 @@
     <string name="exception_unauthorized">token tidak valid</string>
     <string name="exception_offline">Seems like you didn\'t have connection. Please try gain later</string>
     <string name="exception_general">something happened, please try again later</string>
+
+    <string name="facebook_app_id" translatable="false">763313698734021</string>
+    <string name="fb_login_protocol_scheme" translatable="false">fb763313698734021</string>
+    <string name="facebook_client_token" translatable="false">a63656800057da227d48d501addf8653</string>
 </resources>

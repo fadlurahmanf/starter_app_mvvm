@@ -4,6 +4,8 @@ import android.content.Context
 import android.os.Bundle
 import com.appsflyer.AppsFlyerLib
 import com.appsflyer.attribution.AppsFlyerRequestListener
+import com.facebook.FacebookSdk
+import com.facebook.appevents.AppEventsLogger
 import com.fadlurahmanf.starterappmvvm.utils.logging.logd
 import com.google.firebase.analytics.FirebaseAnalytics
 
@@ -16,11 +18,13 @@ class AnalyticHelper {
         fun logEvent(context: Context, event: String, map: Map<String, Any>) {
             Firebase.logEvent(context, event, map)
             AppsFlyer.logEvent(context, event, map)
+            Facebook.logEvent(context, event)
         }
 
         fun logEvent(context: Context, event: String) {
             Firebase.logEvent(context, event)
             AppsFlyer.logEvent(context, event)
+            Facebook.logEvent(context, event)
         }
 
         private fun mapToBundle(map:Map<String, Any>):Bundle {
@@ -82,6 +86,15 @@ class AnalyticHelper {
                         logd("LOG ITEM $event FAILED SENT TO APPSFLYER DASHBOARD, CODE: $p0, MESSAGE: $p1")
                     }
                 })
+            }
+        }
+    }
+
+    class Facebook {
+        companion object {
+            fun logEvent(context: Context, event: String) {
+                AppEventsLogger.newLogger(context).logEvent(event)
+                logd("LOG ITEM $event SUCCESS SENT TO FACEBOOK APP EVENT DASHBOARD")
             }
         }
     }
