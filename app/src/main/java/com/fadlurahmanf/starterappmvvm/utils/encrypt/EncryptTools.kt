@@ -142,9 +142,36 @@ enum class AESMethod {
     ECB,
 }
 
+enum class PaddingScheme {
+    PKCS5,
+    PKCS7,
+}
+
 class CryptoAES : EncryptTools() {
     companion object {
-        fun encrypt(plainText: String, method: AESMethod, secretKey: String): String? {
+
+        private fun getPaddingScheme(scheme: PaddingScheme): String {
+            return when (scheme) {
+                PaddingScheme.PKCS7 -> {
+                    "PKCS7Padding"
+                }
+
+                PaddingScheme.PKCS5 -> {
+                    "PKCS5Padding"
+                }
+
+                else -> {
+                    throw CryptoException(code = "03", "PADDING SCHEME NOT FOUND")
+                }
+            }
+        }
+
+        fun encrypt(
+            plainText: String,
+            secretKey: String,
+            method: AESMethod = AESMethod.CBC,
+            padding: PaddingScheme = PaddingScheme.PKCS7
+        ): String? {
             try {
                 if (plainText.isEmpty()) {
                     throw CryptoException(code = "01", message = "TEXT CANNOT BE EMPTY")
@@ -156,11 +183,11 @@ class CryptoAES : EncryptTools() {
 
                 return when (method) {
                     AESMethod.ECB -> {
-                        encryptECB(plainText, secretKey)
+                        encryptECB(plainText, secretKey, padding)
                     }
 
                     AESMethod.CBC -> {
-                        encryptCBC(plainText, secretKey)
+                        encryptCBC(plainText, secretKey, padding)
                     }
 
                     else -> {
@@ -174,10 +201,14 @@ class CryptoAES : EncryptTools() {
             }
         }
 
-        private fun encryptCBC(plainText: String, secretKey: String): String {
+        private fun encryptCBC(
+            plainText: String,
+            secretKey: String,
+            padding: PaddingScheme
+        ): String {
             val key = SecretKeySpec(secretKey.toByteArray(), "AES")
             val iv = IvParameterSpec(ByteArray(16))
-            val cipher = Cipher.getInstance("AES/CBC/PKCS7Padding")
+            val cipher = Cipher.getInstance("AES/CBC/${getPaddingScheme(padding)}")
             cipher.init(Cipher.ENCRYPT_MODE, key, iv)
             val encryptedBytes = cipher.doFinal(plainText.toByteArray());
             val encodedEncryptedText = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -188,9 +219,13 @@ class CryptoAES : EncryptTools() {
             return encodedEncryptedText
         }
 
-        private fun encryptECB(plainText: String, secretKey: String): String {
+        private fun encryptECB(
+            plainText: String,
+            secretKey: String,
+            padding: PaddingScheme
+        ): String {
             val key = SecretKeySpec(secretKey.toByteArray(), "AES")
-            val cipher = Cipher.getInstance("AES/ECB/PKCS7Padding")
+            val cipher = Cipher.getInstance("AES/ECB/${getPaddingScheme(padding)}")
             cipher.init(Cipher.ENCRYPT_MODE, key)
             val encryptedBytes = cipher.doFinal(plainText.toByteArray());
             val encodedEncryptedText = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -201,7 +236,12 @@ class CryptoAES : EncryptTools() {
             return encodedEncryptedText
         }
 
-        fun decrypt(encryptedText: String, method: AESMethod, secretKey: String): String? {
+        fun decrypt(
+            encryptedText: String,
+            secretKey: String,
+            method: AESMethod = AESMethod.CBC,
+            padding: PaddingScheme = PaddingScheme.PKCS7
+        ): String? {
             try {
                 if (encryptedText.isEmpty()) {
                     throw CryptoException(code = "01", message = "ENCRYPTED TEXT CANNOT BE EMPTY")
@@ -213,11 +253,11 @@ class CryptoAES : EncryptTools() {
 
                 return when (method) {
                     AESMethod.ECB -> {
-                        decryptECB(encryptedText, secretKey)
+                        decryptECB(encryptedText, secretKey, padding)
                     }
 
                     AESMethod.CBC -> {
-                        decryptCBC(encryptedText, secretKey)
+                        decryptCBC(encryptedText, secretKey, padding)
                     }
 
                     else -> {
@@ -231,10 +271,14 @@ class CryptoAES : EncryptTools() {
             }
         }
 
-        private fun decryptCBC(encryptedText: String, secretKey: String): String {
+        private fun decryptCBC(
+            encryptedText: String,
+            secretKey: String,
+            padding: PaddingScheme
+        ): String {
             val key = SecretKeySpec(secretKey.toByteArray(), "AES")
             val iv = IvParameterSpec(ByteArray(16))
-            val cipher = Cipher.getInstance("AES/CBC/PKCS7Padding")
+            val cipher = Cipher.getInstance("AES/CBC/${getPaddingScheme(padding)}")
             cipher.init(Cipher.DECRYPT_MODE, key, iv)
             val decrypted = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 String(
@@ -255,9 +299,13 @@ class CryptoAES : EncryptTools() {
             return decrypted
         }
 
-        private fun decryptECB(encryptedText: String, secretKey: String): String {
+        private fun decryptECB(
+            encryptedText: String,
+            secretKey: String,
+            padding: PaddingScheme
+        ): String {
             val key = SecretKeySpec(secretKey.toByteArray(), "AES")
-            val cipher = Cipher.getInstance("AES/ECB/PKCS7Padding")
+            val cipher = Cipher.getInstance("AES/ECB/${getPaddingScheme(padding)}")
             cipher.init(Cipher.DECRYPT_MODE, key)
             val decrypted = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 String(
