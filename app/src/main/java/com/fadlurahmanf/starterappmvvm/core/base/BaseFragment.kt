@@ -1,4 +1,4 @@
-package com.fadlurahmanf.starterappmvvm.base
+package com.fadlurahmanf.starterappmvvm.core.base
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,7 +10,7 @@ import androidx.viewbinding.ViewBinding
 typealias InflateFragment<T> = (LayoutInflater, ViewGroup?, Boolean) -> T
 
 abstract class BaseFragment<VB:ViewBinding>(
-    var inflate:InflateFragment<VB>
+    var inflate: InflateFragment<VB>
 ):Fragment() {
 
     private var _binding:VB ?= null

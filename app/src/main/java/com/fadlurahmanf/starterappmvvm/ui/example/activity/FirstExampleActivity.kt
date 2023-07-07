@@ -13,8 +13,6 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.camera.core.ExperimentalGetImage
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
-import com.appsflyer.AppsFlyerLib
-import com.appsflyer.attribution.AppsFlyerRequestListener
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
@@ -22,7 +20,7 @@ import com.chuckerteam.chucker.api.Chucker
 import com.fadlurahmanf.starterappmvvm.BaseApp
 import com.fadlurahmanf.starterappmvvm.BuildConfig
 import com.fadlurahmanf.starterappmvvm.R
-import com.fadlurahmanf.starterappmvvm.base.BaseActivity
+import com.fadlurahmanf.starterappmvvm.core.base.BaseActivity
 import com.fadlurahmanf.starterappmvvm.constant.AnalyticEvent
 import com.fadlurahmanf.starterappmvvm.constant.BuildFlavorConstant
 import com.fadlurahmanf.starterappmvvm.utils.language.TranslationHelper
@@ -43,7 +41,6 @@ import com.fadlurahmanf.starterappmvvm.utils.call.CallBroadcastReceiver
 import com.fadlurahmanf.starterappmvvm.utils.logging.logd
 import com.fadlurahmanf.starterappmvvm.utils.logging.loge
 import com.fadlurahmanf.starterappmvvm.utils.notification.NotificationHelper
-import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.messaging.FirebaseMessaging
 import java.util.*
 import javax.inject.Inject

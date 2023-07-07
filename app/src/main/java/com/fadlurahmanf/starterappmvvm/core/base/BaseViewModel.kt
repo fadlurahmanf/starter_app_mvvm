@@ -1,9 +1,8 @@
-package com.fadlurahmanf.starterappmvvm.base
+package com.fadlurahmanf.starterappmvvm.core.base
 
 import androidx.lifecycle.ViewModel
 import com.fadlurahmanf.starterappmvvm.dto.response.core.BaseResponse
 import io.reactivex.rxjava3.disposables.CompositeDisposable
-import io.reactivex.rxjava3.disposables.Disposable
 
 
 abstract class BaseViewModel:ViewModel() {

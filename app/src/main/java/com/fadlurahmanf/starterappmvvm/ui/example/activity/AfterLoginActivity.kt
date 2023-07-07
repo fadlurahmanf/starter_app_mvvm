@@ -1,9 +1,7 @@
 package com.fadlurahmanf.starterappmvvm.ui.example.activity
 
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
-import com.fadlurahmanf.starterappmvvm.base.BaseActivity
-import com.fadlurahmanf.starterappmvvm.base.NetworkState
+import com.fadlurahmanf.starterappmvvm.core.base.BaseActivity
+import com.fadlurahmanf.starterappmvvm.core.base.NetworkState
 import com.fadlurahmanf.starterappmvvm.databinding.ActivityAfterLoginBinding
 import com.fadlurahmanf.starterappmvvm.di.component.ExampleComponent
 import com.fadlurahmanf.starterappmvvm.ui.example.viewmodel.AfterLoginViewModel

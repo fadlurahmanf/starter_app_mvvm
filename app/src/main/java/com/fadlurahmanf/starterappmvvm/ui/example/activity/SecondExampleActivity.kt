@@ -1,8 +1,8 @@
 package com.fadlurahmanf.starterappmvvm.ui.example.activity
 
 import android.view.View
-import com.fadlurahmanf.starterappmvvm.base.BaseActivity
-import com.fadlurahmanf.starterappmvvm.base.NetworkState
+import com.fadlurahmanf.starterappmvvm.core.base.BaseActivity
+import com.fadlurahmanf.starterappmvvm.core.base.NetworkState
 import com.fadlurahmanf.starterappmvvm.databinding.ActivitySecondExampleBinding
 import com.fadlurahmanf.starterappmvvm.di.component.ExampleComponent
 import com.fadlurahmanf.starterappmvvm.dto.response.example.SurahResponse

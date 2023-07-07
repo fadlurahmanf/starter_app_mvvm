@@ -1,5 +1,7 @@
-package com.fadlurahmanf.starterappmvvm.utils.encrypt
+package com.fadlurahmanf.starterappmvvm.encrypt.domain
 
+import com.fadlurahmanf.starterappmvvm.encrypt.data.model.CryptoKey
+import com.fadlurahmanf.starterappmvvm.encrypt.domain.common.BaseEncrypt
 import org.bouncycastle.crypto.AsymmetricCipherKeyPair
 import org.bouncycastle.crypto.generators.Ed25519KeyPairGenerator
 import org.bouncycastle.crypto.params.Ed25519KeyGenerationParameters

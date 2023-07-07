@@ -1,4 +1,4 @@
-package com.fadlurahmanf.starterappmvvm.utils.encrypt
+package com.fadlurahmanf.starterappmvvm.encrypt.domain
 
 import android.os.Build
 import com.fadlurahmanf.starterappmvvm.BuildConfig

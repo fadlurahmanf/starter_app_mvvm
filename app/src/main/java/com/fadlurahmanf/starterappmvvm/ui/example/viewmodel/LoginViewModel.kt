@@ -1,8 +1,8 @@
 package com.fadlurahmanf.starterappmvvm.ui.example.viewmodel
 
 import androidx.lifecycle.MutableLiveData
-import com.fadlurahmanf.starterappmvvm.base.BaseViewModel
-import com.fadlurahmanf.starterappmvvm.base.NetworkState
+import com.fadlurahmanf.starterappmvvm.core.base.BaseViewModel
+import com.fadlurahmanf.starterappmvvm.core.base.NetworkState
 import com.fadlurahmanf.starterappmvvm.data.repository.example.IdentityRepository
 import com.fadlurahmanf.starterappmvvm.dto.response.example.LoginResponse
 import com.fadlurahmanf.starterappmvvm.extension.toErrorState
@@ -13,7 +13,7 @@ import javax.inject.Inject
 
 class LoginViewModel @Inject constructor(
     var identityRepository: IdentityRepository
-):BaseViewModel() {
+): BaseViewModel() {
     private var _loginState = MutableLiveData<NetworkState<LoginResponse>>()
     val loginState get() = _loginState
 

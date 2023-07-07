@@ -2,8 +2,8 @@ package com.fadlurahmanf.starterappmvvm.ui.example.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.fadlurahmanf.starterappmvvm.base.BaseViewModel
-import com.fadlurahmanf.starterappmvvm.base.NetworkState
+import com.fadlurahmanf.starterappmvvm.core.base.BaseViewModel
+import com.fadlurahmanf.starterappmvvm.core.base.NetworkState
 import com.fadlurahmanf.starterappmvvm.data.repository.example.QuranRepository
 import com.fadlurahmanf.starterappmvvm.dto.exception.CustomException
 import com.fadlurahmanf.starterappmvvm.dto.response.example.SurahResponse
@@ -13,7 +13,7 @@ import javax.inject.Inject
 
 class ListSurahViewModel @Inject constructor(
     var quranRepository: QuranRepository
-):BaseViewModel() {
+): BaseViewModel() {
 
     private val _surahsLive = MutableLiveData<NetworkState<List<SurahResponse>>>()
     val surahsLive get() : LiveData<NetworkState<List<SurahResponse>>> = _surahsLive

@@ -1,30 +1,17 @@
 package com.fadlurahmanf.starterappmvvm.ui.core.activity
 
 import android.app.AlertDialog
-import android.app.PendingIntent
 import android.app.PictureInPictureParams
 import android.app.PictureInPictureUiState
-import android.content.BroadcastReceiver
-import android.content.Context
-import android.content.Intent
-import android.content.IntentFilter
-import android.content.res.Configuration
-import android.graphics.Bitmap
-import android.media.MediaMetadataRetriever
 import android.os.Build
 import android.widget.SeekBar
 import androidx.core.content.ContextCompat
 import com.fadlurahmanf.starterappmvvm.R
-import com.fadlurahmanf.starterappmvvm.base.BaseActivity
+import com.fadlurahmanf.starterappmvvm.core.base.BaseActivity
 import com.fadlurahmanf.starterappmvvm.databinding.ActivityVideoPlayerBinding
 import com.fadlurahmanf.starterappmvvm.utils.logging.logd
 import com.fadlurahmanf.starterappmvvm.utils.video_player.VideoPlayerHelper
-import com.github.rubensousa.previewseekbar.PreviewLoader
 import com.google.android.exoplayer2.Player
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import wseemann.media.FFmpegMediaMetadataRetriever
 
 
 class VideoPlayerActivity : BaseActivity<ActivityVideoPlayerBinding>(ActivityVideoPlayerBinding::inflate) {

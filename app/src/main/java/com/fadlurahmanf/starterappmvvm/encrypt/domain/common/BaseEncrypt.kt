@@ -1,6 +1,7 @@
-package com.fadlurahmanf.starterappmvvm.utils.encrypt
+package com.fadlurahmanf.starterappmvvm.encrypt.domain.common
 
 import android.os.Build
+import com.fadlurahmanf.starterappmvvm.encrypt.data.exception.CryptoException
 import java.util.Base64
 
 enum class AESMethod {

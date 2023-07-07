@@ -1,4 +1,4 @@
-package com.fadlurahmanf.starterappmvvm.utils.encrypt
+package com.fadlurahmanf.starterappmvvm.encrypt.data.model
 
 data class CryptoKey(
     /**

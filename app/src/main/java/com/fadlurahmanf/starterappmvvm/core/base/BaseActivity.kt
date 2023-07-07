@@ -1,7 +1,6 @@
-package com.fadlurahmanf.starterappmvvm.base
+package com.fadlurahmanf.starterappmvvm.core.base
 
 import android.content.Context
-import android.content.Intent
 import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
@@ -17,10 +16,7 @@ import com.chuckerteam.chucker.api.Chucker
 import com.fadlurahmanf.starterappmvvm.BaseApp
 import com.fadlurahmanf.starterappmvvm.R
 import com.fadlurahmanf.starterappmvvm.di.component.ApplicationComponent
-import com.fadlurahmanf.starterappmvvm.utils.logging.cLoge
 import com.fadlurahmanf.starterappmvvm.ui.core.dialog.DefaultLoadingDialog
-import com.fadlurahmanf.starterappmvvm.utils.logging.logd
-import com.fadlurahmanf.starterappmvvm.utils.logging.loge
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig
 import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings
@@ -31,7 +27,7 @@ import java.lang.Math.sqrt
 typealias InflateActivity<T> = (LayoutInflater) -> T
 
 abstract class BaseActivity<VB:ViewBinding>(
-    var inflate:InflateActivity<VB>
+    var inflate: InflateActivity<VB>
 ):AppCompatActivity() {
 
     private var _binding:VB ?= null

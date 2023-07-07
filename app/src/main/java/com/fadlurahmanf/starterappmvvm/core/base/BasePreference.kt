@@ -1,4 +1,4 @@
-package com.fadlurahmanf.starterappmvvm.base
+package com.fadlurahmanf.starterappmvvm.core.base
 
 import android.content.Context
 import android.content.SharedPreferences

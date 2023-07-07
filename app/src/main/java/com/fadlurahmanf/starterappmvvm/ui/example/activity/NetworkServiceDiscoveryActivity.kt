@@ -4,10 +4,8 @@ import android.content.Context
 import android.net.nsd.NsdManager
 import android.net.nsd.NsdManager.ResolveListener
 import android.net.nsd.NsdServiceInfo
-import android.os.Handler
-import android.os.Looper
 import android.provider.Settings.Secure
-import com.fadlurahmanf.starterappmvvm.base.BaseActivity
+import com.fadlurahmanf.starterappmvvm.core.base.BaseActivity
 import com.fadlurahmanf.starterappmvvm.databinding.ActivityNetworkServiceDiscoveryBinding
 import com.fadlurahmanf.starterappmvvm.utils.logging.logd
 import com.fadlurahmanf.starterappmvvm.utils.logging.loge
@@ -20,7 +18,7 @@ import java.net.InetSocketAddress
 import java.net.ServerSocket
 import java.net.Socket
 
-class NetworkServiceDiscoveryActivity:BaseActivity<ActivityNetworkServiceDiscoveryBinding>(ActivityNetworkServiceDiscoveryBinding::inflate) {
+class NetworkServiceDiscoveryActivity: BaseActivity<ActivityNetworkServiceDiscoveryBinding>(ActivityNetworkServiceDiscoveryBinding::inflate) {
     private lateinit var deviceId:String
     override fun initSetup() {
         deviceId = Secure.getString(contentResolver, Secure.ANDROID_ID)

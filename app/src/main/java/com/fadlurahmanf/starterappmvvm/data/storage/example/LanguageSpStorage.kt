@@ -1,7 +1,7 @@
 package com.fadlurahmanf.starterappmvvm.data.storage.example
 
 import android.content.Context
-import com.fadlurahmanf.starterappmvvm.base.BasePreference
+import com.fadlurahmanf.starterappmvvm.core.base.BasePreference
 import com.fadlurahmanf.starterappmvvm.constant.SpKey
 import javax.inject.Inject
 

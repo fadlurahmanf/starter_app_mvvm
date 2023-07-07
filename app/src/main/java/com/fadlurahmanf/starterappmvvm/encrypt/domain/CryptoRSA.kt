@@ -1,7 +1,9 @@
+package com.fadlurahmanf.starterappmvvm.encrypt.domain
+
 import android.os.Build
-import com.fadlurahmanf.starterappmvvm.utils.encrypt.CryptoException
-import com.fadlurahmanf.starterappmvvm.utils.encrypt.BaseEncrypt
-import com.fadlurahmanf.starterappmvvm.utils.encrypt.CryptoKey
+import com.fadlurahmanf.starterappmvvm.encrypt.data.exception.CryptoException
+import com.fadlurahmanf.starterappmvvm.encrypt.data.model.CryptoKey
+import com.fadlurahmanf.starterappmvvm.encrypt.domain.common.BaseEncrypt
 import java.security.KeyFactory
 import java.security.KeyPairGenerator
 import java.security.PrivateKey

@@ -1,7 +1,7 @@
 package com.fadlurahmanf.starterappmvvm.ui.example.viewmodel
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import com.fadlurahmanf.starterappmvvm.base.NetworkState
+import com.fadlurahmanf.starterappmvvm.core.base.NetworkState
 import com.fadlurahmanf.starterappmvvm.data.repository.example.QuranRepository
 import com.fadlurahmanf.starterappmvvm.dto.exception.CustomException
 import com.fadlurahmanf.starterappmvvm.dto.response.example.BaseQuranResponse
@@ -73,7 +73,8 @@ class ListSurahViewModelTest{
             ))
 
         viewModel.getSurahs()
-        assertEquals(Gson().toJson(NetworkState.Error(exception = CustomException(
+        assertEquals(Gson().toJson(
+            NetworkState.Error(exception = CustomException(
             rawMessage = "ERROR"
         ))),  Gson().toJson(viewModel.surahsLive.value))
     }
