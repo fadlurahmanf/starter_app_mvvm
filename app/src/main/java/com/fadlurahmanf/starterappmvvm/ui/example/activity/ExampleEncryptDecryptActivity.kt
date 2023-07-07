@@ -1,6 +1,7 @@
 package com.fadlurahmanf.starterappmvvm.ui.example.activity
 
-import EncryptRSA
+import CryptoAES
+import CryptoRSA
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
@@ -52,13 +53,17 @@ class ExampleEncryptDecryptActivity :
             cm.setPrimaryClip(clipData)
         }
 
-        binding.btnNewEncryptTool.setOnClickListener {
-            val key = EncryptRSA.generateKey()
+        binding.btnEncryptRsa.setOnClickListener {
+            val key = CryptoRSA.generateKey()
             val message = "TES TES OI"
-            val encrypted = EncryptRSA.encrypt(message, key.publicKey)
+            val encrypted = CryptoRSA.encrypt(message, key.publicKey)
             println("MASUK ENCRYPTED: $encrypted")
-            val decrypted = EncryptRSA.decrypt(encrypted ?: "", key.privateKey)
+            val decrypted = CryptoRSA.decrypt(encrypted ?: "", key.privateKey)
             println("MASUK DECRYPT KEDUA: $decrypted")
+        }
+
+        binding.btnEncryptAes.setOnClickListener {
+            CryptoAES.encrypt()
         }
     }
 

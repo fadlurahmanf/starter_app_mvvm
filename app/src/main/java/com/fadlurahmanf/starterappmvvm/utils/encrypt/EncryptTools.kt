@@ -1,8 +1,5 @@
 import android.os.Build
-import com.fadlurahmanf.starterappmvvm.utils.encrypt.RSAHelper
-import com.fadlurahmanf.starterappmvvm.utils.logging.logd
 import java.security.KeyFactory
-import java.security.KeyPair
 import java.security.KeyPairGenerator
 import java.security.PrivateKey
 import java.security.PublicKey
@@ -10,6 +7,8 @@ import java.security.spec.PKCS8EncodedKeySpec
 import java.security.spec.X509EncodedKeySpec
 import java.util.Base64
 import javax.crypto.Cipher
+import javax.crypto.spec.IvParameterSpec
+import javax.crypto.spec.SecretKeySpec
 
 abstract class EncryptTools {}
 
@@ -29,7 +28,7 @@ data class RSAKey(
     val publicKey: String
 )
 
-class EncryptRSA : EncryptTools() {
+class CryptoRSA : EncryptTools() {
 
     companion object {
         private fun encodedPublicKey(key: PublicKey): String {
@@ -135,6 +134,30 @@ class EncryptRSA : EncryptTools() {
             } catch (e: Throwable) {
                 null
             }
+        }
+    }
+}
+
+class CryptoAES:EncryptTools(){
+    companion object{
+        fun encrypt(){
+            val iv = IvParameterSpec(ByteArray(16))
+            val key = SecretKeySpec("12345678901234567890123456789012".toByteArray(), "AES")
+            val cipher = Cipher.getInstance("AES/CBC/PKCS7Padding")
+            cipher.init(Cipher.ENCRYPT_MODE, key, iv)
+            val encrypted = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                Base64.getEncoder().encodeToString(cipher.doFinal("TES TES".toByteArray()))
+            } else {
+                TODO("VERSION.SDK_INT < O")
+            }
+            println("masuk encrypted ${encrypted}")
+
+            val cipher2 = Cipher.getInstance("AES/CBC/PKCS7Padding")
+            cipher2.init(Cipher.DECRYPT_MODE, key, iv)
+            val decrypted = String(cipher2.doFinal(
+                Base64.getDecoder().decode(encrypted)
+            ))
+            println("masuk decrypted ${decrypted}")
         }
     }
 }

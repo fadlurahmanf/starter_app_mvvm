@@ -55,7 +55,13 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/btn_new_encrypt_tool"
-            android:text="New Encrrypt Decrypt"/>
+            android:id="@+id/btn_encrypt_rsa"
+            android:text="ENCRYPT RSA"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/btn_encrypt_aes"
+            android:text="ENCRYPT AES"/>
     </LinearLayout>
 </ScrollView>
