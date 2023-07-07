@@ -12,7 +12,7 @@ import javax.crypto.spec.SecretKeySpec
 
 abstract class EncryptTools {}
 
-class EncryptException(
+class CryptoException(
     val code: String? = null,
     override val message: String? = null
 ) : Throwable(message)
@@ -102,7 +102,7 @@ class CryptoRSA : EncryptTools() {
             return try {
                 val cipher = Cipher.getInstance("RSA/ECB/PKCS1Padding")
                 cipher.init(Cipher.ENCRYPT_MODE, loadPublicKey(encodedPublicKey))
-                val encryptedBytes = cipher.doFinal(plainText.toByteArray());
+                val encryptedBytes = cipher.doFinal(plainText.toByteArray())
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                     Base64.getEncoder().encodeToString(encryptedBytes)
                 } else {
@@ -121,7 +121,6 @@ class CryptoRSA : EncryptTools() {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                     String(cipher.doFinal(Base64.getDecoder().decode(encrypted)))
                 } else {
-                    cipher.init(Cipher.DECRYPT_MODE, loadPrivateKey(encodedPrivateKey))
                     String(
                         cipher.doFinal(
                             android.util.Base64.decode(
@@ -138,26 +137,145 @@ class CryptoRSA : EncryptTools() {
     }
 }
 
-class CryptoAES:EncryptTools(){
-    companion object{
-        fun encrypt(){
+enum class AESMethod {
+    CBC,
+    ECB,
+}
+
+class CryptoAES : EncryptTools() {
+    companion object {
+        fun encrypt(plainText: String, method: AESMethod, secretKey: String): String? {
+            try {
+                if (plainText.isEmpty()) {
+                    throw CryptoException(code = "01", message = "TEXT CANNOT BE EMPTY")
+                }
+
+                if (secretKey.length != 32) {
+                    throw CryptoException(code = "00", message = "KEY MUST BE 32 LENGTH")
+                }
+
+                return when (method) {
+                    AESMethod.ECB -> {
+                        encryptECB(plainText, secretKey)
+                    }
+
+                    AESMethod.CBC -> {
+                        encryptCBC(plainText, secretKey)
+                    }
+
+                    else -> {
+                        throw CryptoException(code = "03", message = "AES METHOD NOT FOUND")
+                    }
+                }
+            } catch (e: CryptoException) {
+                return null
+            } catch (e: Throwable) {
+                return null
+            }
+        }
+
+        private fun encryptCBC(plainText: String, secretKey: String): String {
+            val key = SecretKeySpec(secretKey.toByteArray(), "AES")
             val iv = IvParameterSpec(ByteArray(16))
-            val key = SecretKeySpec("12345678901234567890123456789012".toByteArray(), "AES")
             val cipher = Cipher.getInstance("AES/CBC/PKCS7Padding")
             cipher.init(Cipher.ENCRYPT_MODE, key, iv)
-            val encrypted = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                Base64.getEncoder().encodeToString(cipher.doFinal("TES TES".toByteArray()))
+            val encryptedBytes = cipher.doFinal(plainText.toByteArray());
+            val encodedEncryptedText = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                Base64.getEncoder().encodeToString(encryptedBytes)
             } else {
-                TODO("VERSION.SDK_INT < O")
+                android.util.Base64.encodeToString(encryptedBytes, android.util.Base64.DEFAULT)
             }
-            println("masuk encrypted ${encrypted}")
+            return encodedEncryptedText
+        }
 
-            val cipher2 = Cipher.getInstance("AES/CBC/PKCS7Padding")
-            cipher2.init(Cipher.DECRYPT_MODE, key, iv)
-            val decrypted = String(cipher2.doFinal(
-                Base64.getDecoder().decode(encrypted)
-            ))
-            println("masuk decrypted ${decrypted}")
+        private fun encryptECB(plainText: String, secretKey: String): String {
+            val key = SecretKeySpec(secretKey.toByteArray(), "AES")
+            val cipher = Cipher.getInstance("AES/ECB/PKCS7Padding")
+            cipher.init(Cipher.ENCRYPT_MODE, key)
+            val encryptedBytes = cipher.doFinal(plainText.toByteArray());
+            val encodedEncryptedText = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                Base64.getEncoder().encodeToString(encryptedBytes)
+            } else {
+                android.util.Base64.encodeToString(encryptedBytes, android.util.Base64.DEFAULT)
+            }
+            return encodedEncryptedText
+        }
+
+        fun decrypt(encryptedText: String, method: AESMethod, secretKey: String): String? {
+            try {
+                if (encryptedText.isEmpty()) {
+                    throw CryptoException(code = "01", message = "ENCRYPTED TEXT CANNOT BE EMPTY")
+                }
+
+                if (secretKey.length != 32) {
+                    throw CryptoException(code = "00", message = "KEY MUST BE 32 LENGTH")
+                }
+
+                return when (method) {
+                    AESMethod.ECB -> {
+                        decryptECB(encryptedText, secretKey)
+                    }
+
+                    AESMethod.CBC -> {
+                        decryptCBC(encryptedText, secretKey)
+                    }
+
+                    else -> {
+                        throw CryptoException(code = "03", message = "AES METHOD NOT FOUND")
+                    }
+                }
+            } catch (e: CryptoException) {
+                return null
+            } catch (e: Throwable) {
+                return null
+            }
+        }
+
+        private fun decryptCBC(encryptedText: String, secretKey: String): String {
+            val key = SecretKeySpec(secretKey.toByteArray(), "AES")
+            val iv = IvParameterSpec(ByteArray(16))
+            val cipher = Cipher.getInstance("AES/CBC/PKCS7Padding")
+            cipher.init(Cipher.DECRYPT_MODE, key, iv)
+            val decrypted = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                String(
+                    cipher.doFinal(
+                        Base64.getDecoder().decode(encryptedText)
+                    )
+                )
+            } else {
+                String(
+                    cipher.doFinal(
+                        android.util.Base64.decode(
+                            encryptedText,
+                            android.util.Base64.DEFAULT
+                        )
+                    )
+                )
+            }
+            return decrypted
+        }
+
+        private fun decryptECB(encryptedText: String, secretKey: String): String {
+            val key = SecretKeySpec(secretKey.toByteArray(), "AES")
+            val cipher = Cipher.getInstance("AES/ECB/PKCS7Padding")
+            cipher.init(Cipher.DECRYPT_MODE, key)
+            val decrypted = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                String(
+                    cipher.doFinal(
+                        Base64.getDecoder().decode(encryptedText)
+                    )
+                )
+            } else {
+                String(
+                    cipher.doFinal(
+                        android.util.Base64.decode(
+                            encryptedText,
+                            android.util.Base64.DEFAULT
+                        )
+                    )
+                )
+            }
+            return decrypted
         }
     }
 }

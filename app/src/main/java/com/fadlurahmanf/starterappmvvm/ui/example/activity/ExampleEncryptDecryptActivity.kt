@@ -63,7 +63,11 @@ class ExampleEncryptDecryptActivity :
         }
 
         binding.btnEncryptAes.setOnClickListener {
-            CryptoAES.encrypt()
+            val key = "12345678901234567890123456789012"
+            val encrypted = CryptoAES.encrypt("TES TES", AESMethod.CBC, key)
+            println("masuk encrypted: $encrypted")
+            val decrypted = CryptoAES.decrypt(encrypted ?: "", AESMethod.CBC, key)
+            println("masuk decrypted: $decrypted")
         }
     }
 
