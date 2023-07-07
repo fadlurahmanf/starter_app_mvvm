@@ -204,7 +204,7 @@ class CryptoAES : EncryptTools() {
         return decrypted
     }
 
-    fun padPlaintext(plaintext: String): String {
+    private fun padPlaintext(plaintext: String): String {
         val blockSize = 16
         val paddingLength = blockSize - (plaintext.length % blockSize)
         val paddingChar = paddingLength.toChar()
