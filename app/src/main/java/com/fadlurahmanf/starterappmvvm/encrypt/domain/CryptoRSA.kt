@@ -15,71 +15,27 @@ import javax.crypto.Cipher
 
 class CryptoRSA : BaseEncrypt() {
 
-    private fun encodedPublicKey(key: PublicKey): String {
-        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            Base64.getEncoder().encodeToString(key.encoded)
-        } else {
-            return android.util.Base64.encodeToString(
-                key.encoded,
-                android.util.Base64.DEFAULT
-            )
-        }
-    }
-
-    private fun encodedPrivateKey(key: PrivateKey): String {
-        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            Base64.getEncoder().encodeToString(key.encoded)
-        } else {
-            android.util.Base64.encodeToString(
-                key.encoded,
-                android.util.Base64.DEFAULT
-            )
-        }
-    }
-
     fun generateKey(): CryptoKey {
         val keyGen = KeyPairGenerator.getInstance("RSA")
         keyGen.initialize(1024)
         val keyPair = keyGen.generateKeyPair()
-        val publicKey = encodedPublicKey(keyPair.public)
-        val privateKey = encodedPrivateKey(keyPair.private)
+        val publicKey = encode(keyPair.public.encoded)
+        val privateKey = encode(keyPair.private.encoded)
         return CryptoKey(privateKey = privateKey, publicKey = publicKey)
     }
 
     private fun loadPublicKey(encodedPublicKey: String): PublicKey {
-        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val data = Base64.getDecoder().decode(encodedPublicKey.toByteArray())
-            val spec = X509EncodedKeySpec(data)
-            val fact: KeyFactory = KeyFactory.getInstance("RSA")
-            fact.generatePublic(spec)
-        } else {
-            val data =
-                android.util.Base64.decode(
-                    encodedPublicKey.toByteArray(),
-                    android.util.Base64.DEFAULT
-                )
-            val spec = X509EncodedKeySpec(data)
-            val fact: KeyFactory = KeyFactory.getInstance("RSA")
-            fact.generatePublic(spec)
-        }
+        val data = decode(encodedPublicKey.toByteArray())
+        val spec = X509EncodedKeySpec(data)
+        val fact: KeyFactory = KeyFactory.getInstance("RSA")
+        return fact.generatePublic(spec)
     }
 
     private fun loadPrivateKey(encodedPrivateKey: String): PrivateKey {
-        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val data = Base64.getDecoder().decode(encodedPrivateKey.toByteArray())
-            val spec = PKCS8EncodedKeySpec(data)
-            val fact: KeyFactory = KeyFactory.getInstance("RSA")
-            fact.generatePrivate(spec)
-        } else {
-            val data =
-                android.util.Base64.decode(
-                    encodedPrivateKey.toByteArray(),
-                    android.util.Base64.DEFAULT
-                )
-            val spec = PKCS8EncodedKeySpec(data)
-            val fact: KeyFactory = KeyFactory.getInstance("RSA")
-            fact.generatePrivate(spec)
-        }
+        val data = decode(encodedPrivateKey.toByteArray())
+        val spec = PKCS8EncodedKeySpec(data)
+        val fact: KeyFactory = KeyFactory.getInstance("RSA")
+        return  fact.generatePrivate(spec)
     }
 
     fun encrypt(plainText: String, encodedPublicKey: String): String? {
@@ -95,11 +51,7 @@ class CryptoRSA : BaseEncrypt() {
             val cipher = Cipher.getInstance("RSA/ECB/PKCS1Padding")
             cipher.init(Cipher.ENCRYPT_MODE, loadPublicKey(encodedPublicKey))
             val encryptedBytes = cipher.doFinal(plainText.toByteArray())
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                Base64.getEncoder().encodeToString(encryptedBytes)
-            } else {
-                android.util.Base64.encodeToString(encryptedBytes, android.util.Base64.DEFAULT)
-            }
+            return encode(encryptedBytes)
         } catch (e: CryptoException) {
             null
         } catch (e: Throwable) {
@@ -121,18 +73,7 @@ class CryptoRSA : BaseEncrypt() {
 
             val cipher = Cipher.getInstance("RSA/ECB/PKCS1Padding")
             cipher.init(Cipher.DECRYPT_MODE, loadPrivateKey(encodedPrivateKey))
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                String(cipher.doFinal(Base64.getDecoder().decode(encrypted)))
-            } else {
-                String(
-                    cipher.doFinal(
-                        android.util.Base64.decode(
-                            encrypted,
-                            android.util.Base64.DEFAULT
-                        )
-                    )
-                )
-            }
+            return String(cipher.doFinal(decode(encrypted)))
         } catch (e: Throwable) {
             null
         }

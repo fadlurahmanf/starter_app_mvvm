@@ -51,9 +51,7 @@ class CryptoAES : BaseEncrypt() {
     }
 
     private fun encryptCBC(
-        plainText: String,
-        secretKey: String,
-        padding: PaddingScheme
+        plainText: String, secretKey: String, padding: PaddingScheme
     ): String {
         val key = SecretKeySpec(secretKey.toByteArray(), "AES")
         val iv = IvParameterSpec(ByteArray(16))
@@ -76,18 +74,11 @@ class CryptoAES : BaseEncrypt() {
                 cipher.doFinal(plainText.toByteArray())
             }
         }
-        val encodedEncryptedText = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            Base64.getEncoder().encodeToString(encryptedBytes)
-        } else {
-            android.util.Base64.encodeToString(encryptedBytes, android.util.Base64.DEFAULT)
-        }
-        return encodedEncryptedText
+        return encode(encryptedBytes)
     }
 
     private fun encryptECB(
-        plainText: String,
-        secretKey: String,
-        padding: PaddingScheme
+        plainText: String, secretKey: String, padding: PaddingScheme
     ): String {
         val key = SecretKeySpec(secretKey.toByteArray(), "AES")
         val cipher = Cipher.getInstance("AES/ECB/${getPaddingScheme(padding)}")
@@ -109,12 +100,7 @@ class CryptoAES : BaseEncrypt() {
                 cipher.doFinal(plainText.toByteArray())
             }
         }
-        val encodedEncryptedText = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            Base64.getEncoder().encodeToString(encryptedBytes)
-        } else {
-            android.util.Base64.encodeToString(encryptedBytes, android.util.Base64.DEFAULT)
-        }
-        return encodedEncryptedText
+        return encode(encryptedBytes)
     }
 
     fun decrypt(
@@ -155,58 +141,30 @@ class CryptoAES : BaseEncrypt() {
     }
 
     private fun decryptCBC(
-        encryptedText: String,
-        secretKey: String,
-        padding: PaddingScheme
+        encryptedText: String, secretKey: String, padding: PaddingScheme
     ): String {
         val key = SecretKeySpec(secretKey.toByteArray(), "AES")
         val iv = IvParameterSpec(ByteArray(16))
         val cipher = Cipher.getInstance("AES/CBC/${getPaddingScheme(padding)}")
         cipher.init(Cipher.DECRYPT_MODE, key, iv)
-        val decrypted = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            String(
-                cipher.doFinal(
-                    Base64.getDecoder().decode(encryptedText)
-                )
+        return String(
+            cipher.doFinal(
+                decode(encryptedText)
             )
-        } else {
-            String(
-                cipher.doFinal(
-                    android.util.Base64.decode(
-                        encryptedText,
-                        android.util.Base64.DEFAULT
-                    )
-                )
-            )
-        }
-        return decrypted
+        )
     }
 
     private fun decryptECB(
-        encryptedText: String,
-        secretKey: String,
-        padding: PaddingScheme
+        encryptedText: String, secretKey: String, padding: PaddingScheme
     ): String {
         val key = SecretKeySpec(secretKey.toByteArray(), "AES")
         val cipher = Cipher.getInstance("AES/ECB/${getPaddingScheme(padding)}")
         cipher.init(Cipher.DECRYPT_MODE, key)
-        val decrypted = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            String(
-                cipher.doFinal(
-                    Base64.getDecoder().decode(encryptedText)
-                )
+        return String(
+            cipher.doFinal(
+                decode(encryptedText)
             )
-        } else {
-            String(
-                cipher.doFinal(
-                    android.util.Base64.decode(
-                        encryptedText,
-                        android.util.Base64.DEFAULT
-                    )
-                )
-            )
-        }
-        return decrypted
+        )
     }
 
     private fun padPlaintext(plaintext: String): String {
