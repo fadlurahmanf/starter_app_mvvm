@@ -1,7 +1,7 @@
 import android.os.Build
 import com.fadlurahmanf.starterappmvvm.utils.encrypt.CryptoException
-import com.fadlurahmanf.starterappmvvm.utils.encrypt.EncryptTools
-import com.fadlurahmanf.starterappmvvm.utils.encrypt.RSAKey
+import com.fadlurahmanf.starterappmvvm.utils.encrypt.BaseEncrypt
+import com.fadlurahmanf.starterappmvvm.utils.encrypt.CryptoKey
 import java.security.KeyFactory
 import java.security.KeyPairGenerator
 import java.security.PrivateKey
@@ -11,7 +11,7 @@ import java.security.spec.X509EncodedKeySpec
 import java.util.Base64
 import javax.crypto.Cipher
 
-class CryptoRSA : EncryptTools() {
+class CryptoRSA : BaseEncrypt() {
 
     private fun encodedPublicKey(key: PublicKey): String {
         return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -35,13 +35,13 @@ class CryptoRSA : EncryptTools() {
         }
     }
 
-    fun generateKey(): RSAKey {
+    fun generateKey(): CryptoKey {
         val keyGen = KeyPairGenerator.getInstance("RSA")
         keyGen.initialize(1024)
         val keyPair = keyGen.generateKeyPair()
         val publicKey = encodedPublicKey(keyPair.public)
         val privateKey = encodedPrivateKey(keyPair.private)
-        return RSAKey(privateKey = privateKey, publicKey = publicKey)
+        return CryptoKey(privateKey = privateKey, publicKey = publicKey)
     }
 
     private fun loadPublicKey(encodedPublicKey: String): PublicKey {

@@ -7,13 +7,14 @@ import javax.crypto.Cipher
 import javax.crypto.spec.IvParameterSpec
 import javax.crypto.spec.SecretKeySpec
 
-class CryptoAES : EncryptTools() {
+class CryptoAES : BaseEncrypt() {
     fun encrypt(
         plainText: String,
         secretKey: String,
         method: AESMethod = AESMethod.CBC,
         padding: PaddingScheme = PaddingScheme.PKCS7
     ): String? {
+
         try {
             if (plainText.isEmpty()) {
                 throw CryptoException(message = "TEXT CANNOT BE EMPTY")

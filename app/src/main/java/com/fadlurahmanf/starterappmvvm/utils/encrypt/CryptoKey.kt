@@ -1,6 +1,6 @@
 package com.fadlurahmanf.starterappmvvm.utils.encrypt
 
-data class RSAKey(
+data class CryptoKey(
     /**
      * encoded private key
      **/

@@ -9,8 +9,10 @@ import com.fadlurahmanf.starterappmvvm.utils.encrypt.RSAHelper
 import com.fadlurahmanf.starterappmvvm.databinding.ActivityExampleEncryptDecryptBinding
 import com.fadlurahmanf.starterappmvvm.utils.encrypt.AESMethod
 import com.fadlurahmanf.starterappmvvm.utils.encrypt.CryptoAES
+import com.fadlurahmanf.starterappmvvm.utils.encrypt.CryptoED25519
 import com.fadlurahmanf.starterappmvvm.utils.encrypt.PaddingScheme
 import com.fadlurahmanf.starterappmvvm.utils.logging.logd
+import java.util.Base64
 import java.util.Random
 
 class ExampleEncryptDecryptActivity :
@@ -76,6 +78,21 @@ class ExampleEncryptDecryptActivity :
             println("masuk encrypted: $encrypted")
             val decrypted = aes.decrypt(encrypted ?: "", key, AESMethod.CBC, PaddingScheme.PKCS7)
             println("masuk decrypted: $decrypted")
+        }
+
+        binding.btnEncryptEdd.setOnClickListener {
+            val ed25519 = CryptoED25519()
+            val key = ed25519.generateKey()
+            val signature = ed25519.generateSignature("TES SIGNATURE", key.privateKey)
+            println(
+                "MASUK VERIFY: ${
+                    ed25519.verifySignature(
+                        "TES SIGNATURE",
+                        signature ?: "",
+                        key.publicKey
+                    )
+                }"
+            )
         }
     }
 

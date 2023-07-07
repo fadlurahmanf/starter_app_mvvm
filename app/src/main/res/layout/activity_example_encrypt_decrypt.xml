@@ -63,5 +63,11 @@
             android:layout_height="wrap_content"
             android:id="@+id/btn_encrypt_aes"
             android:text="ENCRYPT AES"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/btn_encrypt_edd"
+            android:text="ENCRYPT ED25519"/>
     </LinearLayout>
 </ScrollView>
