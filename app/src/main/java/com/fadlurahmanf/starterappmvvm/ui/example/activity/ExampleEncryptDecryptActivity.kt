@@ -1,6 +1,5 @@
 package com.fadlurahmanf.starterappmvvm.ui.example.activity
 
-import CryptoAES
 import CryptoRSA
 import android.content.ClipData
 import android.content.ClipboardManager
@@ -8,6 +7,9 @@ import android.content.Context
 import com.fadlurahmanf.starterappmvvm.base.BaseActivity
 import com.fadlurahmanf.starterappmvvm.utils.encrypt.RSAHelper
 import com.fadlurahmanf.starterappmvvm.databinding.ActivityExampleEncryptDecryptBinding
+import com.fadlurahmanf.starterappmvvm.utils.encrypt.AESMethod
+import com.fadlurahmanf.starterappmvvm.utils.encrypt.CryptoAES
+import com.fadlurahmanf.starterappmvvm.utils.encrypt.PaddingScheme
 
 class ExampleEncryptDecryptActivity :
     BaseActivity<ActivityExampleEncryptDecryptBinding>(ActivityExampleEncryptDecryptBinding::inflate) {
@@ -54,19 +56,21 @@ class ExampleEncryptDecryptActivity :
         }
 
         binding.btnEncryptRsa.setOnClickListener {
-            val key = CryptoRSA.generateKey()
+            val rsa = CryptoRSA()
+            val key = rsa.generateKey()
             val message = "TES TES OI"
-            val encrypted = CryptoRSA.encrypt(message, key.publicKey)
+            val encrypted = rsa.encrypt(message, key.publicKey)
             println("MASUK ENCRYPTED: $encrypted")
-            val decrypted = CryptoRSA.decrypt(encrypted ?: "", key.privateKey)
+            val decrypted = rsa.decrypt(encrypted ?: "", key.privateKey)
             println("MASUK DECRYPT KEDUA: $decrypted")
         }
 
         binding.btnEncryptAes.setOnClickListener {
+            val aes = CryptoAES()
             val key = "12345678901234567890123456789012"
-            val encrypted = CryptoAES.encrypt("TES TES", key, AESMethod.ECB, PaddingScheme.PKCS5)
+            val encrypted = aes.encrypt("TES TES", key, AESMethod.CBC, PaddingScheme.NoPadding)
             println("masuk encrypted: $encrypted")
-            val decrypted = CryptoAES.decrypt(encrypted ?: "", key, AESMethod.ECB, PaddingScheme.PKCS5)
+            val decrypted = aes.decrypt(encrypted ?: "", key, AESMethod.CBC, PaddingScheme.NoPadding)
             println("masuk decrypted: $decrypted")
         }
     }
