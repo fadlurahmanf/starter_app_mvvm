@@ -16,11 +16,11 @@ class CryptoAES : EncryptTools() {
     ): String? {
         try {
             if (plainText.isEmpty()) {
-                throw CryptoException(code = "01", message = "TEXT CANNOT BE EMPTY")
+                throw CryptoException(message = "TEXT CANNOT BE EMPTY")
             }
 
             if (secretKey.length != 32) {
-                throw CryptoException(code = "00", message = "KEY MUST BE 32 LENGTH")
+                throw CryptoException(message = "KEY MUST BE 32 LENGTH")
             }
 
             return when (method) {
@@ -33,7 +33,7 @@ class CryptoAES : EncryptTools() {
                 }
 
                 else -> {
-                    throw CryptoException(code = "03", message = "AES METHOD NOT FOUND")
+                    throw CryptoException(message = "AES METHOD NOT FOUND")
                 }
             }
         } catch (e: CryptoException) {
@@ -54,7 +54,23 @@ class CryptoAES : EncryptTools() {
         val iv = IvParameterSpec(ByteArray(16))
         val cipher = Cipher.getInstance("AES/CBC/${getPaddingScheme(padding)}")
         cipher.init(Cipher.ENCRYPT_MODE, key, iv)
-        val encryptedBytes = cipher.doFinal(plainText.toByteArray())
+        val encryptedBytes = when (padding) {
+            PaddingScheme.NoPadding -> {
+                cipher.doFinal(padPlaintext(plainText).toByteArray())
+            }
+
+            PaddingScheme.PKCS1 -> {
+                throw CryptoException(message = "NO SUPPORTED PADDING")
+            }
+
+            PaddingScheme.PKCS5 -> {
+                cipher.doFinal(plainText.toByteArray())
+            }
+
+            PaddingScheme.PKCS7 -> {
+                cipher.doFinal(plainText.toByteArray())
+            }
+        }
         val encodedEncryptedText = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             Base64.getEncoder().encodeToString(encryptedBytes)
         } else {
@@ -71,7 +87,23 @@ class CryptoAES : EncryptTools() {
         val key = SecretKeySpec(secretKey.toByteArray(), "AES")
         val cipher = Cipher.getInstance("AES/ECB/${getPaddingScheme(padding)}")
         cipher.init(Cipher.ENCRYPT_MODE, key)
-        val encryptedBytes = cipher.doFinal(plainText.toByteArray());
+        val encryptedBytes = when (padding) {
+            PaddingScheme.NoPadding -> {
+                cipher.doFinal(padPlaintext(plainText).toByteArray())
+            }
+
+            PaddingScheme.PKCS1 -> {
+                throw CryptoException(message = "NO SUPPORTED PADDING")
+            }
+
+            PaddingScheme.PKCS5 -> {
+                cipher.doFinal(plainText.toByteArray())
+            }
+
+            PaddingScheme.PKCS7 -> {
+                cipher.doFinal(plainText.toByteArray())
+            }
+        }
         val encodedEncryptedText = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             Base64.getEncoder().encodeToString(encryptedBytes)
         } else {
@@ -88,11 +120,11 @@ class CryptoAES : EncryptTools() {
     ): String? {
         try {
             if (encryptedText.isEmpty()) {
-                throw CryptoException(code = "01", message = "ENCRYPTED TEXT CANNOT BE EMPTY")
+                throw CryptoException(message = "ENCRYPTED TEXT CANNOT BE EMPTY")
             }
 
             if (secretKey.length != 32) {
-                throw CryptoException(code = "00", message = "KEY MUST BE 32 LENGTH")
+                throw CryptoException(message = "KEY MUST BE 32 LENGTH")
             }
 
             return when (method) {
@@ -105,7 +137,7 @@ class CryptoAES : EncryptTools() {
                 }
 
                 else -> {
-                    throw CryptoException(code = "03", message = "AES METHOD NOT FOUND")
+                    throw CryptoException(message = "AES METHOD NOT FOUND")
                 }
             }
         } catch (e: CryptoException) {

@@ -83,11 +83,11 @@ class CryptoRSA : EncryptTools() {
     fun encrypt(plainText: String, encodedPublicKey: String): String? {
         return try {
             if (plainText.isEmpty()) {
-                throw CryptoException(code = "01", message = "TEXT CANNOT BE EMPTY")
+                throw CryptoException(message = "TEXT CANNOT BE EMPTY")
             }
 
             if (encodedPublicKey.isEmpty()) {
-                throw CryptoException(code = "00", message = "KEY CANNOT BE EMPTY")
+                throw CryptoException(message = "KEY CANNOT BE EMPTY")
             }
 
             val cipher = Cipher.getInstance("RSA/ECB/PKCS1Padding")
@@ -110,11 +110,11 @@ class CryptoRSA : EncryptTools() {
     fun decrypt(encrypted: String, encodedPrivateKey: String): String? {
         return try {
             if (encrypted.isEmpty()) {
-                throw CryptoException(code = "01", message = "TEXT CANNOT BE EMPTY")
+                throw CryptoException(message = "TEXT CANNOT BE EMPTY")
             }
 
             if (encodedPrivateKey.isEmpty()) {
-                throw CryptoException(code = "00", message = "KEY CANNOT BE EMPTY")
+                throw CryptoException(message = "KEY CANNOT BE EMPTY")
             }
 
             val cipher = Cipher.getInstance("RSA/ECB/PKCS1Padding")

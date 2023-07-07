@@ -10,6 +10,8 @@ import com.fadlurahmanf.starterappmvvm.databinding.ActivityExampleEncryptDecrypt
 import com.fadlurahmanf.starterappmvvm.utils.encrypt.AESMethod
 import com.fadlurahmanf.starterappmvvm.utils.encrypt.CryptoAES
 import com.fadlurahmanf.starterappmvvm.utils.encrypt.PaddingScheme
+import com.fadlurahmanf.starterappmvvm.utils.logging.logd
+import java.util.Random
 
 class ExampleEncryptDecryptActivity :
     BaseActivity<ActivityExampleEncryptDecryptBinding>(ActivityExampleEncryptDecryptBinding::inflate) {
@@ -67,10 +69,12 @@ class ExampleEncryptDecryptActivity :
 
         binding.btnEncryptAes.setOnClickListener {
             val aes = CryptoAES()
-            val key = "12345678901234567890123456789012"
-            val encrypted = aes.encrypt("TES TES", key, AESMethod.CBC, PaddingScheme.NoPadding)
+            val key = List(32, init = {
+                Random().nextInt(9).toString()
+            }).joinToString("")
+            val encrypted = aes.encrypt("TES TES", key, AESMethod.CBC, PaddingScheme.PKCS7)
             println("masuk encrypted: $encrypted")
-            val decrypted = aes.decrypt(encrypted ?: "", key, AESMethod.CBC, PaddingScheme.NoPadding)
+            val decrypted = aes.decrypt(encrypted ?: "", key, AESMethod.CBC, PaddingScheme.PKCS7)
             println("masuk decrypted: $decrypted")
         }
     }

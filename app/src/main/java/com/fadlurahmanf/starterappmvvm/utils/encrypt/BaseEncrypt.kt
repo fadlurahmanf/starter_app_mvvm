@@ -28,7 +28,7 @@ abstract class EncryptTools {
             }
 
             else -> {
-                throw CryptoException(code = "03", "PADDING SCHEME NOT FOUND")
+                throw CryptoException("PADDING SCHEME NOT FOUND")
             }
         }
     }
