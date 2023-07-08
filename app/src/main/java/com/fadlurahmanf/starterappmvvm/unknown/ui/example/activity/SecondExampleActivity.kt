@@ -1,19 +1,19 @@
 package com.fadlurahmanf.starterappmvvm.unknown.ui.example.activity
 
 import android.view.View
-import com.fadlurahmanf.starterappmvvm.core.base.BaseActivity
-import com.fadlurahmanf.starterappmvvm.core.base.NetworkState
+import com.fadlurahmanf.starterappmvvm.core.domain.common.BaseActivity
+import com.fadlurahmanf.starterappmvvm.core.data.NetworkState
 import com.fadlurahmanf.starterappmvvm.databinding.ActivitySecondExampleBinding
 import com.fadlurahmanf.starterappmvvm.unknown.di.component.ExampleComponent
 import com.fadlurahmanf.starterappmvvm.unknown.dto.response.example.SurahResponse
-import com.fadlurahmanf.starterappmvvm.ui.example.adapter.ListSurahAdapter
-import com.fadlurahmanf.starterappmvvm.ui.example.viewmodel.ListSurahViewModel
+import com.fadlurahmanf.starterappmvvm.unknown.ui.example.adapter.ListSurahAdapter
+import com.fadlurahmanf.starterappmvvm.unknown.ui.example.viewmodel.ListSurahViewModel
 import javax.inject.Inject
 
 class SecondExampleActivity : BaseActivity<ActivitySecondExampleBinding>(ActivitySecondExampleBinding::inflate) {
 
     @Inject
-    lateinit var viewModel:ListSurahViewModel
+    lateinit var viewModel: ListSurahViewModel
 
     override fun initSetup() {
         initAdapter()

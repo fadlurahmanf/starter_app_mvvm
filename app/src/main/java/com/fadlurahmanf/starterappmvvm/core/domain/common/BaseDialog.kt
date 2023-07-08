@@ -1,4 +1,4 @@
-package com.fadlurahmanf.starterappmvvm.core.base
+package com.fadlurahmanf.starterappmvvm.core.domain.common
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,9 +7,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 import androidx.viewbinding.ViewBinding
 
-abstract class BaseDialog<VB:ViewBinding>(
+abstract class BaseDialog<VB: ViewBinding>(
     var inflate: InflateFragment<VB>
-):DialogFragment() {
+): DialogFragment() {
 
     private var _binding:VB ?= null
     val binding get() = _binding

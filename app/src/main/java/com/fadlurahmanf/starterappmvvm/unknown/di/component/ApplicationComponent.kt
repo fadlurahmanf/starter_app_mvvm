@@ -7,7 +7,6 @@ import com.fadlurahmanf.starterappmvvm.unknown.di.module.ExampleModule
 import dagger.BindsInstance
 import dagger.Component
 
-
 @Component(modules = [ExampleModule::class, CoreModule::class])
 interface ApplicationComponent {
     fun inject(app: BaseApp)

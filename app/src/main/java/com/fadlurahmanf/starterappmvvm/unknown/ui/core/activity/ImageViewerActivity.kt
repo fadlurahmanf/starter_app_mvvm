@@ -2,7 +2,7 @@ package com.fadlurahmanf.starterappmvvm.unknown.ui.core.activity
 
 import android.net.Uri
 import com.bumptech.glide.Glide
-import com.fadlurahmanf.starterappmvvm.core.base.BaseActivity
+import com.fadlurahmanf.starterappmvvm.core.domain.common.BaseActivity
 import com.fadlurahmanf.starterappmvvm.unknown.dto.model.core.ImageModel
 import com.fadlurahmanf.starterappmvvm.unknown.dto.model.core.ImageOrigin
 import com.fadlurahmanf.starterappmvvm.databinding.ActivityImageViewerBinding

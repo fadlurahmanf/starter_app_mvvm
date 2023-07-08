@@ -6,8 +6,8 @@ import com.chuckerteam.chucker.api.ChuckerCollector
 import com.chuckerteam.chucker.api.ChuckerInterceptor
 import com.chuckerteam.chucker.api.RetentionManager
 import com.fadlurahmanf.starterappmvvm.BuildConfig
-import com.fadlurahmanf.starterappmvvm.core.constant.BuildFlavorConstant
-import com.fadlurahmanf.starterappmvvm.core.constant.SpKey
+import com.fadlurahmanf.starterappmvvm.core.external.constant.BuildFlavorConstant
+import com.fadlurahmanf.starterappmvvm.core.external.constant.SpKey
 import com.fadlurahmanf.starterappmvvm.unknown.data.api.path.example.AuthApi
 import com.google.gson.JsonObject
 import okhttp3.*
@@ -16,7 +16,6 @@ import retrofit2.Retrofit
 import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
-
 
 class TokenAuthenticator(
     private var context: Context

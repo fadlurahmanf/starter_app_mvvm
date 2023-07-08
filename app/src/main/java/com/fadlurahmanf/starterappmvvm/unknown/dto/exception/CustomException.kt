@@ -2,7 +2,7 @@ package com.fadlurahmanf.starterappmvvm.unknown.dto.exception
 
 import android.content.Context
 import com.fadlurahmanf.starterappmvvm.R
-import com.fadlurahmanf.starterappmvvm.core.constant.ExceptionConstant
+import com.fadlurahmanf.starterappmvvm.core.external.constant.ExceptionConstant
 import com.fadlurahmanf.starterappmvvm.unknown.utils.logging.cLoge
 import okio.IOException
 

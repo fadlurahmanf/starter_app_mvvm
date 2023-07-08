@@ -10,7 +10,7 @@ import android.os.Bundle
 import android.os.IBinder
 import androidx.core.content.ContextCompat
 import com.fadlurahmanf.starterappmvvm.R
-import com.fadlurahmanf.starterappmvvm.core.constant.NotificationConstant
+import com.fadlurahmanf.starterappmvvm.core.external.constant.NotificationConstant
 import com.fadlurahmanf.starterappmvvm.unknown.utils.logging.logd
 
 class MediaPlayerService:Service() {

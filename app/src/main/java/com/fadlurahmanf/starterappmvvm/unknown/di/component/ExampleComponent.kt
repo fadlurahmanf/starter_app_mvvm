@@ -1,9 +1,9 @@
 package com.fadlurahmanf.starterappmvvm.unknown.di.component
 
-import com.fadlurahmanf.starterappmvvm.ui.example.activity.AfterLoginActivity
-import com.fadlurahmanf.starterappmvvm.ui.example.activity.FirstExampleActivity
-import com.fadlurahmanf.starterappmvvm.ui.example.activity.LoginActivity
-import com.fadlurahmanf.starterappmvvm.ui.example.activity.SecondExampleActivity
+import com.fadlurahmanf.starterappmvvm.unknown.ui.example.activity.AfterLoginActivity
+import com.fadlurahmanf.starterappmvvm.unknown.ui.example.activity.FirstExampleActivity
+import com.fadlurahmanf.starterappmvvm.unknown.ui.example.activity.LoginActivity
+import com.fadlurahmanf.starterappmvvm.unknown.ui.example.activity.SecondExampleActivity
 import dagger.Subcomponent
 
 @Subcomponent

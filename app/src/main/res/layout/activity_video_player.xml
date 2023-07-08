@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/black"
-    tools:context=".ui.core.activity.VideoPlayerActivity">
+    tools:context=".unknown.ui.core.activity.VideoPlayerActivity">
 
     <com.google.android.exoplayer2.ui.PlayerView
         android:layout_width="match_parent"

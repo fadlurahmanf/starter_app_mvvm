@@ -6,7 +6,7 @@ import com.chuckerteam.chucker.api.ChuckerCollector
 import com.chuckerteam.chucker.api.ChuckerInterceptor
 import com.chuckerteam.chucker.api.RetentionManager
 import com.fadlurahmanf.starterappmvvm.BuildConfig
-import com.fadlurahmanf.starterappmvvm.core.constant.BuildFlavorConstant
+import com.fadlurahmanf.starterappmvvm.core.external.constant.BuildFlavorConstant
 import com.fadlurahmanf.starterappmvvm.unknown.network.interceptor.ContentTypeInterceptor
 import com.fadlurahmanf.starterappmvvm.unknown.network.interceptor.ExceptionInterceptor
 import okhttp3.OkHttpClient
@@ -18,7 +18,6 @@ import java.util.concurrent.TimeUnit
 
 abstract class BaseNetwork<T>(var context: Context) {
 
-    @Nullable
     var service:T ?= null
 
     private fun loggingInterceptor(): HttpLoggingInterceptor {

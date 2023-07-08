@@ -11,8 +11,8 @@ import android.os.Bundle
 import android.widget.RemoteViews
 import androidx.core.app.NotificationCompat
 import com.fadlurahmanf.starterappmvvm.R
-import com.fadlurahmanf.starterappmvvm.ui.notification.FullScreenNotificationActivity
-import com.fadlurahmanf.starterappmvvm.ui.notification.FullScreenNotificationActivity.Companion.ACTION_ENDED_CALL
+import com.fadlurahmanf.starterappmvvm.unknown.ui.notification.FullScreenNotificationActivity
+import com.fadlurahmanf.starterappmvvm.unknown.ui.notification.FullScreenNotificationActivity.Companion.ACTION_ENDED_CALL
 
 class CallNotificationHelper(var context: Context) {
     companion object{

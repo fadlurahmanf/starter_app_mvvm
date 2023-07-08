@@ -7,12 +7,11 @@ import android.os.Build
 import android.widget.SeekBar
 import androidx.core.content.ContextCompat
 import com.fadlurahmanf.starterappmvvm.R
-import com.fadlurahmanf.starterappmvvm.core.base.BaseActivity
+import com.fadlurahmanf.starterappmvvm.core.domain.common.BaseActivity
 import com.fadlurahmanf.starterappmvvm.databinding.ActivityVideoPlayerBinding
 import com.fadlurahmanf.starterappmvvm.unknown.utils.logging.logd
 import com.fadlurahmanf.starterappmvvm.unknown.utils.video_player.VideoPlayerHelper
 import com.google.android.exoplayer2.Player
-
 
 class VideoPlayerActivity : BaseActivity<ActivityVideoPlayerBinding>(ActivityVideoPlayerBinding::inflate) {
     private lateinit var videoPlayerHelper: VideoPlayerHelper

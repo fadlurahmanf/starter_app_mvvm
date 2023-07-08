@@ -2,7 +2,7 @@ package com.fadlurahmanf.starterappmvvm.unknown.ui.core.activity
 
 import android.content.Intent
 import android.net.Uri
-import com.fadlurahmanf.starterappmvvm.core.base.BaseActivity
+import com.fadlurahmanf.starterappmvvm.core.domain.common.BaseActivity
 import com.fadlurahmanf.starterappmvvm.unknown.dto.model.core.PdfModel
 import com.fadlurahmanf.starterappmvvm.unknown.dto.model.core.PdfOrigin
 import com.fadlurahmanf.starterappmvvm.databinding.ActivityPdfViewerBinding

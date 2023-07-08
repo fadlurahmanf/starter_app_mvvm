@@ -1,10 +1,10 @@
 package com.fadlurahmanf.starterappmvvm.unknown.ui.example.activity
 
-import com.fadlurahmanf.starterappmvvm.core.base.BaseActivity
-import com.fadlurahmanf.starterappmvvm.core.base.NetworkState
+import com.fadlurahmanf.starterappmvvm.core.domain.common.BaseActivity
+import com.fadlurahmanf.starterappmvvm.core.data.NetworkState
 import com.fadlurahmanf.starterappmvvm.databinding.ActivityAfterLoginBinding
 import com.fadlurahmanf.starterappmvvm.unknown.di.component.ExampleComponent
-import com.fadlurahmanf.starterappmvvm.ui.example.viewmodel.AfterLoginViewModel
+import com.fadlurahmanf.starterappmvvm.unknown.ui.example.viewmodel.AfterLoginViewModel
 import javax.inject.Inject
 
 class AfterLoginActivity : BaseActivity<ActivityAfterLoginBinding>(ActivityAfterLoginBinding::inflate) {

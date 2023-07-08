@@ -6,19 +6,18 @@ import androidx.camera.core.ExperimentalGetImage
 import androidx.core.content.ContextCompat
 import com.fadlurahmanf.starterappmvvm.BaseApp
 import com.fadlurahmanf.starterappmvvm.BuildConfig
-import com.fadlurahmanf.starterappmvvm.core.base.BaseActivity
+import com.fadlurahmanf.starterappmvvm.core.domain.common.BaseActivity
 import com.fadlurahmanf.starterappmvvm.unknown.utils.language.TranslationHelper
 import com.fadlurahmanf.starterappmvvm.unknown.data.storage.example.LanguageSpStorage
 import com.fadlurahmanf.starterappmvvm.databinding.ActivitySplashBinding
 import com.fadlurahmanf.starterappmvvm.unknown.di.component.CoreComponent
-import com.fadlurahmanf.starterappmvvm.ui.example.activity.FirstExampleActivity
+import com.fadlurahmanf.starterappmvvm.unknown.ui.example.activity.FirstExampleActivity
 import com.fadlurahmanf.starterappmvvm.unknown.utils.logging.createNewLoggerFile
 import com.fadlurahmanf.starterappmvvm.unknown.utils.logging.logd
 import com.google.firebase.messaging.FirebaseMessaging
 import java.util.*
 import javax.inject.Inject
 import kotlin.concurrent.schedule
-
 
 @ExperimentalGetImage
 class SplashActivity : BaseActivity<ActivitySplashBinding>(ActivitySplashBinding::inflate) {

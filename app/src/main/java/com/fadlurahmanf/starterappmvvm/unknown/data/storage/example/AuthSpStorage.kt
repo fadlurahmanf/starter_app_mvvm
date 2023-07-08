@@ -1,8 +1,8 @@
 package com.fadlurahmanf.starterappmvvm.unknown.data.storage.example
 
 import android.content.Context
-import com.fadlurahmanf.starterappmvvm.core.base.BasePreference
-import com.fadlurahmanf.starterappmvvm.core.constant.SpKey
+import com.fadlurahmanf.starterappmvvm.core.domain.common.BasePreference
+import com.fadlurahmanf.starterappmvvm.core.external.constant.SpKey
 import javax.inject.Inject
 
 class AuthSpStorage @Inject constructor(

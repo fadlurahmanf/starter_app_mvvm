@@ -20,9 +20,9 @@ import com.chuckerteam.chucker.api.Chucker
 import com.fadlurahmanf.starterappmvvm.BaseApp
 import com.fadlurahmanf.starterappmvvm.BuildConfig
 import com.fadlurahmanf.starterappmvvm.R
-import com.fadlurahmanf.starterappmvvm.core.base.BaseActivity
-import com.fadlurahmanf.starterappmvvm.core.constant.AnalyticEvent
-import com.fadlurahmanf.starterappmvvm.core.constant.BuildFlavorConstant
+import com.fadlurahmanf.starterappmvvm.core.domain.common.BaseActivity
+import com.fadlurahmanf.starterappmvvm.core.external.constant.AnalyticEvent
+import com.fadlurahmanf.starterappmvvm.core.external.constant.BuildFlavorConstant
 import com.fadlurahmanf.starterappmvvm.unknown.utils.language.TranslationHelper
 import com.fadlurahmanf.starterappmvvm.unknown.data.storage.example.LanguageSpStorage
 import com.fadlurahmanf.starterappmvvm.databinding.ActivityFirstExampleBinding
@@ -31,9 +31,9 @@ import com.fadlurahmanf.starterappmvvm.unknown.dto.model.core.ImageModel
 import com.fadlurahmanf.starterappmvvm.unknown.dto.model.core.ImageOrigin
 import com.fadlurahmanf.starterappmvvm.unknown.dto.model.core.PdfModel
 import com.fadlurahmanf.starterappmvvm.unknown.dto.model.core.PdfOrigin
-import com.fadlurahmanf.starterappmvvm.ui.core.activity.ImageViewerActivity
-import com.fadlurahmanf.starterappmvvm.ui.core.activity.PdfViewerActivity
-import com.fadlurahmanf.starterappmvvm.ui.core.activity.VideoPlayerActivity
+import com.fadlurahmanf.starterappmvvm.unknown.ui.core.activity.ImageViewerActivity
+import com.fadlurahmanf.starterappmvvm.unknown.ui.core.activity.PdfViewerActivity
+import com.fadlurahmanf.starterappmvvm.unknown.ui.core.activity.VideoPlayerActivity
 import com.fadlurahmanf.starterappmvvm.unknown.utils.analytic.AnalyticHelper
 import com.fadlurahmanf.starterappmvvm.unknown.utils.download.DownloadService
 import com.fadlurahmanf.starterappmvvm.unknown.utils.media.MediaPlayerService
@@ -208,7 +208,7 @@ class FirstExampleActivity : BaseActivity<ActivityFirstExampleBinding>(ActivityF
                 .addAction(R.drawable.ic_launcher_background, "SNOOZE", snoozePendingIntent)
 
             with(NotificationManagerCompat.from(this)){
-                notify(Random.nextInt(999), builder.build())
+//                notify(Random.nextInt(999), builder.build())
             }
         }
 

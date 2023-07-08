@@ -1,4 +1,4 @@
-package com.fadlurahmanf.starterappmvvm.core.constant
+package com.fadlurahmanf.starterappmvvm.core.external.constant
 
 object BuildFlavorConstant {
     const val dev = "dev"

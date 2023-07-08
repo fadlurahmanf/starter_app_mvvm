@@ -1,6 +1,5 @@
-package com.fadlurahmanf.starterappmvvm.feature.encrypt.domain
+package com.fadlurahmanf.starterappmvvm.feature.encrypt.presentation
 
-import android.os.Build
 import com.fadlurahmanf.starterappmvvm.feature.encrypt.data.exception.CryptoException
 import com.fadlurahmanf.starterappmvvm.feature.encrypt.data.model.CryptoKey
 import com.fadlurahmanf.starterappmvvm.feature.encrypt.domain.common.BaseEncrypt
@@ -10,7 +9,6 @@ import java.security.PrivateKey
 import java.security.PublicKey
 import java.security.spec.PKCS8EncodedKeySpec
 import java.security.spec.X509EncodedKeySpec
-import java.util.Base64
 import javax.crypto.Cipher
 
 class CryptoRSA : BaseEncrypt() {

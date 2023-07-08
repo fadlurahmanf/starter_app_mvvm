@@ -1,15 +1,15 @@
 package com.fadlurahmanf.starterappmvvm.unknown.ui.example.activity
 
-import com.fadlurahmanf.starterappmvvm.feature.encrypt.domain.CryptoRSA
+import com.fadlurahmanf.starterappmvvm.feature.encrypt.presentation.CryptoRSA
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
-import com.fadlurahmanf.starterappmvvm.core.base.BaseActivity
-import com.fadlurahmanf.starterappmvvm.feature.encrypt.domain.RSAHelper
+import com.fadlurahmanf.starterappmvvm.core.domain.common.BaseActivity
+import com.fadlurahmanf.starterappmvvm.feature.encrypt.presentation.RSAHelper
 import com.fadlurahmanf.starterappmvvm.databinding.ActivityExampleEncryptDecryptBinding
 import com.fadlurahmanf.starterappmvvm.feature.encrypt.domain.common.AESMethod
-import com.fadlurahmanf.starterappmvvm.feature.encrypt.domain.CryptoAES
-import com.fadlurahmanf.starterappmvvm.feature.encrypt.domain.CryptoED25519
+import com.fadlurahmanf.starterappmvvm.feature.encrypt.presentation.CryptoAES
+import com.fadlurahmanf.starterappmvvm.feature.encrypt.presentation.CryptoED25519
 import com.fadlurahmanf.starterappmvvm.feature.encrypt.domain.common.PaddingScheme
 import java.util.Random
 

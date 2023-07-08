@@ -2,8 +2,8 @@ package com.fadlurahmanf.starterappmvvm.unknown.ui.example.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.fadlurahmanf.starterappmvvm.core.base.BaseViewModel
-import com.fadlurahmanf.starterappmvvm.core.base.NetworkState
+import com.fadlurahmanf.starterappmvvm.core.domain.common.BaseViewModel
+import com.fadlurahmanf.starterappmvvm.core.data.NetworkState
 import com.fadlurahmanf.starterappmvvm.unknown.data.repository.example.QuranRepository
 import com.fadlurahmanf.starterappmvvm.unknown.dto.exception.CustomException
 import com.fadlurahmanf.starterappmvvm.unknown.dto.response.example.SurahResponse

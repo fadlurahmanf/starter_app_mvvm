@@ -1,8 +1,8 @@
 package com.fadlurahmanf.starterappmvvm.unknown.ui.example.viewmodel
 
 import androidx.lifecycle.MutableLiveData
-import com.fadlurahmanf.starterappmvvm.core.base.BaseViewModel
-import com.fadlurahmanf.starterappmvvm.core.base.NetworkState
+import com.fadlurahmanf.starterappmvvm.core.domain.common.BaseViewModel
+import com.fadlurahmanf.starterappmvvm.core.data.NetworkState
 import com.fadlurahmanf.starterappmvvm.unknown.data.repository.example.IdentityRepository
 import com.fadlurahmanf.starterappmvvm.unknown.dto.response.example.LoginResponse
 import com.fadlurahmanf.starterappmvvm.core.extension.toErrorState

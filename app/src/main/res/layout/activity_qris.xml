@@ -4,14 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.example.activity.QrisActivity">
+    tools:context=".unknown.ui.example.activity.QrisActivity">
 
     <androidx.camera.view.PreviewView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/cameraView"/>
 
-    <com.fadlurahmanf.starterappmvvm.ui.customView.QrisOverlayView
+    <com.fadlurahmanf.starterappmvvm.unknown.ui.customView.QrisOverlayView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/black_opacity"/>

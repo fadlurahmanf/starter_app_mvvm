@@ -1,7 +1,7 @@
 package com.fadlurahmanf.starterappmvvm.ui.example.viewmodel
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import com.fadlurahmanf.starterappmvvm.core.base.NetworkState
+import com.fadlurahmanf.starterappmvvm.core.data.NetworkState
 import com.fadlurahmanf.starterappmvvm.unknown.data.repository.example.QuranRepository
 import com.fadlurahmanf.starterappmvvm.unknown.dto.exception.CustomException
 import com.fadlurahmanf.starterappmvvm.unknown.dto.response.example.BaseQuranResponse

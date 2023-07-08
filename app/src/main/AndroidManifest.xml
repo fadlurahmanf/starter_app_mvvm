@@ -48,21 +48,21 @@
         </activity>
 
         <activity
-            android:name=".ui.example.activity.GalleryActivity"
+            android:name=".unknown.ui.example.activity.GalleryActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".ui.example.activity.NetworkServiceDiscoveryActivity"
+            android:name=".unknown.ui.example.activity.NetworkServiceDiscoveryActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".ui.core.activity.VideoPlayerActivity"
+            android:name=".unknown.ui.core.activity.VideoPlayerActivity"
             android:configChanges="screenSize|smallestScreenSize|screenLayout|orientation"
             android:exported="false"
             android:launchMode="singleTask"
@@ -73,29 +73,29 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".ui.example.activity.QrisActivity"
+            android:name=".unknown.ui.example.activity.QrisActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".ui.webrtc.PrepareCallActivity"
+            android:name=".unknown.ui.webrtc.PrepareCallActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.example.activity.CallActivity"
+            android:name=".unknown.ui.example.activity.CallActivity"
             android:exported="true" />
         <activity
-            android:name=".ui.example.activity.ExampleEncryptDecryptActivity"
+            android:name=".unknown.ui.example.activity.ExampleEncryptDecryptActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.example.activity.AfterLoginActivity"
+            android:name=".unknown.ui.example.activity.AfterLoginActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.example.activity.LoginActivity"
+            android:name=".unknown.ui.example.activity.LoginActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.notification.FullScreenNotificationActivity"
+            android:name=".unknown.ui.notification.FullScreenNotificationActivity"
             android:exported="true"
             android:showOnLockScreen="true">
             <intent-filter>
@@ -106,19 +106,19 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.example.activity.SecondExampleActivity"
+            android:name=".unknown.ui.example.activity.SecondExampleActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.core.activity.ImageViewerActivity"
+            android:name=".unknown.ui.core.activity.ImageViewerActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.core.activity.PdfViewerActivity"
+            android:name=".unknown.ui.core.activity.PdfViewerActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.example.activity.FirstExampleActivity"
+            android:name=".unknown.ui.example.activity.FirstExampleActivity"
             android:configChanges="orientation|screenSize" />
         <activity
-            android:name=".ui.SplashActivity"
+            android:name=".unknown.ui.SplashActivity"
             android:exported="true"
             android:theme="@style/Theme.StarterAppMvvm.NoActionBar">
             <intent-filter>

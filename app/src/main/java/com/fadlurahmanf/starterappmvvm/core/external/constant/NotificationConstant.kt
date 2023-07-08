@@ -1,4 +1,4 @@
-package com.fadlurahmanf.starterappmvvm.core.constant
+package com.fadlurahmanf.starterappmvvm.core.external.constant
 
 object NotificationConstant {
     const val INCOMING_CALL_NOTIFICATION_ID = 8000

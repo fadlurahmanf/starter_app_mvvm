@@ -1,6 +1,5 @@
-package com.fadlurahmanf.starterappmvvm.core.base
+package com.fadlurahmanf.starterappmvvm.core.domain.common
 
-import android.content.Context
 import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
@@ -16,19 +15,18 @@ import com.chuckerteam.chucker.api.Chucker
 import com.fadlurahmanf.starterappmvvm.BaseApp
 import com.fadlurahmanf.starterappmvvm.R
 import com.fadlurahmanf.starterappmvvm.unknown.di.component.ApplicationComponent
-import com.fadlurahmanf.starterappmvvm.ui.core.dialog.DefaultLoadingDialog
+import com.fadlurahmanf.starterappmvvm.unknown.ui.core.dialog.DefaultLoadingDialog
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig
 import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.disposables.Disposable
-import java.lang.Math.sqrt
 
 typealias InflateActivity<T> = (LayoutInflater) -> T
 
-abstract class BaseActivity<VB:ViewBinding>(
+abstract class BaseActivity<VB: ViewBinding>(
     var inflate: InflateActivity<VB>
-):AppCompatActivity() {
+): AppCompatActivity() {
 
     private var _binding:VB ?= null
     val binding get() = _binding!!
@@ -50,8 +48,10 @@ abstract class BaseActivity<VB:ViewBinding>(
         acceleration = 10f
         currentAcceleration = SensorManager.GRAVITY_EARTH
         lastAcceleration = SensorManager.GRAVITY_EARTH
-        sensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
-        sensorManager!!.registerListener(sensorListener, sensorManager!!.getDefaultSensor(Sensor.TYPE_ACCELEROMETER), SensorManager.SENSOR_DELAY_NORMAL)
+        sensorManager = getSystemService(SENSOR_SERVICE) as SensorManager
+        sensorManager!!.registerListener(sensorListener, sensorManager!!.getDefaultSensor(Sensor.TYPE_ACCELEROMETER),
+            SensorManager.SENSOR_DELAY_NORMAL
+        )
     }
 
     lateinit var remoteConfig: FirebaseRemoteConfig
@@ -80,10 +80,13 @@ abstract class BaseActivity<VB:ViewBinding>(
     fun addSubscription(disposable: Disposable) = CompositeDisposable().add(disposable)
 
     fun removeStatusBar(){
-        window.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
+        window.setFlags(
+            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
+            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
+        )
     }
 
-    private var loadingDialog:DefaultLoadingDialog ?= null
+    private var loadingDialog: DefaultLoadingDialog?= null
     fun showLoadingDialog(isCancelable:Boolean = false){
         dismissLoadingDialog()
         if (loadingDialog == null){
@@ -102,8 +105,8 @@ abstract class BaseActivity<VB:ViewBinding>(
         }
     }
 
-    private var mSnackbar:Snackbar? = null
-    fun showSnackBar(view:View?, message:String, duration: Int = Snackbar.LENGTH_SHORT){
+    private var mSnackbar: Snackbar? = null
+    fun showSnackBar(view: View?, message:String, duration: Int = Snackbar.LENGTH_SHORT){
         if (mSnackbar != null){
             mSnackbar?.dismiss()
             mSnackbar = null
@@ -112,7 +115,7 @@ abstract class BaseActivity<VB:ViewBinding>(
         mSnackbar?.show()
     }
 
-    private var mToast:Toast? = null
+    private var mToast: Toast? = null
     fun showToast(message: String){
         if (mToast != null){
             mToast?.cancel()
@@ -154,7 +157,7 @@ abstract class BaseActivity<VB:ViewBinding>(
             val y = event.values[1]
             val z = event.values[2]
             lastAcceleration = currentAcceleration
-            currentAcceleration = sqrt((x * x + y * y + z * z).toDouble()).toFloat()
+            currentAcceleration = Math.sqrt((x * x + y * y + z * z).toDouble()).toFloat()
             val delta: Float = currentAcceleration - lastAcceleration
             acceleration = acceleration * 0.9f + delta
             if (acceleration > 35) {

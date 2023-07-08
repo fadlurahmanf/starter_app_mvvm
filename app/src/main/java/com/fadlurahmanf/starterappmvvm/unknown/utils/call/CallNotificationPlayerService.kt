@@ -32,7 +32,7 @@ class CallNotificationPlayerService:Service() {
         prepareMediaPlayer()
         startMediaPlayer()
         playVibrator()
-        return Service.START_NOT_STICKY
+        return START_NOT_STICKY
     }
 
     private var vibrator:Vibrator? = null

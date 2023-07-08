@@ -1,4 +1,4 @@
-package com.fadlurahmanf.starterappmvvm.core.base
+package com.fadlurahmanf.starterappmvvm.core.data
 
 import com.fadlurahmanf.starterappmvvm.unknown.dto.exception.CustomException
 

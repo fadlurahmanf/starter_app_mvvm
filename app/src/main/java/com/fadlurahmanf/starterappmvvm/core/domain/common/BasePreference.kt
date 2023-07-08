@@ -1,14 +1,14 @@
-package com.fadlurahmanf.starterappmvvm.core.base
+package com.fadlurahmanf.starterappmvvm.core.domain.common
 
 import android.content.Context
 import android.content.SharedPreferences
-import com.fadlurahmanf.starterappmvvm.core.constant.SpKey
+import com.fadlurahmanf.starterappmvvm.core.external.constant.SpKey
 import com.google.gson.Gson
 import org.json.JSONArray
 
 abstract class BasePreference(context: Context) {
 
-    private var sharedPreferences: SharedPreferences ?= null
+    private var sharedPreferences: SharedPreferences?= null
 
     init {
         sharedPreferences = context.getSharedPreferences(SP_KEY, Context.MODE_PRIVATE)
