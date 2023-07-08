@@ -54,27 +54,4 @@ class CryptoED25519 : BaseEncrypt() {
         verifierDerived.update(message, 0, text.length)
         return verifierDerived.verifySignature(decode(signature))
     }
-
-    fun tes() {
-//        val key = generateKey2()
-//        val privateKey = key.private as Ed25519PrivateKeyParameters
-//        val publicKey = key.public as Ed25519PublicKeyParameters
-//        val privEncoded = Base64.getEncoder().encodeToString(privateKey.encoded)
-//        val pubEncoded = Base64.getEncoder().encodeToString(publicKey.encoded)
-//        println("MASUK PRIV: ${privEncoded}")
-//        println("MASUK PUB: ${pubEncoded}")
-//
-//        val signer = Ed25519Signer()
-//
-//        signer.init(true, privateKey)
-//        signer.update("TES".toByteArray(), 0, "TES".length)
-//        val byteSignature = signer.generateSignature()
-//        val signature = Base64.getEncoder().encodeToString(byteSignature)
-//        println("MASUK SIGNATURE: $signature")
-//
-//        val verifierDerived = Ed25519Signer()
-//        verifierDerived.init(false, publicKey)
-//        verifierDerived.update(byteSignature, 0, byteSignature.size)
-//        println("MASUK VERIFY ${verifierDerived.verifySignature(byteSignature)}")
-    }
 }

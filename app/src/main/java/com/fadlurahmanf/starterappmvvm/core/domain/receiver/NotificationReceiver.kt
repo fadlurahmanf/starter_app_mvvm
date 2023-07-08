@@ -9,6 +9,7 @@ import com.fadlurahmanf.starterappmvvm.unknown.ui.example.activity.LoginActivity
 
 class NotificationReceiver : BroadcastReceiver() {
     companion object {
+        // todo: register action inside manifest
         const val ACTION_CLICK = "com.fadlurahmanf.notification.CLICK"
 
         fun getClickPendingIntent(context: Context, notificationId: Int): PendingIntent {
