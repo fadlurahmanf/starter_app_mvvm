@@ -1,4 +1,4 @@
-package com.fadlurahmanf.starterappmvvm.core.extension
+package com.fadlurahmanf.starterappmvvm.core.external.extension
 
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData

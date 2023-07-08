@@ -5,7 +5,7 @@ import com.fadlurahmanf.starterappmvvm.core.domain.common.BaseViewModel
 import com.fadlurahmanf.starterappmvvm.core.data.NetworkState
 import com.fadlurahmanf.starterappmvvm.unknown.data.repository.example.CIFRepository
 import com.fadlurahmanf.starterappmvvm.unknown.dto.response.example.FavoriteResponse
-import com.fadlurahmanf.starterappmvvm.core.extension.toErrorState
+import com.fadlurahmanf.starterappmvvm.core.external.extension.toErrorState
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers
 import javax.inject.Inject

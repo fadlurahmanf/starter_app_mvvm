@@ -72,6 +72,10 @@ class FirstExampleActivity : BaseActivity<ActivityFirstExampleBinding>(ActivityF
             showLoadingDialog()
         }
 
+        binding.btnLogger.setOnClickListener {
+            (this.application as BaseApp).logConsole.i("TES TES")
+        }
+
         notificationHelper = NotificationHelper(this)
         binding.btnChangeLanguage.setOnClickListener {
             AnalyticHelper.logEvent(this, AnalyticEvent.btn_change_language)

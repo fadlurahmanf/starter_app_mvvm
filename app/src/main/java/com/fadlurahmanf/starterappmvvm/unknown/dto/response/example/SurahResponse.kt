@@ -2,7 +2,7 @@ package com.fadlurahmanf.starterappmvvm.unknown.dto.response.example
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.fadlurahmanf.starterappmvvm.core.external.constant.RoomKey
+import com.fadlurahmanf.starterappmvvm.core.external.constant.AppKey
 import com.google.gson.annotations.SerializedName
 
 data class SurahsResponse(
@@ -10,7 +10,7 @@ data class SurahsResponse(
     var surahs:List<SurahResponse>
 )
 
-@Entity(tableName = RoomKey.surahTable)
+@Entity(tableName = AppKey.RoomTable.surah)
 data class SurahResponse(
     @PrimaryKey(autoGenerate = true)
     @SerializedName("number")
