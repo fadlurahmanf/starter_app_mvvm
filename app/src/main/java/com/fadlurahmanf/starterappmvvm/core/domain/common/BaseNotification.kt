@@ -2,10 +2,14 @@ package com.fadlurahmanf.starterappmvvm.core.domain.common
 
 import android.app.NotificationChannel
 import android.app.NotificationManager
+import android.app.PendingIntent
 import android.content.Context
+import android.content.Intent
 import android.os.Build
+import android.os.Bundle
 import androidx.core.app.NotificationCompat
 import com.fadlurahmanf.starterappmvvm.R
+import com.fadlurahmanf.starterappmvvm.core.domain.receiver.NotificationReceiver
 import com.fadlurahmanf.starterappmvvm.core.external.constant.AppKey
 
 abstract class BaseNotification(val context: Context) {
@@ -36,15 +40,23 @@ abstract class BaseNotification(val context: Context) {
         }
     }
 
-    fun showNotification(
+    open fun notificationBuilder(
+        id: Int,
+        title: String,
+        body: String
+    ): NotificationCompat.Builder {
+        return NotificationCompat.Builder(context, channelId)
+            .setSmallIcon(R.drawable.il_logo_bankmas)
+            .setContentTitle(title)
+            .setContentText(body)
+            .setContentIntent(NotificationReceiver.getClickPendingIntent(context, id))
+    }
+
+    open fun showNotification(
         id: Int = AppKey.Notification.DEFAULT_NOTIFICATION_ID,
         title: String,
         body: String
     ) {
-        val builder = NotificationCompat.Builder(context, channelId)
-            .setSmallIcon(R.drawable.il_logo_bankmas)
-            .setContentTitle(title)
-            .setContentText(body)
-        notificationManager.notify(id, builder.build())
+        notificationManager.notify(id, notificationBuilder(id, title, body).build())
     }
 }

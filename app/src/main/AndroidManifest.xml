@@ -149,6 +149,14 @@
             </intent-filter>
         </receiver>
 
+        <receiver
+            android:name=".core.domain.receiver.NotificationReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.fadlurahmanf.notification.CLICK" />
+            </intent-filter>
+        </receiver>
+
         <service
             android:name=".unknown.utils.call.CallNotificationPlayerService"
             android:exported="true" />
