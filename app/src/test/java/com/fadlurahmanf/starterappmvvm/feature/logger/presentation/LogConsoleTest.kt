@@ -1,53 +1,55 @@
 package com.fadlurahmanf.starterappmvvm.feature.logger.presentation
 
+import com.fadlurahmanf.starterappmvvm.core.domain.usecase.NotificationImpl
+import com.fadlurahmanf.starterappmvvm.core.external.constant.AppKey
 import com.fadlurahmanf.starterappmvvm.feature.logger.data.dto.entity.LoggerEntity
 import com.fadlurahmanf.starterappmvvm.feature.logger.domain.usecases.LoggerImpl
-import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Test
-import org.junit.runner.RunWith
-import org.mockito.ArgumentMatcher
-import org.mockito.InjectMocks
-import org.mockito.Mock
-import org.mockito.Mockito
-import org.mockito.MockitoAnnotations
-import org.mockito.junit.MockitoJUnitRunner
+import org.mockito.kotlin.mock
+import org.mockito.kotlin.refEq
+import org.mockito.kotlin.times
+import org.mockito.kotlin.verify
 
-@RunWith(MockitoJUnitRunner::class)
 class LogConsoleTest {
-    @InjectMocks
-    lateinit var logConsole: LogConsole
-
-    @Mock
     lateinit var loggerImpl: LoggerImpl
+    lateinit var notificationImpl: NotificationImpl
+    lateinit var logConsole: LogConsole
 
     @Before
     fun setupBefore() {
-        println("SETUP BEFORE")
-        MockitoAnnotations.openMocks(this)
-        logConsole = LogConsole(loggerImpl)
-    }
-
-    fun createRandomLoggerEntity():LoggerEntity{
-        return LoggerEntity()
+        loggerImpl = mock<LoggerImpl>()
+        notificationImpl = mock<NotificationImpl>()
+        logConsole = LogConsole(loggerImpl, notificationImpl)
     }
 
     @Test
     fun `insert type info when use LogConsole i`() {
-
         logConsole.i("TES")
-
-        Mockito.verify(loggerImpl, Mockito.times(1)).insert(LoggerEntity(
-            message = "TES",
-            date = Mockito.any(),
-            type = "INFO",
-            writer = Mockito.any()
-        ))
+        verify(loggerImpl, times(1)).insert(
+            refEq(
+                LoggerEntity(
+                    message = "TES",
+                    type = "INFO"
+                ), "date"
+            )
+        )
     }
 
     @Test
-    fun `test_2`() {
-        println("TES 2")
-        assertEquals(0, 0)
+    fun `show notification when logging`() {
+        logConsole.i("TES", showNotification = true)
+        verify(notificationImpl, times(1)).showNotification(
+            id = AppKey.Notification.DEFAULT_NOTIFICATION_ID,
+            title = "INFO",
+            body = "TES"
+        )
+
+        logConsole.i("TES", showNotification = false)
+        verify(notificationImpl, times(0)).showNotification(
+            id = AppKey.Notification.DEFAULT_NOTIFICATION_ID,
+            title = "INFO",
+            body = "TES"
+        )
     }
 }

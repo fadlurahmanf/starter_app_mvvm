@@ -11,5 +11,4 @@ data class LoggerEntity(
     var type: String? = null,
     var date: String? = null,
     var message: String? = null,
-    var writer: String? = null,
 )

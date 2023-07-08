@@ -5,6 +5,7 @@ import com.appsflyer.AppsFlyerConversionListener
 import com.appsflyer.AppsFlyerLib
 import com.appsflyer.attribution.AppsFlyerRequestListener
 import com.facebook.FacebookSdk
+import com.fadlurahmanf.starterappmvvm.core.domain.usecase.NotificationImpl
 import com.fadlurahmanf.starterappmvvm.feature.logger.domain.repositories.LoggerRoomDatasource
 import com.fadlurahmanf.starterappmvvm.feature.logger.domain.usecases.LoggerImpl
 import com.fadlurahmanf.starterappmvvm.feature.logger.presentation.LogConsole
@@ -26,9 +27,8 @@ class BaseApp : Application() {
 
     private fun setupLogConsole() {
         logConsole = LogConsole(
-            loggerImpl = LoggerImpl(
-                loggerRoomDatasource = LoggerRoomDatasource(applicationContext)
-            )
+            loggerImpl = LoggerImpl(LoggerRoomDatasource(applicationContext)),
+            notificationImpl = NotificationImpl(applicationContext)
         )
     }
 

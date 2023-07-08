@@ -22,7 +22,7 @@ abstract class GeneralDatabase : RoomDatabase() {
     abstract fun loggerDao(): LoggerDao
 
     companion object {
-        const val VERSION = 3
+        const val VERSION = 4
 
         @Volatile
         private var INSTANCE: GeneralDatabase? = null

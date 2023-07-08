@@ -9,4 +9,12 @@ class AppKey {
         const val surah = "surah_table"
         const val logger = "logger_table"
     }
+
+    object Notification {
+        const val GENERAL_CHANNEL_ID = "GENERAL"
+        const val GENERAL_CHANNEL = "GENERAL"
+        const val GENERAL_DESCRIPTION = "Umum"
+
+        const val DEFAULT_NOTIFICATION_ID = 0
+    }
 }

@@ -73,7 +73,7 @@ class FirstExampleActivity : BaseActivity<ActivityFirstExampleBinding>(ActivityF
         }
 
         binding.btnLogger.setOnClickListener {
-            (this.application as BaseApp).logConsole.i("TES TES")
+            (this.application as BaseApp).logConsole.i("TES TES", true)
         }
 
         notificationHelper = NotificationHelper(this)
