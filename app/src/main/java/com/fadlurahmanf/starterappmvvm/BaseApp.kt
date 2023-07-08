@@ -6,9 +6,9 @@ import com.appsflyer.AppsFlyerLib
 import com.appsflyer.attribution.AppsFlyerRequestListener
 import com.facebook.FacebookSdk
 import com.facebook.LoggingBehavior
-import com.fadlurahmanf.starterappmvvm.di.component.ApplicationComponent
+import com.fadlurahmanf.starterappmvvm.unknown.di.component.ApplicationComponent
 import com.fadlurahmanf.starterappmvvm.di.component.DaggerApplicationComponent
-import com.fadlurahmanf.starterappmvvm.utils.logging.logd
+import com.fadlurahmanf.starterappmvvm.unknown.utils.logging.logd
 
 
 class BaseApp : Application() {

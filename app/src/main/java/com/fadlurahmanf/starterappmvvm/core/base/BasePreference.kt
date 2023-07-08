@@ -2,7 +2,7 @@ package com.fadlurahmanf.starterappmvvm.core.base
 
 import android.content.Context
 import android.content.SharedPreferences
-import com.fadlurahmanf.starterappmvvm.constant.SpKey
+import com.fadlurahmanf.starterappmvvm.core.constant.SpKey
 import com.google.gson.Gson
 import org.json.JSONArray
 

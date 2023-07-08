@@ -2,11 +2,11 @@ package com.fadlurahmanf.starterappmvvm.ui.example.viewmodel
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.fadlurahmanf.starterappmvvm.core.base.NetworkState
-import com.fadlurahmanf.starterappmvvm.data.repository.example.QuranRepository
-import com.fadlurahmanf.starterappmvvm.dto.exception.CustomException
-import com.fadlurahmanf.starterappmvvm.dto.response.example.BaseQuranResponse
-import com.fadlurahmanf.starterappmvvm.dto.response.example.SurahResponse
-import com.fadlurahmanf.starterappmvvm.dto.response.example.SurahsResponse
+import com.fadlurahmanf.starterappmvvm.unknown.data.repository.example.QuranRepository
+import com.fadlurahmanf.starterappmvvm.unknown.dto.exception.CustomException
+import com.fadlurahmanf.starterappmvvm.unknown.dto.response.example.BaseQuranResponse
+import com.fadlurahmanf.starterappmvvm.unknown.dto.response.example.SurahResponse
+import com.fadlurahmanf.starterappmvvm.unknown.dto.response.example.SurahsResponse
 import com.google.gson.Gson
 import io.reactivex.rxjava3.android.plugins.RxAndroidPlugins
 import io.reactivex.rxjava3.core.Observable
@@ -76,6 +76,7 @@ class ListSurahViewModelTest{
         assertEquals(Gson().toJson(
             NetworkState.Error(exception = CustomException(
             rawMessage = "ERROR"
-        ))),  Gson().toJson(viewModel.surahsLive.value))
+        )
+            )),  Gson().toJson(viewModel.surahsLive.value))
     }
 }

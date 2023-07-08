@@ -1,7 +1,7 @@
 package com.fadlurahmanf.starterappmvvm.core.base
 
 import androidx.lifecycle.ViewModel
-import com.fadlurahmanf.starterappmvvm.dto.response.core.BaseResponse
+import com.fadlurahmanf.starterappmvvm.unknown.dto.response.core.BaseResponse
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 
 

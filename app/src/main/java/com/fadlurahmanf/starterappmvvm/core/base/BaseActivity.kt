@@ -15,7 +15,7 @@ import androidx.viewbinding.ViewBinding
 import com.chuckerteam.chucker.api.Chucker
 import com.fadlurahmanf.starterappmvvm.BaseApp
 import com.fadlurahmanf.starterappmvvm.R
-import com.fadlurahmanf.starterappmvvm.di.component.ApplicationComponent
+import com.fadlurahmanf.starterappmvvm.unknown.di.component.ApplicationComponent
 import com.fadlurahmanf.starterappmvvm.ui.core.dialog.DefaultLoadingDialog
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig
@@ -33,7 +33,7 @@ abstract class BaseActivity<VB:ViewBinding>(
     private var _binding:VB ?= null
     val binding get() = _binding!!
 
-    private var _appComponent:ApplicationComponent? = null
+    private var _appComponent: ApplicationComponent? = null
     val appComponent get() = _appComponent!!
 
     override fun onCreate(savedInstanceState: Bundle?) {

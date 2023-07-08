@@ -139,7 +139,7 @@
         </provider>
 
         <receiver
-            android:name=".utils.call.CallBroadcastReceiver"
+            android:name=".unknown.utils.call.CallBroadcastReceiver"
             android:exported="true">
             <intent-filter>
                 <action android:name="com.fadlurahmanf.callkit.ACTION_CALL_INCOMING" />
@@ -150,17 +150,17 @@
         </receiver>
 
         <service
-            android:name=".utils.call.CallNotificationPlayerService"
+            android:name=".unknown.utils.call.CallNotificationPlayerService"
             android:exported="true" />
         <service
-            android:name=".utils.download.DownloadService"
+            android:name=".unknown.utils.download.DownloadService"
             android:exported="true" />
         <service
-            android:name=".utils.media.MediaPlayerService"
+            android:name=".unknown.utils.media.MediaPlayerService"
             android:exported="true" />
 
         <receiver
-            android:name=".utils.media.MediaPlayerReceiver"
+            android:name=".unknown.utils.media.MediaPlayerReceiver"
             android:exported="true">
             <intent-filter>
                 <action android:name="com.fadlurahmanf.mediaPlayer.ACTION_PAUSE" />
@@ -171,7 +171,7 @@
         </receiver>
 
         <service
-            android:name=".utils.fcm.FCMService"
+            android:name=".unknown.utils.fcm.FCMService"
             android:exported="true">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
