@@ -58,16 +58,10 @@ class FirstExampleActivity :
     private var isVisibleBtnPdfFromFile: Boolean = true
 
     override fun initSetup() {
-        remoteConfig.fetchAndActivate().addOnCompleteListener {
-            if (it.isSuccessful) {
-                logConsole.d("REMOTE CONFIG SUCCESS")
-                isVisibleBtnPdfFromFile = remoteConfig.getBoolean("btn_pdf_from_file")
-                binding.buttonPickPdf.visibility =
-                    if (isVisibleBtnPdfFromFile) View.VISIBLE else View.INVISIBLE
-            } else {
-                logConsole.e("REMOTE CONFIG FAILED")
-            }
-        }
+        logConsole.d("REMOTE CONFIG SUCCESS")
+        isVisibleBtnPdfFromFile = remoteConfig().getBoolean("btn_pdf_from_file")
+        binding.buttonPickPdf.visibility =
+            if (isVisibleBtnPdfFromFile) View.VISIBLE else View.INVISIBLE
 
         binding.btnShowLoading.setOnClickListener {
             showLoadingDialog()

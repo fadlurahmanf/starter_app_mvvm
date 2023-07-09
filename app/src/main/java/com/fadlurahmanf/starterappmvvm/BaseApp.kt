@@ -12,16 +12,37 @@ import com.fadlurahmanf.starterappmvvm.feature.logger.domain.usecases.LoggerImpl
 import com.fadlurahmanf.starterappmvvm.feature.logger.presentation.LogConsole
 import com.fadlurahmanf.starterappmvvm.unknown.di.component.ApplicationComponent
 import com.fadlurahmanf.starterappmvvm.unknown.di.component.DaggerApplicationComponent
+import com.google.firebase.remoteconfig.FirebaseRemoteConfig
+import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings
 
 class BaseApp : Application() {
 
     lateinit var applicationComponent: ApplicationComponent
+    lateinit var remoteConfig:FirebaseRemoteConfig
 
     override fun onCreate() {
         super.onCreate()
         initInjection()
         setupLogConsole()
         setupAppsFlyer()
+        initRemoteConfigFirebase()
+    }
+    private fun initRemoteConfigFirebase(){
+        remoteConfig = FirebaseRemoteConfig.getInstance()
+
+        val configSettings = FirebaseRemoteConfigSettings.Builder()
+            .setMinimumFetchIntervalInSeconds(60)
+            .setFetchTimeoutInSeconds(60)
+            .build()
+
+        remoteConfig.setConfigSettingsAsync(configSettings)
+        remoteConfig.setDefaultsAsync(R.xml.remote_firebase_configuration)
+
+        remoteConfig.fetchAndActivate().addOnSuccessListener {
+            logConsole.d("SUCCESS ACTIVATE REMOTE CONFIG")
+        }.addOnFailureListener {
+            logConsole.w("FAILED TO ACTIVATE REMOTE CONFIG: ${it.message}")
+        }
     }
 
     private fun setupLogConsole() {
@@ -30,7 +51,6 @@ class BaseApp : Application() {
             notificationImpl = NotificationImpl(applicationContext)
         )
     }
-
     private fun setupAppsFlyer() {
         if (BuildConfig.BUILD_TYPE.contains("debug", ignoreCase = true)) {
             AppsFlyerLib.getInstance().setDebugLog(true)
