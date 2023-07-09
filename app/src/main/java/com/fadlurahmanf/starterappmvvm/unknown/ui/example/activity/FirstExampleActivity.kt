@@ -40,6 +40,7 @@ import com.fadlurahmanf.starterappmvvm.unknown.ui.core.activity.VideoPlayerActiv
 import com.fadlurahmanf.starterappmvvm.unknown.utils.analytic.AnalyticHelper
 import com.fadlurahmanf.starterappmvvm.feature.download.domain.services.DownloadService
 import com.fadlurahmanf.starterappmvvm.feature.download.domain.usecases.DownloadNotificationImpl
+import com.fadlurahmanf.starterappmvvm.feature.notification.data.dto.model.NotificationActionModel
 import com.fadlurahmanf.starterappmvvm.feature.notification.domain.usecases.NotificationImpl
 import com.fadlurahmanf.starterappmvvm.unknown.utils.media.MediaPlayerService
 import com.fadlurahmanf.starterappmvvm.unknown.utils.call.CallBroadcastReceiver
@@ -228,15 +229,13 @@ class FirstExampleActivity :
                 action = "SNOOZE"
             }
             val snoozePendingIntent = PendingIntent.getBroadcast(this, 0, intent, FLAG_IMMUTABLE)
-            val builder = notificationHelper.builder
-            builder.setContentTitle("Example Notification 1 action")
-                .setPriority(NotificationCompat.PRIORITY_HIGH)
-                .setContentText("Example Body Notification 1 action")
-                .addAction(R.drawable.ic_launcher_background, "SNOOZE", snoozePendingIntent)
-
-            with(NotificationManagerCompat.from(this)) {
-                notify(Random.nextInt(999), builder.build())
-            }
+            notificationImpl.showActionNotification(
+                title = "ACTION NOTIFICATION",
+                body = "BODY NOTIFICATION",
+                actions = listOf(NotificationActionModel(
+                    icon = R.drawable.ic_launcher_background, "SNOOZE", snoozePendingIntent
+                ))
+            )
         }
 
         binding.btnIncomingCallNotification.setOnClickListener {

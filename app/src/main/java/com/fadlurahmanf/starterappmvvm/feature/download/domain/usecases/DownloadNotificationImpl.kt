@@ -4,12 +4,10 @@ import android.app.PendingIntent
 import android.content.Context
 import android.os.Bundle
 import androidx.core.app.NotificationCompat
-import com.fadlurahmanf.starterappmvvm.R
 import com.fadlurahmanf.starterappmvvm.core.data.constant.AppKey
 import com.fadlurahmanf.starterappmvvm.feature.notification.domain.common.BaseNotification
 import com.fadlurahmanf.starterappmvvm.core.domain.receiver.NotificationReceiver
-import com.fadlurahmanf.starterappmvvm.feature.notification.data.dto.ContentNotification
-import kotlin.math.roundToInt
+import com.fadlurahmanf.starterappmvvm.feature.notification.data.dto.model.ContentNotificationModel
 
 class DownloadNotificationImpl(context: Context) : BaseNotification(context) {
 
@@ -28,7 +26,7 @@ class DownloadNotificationImpl(context: Context) : BaseNotification(context) {
     }
 
     private fun getClickPendingIntent(): PendingIntent {
-        val content = ContentNotification(
+        val content = ContentNotificationModel(
             type = "DOWNLOAD"
         )
         return NotificationReceiver.getClickPendingIntent(

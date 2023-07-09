@@ -13,6 +13,7 @@ import com.bumptech.glide.request.transition.Transition
 import com.fadlurahmanf.starterappmvvm.R
 import com.fadlurahmanf.starterappmvvm.core.domain.receiver.NotificationReceiver
 import com.fadlurahmanf.starterappmvvm.core.data.constant.AppKey
+import com.fadlurahmanf.starterappmvvm.feature.notification.data.dto.model.NotificationActionModel
 import kotlin.random.Random
 
 abstract class BaseNotification(var context: Context) {
@@ -52,6 +53,7 @@ abstract class BaseNotification(var context: Context) {
     ): NotificationCompat.Builder {
         return NotificationCompat.Builder(context, channelId)
             .setSmallIcon(R.drawable.il_logo_bankmas)
+            .setPriority(NotificationCompat.PRIORITY_HIGH)
             .setContentTitle(title)
             .setContentText(body)
             .setContentIntent(NotificationReceiver.getClickPendingIntent(context, id))
@@ -104,7 +106,16 @@ abstract class BaseNotification(var context: Context) {
             })
     }
 
-    fun showActionNotification(){
-
+    fun showActionNotification(
+        id: Int = defaultNotificationId,
+        title: String,
+        body: String,
+        actions: List<NotificationActionModel>
+    ) {
+        val builder = notificationBuilder(id, title, body)
+        actions.forEach {
+            builder.addAction(it.icon, it.title, it.pendingIntent)
+        }
+        notificationManager().notify(id, builder.build())
     }
 }

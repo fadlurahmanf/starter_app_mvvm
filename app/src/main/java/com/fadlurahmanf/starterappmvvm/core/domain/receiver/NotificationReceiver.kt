@@ -5,7 +5,7 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.os.Build
-import com.fadlurahmanf.starterappmvvm.feature.notification.data.dto.ContentNotification
+import com.fadlurahmanf.starterappmvvm.feature.notification.data.dto.model.ContentNotificationModel
 import com.fadlurahmanf.starterappmvvm.unknown.ui.example.activity.ExampleEncryptDecryptActivity
 import com.fadlurahmanf.starterappmvvm.unknown.ui.example.activity.LoginActivity
 
@@ -19,7 +19,7 @@ class NotificationReceiver : BroadcastReceiver() {
         fun getClickPendingIntent(
             context: Context,
             notificationId: Int,
-            data: ContentNotification? = null
+            data: ContentNotificationModel? = null
         ): PendingIntent {
             val intent = Intent(context, NotificationReceiver::class.java)
             intent.apply {
@@ -45,9 +45,9 @@ class NotificationReceiver : BroadcastReceiver() {
         }
     }
 
-    private fun getContentData(intent: Intent): ContentNotification? {
+    private fun getContentData(intent: Intent): ContentNotificationModel? {
         return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            intent.extras?.getParcelable(CONTENT_DATA, ContentNotification::class.java)
+            intent.extras?.getParcelable(CONTENT_DATA, ContentNotificationModel::class.java)
         } else {
             intent.extras?.getParcelable(CONTENT_DATA)
         }
@@ -64,7 +64,7 @@ class NotificationReceiver : BroadcastReceiver() {
         }
     }
 
-    private fun onClickIntentAction(context: Context?, data: ContentNotification) {
+    private fun onClickIntentAction(context: Context?, data: ContentNotificationModel) {
         if (data.type == "DOWNLOAD") {
             val newIntent = Intent(context, ExampleEncryptDecryptActivity::class.java)
             newIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
