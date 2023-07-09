@@ -1,7 +1,7 @@
-package com.fadlurahmanf.starterappmvvm.core.domain.usecase
+package com.fadlurahmanf.starterappmvvm.feature.notification.domain.usecases
 
 import android.content.Context
-import com.fadlurahmanf.starterappmvvm.core.domain.common.BaseNotification
+import com.fadlurahmanf.starterappmvvm.feature.notification.domain.common.BaseNotification
 import com.fadlurahmanf.starterappmvvm.core.data.constant.AppKey
 
 class NotificationImpl(context: Context) : BaseNotification(context) {

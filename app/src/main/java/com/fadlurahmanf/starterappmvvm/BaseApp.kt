@@ -5,7 +5,7 @@ import com.appsflyer.AppsFlyerConversionListener
 import com.appsflyer.AppsFlyerLib
 import com.appsflyer.attribution.AppsFlyerRequestListener
 import com.facebook.FacebookSdk
-import com.fadlurahmanf.starterappmvvm.core.domain.usecase.NotificationImpl
+import com.fadlurahmanf.starterappmvvm.feature.notification.domain.usecases.NotificationImpl
 import com.fadlurahmanf.starterappmvvm.core.data.constant.logConsole
 import com.fadlurahmanf.starterappmvvm.feature.logger.domain.repositories.LoggerRoomDatasource
 import com.fadlurahmanf.starterappmvvm.feature.logger.domain.usecases.LoggerImpl

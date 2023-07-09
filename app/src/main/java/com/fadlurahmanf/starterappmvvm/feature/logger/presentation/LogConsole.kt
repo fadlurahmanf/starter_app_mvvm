@@ -1,7 +1,7 @@
 package com.fadlurahmanf.starterappmvvm.feature.logger.presentation
 
 import android.util.Log
-import com.fadlurahmanf.starterappmvvm.core.domain.usecase.NotificationImpl
+import com.fadlurahmanf.starterappmvvm.feature.notification.domain.usecases.NotificationImpl
 import com.fadlurahmanf.starterappmvvm.core.external.extension.formatDate5
 import com.fadlurahmanf.starterappmvvm.feature.logger.data.dto.entity.LoggerEntity
 import com.fadlurahmanf.starterappmvvm.feature.logger.domain.usecases.LoggerImpl

@@ -1,27 +1,15 @@
 package com.fadlurahmanf.starterappmvvm.feature.download.domain.usecases
 
-import android.app.Notification
-import android.app.NotificationChannel
-import android.app.NotificationManager
 import android.content.Context
-import android.os.Build
 import android.os.Bundle
 import androidx.core.app.NotificationCompat
 import com.fadlurahmanf.starterappmvvm.R
 import com.fadlurahmanf.starterappmvvm.core.data.constant.AppKey
-import com.fadlurahmanf.starterappmvvm.core.domain.common.BaseNotification
+import com.fadlurahmanf.starterappmvvm.feature.notification.domain.common.BaseNotification
 import com.fadlurahmanf.starterappmvvm.core.domain.receiver.NotificationReceiver
+import com.fadlurahmanf.starterappmvvm.feature.notification.data.dto.ContentNotification
 
 class DownloadNotificationImpl(context: Context) : BaseNotification(context) {
-    companion object {
-        const val DOWNLOAD_CHANNEL_ID = "DOWNLOAD_CHANNEL_ID"
-        const val DOWNLOAD_CHANNEL = "Download"
-        const val DOWNLOAD_CHANNEL_DESCRIPTION = "Download Description"
-
-        const val EXTRA_NOTIFICATION_ID = "EXTRA_NOTIFICATION_ID"
-        const val EXTRA_TOTAL_SIZE = "EXTRA_TOTAL_SIZE"
-        const val EXTRA_CURRENT_PROGRESS_SIZE = "EXTRA_CURRENT_PROGRESS_SIZE"
-    }
 
     override val channelId: String
         get() = AppKey.Notification.DOWNLOAD_CHANNEL_ID
@@ -33,9 +21,9 @@ class DownloadNotificationImpl(context: Context) : BaseNotification(context) {
     override var defaultNotificationId: Int = AppKey.Notification.DEFAULT_DOWNLOAD_NOTIFICATION_ID
 
     private fun prepareDownloadNotificationBuilder(): NotificationCompat.Builder {
-        val bundle = Bundle().apply {
-            putString("TYPE", "DOWNLOAD")
-        }
+        val content = ContentNotification(
+            type = "DOWNLOAD"
+        )
         return NotificationCompat.Builder(context, channelId)
             .setSmallIcon(R.drawable.il_logo_bankmas)
             .setContentTitle("DOWNLOAD")
@@ -44,7 +32,7 @@ class DownloadNotificationImpl(context: Context) : BaseNotification(context) {
                 NotificationReceiver.getClickPendingIntent(
                     context,
                     defaultNotificationId,
-                    bundle
+                    content
                 )
             )
     }

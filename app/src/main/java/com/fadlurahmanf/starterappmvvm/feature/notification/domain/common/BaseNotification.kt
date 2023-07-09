@@ -1,4 +1,4 @@
-package com.fadlurahmanf.starterappmvvm.core.domain.common
+package com.fadlurahmanf.starterappmvvm.feature.notification.domain.common
 
 import android.app.NotificationChannel
 import android.app.NotificationManager
