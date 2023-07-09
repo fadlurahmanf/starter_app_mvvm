@@ -1,4 +1,4 @@
-package com.fadlurahmanf.starterappmvvm.unknown.utils.download
+package com.fadlurahmanf.starterappmvvm.feature.download.domain
 
 import android.app.Notification
 import android.app.NotificationChannel
@@ -6,10 +6,10 @@ import android.app.NotificationManager
 import android.content.Context
 import android.os.Build
 import android.os.Bundle
-import android.widget.RemoteViews
 import androidx.core.app.NotificationCompat
 import com.fadlurahmanf.starterappmvvm.R
 
+@Deprecated("DEPRECATED NOTIFICATION")
 class DownloadNotificationHelper(var context: Context) {
     companion object {
         const val DOWNLOAD_CHANNEL_ID = "DOWNLOAD_CHANNEL_ID"

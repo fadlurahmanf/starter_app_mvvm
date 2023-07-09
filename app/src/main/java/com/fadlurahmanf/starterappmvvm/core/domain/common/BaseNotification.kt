@@ -9,16 +9,18 @@ import com.fadlurahmanf.starterappmvvm.R
 import com.fadlurahmanf.starterappmvvm.core.domain.receiver.NotificationReceiver
 import com.fadlurahmanf.starterappmvvm.core.data.constant.AppKey
 
-abstract class BaseNotification(val context: Context) {
+abstract class BaseNotification(var context: Context) {
     abstract val channelId: String
     abstract val channel: String
     abstract val description: String
+
+    open var defaultNotificationId: Int = AppKey.Notification.DEFAULT_NOTIFICATION_ID
 
     init {
         createChannel()
     }
 
-    private val notificationManager =
+    private fun notificationManager() =
         context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
     private fun createChannel() {
@@ -50,10 +52,23 @@ abstract class BaseNotification(val context: Context) {
     }
 
     open fun showNotification(
-        id: Int = AppKey.Notification.DEFAULT_NOTIFICATION_ID,
+        id: Int? = null,
         title: String,
         body: String
     ) {
-        notificationManager.notify(id, notificationBuilder(id, title, body).build())
+        notificationManager().notify(
+            id ?: defaultNotificationId,
+            notificationBuilder(id ?: defaultNotificationId, title, body).build()
+        )
+    }
+
+    open fun showNotification(
+        id: Int? = null,
+        builder: NotificationCompat.Builder
+    ) {
+        notificationManager().notify(
+            id ?: defaultNotificationId,
+            builder.build()
+        )
     }
 }

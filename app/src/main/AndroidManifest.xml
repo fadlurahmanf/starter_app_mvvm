@@ -161,7 +161,7 @@
             android:name=".unknown.utils.call.CallNotificationPlayerService"
             android:exported="true" />
         <service
-            android:name=".unknown.utils.download.DownloadService"
+            android:name=".feature.download.domain.services.DownloadService"
             android:exported="true" />
         <service
             android:name=".unknown.utils.media.MediaPlayerService"

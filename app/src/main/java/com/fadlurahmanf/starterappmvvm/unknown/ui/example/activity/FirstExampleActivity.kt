@@ -38,7 +38,8 @@ import com.fadlurahmanf.starterappmvvm.unknown.ui.core.activity.ImageViewerActiv
 import com.fadlurahmanf.starterappmvvm.unknown.ui.core.activity.PdfViewerActivity
 import com.fadlurahmanf.starterappmvvm.unknown.ui.core.activity.VideoPlayerActivity
 import com.fadlurahmanf.starterappmvvm.unknown.utils.analytic.AnalyticHelper
-import com.fadlurahmanf.starterappmvvm.unknown.utils.download.DownloadService
+import com.fadlurahmanf.starterappmvvm.feature.download.domain.services.DownloadService
+import com.fadlurahmanf.starterappmvvm.feature.download.domain.usecases.DownloadNotificationImpl
 import com.fadlurahmanf.starterappmvvm.unknown.utils.media.MediaPlayerService
 import com.fadlurahmanf.starterappmvvm.unknown.utils.call.CallBroadcastReceiver
 import com.fadlurahmanf.starterappmvvm.unknown.utils.notification.NotificationHelper
@@ -272,10 +273,12 @@ class FirstExampleActivity :
         }
 
         binding.btnDownload.setOnClickListener {
-            DownloadService.startService(
-                this,
-                "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
-            )
+            val downloadNotificationImpl = DownloadNotificationImpl(this)
+            downloadNotificationImpl.showPrepareDownload()
+//            DownloadService.startService(
+//                this,
+//                "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
+//            )
         }
 
         binding.btnPlayAudioForeground.setOnClickListener {

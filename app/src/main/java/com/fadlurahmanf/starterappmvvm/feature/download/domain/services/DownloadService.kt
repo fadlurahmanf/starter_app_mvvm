@@ -1,4 +1,4 @@
-package com.fadlurahmanf.starterappmvvm.unknown.utils.download
+package com.fadlurahmanf.starterappmvvm.feature.download.domain.services
 
 import android.app.DownloadManager
 import android.app.Service
@@ -12,6 +12,7 @@ import android.os.IBinder
 import android.os.Looper
 import androidx.core.content.ContextCompat
 import com.fadlurahmanf.starterappmvvm.core.data.constant.NotificationConstant
+import com.fadlurahmanf.starterappmvvm.feature.download.domain.DownloadNotificationHelper
 import java.io.File
 import kotlin.random.Random
 
