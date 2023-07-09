@@ -4,7 +4,7 @@ import com.fadlurahmanf.starterappmvvm.feature.encrypt.data.exception.CryptoExce
 import com.fadlurahmanf.starterappmvvm.feature.encrypt.domain.common.AESMethod
 import com.fadlurahmanf.starterappmvvm.feature.encrypt.domain.common.BaseEncrypt
 import com.fadlurahmanf.starterappmvvm.feature.encrypt.domain.common.PaddingScheme
-import com.fadlurahmanf.starterappmvvm.unknown.utils.logging.logd
+import com.fadlurahmanf.starterappmvvm.feature.logger.presentation.logd
 import javax.crypto.Cipher
 import javax.crypto.spec.IvParameterSpec
 import javax.crypto.spec.SecretKeySpec

@@ -9,7 +9,7 @@ import androidx.core.content.ContextCompat
 import com.fadlurahmanf.starterappmvvm.R
 import com.fadlurahmanf.starterappmvvm.core.domain.common.BaseActivity
 import com.fadlurahmanf.starterappmvvm.databinding.ActivityVideoPlayerBinding
-import com.fadlurahmanf.starterappmvvm.unknown.utils.logging.logd
+import com.fadlurahmanf.starterappmvvm.feature.logger.presentation.logd
 import com.fadlurahmanf.starterappmvvm.unknown.utils.video_player.VideoPlayerHelper
 import com.google.android.exoplayer2.Player
 

@@ -1,7 +1,7 @@
 package com.fadlurahmanf.starterappmvvm.unknown.utils.fcm
 
 import com.fadlurahmanf.starterappmvvm.unknown.utils.call.CallBroadcastReceiver
-import com.fadlurahmanf.starterappmvvm.unknown.utils.logging.logd
+import com.fadlurahmanf.starterappmvvm.feature.logger.presentation.logd
 import com.fadlurahmanf.starterappmvvm.unknown.utils.notification.NotificationHelper
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage

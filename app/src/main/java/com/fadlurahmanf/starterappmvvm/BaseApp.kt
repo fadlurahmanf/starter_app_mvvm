@@ -6,17 +6,17 @@ import com.appsflyer.AppsFlyerLib
 import com.appsflyer.attribution.AppsFlyerRequestListener
 import com.facebook.FacebookSdk
 import com.fadlurahmanf.starterappmvvm.core.domain.usecase.NotificationImpl
+import com.fadlurahmanf.starterappmvvm.core.external.constant.logConsole
 import com.fadlurahmanf.starterappmvvm.feature.logger.domain.repositories.LoggerRoomDatasource
 import com.fadlurahmanf.starterappmvvm.feature.logger.domain.usecases.LoggerImpl
 import com.fadlurahmanf.starterappmvvm.feature.logger.presentation.LogConsole
 import com.fadlurahmanf.starterappmvvm.unknown.di.component.ApplicationComponent
 import com.fadlurahmanf.starterappmvvm.unknown.di.component.DaggerApplicationComponent
-import com.fadlurahmanf.starterappmvvm.unknown.utils.logging.logd
+import com.fadlurahmanf.starterappmvvm.feature.logger.presentation.logd
 
 class BaseApp : Application() {
 
     lateinit var applicationComponent: ApplicationComponent
-    lateinit var logConsole: LogConsole
 
     override fun onCreate() {
         super.onCreate()

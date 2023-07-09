@@ -12,8 +12,8 @@ import com.fadlurahmanf.starterappmvvm.unknown.data.storage.example.LanguageSpSt
 import com.fadlurahmanf.starterappmvvm.databinding.ActivitySplashBinding
 import com.fadlurahmanf.starterappmvvm.unknown.di.component.CoreComponent
 import com.fadlurahmanf.starterappmvvm.unknown.ui.example.activity.FirstExampleActivity
-import com.fadlurahmanf.starterappmvvm.unknown.utils.logging.createNewLoggerFile
-import com.fadlurahmanf.starterappmvvm.unknown.utils.logging.logd
+import com.fadlurahmanf.starterappmvvm.feature.logger.presentation.createNewLoggerFile
+import com.fadlurahmanf.starterappmvvm.feature.logger.presentation.logd
 import com.google.firebase.messaging.FirebaseMessaging
 import java.util.*
 import javax.inject.Inject

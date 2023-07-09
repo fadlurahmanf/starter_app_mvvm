@@ -23,6 +23,7 @@ import com.fadlurahmanf.starterappmvvm.R
 import com.fadlurahmanf.starterappmvvm.core.domain.common.BaseActivity
 import com.fadlurahmanf.starterappmvvm.core.external.constant.AnalyticEvent
 import com.fadlurahmanf.starterappmvvm.core.external.constant.BuildFlavorConstant
+import com.fadlurahmanf.starterappmvvm.core.external.constant.logConsole
 import com.fadlurahmanf.starterappmvvm.unknown.utils.language.TranslationHelper
 import com.fadlurahmanf.starterappmvvm.unknown.data.storage.example.LanguageSpStorage
 import com.fadlurahmanf.starterappmvvm.databinding.ActivityFirstExampleBinding
@@ -38,8 +39,8 @@ import com.fadlurahmanf.starterappmvvm.unknown.utils.analytic.AnalyticHelper
 import com.fadlurahmanf.starterappmvvm.unknown.utils.download.DownloadService
 import com.fadlurahmanf.starterappmvvm.unknown.utils.media.MediaPlayerService
 import com.fadlurahmanf.starterappmvvm.unknown.utils.call.CallBroadcastReceiver
-import com.fadlurahmanf.starterappmvvm.unknown.utils.logging.logd
-import com.fadlurahmanf.starterappmvvm.unknown.utils.logging.loge
+import com.fadlurahmanf.starterappmvvm.feature.logger.presentation.logd
+import com.fadlurahmanf.starterappmvvm.feature.logger.presentation.loge
 import com.fadlurahmanf.starterappmvvm.unknown.utils.notification.NotificationHelper
 import com.google.firebase.messaging.FirebaseMessaging
 import java.util.*
@@ -73,7 +74,7 @@ class FirstExampleActivity : BaseActivity<ActivityFirstExampleBinding>(ActivityF
         }
 
         binding.btnLogger.setOnClickListener {
-            (this.application as BaseApp).logConsole.i("TES TES", true)
+            logConsole.i("TES TES", true)
         }
 
         notificationHelper = NotificationHelper(this)

@@ -1,5 +1,6 @@
 package com.fadlurahmanf.starterappmvvm.feature.logger.presentation
 
+import android.util.Log
 import com.fadlurahmanf.starterappmvvm.core.domain.usecase.NotificationImpl
 import com.fadlurahmanf.starterappmvvm.core.external.extension.formatDate5
 import com.fadlurahmanf.starterappmvvm.feature.logger.data.dto.entity.LoggerEntity
@@ -27,10 +28,22 @@ class LogConsole(
     }
 
     fun i(message: String, showNotification: Boolean = false) {
+        Log.i("LOG CONSOLE INFO", message)
         log("INFO", message, showNotification)
     }
 
     fun d(message: String, showNotification: Boolean = false) {
+        Log.i("LOG CONSOLE DEBUG", message)
         log("DEBUG", message, showNotification)
+    }
+
+    fun e(message: String, showNotification: Boolean = false) {
+        Log.e("LOG CONSOLE ERROR", message)
+        log("ERROR", message, showNotification)
+    }
+
+    fun w(message: String, showNotification: Boolean = false) {
+        Log.w("LOG CONSOLE WARN", message)
+        log("WARN", message, showNotification)
     }
 }

@@ -4,9 +4,8 @@ import android.content.Context
 import android.os.Bundle
 import com.appsflyer.AppsFlyerLib
 import com.appsflyer.attribution.AppsFlyerRequestListener
-import com.facebook.FacebookSdk
 import com.facebook.appevents.AppEventsLogger
-import com.fadlurahmanf.starterappmvvm.unknown.utils.logging.logd
+import com.fadlurahmanf.starterappmvvm.feature.logger.presentation.logd
 import com.google.firebase.analytics.FirebaseAnalytics
 
 class AnalyticHelper {

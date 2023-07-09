@@ -3,7 +3,7 @@ package com.fadlurahmanf.starterappmvvm.unknown.utils.media
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
-import com.fadlurahmanf.starterappmvvm.unknown.utils.logging.logd
+import com.fadlurahmanf.starterappmvvm.feature.logger.presentation.logd
 
 class MediaPlayerReceiver:BroadcastReceiver() {
     companion object{
