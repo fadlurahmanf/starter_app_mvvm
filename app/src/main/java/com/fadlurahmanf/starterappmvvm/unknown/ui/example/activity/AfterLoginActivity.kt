@@ -1,7 +1,7 @@
 package com.fadlurahmanf.starterappmvvm.unknown.ui.example.activity
 
 import com.fadlurahmanf.starterappmvvm.core.domain.common.BaseActivity
-import com.fadlurahmanf.starterappmvvm.core.data.CustomState
+import com.fadlurahmanf.starterappmvvm.core.data.state.CustomState
 import com.fadlurahmanf.starterappmvvm.databinding.ActivityAfterLoginBinding
 import com.fadlurahmanf.starterappmvvm.unknown.di.component.ExampleComponent
 import com.fadlurahmanf.starterappmvvm.unknown.ui.example.viewmodel.AfterLoginViewModel

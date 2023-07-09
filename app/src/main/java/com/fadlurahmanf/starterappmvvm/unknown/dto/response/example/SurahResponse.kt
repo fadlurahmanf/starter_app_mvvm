@@ -2,7 +2,7 @@ package com.fadlurahmanf.starterappmvvm.unknown.dto.response.example
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.fadlurahmanf.starterappmvvm.core.external.constant.AppKey
+import com.fadlurahmanf.starterappmvvm.core.data.constant.AppKey
 import com.google.gson.annotations.SerializedName
 
 data class SurahsResponse(

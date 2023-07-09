@@ -11,7 +11,7 @@ import android.os.Handler
 import android.os.IBinder
 import android.os.Looper
 import androidx.core.content.ContextCompat
-import com.fadlurahmanf.starterappmvvm.core.external.constant.NotificationConstant
+import com.fadlurahmanf.starterappmvvm.core.data.constant.NotificationConstant
 import java.io.File
 import kotlin.random.Random
 

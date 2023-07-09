@@ -2,7 +2,7 @@ package com.fadlurahmanf.starterappmvvm.feature.logger.data.dto.entity
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.fadlurahmanf.starterappmvvm.core.external.constant.AppKey
+import com.fadlurahmanf.starterappmvvm.core.data.constant.AppKey
 
 @Entity(tableName = AppKey.RoomTable.logger)
 data class LoggerEntity(

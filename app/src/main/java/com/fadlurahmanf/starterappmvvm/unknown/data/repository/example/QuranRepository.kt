@@ -2,8 +2,8 @@ package com.fadlurahmanf.starterappmvvm.unknown.data.repository.example
 
 import android.content.Context
 import android.util.Log
-import com.fadlurahmanf.starterappmvvm.core.external.constant.LogKey
-import com.fadlurahmanf.starterappmvvm.unknown.utils.connectivity.ConnectivityHelper
+import com.fadlurahmanf.starterappmvvm.core.data.constant.LogKey
+import com.fadlurahmanf.starterappmvvm.core.external.helper.ConnectivityHelper
 import com.fadlurahmanf.starterappmvvm.unknown.data.api.datasource.example.QuranDatasource
 import com.fadlurahmanf.starterappmvvm.unknown.data.room.datasource.QuranRoomDatasource
 import com.fadlurahmanf.starterappmvvm.unknown.dto.response.example.BaseQuranResponse

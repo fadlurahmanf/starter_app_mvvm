@@ -1,4 +1,4 @@
-package com.fadlurahmanf.starterappmvvm.core.external.constant
+package com.fadlurahmanf.starterappmvvm.core.data.constant
 
 object AnalyticEvent {
     const val btn_login_click = "btn_login_click"

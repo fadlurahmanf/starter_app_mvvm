@@ -6,7 +6,7 @@ import com.appsflyer.AppsFlyerLib
 import com.appsflyer.attribution.AppsFlyerRequestListener
 import com.facebook.FacebookSdk
 import com.fadlurahmanf.starterappmvvm.core.domain.usecase.NotificationImpl
-import com.fadlurahmanf.starterappmvvm.core.external.constant.logConsole
+import com.fadlurahmanf.starterappmvvm.core.data.constant.logConsole
 import com.fadlurahmanf.starterappmvvm.feature.logger.domain.repositories.LoggerRoomDatasource
 import com.fadlurahmanf.starterappmvvm.feature.logger.domain.usecases.LoggerImpl
 import com.fadlurahmanf.starterappmvvm.feature.logger.presentation.LogConsole

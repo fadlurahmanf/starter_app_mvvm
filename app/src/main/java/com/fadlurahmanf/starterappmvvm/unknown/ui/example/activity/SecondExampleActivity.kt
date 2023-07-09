@@ -2,7 +2,7 @@ package com.fadlurahmanf.starterappmvvm.unknown.ui.example.activity
 
 import android.view.View
 import com.fadlurahmanf.starterappmvvm.core.domain.common.BaseActivity
-import com.fadlurahmanf.starterappmvvm.core.data.CustomState
+import com.fadlurahmanf.starterappmvvm.core.data.state.CustomState
 import com.fadlurahmanf.starterappmvvm.databinding.ActivitySecondExampleBinding
 import com.fadlurahmanf.starterappmvvm.unknown.di.component.ExampleComponent
 import com.fadlurahmanf.starterappmvvm.unknown.dto.response.example.SurahResponse

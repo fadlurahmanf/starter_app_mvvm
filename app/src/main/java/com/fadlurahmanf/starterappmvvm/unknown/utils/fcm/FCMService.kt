@@ -1,6 +1,6 @@
 package com.fadlurahmanf.starterappmvvm.unknown.utils.fcm
 
-import com.fadlurahmanf.starterappmvvm.core.external.constant.logConsole
+import com.fadlurahmanf.starterappmvvm.core.data.constant.logConsole
 import com.fadlurahmanf.starterappmvvm.unknown.utils.call.CallBroadcastReceiver
 import com.fadlurahmanf.starterappmvvm.unknown.utils.notification.NotificationHelper
 import com.google.firebase.messaging.FirebaseMessagingService

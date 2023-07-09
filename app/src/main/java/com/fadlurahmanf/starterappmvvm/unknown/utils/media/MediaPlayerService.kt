@@ -9,8 +9,8 @@ import android.net.Uri
 import android.os.Bundle
 import android.os.IBinder
 import androidx.core.content.ContextCompat
-import com.fadlurahmanf.starterappmvvm.core.external.constant.NotificationConstant
-import com.fadlurahmanf.starterappmvvm.core.external.constant.logConsole
+import com.fadlurahmanf.starterappmvvm.core.data.constant.NotificationConstant
+import com.fadlurahmanf.starterappmvvm.core.data.constant.logConsole
 
 class MediaPlayerService:Service() {
     companion object{

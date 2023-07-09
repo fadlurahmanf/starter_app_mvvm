@@ -3,7 +3,7 @@ package com.fadlurahmanf.starterappmvvm.unknown.utils.qrcode
 import androidx.camera.core.ExperimentalGetImage
 import androidx.camera.core.ImageAnalysis
 import androidx.camera.core.ImageProxy
-import com.fadlurahmanf.starterappmvvm.core.external.constant.logConsole
+import com.fadlurahmanf.starterappmvvm.core.data.constant.logConsole
 import com.google.mlkit.vision.barcode.BarcodeScannerOptions
 import com.google.mlkit.vision.barcode.BarcodeScanning
 import com.google.mlkit.vision.barcode.common.Barcode

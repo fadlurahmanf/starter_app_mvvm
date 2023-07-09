@@ -1,4 +1,4 @@
-package com.fadlurahmanf.starterappmvvm.core.external.constant
+package com.fadlurahmanf.starterappmvvm.core.data.constant
 
 object SpKey {
     const val SP_KEY = "SP_KEY"

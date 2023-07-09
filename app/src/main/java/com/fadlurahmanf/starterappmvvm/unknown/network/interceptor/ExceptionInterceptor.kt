@@ -1,6 +1,6 @@
 package com.fadlurahmanf.starterappmvvm.unknown.network.interceptor
 
-import com.fadlurahmanf.starterappmvvm.core.external.constant.ExceptionConstant
+import com.fadlurahmanf.starterappmvvm.core.data.constant.ExceptionConstant
 import com.fadlurahmanf.starterappmvvm.unknown.dto.exception.CustomException
 import okhttp3.Interceptor
 import okhttp3.Response

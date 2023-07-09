@@ -3,7 +3,7 @@ package com.fadlurahmanf.starterappmvvm.feature.gallery.domain.datasource
 import android.content.ContentUris
 import android.content.Context
 import android.provider.MediaStore
-import com.fadlurahmanf.starterappmvvm.core.external.constant.logConsole
+import com.fadlurahmanf.starterappmvvm.core.data.constant.logConsole
 import com.fadlurahmanf.starterappmvvm.feature.gallery.data.dto.GalleryAlbumModel
 import com.fadlurahmanf.starterappmvvm.feature.gallery.data.dto.GalleryItemModel
 import com.fadlurahmanf.starterappmvvm.feature.gallery.domain.usecases.GalleryHelper

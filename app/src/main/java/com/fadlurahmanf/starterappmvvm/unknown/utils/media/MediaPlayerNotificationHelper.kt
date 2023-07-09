@@ -13,7 +13,7 @@ import android.support.v4.media.session.PlaybackStateCompat
 import androidx.core.app.NotificationCompat
 import androidx.media.session.MediaButtonReceiver
 import com.fadlurahmanf.starterappmvvm.R
-import com.fadlurahmanf.starterappmvvm.core.external.constant.logConsole
+import com.fadlurahmanf.starterappmvvm.core.data.constant.logConsole
 
 class MediaPlayerNotificationHelper(
     var context: Context

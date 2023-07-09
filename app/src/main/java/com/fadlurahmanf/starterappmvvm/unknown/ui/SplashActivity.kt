@@ -5,7 +5,7 @@ import androidx.camera.core.ExperimentalGetImage
 import com.fadlurahmanf.starterappmvvm.BaseApp
 import com.fadlurahmanf.starterappmvvm.BuildConfig
 import com.fadlurahmanf.starterappmvvm.core.domain.common.BaseActivity
-import com.fadlurahmanf.starterappmvvm.core.external.constant.logConsole
+import com.fadlurahmanf.starterappmvvm.core.data.constant.logConsole
 import com.fadlurahmanf.starterappmvvm.unknown.utils.language.TranslationHelper
 import com.fadlurahmanf.starterappmvvm.unknown.data.storage.example.LanguageSpStorage
 import com.fadlurahmanf.starterappmvvm.databinding.ActivitySplashBinding

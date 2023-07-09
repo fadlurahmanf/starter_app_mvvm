@@ -1,4 +1,4 @@
-package com.fadlurahmanf.starterappmvvm.core.external.constant
+package com.fadlurahmanf.starterappmvvm.core.data.constant
 
 import com.fadlurahmanf.starterappmvvm.R
 import com.fadlurahmanf.starterappmvvm.feature.logger.presentation.LogConsole

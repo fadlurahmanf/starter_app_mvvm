@@ -5,7 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import com.fadlurahmanf.starterappmvvm.core.external.constant.NotificationConstant
+import com.fadlurahmanf.starterappmvvm.core.data.constant.NotificationConstant
 import com.fadlurahmanf.starterappmvvm.unknown.ui.example.activity.CallActivity
 
 class CallBroadcastReceiver: BroadcastReceiver(){

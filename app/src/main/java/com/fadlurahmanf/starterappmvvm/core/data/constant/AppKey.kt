@@ -1,4 +1,4 @@
-package com.fadlurahmanf.starterappmvvm.core.external.constant
+package com.fadlurahmanf.starterappmvvm.core.data.constant
 
 class AppKey {
     object RoomDB {

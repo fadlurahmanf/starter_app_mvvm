@@ -3,7 +3,7 @@ package com.fadlurahmanf.starterappmvvm.unknown.ui.example.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.fadlurahmanf.starterappmvvm.core.domain.common.BaseViewModel
-import com.fadlurahmanf.starterappmvvm.core.data.CustomState
+import com.fadlurahmanf.starterappmvvm.core.data.state.CustomState
 import com.fadlurahmanf.starterappmvvm.unknown.data.repository.example.QuranRepository
 import com.fadlurahmanf.starterappmvvm.unknown.dto.exception.CustomException
 import com.fadlurahmanf.starterappmvvm.unknown.dto.response.example.SurahResponse

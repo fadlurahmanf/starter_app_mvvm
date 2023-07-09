@@ -1,7 +1,7 @@
 package com.fadlurahmanf.starterappmvvm.feature.gallery.presentation.viewmodel
 
 import androidx.lifecycle.MutableLiveData
-import com.fadlurahmanf.starterappmvvm.core.data.CustomState
+import com.fadlurahmanf.starterappmvvm.core.data.state.CustomState
 import com.fadlurahmanf.starterappmvvm.core.domain.common.BaseViewModel
 import com.fadlurahmanf.starterappmvvm.core.external.extension.toErrorState
 import com.fadlurahmanf.starterappmvvm.feature.gallery.data.dto.GalleryAlbumModel

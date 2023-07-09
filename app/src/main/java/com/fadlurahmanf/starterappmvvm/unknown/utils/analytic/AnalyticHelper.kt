@@ -5,7 +5,7 @@ import android.os.Bundle
 import com.appsflyer.AppsFlyerLib
 import com.appsflyer.attribution.AppsFlyerRequestListener
 import com.facebook.appevents.AppEventsLogger
-import com.fadlurahmanf.starterappmvvm.core.external.constant.logConsole
+import com.fadlurahmanf.starterappmvvm.core.data.constant.logConsole
 import com.google.firebase.analytics.FirebaseAnalytics
 
 class AnalyticHelper {

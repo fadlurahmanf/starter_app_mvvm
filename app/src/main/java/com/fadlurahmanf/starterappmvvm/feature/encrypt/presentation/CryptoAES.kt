@@ -1,6 +1,6 @@
 package com.fadlurahmanf.starterappmvvm.feature.encrypt.presentation
 
-import com.fadlurahmanf.starterappmvvm.core.external.constant.logConsole
+import com.fadlurahmanf.starterappmvvm.core.data.constant.logConsole
 import com.fadlurahmanf.starterappmvvm.feature.encrypt.data.exception.CryptoException
 import com.fadlurahmanf.starterappmvvm.feature.encrypt.domain.common.AESMethod
 import com.fadlurahmanf.starterappmvvm.feature.encrypt.domain.common.BaseEncrypt

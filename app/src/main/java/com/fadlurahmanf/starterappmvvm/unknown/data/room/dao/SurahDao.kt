@@ -4,7 +4,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.fadlurahmanf.starterappmvvm.core.external.constant.AppKey
+import com.fadlurahmanf.starterappmvvm.core.data.constant.AppKey
 import com.fadlurahmanf.starterappmvvm.unknown.dto.response.example.SurahResponse
 import io.reactivex.rxjava3.core.Single
 

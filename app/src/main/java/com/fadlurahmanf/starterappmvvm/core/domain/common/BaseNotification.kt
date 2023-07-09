@@ -2,15 +2,12 @@ package com.fadlurahmanf.starterappmvvm.core.domain.common
 
 import android.app.NotificationChannel
 import android.app.NotificationManager
-import android.app.PendingIntent
 import android.content.Context
-import android.content.Intent
 import android.os.Build
-import android.os.Bundle
 import androidx.core.app.NotificationCompat
 import com.fadlurahmanf.starterappmvvm.R
 import com.fadlurahmanf.starterappmvvm.core.domain.receiver.NotificationReceiver
-import com.fadlurahmanf.starterappmvvm.core.external.constant.AppKey
+import com.fadlurahmanf.starterappmvvm.core.data.constant.AppKey
 
 abstract class BaseNotification(val context: Context) {
     abstract val channelId: String

@@ -6,8 +6,8 @@ import com.chuckerteam.chucker.api.ChuckerCollector
 import com.chuckerteam.chucker.api.ChuckerInterceptor
 import com.chuckerteam.chucker.api.RetentionManager
 import com.fadlurahmanf.starterappmvvm.BuildConfig
-import com.fadlurahmanf.starterappmvvm.core.external.constant.BuildFlavorConstant
-import com.fadlurahmanf.starterappmvvm.core.external.constant.SpKey
+import com.fadlurahmanf.starterappmvvm.core.data.constant.BuildFlavorConstant
+import com.fadlurahmanf.starterappmvvm.core.data.constant.SpKey
 import com.fadlurahmanf.starterappmvvm.unknown.data.api.path.example.AuthApi
 import com.google.gson.JsonObject
 import okhttp3.*

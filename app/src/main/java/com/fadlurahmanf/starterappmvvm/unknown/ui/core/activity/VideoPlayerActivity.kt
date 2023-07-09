@@ -8,7 +8,7 @@ import android.widget.SeekBar
 import androidx.core.content.ContextCompat
 import com.fadlurahmanf.starterappmvvm.R
 import com.fadlurahmanf.starterappmvvm.core.domain.common.BaseActivity
-import com.fadlurahmanf.starterappmvvm.core.external.constant.logConsole
+import com.fadlurahmanf.starterappmvvm.core.data.constant.logConsole
 import com.fadlurahmanf.starterappmvvm.databinding.ActivityVideoPlayerBinding
 import com.fadlurahmanf.starterappmvvm.unknown.utils.video_player.VideoPlayerHelper
 import com.google.android.exoplayer2.Player
