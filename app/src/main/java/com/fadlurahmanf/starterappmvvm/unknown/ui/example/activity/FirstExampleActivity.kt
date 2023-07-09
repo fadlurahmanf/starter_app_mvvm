@@ -46,6 +46,7 @@ import com.fadlurahmanf.starterappmvvm.unknown.utils.notification.NotificationHe
 import com.google.firebase.messaging.FirebaseMessaging
 import java.util.*
 import javax.inject.Inject
+import kotlin.math.roundToInt
 import kotlin.random.Random
 
 @ExperimentalGetImage
@@ -63,20 +64,25 @@ class FirstExampleActivity :
 
     private var isVisibleBtnPdfFromFile: Boolean = true
 
-    private val pickImageResult = registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
-        uri?.let {
-            val intent = Intent(this, ImageViewerActivity::class.java)
-            intent.putExtra(
-                ImageViewerActivity.IMAGE,
-                ImageModel(origin = ImageOrigin.URI, path = it.toString())
-            )
-            startActivity(intent)
+    private val pickImageResult =
+        registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
+            uri?.let {
+                val intent = Intent(this, ImageViewerActivity::class.java)
+                intent.putExtra(
+                    ImageViewerActivity.IMAGE,
+                    ImageModel(origin = ImageOrigin.URI, path = it.toString())
+                )
+                startActivity(intent)
+            }
         }
-    }
 
-    private val pickMultipleImageResult = registerForActivityResult(ActivityResultContracts.GetMultipleContents()) { uris ->
-        // todo get multiple
-    }
+    private val pickMultipleImageResult =
+        registerForActivityResult(ActivityResultContracts.GetMultipleContents()) { uris ->
+            // todo get multiple
+            uris?.forEach {
+                println("URI: ${it.path}")
+            }
+        }
 
     override fun initSetup() {
         isVisibleBtnPdfFromFile = remoteConfig().getBoolean("btn_pdf_from_file")
@@ -273,12 +279,11 @@ class FirstExampleActivity :
         }
 
         binding.btnDownload.setOnClickListener {
-            val downloadNotificationImpl = DownloadNotificationImpl(this)
-            downloadNotificationImpl.showPrepareDownload()
-//            DownloadService.startService(
-//                this,
-//                "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
-//            )
+            DownloadService.startService(
+                this,
+                "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+                fileName = "BigBuckBunny.mp4"
+            )
         }
 
         binding.btnPlayAudioForeground.setOnClickListener {

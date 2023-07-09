@@ -11,31 +11,36 @@ import android.os.Handler
 import android.os.IBinder
 import android.os.Looper
 import androidx.core.content.ContextCompat
-import com.fadlurahmanf.starterappmvvm.core.data.constant.NotificationConstant
-import com.fadlurahmanf.starterappmvvm.feature.download.domain.DownloadNotificationHelper
+import com.fadlurahmanf.starterappmvvm.core.data.constant.AppKey
+import com.fadlurahmanf.starterappmvvm.core.data.constant.logConsole
+import com.fadlurahmanf.starterappmvvm.feature.download.domain.usecases.DownloadNotificationImpl
 import java.io.File
 import kotlin.random.Random
 
 class DownloadService : Service() {
     private lateinit var downloadManager: DownloadManager
-    private lateinit var notificationHelper: DownloadNotificationHelper
+    private lateinit var notificationImpl: DownloadNotificationImpl
     private lateinit var handler: Handler
     private var downloadId: Long = 0L
-    private var notificationId: Int = 0
+    private val notificationId: Int = AppKey.Notification.DEFAULT_DOWNLOAD_NOTIFICATION_ID
 
     companion object {
+        private const val ACTION_DOWNLOAD = "com.fadlurahmanf.download.DOWNLOAD"
         const val DOWNLOAD_URL = "DOWNLOAD_URL"
+        const val DOWNLOAD_FILE_NAME = "DOWNLOAD_FILE_NAME"
         fun startService(
             context: Context,
             url: String,
+            /**
+             * file name should include extension
+             * */
+            fileName: String,
         ) {
             val intent = Intent(context, DownloadService::class.java)
             intent.apply {
-                putExtra(
-                    DownloadNotificationHelper.EXTRA_NOTIFICATION_ID,
-                    NotificationConstant.DOWNLOAD_NOTIFICATION_ID
-                )
+                action = ACTION_DOWNLOAD
                 putExtra(DOWNLOAD_URL, url)
+                putExtra(DOWNLOAD_FILE_NAME, fileName)
             }
             ContextCompat.startForegroundService(context, intent)
         }
@@ -54,74 +59,104 @@ class DownloadService : Service() {
         super.onCreate()
         downloadManager =
             applicationContext.getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
-        notificationHelper = DownloadNotificationHelper(applicationContext)
+        notificationImpl = DownloadNotificationImpl(applicationContext)
         handler = Handler(Looper.getMainLooper())
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-        val notifHelper = DownloadNotificationHelper(context = applicationContext)
-        val notificationId: Int? =
-            intent?.extras?.getInt(DownloadNotificationHelper.EXTRA_NOTIFICATION_ID)
-        val urlDownload = intent?.extras?.getString(DOWNLOAD_URL)
-        if (notificationId == null || urlDownload == null) {
-            stopSelf()
+        when (intent?.action) {
+            ACTION_DOWNLOAD -> {
+                actionDownload(intent)
+            }
         }
-        this.notificationId = notificationId!!
-        startForeground(notificationId, notifHelper.prepareDownload())
+        return START_STICKY
+    }
+
+    private fun actionDownload(intent: Intent?) {
+        startForeground(
+            notificationId,
+            notificationImpl.notificationPrepareDownload().build()
+        )
+        val urlDownload = intent?.extras?.getString(DOWNLOAD_URL)
+        val downloadFileName = intent?.extras?.getString(DOWNLOAD_FILE_NAME)
+        if (urlDownload.isNullOrEmpty()) {
+            showError("Download URL tidak valid")
+            stopSelf()
+            return
+        }
         val file =
             File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).path)
-        val downloadRequest = DownloadManager.Request(Uri.parse(urlDownload!!))
+        val downloadRequest = DownloadManager.Request(Uri.parse(urlDownload))
         downloadRequest.apply {
             setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI or DownloadManager.Request.NETWORK_MOBILE)
             setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
         }
         val uri =
-            Uri.withAppendedPath(Uri.fromFile(file), "starter_app_mvvm_${Random.nextInt(999)}.mp4")
+            Uri.withAppendedPath(Uri.fromFile(file), "$downloadFileName")
         downloadRequest.setDestinationUri(uri)
         downloadId = downloadManager.enqueue(downloadRequest)
         handler.postDelayed(downloadRunnable, 0)
-        return START_STICKY
     }
 
     private var downloadRunnable = object : Runnable {
         override fun run() {
-            val cursor = downloadManager.query(DownloadManager.Query().setFilterById(downloadId))
-            if (cursor.moveToFirst()) {
-                val status: Int
-                if (cursor.getColumnIndex(DownloadManager.COLUMN_STATUS) >= 0) {
-                    status =
-                        cursor.getInt(cursor.getColumnIndexOrThrow(DownloadManager.COLUMN_STATUS))
-                    if (status == DownloadManager.STATUS_SUCCESSFUL
-                        || status == DownloadManager.STATUS_FAILED
-                    ) {
-                        handler.removeCallbacks(this)
-                        stopSelf()
-                        return
-                    }
-                }
-                val totalSize: Int
-                if (cursor.getColumnIndex(DownloadManager.COLUMN_TOTAL_SIZE_BYTES) >= 0) {
-                    totalSize =
-                        cursor.getInt(cursor.getColumnIndexOrThrow(DownloadManager.COLUMN_TOTAL_SIZE_BYTES))
-                    val currentSize: Int
-                    if (cursor.getColumnIndex(DownloadManager.COLUMN_BYTES_DOWNLOADED_SO_FAR) >= 0) {
-                        currentSize =
-                            cursor.getInt(cursor.getColumnIndexOrThrow(DownloadManager.COLUMN_BYTES_DOWNLOADED_SO_FAR))
-                        val data = Bundle()
-                        data.apply {
-                            putInt(DownloadNotificationHelper.EXTRA_NOTIFICATION_ID, notificationId)
-                            putInt(DownloadNotificationHelper.EXTRA_TOTAL_SIZE, totalSize)
-                            putInt(
-                                DownloadNotificationHelper.EXTRA_CURRENT_PROGRESS_SIZE,
-                                currentSize
-                            )
+            try {
+                val cursor =
+                    downloadManager.query(DownloadManager.Query().setFilterById(downloadId))
+                if (cursor.moveToFirst()) {
+                    val status: Int
+                    if (cursor.getColumnIndex(DownloadManager.COLUMN_STATUS) >= 0) {
+                        status =
+                            cursor.getInt(cursor.getColumnIndexOrThrow(DownloadManager.COLUMN_STATUS))
+                        if (status == DownloadManager.STATUS_SUCCESSFUL
+                            || status == DownloadManager.STATUS_FAILED
+                        ) {
+                            handler.removeCallbacks(this)
+                            stopSelf()
+                            return
                         }
-                        notificationHelper.showDownload(data)
+                    }
+                    val totalSize: Int
+                    if (cursor.getColumnIndex(DownloadManager.COLUMN_TOTAL_SIZE_BYTES) >= 0) {
+                        totalSize =
+                            cursor.getInt(cursor.getColumnIndexOrThrow(DownloadManager.COLUMN_TOTAL_SIZE_BYTES))
+                        val currentSize: Int
+                        if (cursor.getColumnIndex(DownloadManager.COLUMN_BYTES_DOWNLOADED_SO_FAR) >= 0) {
+                            currentSize =
+                                cursor.getInt(cursor.getColumnIndexOrThrow(DownloadManager.COLUMN_BYTES_DOWNLOADED_SO_FAR))
+                            val data = Bundle()
+                            data.apply {
+                                putInt(DownloadNotificationImpl.EXTRA_TOTAL_SIZE, totalSize)
+                                putInt(
+                                    DownloadNotificationImpl.EXTRA_CURRENT_PROGRESS_SIZE,
+                                    currentSize
+                                )
+                            }
+                            if(totalSize < currentSize){
+                                notificationImpl.showNotification(title = "DOWNLOAD", body = "Downloading")
+                            }else{
+                                notificationImpl.showDownload(data)
+                            }
+                        }
                     }
                 }
+                handler.postDelayed(this, 2000)
+            } catch (e: Throwable) {
+                showError("${e.message}")
+                logConsole.e("DOWNLOAD FAILED: ${e.message}")
+                stopSelf()
+                handler.removeCallbacks(this)
+                return
             }
-            handler.postDelayed(this, 1500)
         }
+    }
+
+    fun showError(message: String) {
+        notificationImpl.showNotification(
+            id = Random.nextInt(1000),
+            title = "Download Failed",
+            body = message
+        )
     }
 
     override fun onDestroy() {

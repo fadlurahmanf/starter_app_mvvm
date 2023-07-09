@@ -1,5 +1,6 @@
 package com.fadlurahmanf.starterappmvvm.feature.download.domain.usecases
 
+import android.app.PendingIntent
 import android.content.Context
 import android.os.Bundle
 import androidx.core.app.NotificationCompat
@@ -8,6 +9,7 @@ import com.fadlurahmanf.starterappmvvm.core.data.constant.AppKey
 import com.fadlurahmanf.starterappmvvm.feature.notification.domain.common.BaseNotification
 import com.fadlurahmanf.starterappmvvm.core.domain.receiver.NotificationReceiver
 import com.fadlurahmanf.starterappmvvm.feature.notification.data.dto.ContentNotification
+import kotlin.math.roundToInt
 
 class DownloadNotificationImpl(context: Context) : BaseNotification(context) {
 
@@ -20,45 +22,46 @@ class DownloadNotificationImpl(context: Context) : BaseNotification(context) {
 
     override var defaultNotificationId: Int = AppKey.Notification.DEFAULT_DOWNLOAD_NOTIFICATION_ID
 
-    private fun prepareDownloadNotificationBuilder(): NotificationCompat.Builder {
+    companion object {
+        const val EXTRA_CURRENT_PROGRESS_SIZE = "EXTRA_CURRENT_PROGRESS_SIZE"
+        const val EXTRA_TOTAL_SIZE = "EXTRA_TOTAL_SIZE"
+    }
+
+    private fun getClickPendingIntent(): PendingIntent {
         val content = ContentNotification(
             type = "DOWNLOAD"
         )
-        return NotificationCompat.Builder(context, channelId)
-            .setSmallIcon(R.drawable.il_logo_bankmas)
-            .setContentTitle("DOWNLOAD")
-            .setContentText("Start downloading")
-            .setContentIntent(
-                NotificationReceiver.getClickPendingIntent(
-                    context,
-                    defaultNotificationId,
-                    content
-                )
-            )
+        return NotificationReceiver.getClickPendingIntent(
+            context,
+            defaultNotificationId,
+            content
+        )
+    }
+
+    fun notificationPrepareDownload(): NotificationCompat.Builder {
+        return notificationBuilder(defaultNotificationId, "DOWNLOAD", "Start downloading")
+            .setContentIntent(getClickPendingIntent())
     }
 
     fun showPrepareDownload() {
-        showNotification(defaultNotificationId, prepareDownloadNotificationBuilder())
+        showNotification(defaultNotificationId, notificationPrepareDownload())
     }
 
-//    fun showDownload(data: Bundle) {
-//        notificationManager =
-//            context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-//        createDownloadChannel()
-//        val progress = data.getInt(EXTRA_CURRENT_PROGRESS_SIZE)
-//        val total = data.getInt(EXTRA_TOTAL_SIZE)
-//        val id = data.getInt(EXTRA_NOTIFICATION_ID)
-//        val builder = NotificationCompat.Builder(context, DOWNLOAD_CHANNEL_ID)
-//            .setSmallIcon(R.drawable.il_logo_bankmas)
-//            .setContentTitle("tffajari - Download")
-//            .setContentText("tffajari - Download Progress")
-//
-//        if (progress > total) {
-//            builder.setProgress(1, 1, false)
-//        } else {
-//            builder.setProgress(total, progress, false)
-//        }
-//
-//        notificationManager.notify(id, builder.build())
-//    }
+    fun showDownload(data: Bundle) {
+        val progress = data.getInt(EXTRA_CURRENT_PROGRESS_SIZE)
+        val total = data.getInt(EXTRA_TOTAL_SIZE)
+        val builder = notificationBuilder(
+            defaultNotificationId,
+            "DOWNLOAD",
+            "Downloading ${(progress.toDouble() / total.toDouble()) * 100.0}%"
+        )
+
+        if (progress > total) {
+            builder.setProgress(1, 1, false)
+        } else {
+            builder.setProgress(total, progress, false)
+        }
+
+        showNotification(defaultNotificationId, builder)
+    }
 }

@@ -80,7 +80,7 @@ class MediaPlayerService:Service() {
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         val notifHelper = MediaPlayerNotificationHelper(applicationContext)
-        val notificationId:Int = intent?.getIntExtra(NOTIFICATION_ID, NotificationConstant.DOWNLOAD_NOTIFICATION_ID) ?: NotificationConstant.DOWNLOAD_NOTIFICATION_ID
+        val notificationId:Int = intent?.getIntExtra(NOTIFICATION_ID, NotificationConstant.MEDIA_PLAYER_NOTIFICATION_ID) ?: NotificationConstant.MEDIA_PLAYER_NOTIFICATION_ID
         when(intent?.getStringExtra(ACTION)){
             ACTION_PLAY -> {
                 prepareAudio()

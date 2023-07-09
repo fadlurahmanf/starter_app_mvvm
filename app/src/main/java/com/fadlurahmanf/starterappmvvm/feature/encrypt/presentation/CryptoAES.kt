@@ -35,9 +35,6 @@ class CryptoAES : BaseEncrypt() {
                     encryptCBC(plainText, secretKey, padding)
                 }
 
-                else -> {
-                    throw CryptoException(message = "AES METHOD NOT FOUND")
-                }
             }
         } catch (e: CryptoException) {
             logConsole.d("ENCRYPT ERROR: ${e.message}")
