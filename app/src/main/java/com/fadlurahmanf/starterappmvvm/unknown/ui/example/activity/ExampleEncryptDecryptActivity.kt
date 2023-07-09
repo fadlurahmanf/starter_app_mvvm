@@ -96,7 +96,11 @@ class ExampleEncryptDecryptActivity :
 
         binding.btnEncryptEcc.setOnClickListener {
             val ecc = CryptoECC()
-            ecc.tes()
+//            ecc.tes()
+            val key = ecc.generateKey()
+            val encrypted = ecc.encrypt("TES TES", key.publicKey)
+            println("MASUK ENCRYPT: ${encrypted}")
+            println("MASUK DECRYPT: ${ecc.decrypt(encrypted ?: "", key.privateKey)}")
         }
     }
 
