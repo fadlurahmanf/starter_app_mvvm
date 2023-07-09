@@ -11,6 +11,7 @@ import com.fadlurahmanf.starterappmvvm.feature.encrypt.domain.common.AESMethod
 import com.fadlurahmanf.starterappmvvm.feature.encrypt.presentation.CryptoAES
 import com.fadlurahmanf.starterappmvvm.feature.encrypt.presentation.CryptoED25519
 import com.fadlurahmanf.starterappmvvm.feature.encrypt.domain.common.PaddingScheme
+import com.fadlurahmanf.starterappmvvm.feature.encrypt.presentation.CryptoECC
 import java.util.Random
 
 class ExampleEncryptDecryptActivity :
@@ -91,6 +92,11 @@ class ExampleEncryptDecryptActivity :
                     )
                 }"
             )
+        }
+
+        binding.btnEncryptEcc.setOnClickListener {
+            val ecc = CryptoECC()
+            ecc.tes()
         }
     }
 
