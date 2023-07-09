@@ -1,6 +1,6 @@
 package com.fadlurahmanf.starterappmvvm.core.data.constant
 
-class AppKey {
+object AppConstant {
     object RoomDB {
         const val core = "core_db"
     }

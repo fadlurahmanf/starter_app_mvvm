@@ -11,9 +11,10 @@ import android.os.Handler
 import android.os.IBinder
 import android.os.Looper
 import androidx.core.content.ContextCompat
-import com.fadlurahmanf.starterappmvvm.core.data.constant.AppKey
+import com.fadlurahmanf.starterappmvvm.core.data.constant.AppConstant
 import com.fadlurahmanf.starterappmvvm.core.data.constant.logConsole
 import com.fadlurahmanf.starterappmvvm.feature.download.domain.usecases.DownloadNotificationImpl
+import com.fadlurahmanf.starterappmvvm.feature.notification.data.constant.NotificationConstant
 import java.io.File
 import kotlin.random.Random
 
@@ -22,7 +23,7 @@ class DownloadService : Service() {
     private lateinit var notificationImpl: DownloadNotificationImpl
     private lateinit var handler: Handler
     private var downloadId: Long = 0L
-    private val notificationId: Int = AppKey.Notification.DEFAULT_DOWNLOAD_NOTIFICATION_ID
+    private val notificationId: Int = NotificationConstant.DEFAULT_DOWNLOAD_NOTIFICATION_ID
 
     companion object {
         private const val ACTION_DOWNLOAD = "com.fadlurahmanf.download.DOWNLOAD"

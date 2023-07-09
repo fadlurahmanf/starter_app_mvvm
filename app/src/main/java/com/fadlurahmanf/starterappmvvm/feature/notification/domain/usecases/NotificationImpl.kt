@@ -2,13 +2,14 @@ package com.fadlurahmanf.starterappmvvm.feature.notification.domain.usecases
 
 import android.content.Context
 import com.fadlurahmanf.starterappmvvm.feature.notification.domain.common.BaseNotification
-import com.fadlurahmanf.starterappmvvm.core.data.constant.AppKey
+import com.fadlurahmanf.starterappmvvm.core.data.constant.AppConstant
+import com.fadlurahmanf.starterappmvvm.feature.notification.data.constant.NotificationConstant
 
 class NotificationImpl(context: Context) : BaseNotification(context) {
     override val channelId: String
-        get() = AppKey.Notification.GENERAL_CHANNEL_ID
+        get() = NotificationConstant.GENERAL_CHANNEL_ID
     override val channel: String
-        get() = AppKey.Notification.GENERAL_CHANNEL
+        get() = NotificationConstant.GENERAL_CHANNEL
     override val description: String
-        get() = AppKey.Notification.GENERAL_DESCRIPTION
+        get() = NotificationConstant.GENERAL_DESCRIPTION
 }

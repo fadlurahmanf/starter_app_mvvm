@@ -4,21 +4,22 @@ import android.app.PendingIntent
 import android.content.Context
 import android.os.Bundle
 import androidx.core.app.NotificationCompat
-import com.fadlurahmanf.starterappmvvm.core.data.constant.AppKey
+import com.fadlurahmanf.starterappmvvm.core.data.constant.AppConstant
 import com.fadlurahmanf.starterappmvvm.feature.notification.domain.common.BaseNotification
 import com.fadlurahmanf.starterappmvvm.core.domain.receiver.NotificationReceiver
+import com.fadlurahmanf.starterappmvvm.feature.notification.data.constant.NotificationConstant
 import com.fadlurahmanf.starterappmvvm.feature.notification.data.dto.model.ContentNotificationModel
 
 class DownloadNotificationImpl(context: Context) : BaseNotification(context) {
 
     override val channelId: String
-        get() = AppKey.Notification.DOWNLOAD_CHANNEL_ID
+        get() = NotificationConstant.DOWNLOAD_CHANNEL_ID
     override val channel: String
-        get() = AppKey.Notification.DOWNLOAD_CHANNEL
+        get() = NotificationConstant.DOWNLOAD_CHANNEL
     override val description: String
-        get() = AppKey.Notification.DOWNLOAD_DESCRIPTION
+        get() = NotificationConstant.DOWNLOAD_DESCRIPTION
 
-    override var defaultNotificationId: Int = AppKey.Notification.DEFAULT_DOWNLOAD_NOTIFICATION_ID
+    override var defaultNotificationId: Int = NotificationConstant.DEFAULT_DOWNLOAD_NOTIFICATION_ID
 
     companion object {
         const val EXTRA_CURRENT_PROGRESS_SIZE = "EXTRA_CURRENT_PROGRESS_SIZE"

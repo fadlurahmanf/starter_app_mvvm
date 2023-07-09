@@ -4,7 +4,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.fadlurahmanf.starterappmvvm.core.data.constant.AppKey
+import com.fadlurahmanf.starterappmvvm.core.data.constant.AppConstant
 import com.fadlurahmanf.starterappmvvm.feature.logger.data.dto.entity.LoggerEntity
 import io.reactivex.rxjava3.core.Single
 
@@ -16,9 +16,9 @@ interface LoggerDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(logger:LoggerEntity)
 
-    @Query("SELECT * FROM ${AppKey.RoomTable.logger}")
+    @Query("SELECT * FROM ${AppConstant.RoomTable.logger}")
     fun getAll(): Single<List<LoggerEntity>>
 
-    @Query("DELETE FROM ${AppKey.RoomTable.logger}")
+    @Query("DELETE FROM ${AppConstant.RoomTable.logger}")
     fun remove()
 }

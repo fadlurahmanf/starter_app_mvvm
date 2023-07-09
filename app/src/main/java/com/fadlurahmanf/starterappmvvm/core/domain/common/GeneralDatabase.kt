@@ -4,7 +4,7 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.fadlurahmanf.starterappmvvm.core.data.constant.AppKey
+import com.fadlurahmanf.starterappmvvm.core.data.constant.AppConstant
 import com.fadlurahmanf.starterappmvvm.feature.logger.data.dto.entity.LoggerEntity
 import com.fadlurahmanf.starterappmvvm.feature.logger.domain.repositories.LoggerDao
 import com.fadlurahmanf.starterappmvvm.unknown.data.room.dao.SurahDao
@@ -31,7 +31,7 @@ abstract class GeneralDatabase : RoomDatabase() {
                 val instance = Room.databaseBuilder(
                     context.applicationContext,
                     GeneralDatabase::class.java,
-                    AppKey.RoomDB.core
+                    AppConstant.RoomDB.core
                 ).fallbackToDestructiveMigration()
                     .build()
                 INSTANCE = instance

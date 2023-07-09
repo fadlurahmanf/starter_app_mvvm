@@ -12,16 +12,16 @@ import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
 import com.fadlurahmanf.starterappmvvm.R
 import com.fadlurahmanf.starterappmvvm.core.domain.receiver.NotificationReceiver
-import com.fadlurahmanf.starterappmvvm.core.data.constant.AppKey
+import com.fadlurahmanf.starterappmvvm.core.data.constant.AppConstant
+import com.fadlurahmanf.starterappmvvm.feature.notification.data.constant.NotificationConstant
 import com.fadlurahmanf.starterappmvvm.feature.notification.data.dto.model.NotificationActionModel
-import kotlin.random.Random
 
 abstract class BaseNotification(var context: Context) {
     abstract val channelId: String
     abstract val channel: String
     abstract val description: String
 
-    open var defaultNotificationId: Int = AppKey.Notification.DEFAULT_NOTIFICATION_ID
+    open var defaultNotificationId: Int = NotificationConstant.DEFAULT_NOTIFICATION_ID
 
     init {
         createChannel()
