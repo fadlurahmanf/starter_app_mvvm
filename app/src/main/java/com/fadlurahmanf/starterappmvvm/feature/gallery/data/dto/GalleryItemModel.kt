@@ -7,9 +7,9 @@ import kotlinx.parcelize.Parcelize
 data class GalleryItemModel(
     var id: Long? = null,
     var path: String,
-    var bucketName: String? = null,
     /** Album Name */
-    var bucketId: Long? = null,
+    var albumName: String? = null,
     /** Album Id */
+    var albumId: Long? = null,
     var dateAdded: String? = null
 ) : Parcelable

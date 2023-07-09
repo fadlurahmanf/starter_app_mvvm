@@ -7,10 +7,11 @@ import com.fadlurahmanf.starterappmvvm.core.external.extension.toErrorState
 import com.fadlurahmanf.starterappmvvm.feature.gallery.data.dto.GalleryAlbumModel
 import com.fadlurahmanf.starterappmvvm.feature.gallery.data.dto.GalleryItemModel
 import com.fadlurahmanf.starterappmvvm.feature.gallery.domain.datasource.GalleryDatasource
+import com.fadlurahmanf.starterappmvvm.feature.gallery.domain.usecases.GalleryImpl
 import javax.inject.Inject
 
 class GalleryViewModel @Inject constructor(
-    private val galleryDatasource: GalleryDatasource
+    private val galleryImpl: GalleryImpl
 ) : BaseViewModel() {
     private var _getAlbumState = MutableLiveData<CustomState<ArrayList<GalleryAlbumModel>>>()
     val albumState get() = _getAlbumState
@@ -18,7 +19,7 @@ class GalleryViewModel @Inject constructor(
         try {
             _getAlbumState.value = CustomState.Idle
             _getAlbumState.value = CustomState.Loading
-            _getAlbumState.value = CustomState.Success(data = galleryDatasource.getAll())
+            _getAlbumState.value = CustomState.Success(data = galleryImpl.getAll())
         } catch (e: Throwable) {
             _getAlbumState.value = e.toErrorState()
         }
@@ -30,7 +31,7 @@ class GalleryViewModel @Inject constructor(
         try {
             _getItemState.value = CustomState.Idle
             _getItemState.value = CustomState.Loading
-            val data = galleryDatasource.getPhotos()
+            val data = galleryImpl.getPhotos()
             _getItemState.value = CustomState.Success(data = data)
         } catch (e: Throwable) {
             _getItemState.value = e.toErrorState()

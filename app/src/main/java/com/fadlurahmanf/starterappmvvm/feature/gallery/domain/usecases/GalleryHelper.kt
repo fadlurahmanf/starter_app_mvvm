@@ -8,6 +8,7 @@ import com.fadlurahmanf.starterappmvvm.feature.gallery.data.dto.GalleryAlbumMode
 import com.fadlurahmanf.starterappmvvm.feature.gallery.data.dto.GalleryItemModel
 import java.lang.Exception
 
+@Deprecated("DEPRECATED ")
 class GalleryHelper(var context: Context) {
     companion object {
         private fun filterExtension(
@@ -44,8 +45,8 @@ class GalleryHelper(var context: Context) {
                 val mapBasedId: HashMap<Long, ArrayList<GalleryItemModel>> = hashMapOf()
                 val mapBasedBucketName: HashMap<Long, String> = hashMapOf()
                 all.forEach { p0 ->
-                    p0.bucketId?.let {
-                        mapBasedBucketName[it] = p0.bucketName ?: ""
+                    p0.albumId?.let {
+                        mapBasedBucketName[it] = p0.albumName ?: ""
                         if (mapBasedId.containsKey(it)) {
                             val list: ArrayList<GalleryItemModel> = mapBasedId[it]!!
                             list.add(p0)
@@ -123,8 +124,8 @@ class GalleryHelper(var context: Context) {
                             GalleryItemModel(
                                 id = id,
                                 path = path,
-                                bucketName = bucket,
-                                bucketId = bucketId,
+                                albumName = bucket,
+                                albumId = bucketId,
                                 dateAdded = date
                             )
                         )
@@ -194,8 +195,8 @@ class GalleryHelper(var context: Context) {
                             GalleryItemModel(
                                 id = id,
                                 path = path,
-                                bucketName = bucket,
-                                bucketId = bucketId,
+                                albumName = bucket,
+                                albumId = bucketId,
                                 dateAdded = date
                             )
                         )

@@ -4,74 +4,12 @@ import android.content.ContentUris
 import android.content.Context
 import android.provider.MediaStore
 import com.fadlurahmanf.starterappmvvm.core.data.constant.logConsole
-import com.fadlurahmanf.starterappmvvm.feature.gallery.data.dto.GalleryAlbumModel
 import com.fadlurahmanf.starterappmvvm.feature.gallery.data.dto.GalleryItemModel
-import com.fadlurahmanf.starterappmvvm.feature.gallery.domain.usecases.GalleryHelper
 import javax.inject.Inject
 
 class GalleryDatasource @Inject constructor(
     private val context: Context
 ) {
-    /**
-     * filtering extension, only extension inside list will return
-     * ex: if allowed extension [".jpg"], only return list of jpg image, ignore case
-     * */
-    private fun isExtensionAllowed(
-        allowedExtensions: List<String>? = null,
-        path: String
-    ): Boolean {
-        if (allowedExtensions == null) return true
-        var result = false
-        for (i in allowedExtensions.indices) {
-            if (path.lowercase()
-                    .contains(allowedExtensions[i].lowercase(), ignoreCase = true)
-            ) {
-                result = true
-                break
-            }
-        }
-        return result
-    }
-
-    fun getAll(
-        allowedExtensions: List<String>? = null
-    ): ArrayList<GalleryAlbumModel> {
-        try {
-            val videos = GalleryHelper.getVideos(context, allowedExtensions)
-            val photos = GalleryHelper.getPhotos(context, allowedExtensions)
-            val all = videos.apply {
-                addAll(photos)
-            }
-            val mapBasedId: HashMap<Long, ArrayList<GalleryItemModel>> = hashMapOf()
-            val mapBasedBucketName: HashMap<Long, String> = hashMapOf()
-            all.forEach { p0 ->
-                p0.bucketId?.let {
-                    mapBasedBucketName[it] = p0.bucketName ?: ""
-                    if (mapBasedId.containsKey(it)) {
-                        val list: ArrayList<GalleryItemModel> = mapBasedId[it]!!
-                        list.add(p0)
-                        mapBasedId[it] = list
-                    } else {
-                        val list = arrayListOf<GalleryItemModel>().apply {
-                            add(p0)
-                        }
-                        mapBasedId[it] = list
-                    }
-                }
-            }
-            return ArrayList(mapBasedId.map {
-                GalleryAlbumModel(
-                    bucketId = it.key,
-                    bucketName = mapBasedBucketName[it.key] ?: "Umum/Lainnya",
-                    medias = it.value
-                )
-            }.toList())
-        } catch (e: Throwable) {
-            logConsole.e("GET ALL VIDEOS & IMAGE: ${e.message}")
-            throw e
-        }
-    }
-
     fun getVideos(
         allowedExtensions: List<String>? = null
     ): ArrayList<GalleryItemModel> {
@@ -114,13 +52,13 @@ class GalleryDatasource @Inject constructor(
                         it
                     )
                 }
-                if (path != null && isExtensionAllowed(allowedExtensions, path)) {
+                if (path != null) {
                     list.add(
                         GalleryItemModel(
                             id = id,
                             path = path,
-                            bucketName = bucket,
-                            bucketId = bucketId,
+                            albumName = bucket,
+                            albumId = bucketId,
                             dateAdded = date
                         )
                     )
@@ -180,13 +118,13 @@ class GalleryDatasource @Inject constructor(
                     )
                 }
 
-                if (path != null && isExtensionAllowed(allowedExtensions, path)) {
+                if (path != null) {
                     list.add(
                         GalleryItemModel(
                             id = id,
                             path = path,
-                            bucketName = bucket,
-                            bucketId = bucketId,
+                            albumName = bucket,
+                            albumId = bucketId,
                             dateAdded = date
                         )
                     )
