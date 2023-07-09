@@ -2,7 +2,7 @@ package com.fadlurahmanf.starterappmvvm.unknown.ui.example.activity
 
 import android.view.View
 import com.fadlurahmanf.starterappmvvm.core.domain.common.BaseActivity
-import com.fadlurahmanf.starterappmvvm.core.data.NetworkState
+import com.fadlurahmanf.starterappmvvm.core.data.CustomState
 import com.fadlurahmanf.starterappmvvm.databinding.ActivitySecondExampleBinding
 import com.fadlurahmanf.starterappmvvm.unknown.di.component.ExampleComponent
 import com.fadlurahmanf.starterappmvvm.unknown.dto.response.example.SurahResponse
@@ -33,15 +33,15 @@ class SecondExampleActivity : BaseActivity<ActivitySecondExampleBinding>(Activit
     private fun initObserver() {
         viewModel.surahsLive.observe(this){
             when(it){
-                is NetworkState.Loading -> {
+                is CustomState.Loading -> {
                     binding.tvStatus.text = "LOADING"
                     binding.tvStatus.visibility = View.VISIBLE
                 }
-                is NetworkState.Error -> {
+                is CustomState.Error -> {
                     binding.tvStatus.text = it.exception.toProperMessage(this)
                     binding.tvStatus.visibility = View.VISIBLE
                 }
-                is NetworkState.Success -> {
+                is CustomState.Success -> {
                     binding.tvStatus.text = "SUCCESS"
                     binding.tvStatus.visibility = View.GONE
                     adapter.setupList(ArrayList(it.data))

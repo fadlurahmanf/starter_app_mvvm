@@ -1,15 +1,15 @@
 package com.fadlurahmanf.starterappmvvm.core.external.extension
 
-import com.fadlurahmanf.starterappmvvm.core.data.NetworkState
+import com.fadlurahmanf.starterappmvvm.core.data.CustomState
 import com.fadlurahmanf.starterappmvvm.unknown.dto.exception.CustomException
 
-fun Throwable.toErrorState(): NetworkState<Nothing> {
+fun Throwable.toErrorState(): CustomState<Nothing> {
     return if (this is CustomException){
-        NetworkState.Error(
+        CustomState.Error(
             exception = this
         )
     }else{
-        NetworkState.Error(
+        CustomState.Error(
             exception = CustomException(
                 rawMessage = message
             )

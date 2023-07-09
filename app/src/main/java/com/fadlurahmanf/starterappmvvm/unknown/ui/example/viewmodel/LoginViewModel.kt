@@ -2,7 +2,7 @@ package com.fadlurahmanf.starterappmvvm.unknown.ui.example.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import com.fadlurahmanf.starterappmvvm.core.domain.common.BaseViewModel
-import com.fadlurahmanf.starterappmvvm.core.data.NetworkState
+import com.fadlurahmanf.starterappmvvm.core.data.CustomState
 import com.fadlurahmanf.starterappmvvm.unknown.data.repository.example.IdentityRepository
 import com.fadlurahmanf.starterappmvvm.unknown.dto.response.example.LoginResponse
 import com.fadlurahmanf.starterappmvvm.core.external.extension.toErrorState
@@ -14,12 +14,12 @@ import javax.inject.Inject
 class LoginViewModel @Inject constructor(
     var identityRepository: IdentityRepository
 ): BaseViewModel() {
-    private var _loginState = MutableLiveData<NetworkState<LoginResponse>>()
+    private var _loginState = MutableLiveData<CustomState<LoginResponse>>()
     val loginState get() = _loginState
 
     fun login(){
-        _loginState.value = NetworkState.Idle
-        _loginState .value = NetworkState.Loading
+        _loginState.value = CustomState.Idle
+        _loginState .value = CustomState.Loading
         val body = JsonObject()
         body.apply {
             addProperty("deviceId", "2562DA2A-57E7-47D9-94E1-05E11EA96F6D-1668481305454")
@@ -33,7 +33,7 @@ class LoginViewModel @Inject constructor(
             .subscribe(
                 {
                     if (isCodeVerify(it)){
-                        _loginState.value = NetworkState.Success(data = it.data!!)
+                        _loginState.value = CustomState.Success(data = it.data!!)
                     }else{
                         _loginState.value = (it.message?:"").toErrorState()
                     }

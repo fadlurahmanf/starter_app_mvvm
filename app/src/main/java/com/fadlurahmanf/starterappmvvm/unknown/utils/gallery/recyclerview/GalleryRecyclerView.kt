@@ -8,13 +8,13 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.fadlurahmanf.starterappmvvm.R
-import com.fadlurahmanf.starterappmvvm.unknown.dto.model.core.AlbumGalleryModel
-import com.fadlurahmanf.starterappmvvm.unknown.dto.model.core.MediaGalleryModel
+import com.fadlurahmanf.starterappmvvm.feature.gallery.data.dto.GalleryAlbumModel
+import com.fadlurahmanf.starterappmvvm.feature.gallery.data.dto.GalleryItemModel
 
 class AlbumRecyclerView():RecyclerView.Adapter<AlbumRecyclerView.ViewHolder>() {
-    private var list:ArrayList<AlbumGalleryModel> = arrayListOf()
+    private var list:ArrayList<GalleryAlbumModel> = arrayListOf()
 
-    fun setList(list:ArrayList<AlbumGalleryModel>){
+    fun setList(list:ArrayList<GalleryAlbumModel>){
         this.list.addAll(list)
         notifyItemRangeInserted(0, this.list.count())
     }
@@ -43,9 +43,9 @@ class AlbumRecyclerView():RecyclerView.Adapter<AlbumRecyclerView.ViewHolder>() {
 }
 
 class GalleryRecyclerView():RecyclerView.Adapter<GalleryRecyclerView.ViewHolder>() {
-    private var list:ArrayList<MediaGalleryModel> = arrayListOf()
+    private var list:ArrayList<GalleryItemModel> = arrayListOf()
 
-    fun setList(list:ArrayList<MediaGalleryModel>){
+    fun setList(list:ArrayList<GalleryItemModel>){
         this.list.addAll(list)
         notifyItemRangeInserted(0, this.list.count())
     }

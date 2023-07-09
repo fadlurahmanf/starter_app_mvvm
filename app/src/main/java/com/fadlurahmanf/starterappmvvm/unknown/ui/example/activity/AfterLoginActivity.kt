@@ -1,7 +1,7 @@
 package com.fadlurahmanf.starterappmvvm.unknown.ui.example.activity
 
 import com.fadlurahmanf.starterappmvvm.core.domain.common.BaseActivity
-import com.fadlurahmanf.starterappmvvm.core.data.NetworkState
+import com.fadlurahmanf.starterappmvvm.core.data.CustomState
 import com.fadlurahmanf.starterappmvvm.databinding.ActivityAfterLoginBinding
 import com.fadlurahmanf.starterappmvvm.unknown.di.component.ExampleComponent
 import com.fadlurahmanf.starterappmvvm.unknown.ui.example.viewmodel.AfterLoginViewModel
@@ -25,15 +25,15 @@ class AfterLoginActivity : BaseActivity<ActivityAfterLoginBinding>(ActivityAfter
     private fun observe(){
         viewModel.favoriteState.observe(this){
             when(it){
-                is NetworkState.Loading -> {
+                is CustomState.Loading -> {
                     dismissLoadingDialog()
                     showLoadingDialog()
                 }
-                is NetworkState.Success -> {
+                is CustomState.Success -> {
                     dismissLoadingDialog()
                     showSnackBar(binding.root, message = "SUKSES")
                 }
-                is NetworkState.Error -> {
+                is CustomState.Error -> {
                     dismissLoadingDialog()
                     showSnackBar(binding.root, message = it.exception.toProperMessage(this))
                 }

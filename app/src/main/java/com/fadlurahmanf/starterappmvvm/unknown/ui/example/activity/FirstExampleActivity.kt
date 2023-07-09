@@ -27,9 +27,9 @@ import com.fadlurahmanf.starterappmvvm.core.external.constant.logConsole
 import com.fadlurahmanf.starterappmvvm.unknown.utils.language.TranslationHelper
 import com.fadlurahmanf.starterappmvvm.unknown.data.storage.example.LanguageSpStorage
 import com.fadlurahmanf.starterappmvvm.databinding.ActivityFirstExampleBinding
+import com.fadlurahmanf.starterappmvvm.feature.gallery.data.dto.ImageModel
+import com.fadlurahmanf.starterappmvvm.feature.gallery.data.dto.ImageOrigin
 import com.fadlurahmanf.starterappmvvm.unknown.di.component.ExampleComponent
-import com.fadlurahmanf.starterappmvvm.unknown.dto.model.core.ImageModel
-import com.fadlurahmanf.starterappmvvm.unknown.dto.model.core.ImageOrigin
 import com.fadlurahmanf.starterappmvvm.unknown.dto.model.core.PdfModel
 import com.fadlurahmanf.starterappmvvm.unknown.dto.model.core.PdfOrigin
 import com.fadlurahmanf.starterappmvvm.unknown.ui.core.activity.ImageViewerActivity
@@ -58,7 +58,6 @@ class FirstExampleActivity :
     private var isVisibleBtnPdfFromFile: Boolean = true
 
     override fun initSetup() {
-        logConsole.d("REMOTE CONFIG SUCCESS")
         isVisibleBtnPdfFromFile = remoteConfig().getBoolean("btn_pdf_from_file")
         binding.buttonPickPdf.visibility =
             if (isVisibleBtnPdfFromFile) View.VISIBLE else View.INVISIBLE

@@ -2,7 +2,7 @@ package com.fadlurahmanf.starterappmvvm.unknown.ui.example.activity
 
 import android.content.Intent
 import com.fadlurahmanf.starterappmvvm.core.domain.common.BaseActivity
-import com.fadlurahmanf.starterappmvvm.core.data.NetworkState
+import com.fadlurahmanf.starterappmvvm.core.data.CustomState
 import com.fadlurahmanf.starterappmvvm.databinding.ActivityLoginBinding
 import com.fadlurahmanf.starterappmvvm.unknown.di.component.ExampleComponent
 import com.fadlurahmanf.starterappmvvm.unknown.dto.response.example.LoginResponse
@@ -19,15 +19,15 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(ActivityLoginBinding::i
     private fun observe() {
         viewModel.loginState.observe(this){
             when(it){
-                is NetworkState.Loading -> {
+                is CustomState.Loading -> {
                     dismissLoadingDialog()
                     showLoadingDialog()
                 }
-                is NetworkState.Success -> {
+                is CustomState.Success -> {
                     dismissLoadingDialog()
                     goToAfterLoginActivity(it.data)
                 }
-                is NetworkState.Error -> {
+                is CustomState.Error -> {
                     dismissLoadingDialog()
                     showSnackBar(binding.root, message = it.exception.toProperMessage(this))
                 }
