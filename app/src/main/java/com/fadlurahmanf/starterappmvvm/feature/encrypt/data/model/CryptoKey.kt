@@ -2,11 +2,11 @@ package com.fadlurahmanf.starterappmvvm.feature.encrypt.data.model
 
 open class CryptoKey(
     /**
-     * encoded private key
+     * base64 encoded private key
      **/
     open val privateKey: String,
     /**
-     * encoded public key
+     * base64 encoded public key
      **/
     open val publicKey: String
 )

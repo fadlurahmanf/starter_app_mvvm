@@ -101,6 +101,8 @@ class ExampleEncryptDecryptActivity :
             val encrypted = ecc.encrypt("TES TES", key.publicKey)
             println("MASUK ENCRYPT: ${encrypted}")
             println("MASUK DECRYPT: ${ecc.decrypt(encrypted ?: "", key.privateKey)}")
+
+            val signedMessage = ecc.signMessage("TES TES", key.publicKey)
         }
     }
 
