@@ -12,7 +12,6 @@ import com.fadlurahmanf.starterappmvvm.feature.logger.domain.usecases.LoggerImpl
 import com.fadlurahmanf.starterappmvvm.feature.logger.presentation.LogConsole
 import com.fadlurahmanf.starterappmvvm.unknown.di.component.ApplicationComponent
 import com.fadlurahmanf.starterappmvvm.unknown.di.component.DaggerApplicationComponent
-import com.fadlurahmanf.starterappmvvm.feature.logger.presentation.logd
 
 class BaseApp : Application() {
 
@@ -43,30 +42,30 @@ class BaseApp : Application() {
         AppsFlyerLib.getInstance()
             .init("fbhqQESGV9HB8LsHc4p2k4", object : AppsFlyerConversionListener {
                 override fun onConversionDataSuccess(p0: MutableMap<String, Any>?) {
-                    logd("APPSFLYER -> onConversionDataSuccess")
+                    logConsole.d("APPSFLYER -> onConversionDataSuccess")
                 }
 
                 override fun onConversionDataFail(p0: String?) {
-                    logd("APPSFLYER -> onConversionDataFail: $p0")
+                    logConsole.d("APPSFLYER -> onConversionDataFail: $p0")
                 }
 
                 override fun onAppOpenAttribution(p0: MutableMap<String, String>?) {
-                    logd("APPSFLYER -> onAppOpenAttribution")
+                    logConsole.d("APPSFLYER -> onAppOpenAttribution")
                 }
 
                 override fun onAttributionFailure(p0: String?) {
-                    logd("APPSFLYER -> onAttributionFailure: $p0")
+                    logConsole.d("APPSFLYER -> onAttributionFailure: $p0")
                 }
 
             }, this)
         AppsFlyerLib.getInstance()
             .start(this, "fbhqQESGV9HB8LsHc4p2k4", object : AppsFlyerRequestListener {
                 override fun onSuccess() {
-                    logd("APPSFLYER -> onSuccess start appsflyer")
+                    logConsole.d("APPSFLYER -> onSuccess start appsflyer")
                 }
 
                 override fun onError(p0: Int, p1: String) {
-                    logd("APPSFLYER -> onError start appsflyer CODE: $p0, MESSAGE: $p1")
+                    logConsole.d("APPSFLYER -> onError start appsflyer CODE: $p0, MESSAGE: $p1")
                 }
             })
     }

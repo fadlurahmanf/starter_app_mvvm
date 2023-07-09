@@ -3,7 +3,7 @@ package com.fadlurahmanf.starterappmvvm.unknown.utils.media
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
-import com.fadlurahmanf.starterappmvvm.feature.logger.presentation.logd
+import com.fadlurahmanf.starterappmvvm.core.external.constant.logConsole
 
 class MediaPlayerReceiver:BroadcastReceiver() {
     companion object{
@@ -45,7 +45,7 @@ class MediaPlayerReceiver:BroadcastReceiver() {
                 action = ACTION_SEEK_TO
                 putExtra(SEEK_TO_POSITION, position)
             }
-            logd("receiver SeekTo $position")
+            logConsole.d("receiver SeekTo $position")
             return intent
         }
     }
@@ -54,7 +54,7 @@ class MediaPlayerReceiver:BroadcastReceiver() {
         if(context == null) return
         val notifHelper = MediaPlayerNotificationHelper(context)
         val action = intent?.action
-        logd("onReceive action $action")
+        logConsole.d("onReceive action $action")
         when(action){
             ACTION_PAUSE -> {
                 MediaPlayerService.pauseAudio(context)
@@ -68,7 +68,7 @@ class MediaPlayerReceiver:BroadcastReceiver() {
             ACTION_SEEK_TO -> {
                 val seekToPosition = intent.getLongExtra(SEEK_TO_POSITION, 0L)
                 MediaPlayerService.seekMediaPlayer(context, seekToPosition)
-                logd("receiver ACTION SeekTo $seekToPosition")
+                logConsole.d("receiver ACTION SeekTo $seekToPosition")
             }
         }
     }

@@ -1,10 +1,10 @@
 package com.fadlurahmanf.starterappmvvm.feature.encrypt.presentation
 
+import com.fadlurahmanf.starterappmvvm.core.external.constant.logConsole
 import com.fadlurahmanf.starterappmvvm.feature.encrypt.data.exception.CryptoException
 import com.fadlurahmanf.starterappmvvm.feature.encrypt.domain.common.AESMethod
 import com.fadlurahmanf.starterappmvvm.feature.encrypt.domain.common.BaseEncrypt
 import com.fadlurahmanf.starterappmvvm.feature.encrypt.domain.common.PaddingScheme
-import com.fadlurahmanf.starterappmvvm.feature.logger.presentation.logd
 import javax.crypto.Cipher
 import javax.crypto.spec.IvParameterSpec
 import javax.crypto.spec.SecretKeySpec
@@ -40,10 +40,10 @@ class CryptoAES : BaseEncrypt() {
                 }
             }
         } catch (e: CryptoException) {
-            logd("ENCRYPT ERROR: ${e.message}")
+            logConsole.d("ENCRYPT ERROR: ${e.message}")
             return null
         } catch (e: Throwable) {
-            logd("ENCRYPT ERROR: ${e.message}")
+            logConsole.d("ENCRYPT ERROR: ${e.message}")
             return null
         }
     }
@@ -130,10 +130,10 @@ class CryptoAES : BaseEncrypt() {
                 }
             }
         } catch (e: CryptoException) {
-            logd("DECRYPT ERROR: ${e.message}")
+            logConsole.d("DECRYPT ERROR: ${e.message}")
             return null
         } catch (e: Throwable) {
-            logd("DECRYPT ERROR: ${e.message}")
+            logConsole.d("DECRYPT ERROR: ${e.message}")
             return null
         }
     }

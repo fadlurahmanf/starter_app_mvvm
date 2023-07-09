@@ -5,7 +5,7 @@ import android.os.Bundle
 import com.appsflyer.AppsFlyerLib
 import com.appsflyer.attribution.AppsFlyerRequestListener
 import com.facebook.appevents.AppEventsLogger
-import com.fadlurahmanf.starterappmvvm.feature.logger.presentation.logd
+import com.fadlurahmanf.starterappmvvm.core.external.constant.logConsole
 import com.google.firebase.analytics.FirebaseAnalytics
 
 class AnalyticHelper {
@@ -50,13 +50,13 @@ class AnalyticHelper {
             fun logEvent(context: Context, event: String, map: Map<String, Any>) {
                 val bundle = mapToBundle(map)
                 FirebaseAnalytics.getInstance(context).logEvent(event, bundle)
-                logd("LOG ITEM $event SUCCESS SENT TO FIREBASE DASHBOARD")
+                logConsole.d("LOG ITEM $event SUCCESS SENT TO FIREBASE DASHBOARD")
             }
 
             fun logEvent(context: Context, event: String) {
                 val bundle = Bundle()
                 FirebaseAnalytics.getInstance(context).logEvent(event, bundle)
-                logd("LOG ITEM $event SUCCESS SENT TO FIREBASE DASHBOARD")
+                logConsole.d("LOG ITEM $event SUCCESS SENT TO FIREBASE DASHBOARD")
             }
         }
     }
@@ -66,11 +66,11 @@ class AnalyticHelper {
             fun logEvent(context: Context, event: String, map: Map<String, Any>) {
                 AppsFlyerLib.getInstance().logEvent(context, event, map, object : AppsFlyerRequestListener {
                     override fun onSuccess() {
-                        logd("LOG ITEM $event SUCCESS SENT TO APPSFLYER DASHBOARD")
+                        logConsole.d("LOG ITEM $event SUCCESS SENT TO APPSFLYER DASHBOARD")
                     }
 
                     override fun onError(p0: Int, p1: String) {
-                        logd("LOG ITEM $event FAILED SENT TO APPSFLYER DASHBOARD, CODE: $p0, MESSAGE: $p1")
+                        logConsole.d("LOG ITEM $event FAILED SENT TO APPSFLYER DASHBOARD, CODE: $p0, MESSAGE: $p1")
                     }
                 })
             }
@@ -78,11 +78,11 @@ class AnalyticHelper {
             fun logEvent(context: Context, event: String) {
                 AppsFlyerLib.getInstance().logEvent(context, event, mapOf(), object : AppsFlyerRequestListener {
                     override fun onSuccess() {
-                        logd("LOG ITEM $event SUCCESS SENT TO APPSFLYER DASHBOARD")
+                        logConsole.d("LOG ITEM $event SUCCESS SENT TO APPSFLYER DASHBOARD")
                     }
 
                     override fun onError(p0: Int, p1: String) {
-                        logd("LOG ITEM $event FAILED SENT TO APPSFLYER DASHBOARD, CODE: $p0, MESSAGE: $p1")
+                        logConsole.d("LOG ITEM $event FAILED SENT TO APPSFLYER DASHBOARD, CODE: $p0, MESSAGE: $p1")
                     }
                 })
             }
@@ -93,7 +93,7 @@ class AnalyticHelper {
         companion object {
             fun logEvent(context: Context, event: String) {
                 AppEventsLogger.newLogger(context).logEvent(event)
-                logd("LOG ITEM $event SUCCESS SENT TO FACEBOOK APP EVENT DASHBOARD")
+                logConsole.d("LOG ITEM $event SUCCESS SENT TO FACEBOOK APP EVENT DASHBOARD")
             }
         }
     }

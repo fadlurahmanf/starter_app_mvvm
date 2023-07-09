@@ -39,8 +39,6 @@ import com.fadlurahmanf.starterappmvvm.unknown.utils.analytic.AnalyticHelper
 import com.fadlurahmanf.starterappmvvm.unknown.utils.download.DownloadService
 import com.fadlurahmanf.starterappmvvm.unknown.utils.media.MediaPlayerService
 import com.fadlurahmanf.starterappmvvm.unknown.utils.call.CallBroadcastReceiver
-import com.fadlurahmanf.starterappmvvm.feature.logger.presentation.logd
-import com.fadlurahmanf.starterappmvvm.feature.logger.presentation.loge
 import com.fadlurahmanf.starterappmvvm.unknown.utils.notification.NotificationHelper
 import com.google.firebase.messaging.FirebaseMessaging
 import java.util.*
@@ -48,7 +46,8 @@ import javax.inject.Inject
 import kotlin.random.Random
 
 @ExperimentalGetImage
-class FirstExampleActivity : BaseActivity<ActivityFirstExampleBinding>(ActivityFirstExampleBinding::inflate) {
+class FirstExampleActivity :
+    BaseActivity<ActivityFirstExampleBinding>(ActivityFirstExampleBinding::inflate) {
     lateinit var component: ExampleComponent
 
     @Inject
@@ -56,16 +55,17 @@ class FirstExampleActivity : BaseActivity<ActivityFirstExampleBinding>(ActivityF
 
     lateinit var notificationHelper: NotificationHelper
 
-    private var isVisibleBtnPdfFromFile:Boolean = true
+    private var isVisibleBtnPdfFromFile: Boolean = true
 
     override fun initSetup() {
         remoteConfig.fetchAndActivate().addOnCompleteListener {
-            if (it.isSuccessful){
-                logd("REMOTE CONFIG SUCCESS")
+            if (it.isSuccessful) {
+                logConsole.d("REMOTE CONFIG SUCCESS")
                 isVisibleBtnPdfFromFile = remoteConfig.getBoolean("btn_pdf_from_file")
-                binding.buttonPickPdf.visibility = if(isVisibleBtnPdfFromFile) View.VISIBLE else View.INVISIBLE
-            }else{
-                loge("REMOTE CONFIG FAILED")
+                binding.buttonPickPdf.visibility =
+                    if (isVisibleBtnPdfFromFile) View.VISIBLE else View.INVISIBLE
+            } else {
+                logConsole.e("REMOTE CONFIG FAILED")
             }
         }
 
@@ -81,10 +81,10 @@ class FirstExampleActivity : BaseActivity<ActivityFirstExampleBinding>(ActivityF
         binding.btnChangeLanguage.setOnClickListener {
             AnalyticHelper.logEvent(this, AnalyticEvent.btn_change_language)
             val local = TranslationHelper.getCurrentLocale(this)
-            if(local.language == "en"){
+            if (local.language == "en") {
                 TranslationHelper.changeLanguage(this, "in")
                 languageSpStorage.languageId = "in"
-            }else{
+            } else {
                 TranslationHelper.changeLanguage(this, "en")
                 languageSpStorage.languageId = "in"
             }
@@ -105,10 +105,10 @@ class FirstExampleActivity : BaseActivity<ActivityFirstExampleBinding>(ActivityF
         }
 
         binding.btnSeeLogChucker.setOnClickListener {
-            if(BuildConfig.FLAVOR != BuildFlavorConstant.production){
+            if (BuildConfig.FLAVOR != BuildFlavorConstant.production) {
                 val intent = Chucker.getLaunchIntent(this)
                 startActivity(intent)
-            }else{
+            } else {
                 showSnackBar(binding.root, "only in dev or staging")
             }
         }
@@ -153,9 +153,9 @@ class FirstExampleActivity : BaseActivity<ActivityFirstExampleBinding>(ActivityF
             startActivity(intent)
         }
 
-        val pendingIntentFlag = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+        val pendingIntentFlag = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
-        }else{
+        } else {
             PendingIntent.FLAG_UPDATE_CURRENT
         }
 
@@ -185,7 +185,7 @@ class FirstExampleActivity : BaseActivity<ActivityFirstExampleBinding>(ActivityF
             Glide.with(this)
                 .asBitmap()
                 .load(imageUrl)
-                .into(object : CustomTarget<Bitmap>(){
+                .into(object : CustomTarget<Bitmap>() {
                     override fun onResourceReady(
                         resource: Bitmap,
                         transition: Transition<in Bitmap>?
@@ -212,7 +212,7 @@ class FirstExampleActivity : BaseActivity<ActivityFirstExampleBinding>(ActivityF
                 .setContentText("Example Body Notification 1 action")
                 .addAction(R.drawable.ic_launcher_background, "SNOOZE", snoozePendingIntent)
 
-            with(NotificationManagerCompat.from(this)){
+            with(NotificationManagerCompat.from(this)) {
 //                notify(Random.nextInt(999), builder.build())
             }
         }
@@ -230,7 +230,12 @@ class FirstExampleActivity : BaseActivity<ActivityFirstExampleBinding>(ActivityF
                 alarmManager.setExactAndAllowWhileIdle(
                     AlarmManager.RTC,
                     calendar.timeInMillis,
-                    PendingIntent.getBroadcast(this, 1, p0Intent, FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT)
+                    PendingIntent.getBroadcast(
+                        this,
+                        1,
+                        p0Intent,
+                        FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
+                    )
                 )
             }
         }
@@ -244,7 +249,10 @@ class FirstExampleActivity : BaseActivity<ActivityFirstExampleBinding>(ActivityF
 
         binding.btnPlayAudioForeground.setOnClickListener {
             AnalyticHelper.logEvent(this, AnalyticEvent.btn_play_audio_foreground)
-            MediaPlayerService.playAudio(this, "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3")
+            MediaPlayerService.playAudio(
+                this,
+                "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"
+            )
         }
 
         binding.btnQris.setOnClickListener {
@@ -255,7 +263,7 @@ class FirstExampleActivity : BaseActivity<ActivityFirstExampleBinding>(ActivityF
         binding.btnGetToken.setOnClickListener {
             AnalyticHelper.logEvent(this, AnalyticEvent.btn_get_fcm_token)
             FirebaseMessaging.getInstance().token.addOnSuccessListener {
-                logd("token FCM: $it")
+                logConsole.d("token FCM: $it")
             }
         }
 
@@ -288,7 +296,7 @@ class FirstExampleActivity : BaseActivity<ActivityFirstExampleBinding>(ActivityF
     private var qrisActivityLauncher = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult(),
         ActivityResultCallback {
-            if (it.resultCode == RESULT_OK){
+            if (it.resultCode == RESULT_OK) {
                 showSnackBar(binding.root, it.data?.getStringExtra("RESULT") ?: "NULL")
             }
         }
@@ -296,15 +304,21 @@ class FirstExampleActivity : BaseActivity<ActivityFirstExampleBinding>(ActivityF
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if(resultCode == RESULT_OK && requestCode == 111){
+        if (resultCode == RESULT_OK && requestCode == 111) {
             val uri = data!!.data
             val intent = Intent(this, PdfViewerActivity::class.java)
-            intent.putExtra(PdfViewerActivity.PDF, PdfModel(origin = PdfOrigin.FILE, path = uri.toString()))
+            intent.putExtra(
+                PdfViewerActivity.PDF,
+                PdfModel(origin = PdfOrigin.FILE, path = uri.toString())
+            )
             startActivity(intent)
-        }else if (resultCode == RESULT_OK && requestCode == 121){
+        } else if (resultCode == RESULT_OK && requestCode == 121) {
             data?.data?.let {
                 val intent = Intent(this, ImageViewerActivity::class.java)
-                intent.putExtra(ImageViewerActivity.IMAGE, ImageModel(origin = ImageOrigin.URI, path = it.toString()))
+                intent.putExtra(
+                    ImageViewerActivity.IMAGE,
+                    ImageModel(origin = ImageOrigin.URI, path = it.toString())
+                )
                 startActivity(intent)
             }
         }

@@ -6,9 +6,8 @@ import android.net.nsd.NsdManager.ResolveListener
 import android.net.nsd.NsdServiceInfo
 import android.provider.Settings.Secure
 import com.fadlurahmanf.starterappmvvm.core.domain.common.BaseActivity
+import com.fadlurahmanf.starterappmvvm.core.external.constant.logConsole
 import com.fadlurahmanf.starterappmvvm.databinding.ActivityNetworkServiceDiscoveryBinding
-import com.fadlurahmanf.starterappmvvm.feature.logger.presentation.logd
-import com.fadlurahmanf.starterappmvvm.feature.logger.presentation.loge
 import okio.IOException
 import java.io.BufferedReader
 import java.io.InputStreamReader
@@ -18,8 +17,9 @@ import java.net.InetSocketAddress
 import java.net.ServerSocket
 import java.net.Socket
 
-class NetworkServiceDiscoveryActivity: BaseActivity<ActivityNetworkServiceDiscoveryBinding>(ActivityNetworkServiceDiscoveryBinding::inflate) {
-    private lateinit var deviceId:String
+class NetworkServiceDiscoveryActivity :
+    BaseActivity<ActivityNetworkServiceDiscoveryBinding>(ActivityNetworkServiceDiscoveryBinding::inflate) {
+    private lateinit var deviceId: String
     override fun initSetup() {
         deviceId = Secure.getString(contentResolver, Secure.ANDROID_ID)
         registerListener()
@@ -35,10 +35,10 @@ class NetworkServiceDiscoveryActivity: BaseActivity<ActivityNetworkServiceDiscov
 
     private var localServiceType = "_my_service._tcp."
     private lateinit var nsdManager: NsdManager
-    private lateinit var localServiceName:String
-    private lateinit var serviceInfo:NsdServiceInfo
-    private var localPort:Int = 0
-    private fun registerService(){
+    private lateinit var localServiceName: String
+    private lateinit var serviceInfo: NsdServiceInfo
+    private var localPort: Int = 0
+    private fun registerService() {
         serviceInfo = NsdServiceInfo().apply {
             serviceName = "my_service_$deviceId"
             localServiceName = serviceName
@@ -53,7 +53,7 @@ class NetworkServiceDiscoveryActivity: BaseActivity<ActivityNetworkServiceDiscov
     }
 
     private var serverSocket: ServerSocket? = null
-    private fun initializeServerSocket(){
+    private fun initializeServerSocket() {
         serverSocket = ServerSocket()
         serverSocket!!.reuseAddress = true
         serverSocket!!.bind(InetSocketAddress(37577))
@@ -68,80 +68,80 @@ class NetworkServiceDiscoveryActivity: BaseActivity<ActivityNetworkServiceDiscov
         super.onDestroy()
     }
 
-    private lateinit var registrationListener:NsdManager.RegistrationListener
+    private lateinit var registrationListener: NsdManager.RegistrationListener
     private lateinit var discoveryListener: NsdManager.DiscoveryListener
     private var resolveListener: ResolveListener? = null
-    private fun registerListener(){
+    private fun registerListener() {
         registrationListener = object : NsdManager.RegistrationListener {
             override fun onRegistrationFailed(p0: NsdServiceInfo?, p1: Int) {
-                logd("onRegistrationFailed")
+                logConsole.d("onRegistrationFailed")
             }
 
             override fun onUnregistrationFailed(p0: NsdServiceInfo?, p1: Int) {
-                logd("onUnregistrationFailed")
+                logConsole.d("onUnregistrationFailed")
             }
 
             override fun onServiceRegistered(p0: NsdServiceInfo?) {
                 localServiceName = p0?.serviceName ?: ""
-                logd("onServiceRegistered $localServiceName")
+                logConsole.d("onServiceRegistered $localServiceName")
             }
 
             override fun onServiceUnregistered(p0: NsdServiceInfo?) {
-                logd("onServiceUnregistered")
+                logConsole.d("onServiceUnregistered")
             }
         }
 
         discoveryListener = object : NsdManager.DiscoveryListener {
             override fun onStartDiscoveryFailed(p0: String?, p1: Int) {
-                logd("onStartDiscoveryFailed")
+                logConsole.d("onStartDiscoveryFailed")
                 nsdManager.stopServiceDiscovery(this)
             }
 
             override fun onStopDiscoveryFailed(p0: String?, p1: Int) {
-                logd("onStopDiscoveryFailed")
+                logConsole.d("onStopDiscoveryFailed")
                 nsdManager.stopServiceDiscovery(this)
             }
 
             override fun onDiscoveryStarted(p0: String?) {
-                logd("onDiscoveryStarted")
+                logConsole.d("onDiscoveryStarted")
             }
 
             override fun onDiscoveryStopped(p0: String?) {
-                logd("onDiscoveryStopped")
+                logConsole.d("onDiscoveryStopped")
             }
 
             override fun onServiceFound(p0: NsdServiceInfo?) {
-                logd("onServiceFound ${p0?.serviceName} & ${p0?.serviceType} ${p0?.port}")
-                if(!p0?.serviceType.equals(localServiceType)){
-                    logd("Unknown Service Type ${p0?.serviceType}")
-                }else if (p0?.serviceName.equals(localServiceName)){
-                    logd("Same Machine: ${p0?.serviceName}")
-                }else if(p0?.serviceName?.contains("my_service_") == true){
-                    logd("Local Service Name $localServiceName")
-                    logd("Another Service ${p0.serviceName}")
+                logConsole.d("onServiceFound ${p0?.serviceName} & ${p0?.serviceType} ${p0?.port}")
+                if (!p0?.serviceType.equals(localServiceType)) {
+                    logConsole.d("Unknown Service Type ${p0?.serviceType}")
+                } else if (p0?.serviceName.equals(localServiceName)) {
+                    logConsole.d("Same Machine: ${p0?.serviceName}")
+                } else if (p0?.serviceName?.contains("my_service_") == true) {
+                    logConsole.d("Local Service Name $localServiceName")
+                    logConsole.d("Another Service ${p0.serviceName}")
                     nsdManager.resolveService(p0, resolveListener)
                 }
             }
 
             override fun onServiceLost(p0: NsdServiceInfo?) {
-                logd("onServiceLost")
+                logConsole.d("onServiceLost")
             }
         }
 
         resolveListener = object : NsdManager.ResolveListener {
             override fun onResolveFailed(p0: NsdServiceInfo?, p1: Int) {
-                logd("onResolveFailed")
+                logConsole.d("onResolveFailed")
             }
 
             override fun onServiceResolved(p0: NsdServiceInfo?) {
-                logd("onServiceResolved ${p0?.host} & ${p0?.port} ${p0?.attributes?.get("message")}")
+                logConsole.d("onServiceResolved ${p0?.host} & ${p0?.port} ${p0?.attributes?.get("message")}")
                 val host = p0?.host
                 val port = p0?.port
-                if (p0?.serviceName != localServiceName){
-                    if (host != null && port != null){
+                if (p0?.serviceName != localServiceName) {
+                    if (host != null && port != null) {
                         remoteHost = host
                         remotePort = port
-                        if(serverSocket != null){
+                        if (serverSocket != null) {
                             val listenThread = Thread {
                                 startListening(port)
                             }
@@ -149,16 +149,16 @@ class NetworkServiceDiscoveryActivity: BaseActivity<ActivityNetworkServiceDiscov
                         }
                         sendMessage(host, port, message = "INIT MESSAGE PERTAMA")
                     }
-                }else{
-                    logd("Same IP ${p0.serviceName}")
+                } else {
+                    logConsole.d("Same IP ${p0.serviceName}")
                 }
             }
 
         }
     }
 
-    private lateinit var remoteHost:InetAddress
-    private var remotePort:Int = 0
+    private lateinit var remoteHost: InetAddress
+    private var remotePort: Int = 0
     private fun sendMessage(host: InetAddress, port: Int, message: String) {
         var socket: Socket? = null
         var printWriter: PrintWriter? = null
@@ -167,16 +167,16 @@ class NetworkServiceDiscoveryActivity: BaseActivity<ActivityNetworkServiceDiscov
             socket.reuseAddress = true
             printWriter = PrintWriter(socket.getOutputStream(), true)
             printWriter.println(message)
-            logd("Success Send Message")
+            logConsole.d("Success Send Message")
         } catch (e: IOException) {
             // Handle exception
-            loge("failed send message ${e.message}")
+            logConsole.e("failed send message ${e.message}")
         } finally {
             printWriter?.close()
             try {
                 socket?.close()
             } catch (e: IOException) {
-                loge("failed close socket ${e.message}")
+                logConsole.e("failed close socket ${e.message}")
             }
         }
     }
@@ -184,18 +184,18 @@ class NetworkServiceDiscoveryActivity: BaseActivity<ActivityNetworkServiceDiscov
     private fun startListening(port: Int) {
         try {
             while (true) {
-                logd("start Listening Socket")
+                logConsole.d("start Listening Socket")
                 val client = serverSocket!!.accept()
                 handleClient(client)
             }
         } catch (e: IOException) {
-            loge("failed listening socket ${e.message}")
+            logConsole.e("failed listening socket ${e.message}")
             // Handle exception
         } finally {
             try {
                 serverSocket?.close()
             } catch (e: IOException) {
-                loge("failed close socket ${e.message}")
+                logConsole.e("failed close socket ${e.message}")
                 // Handle exception
             }
         }
@@ -206,23 +206,20 @@ class NetworkServiceDiscoveryActivity: BaseActivity<ActivityNetworkServiceDiscov
         try {
             bufferedReader = BufferedReader(InputStreamReader(client.getInputStream()))
             while (true) {
-                logd("handle buffered socket")
-                val message = bufferedReader.readLine()
-                if (message == null) {
-                    break
-                }
+                logConsole.d("handle buffered socket")
+                val message = bufferedReader.readLine() ?: break
                 // Handle incoming message
-                logd("success get message $message")
+                logConsole.d("success get message $message")
             }
         } catch (e: IOException) {
             // Handle exception
-            loge("failed get message ${e.message}")
+            logConsole.e("failed get message ${e.message}")
         } finally {
             bufferedReader?.close()
             try {
                 client.close()
             } catch (e: IOException) {
-                loge("failed close socket ${e.message}")
+                logConsole.e("failed close socket ${e.message}")
                 // Handle exception
             }
         }

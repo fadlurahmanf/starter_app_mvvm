@@ -8,8 +8,8 @@ import android.widget.SeekBar
 import androidx.core.content.ContextCompat
 import com.fadlurahmanf.starterappmvvm.R
 import com.fadlurahmanf.starterappmvvm.core.domain.common.BaseActivity
+import com.fadlurahmanf.starterappmvvm.core.external.constant.logConsole
 import com.fadlurahmanf.starterappmvvm.databinding.ActivityVideoPlayerBinding
-import com.fadlurahmanf.starterappmvvm.feature.logger.presentation.logd
 import com.fadlurahmanf.starterappmvvm.unknown.utils.video_player.VideoPlayerHelper
 import com.google.android.exoplayer2.Player
 
@@ -33,13 +33,13 @@ class VideoPlayerActivity : BaseActivity<ActivityVideoPlayerBinding>(ActivityVid
             videoFormatList.clear()
             videoFormatList.addAll(qualities)
             videoFormatList.forEach {
-                logd("onGetQualityOfVideoChanged: \nformatId:${it.formatId}\nwidth x height:${it.rawFormat?.width}x${it.rawFormat?.height}\nformatPixel:${"${it.formatPixel}p"}\nformatName:${it.formatName}")
+                logConsole.d("onGetQualityOfVideoChanged: \nformatId:${it.formatId}\nwidth x height:${it.rawFormat?.width}x${it.rawFormat?.height}\nformatPixel:${"${it.formatPixel}p"}\nformatName:${it.formatName}")
             }
         }
 
         override fun onQualityVideoChanged(format: VideoPlayerHelper.QualityVideoFormat) {
             super.onQualityVideoChanged(format)
-            logd("onQualityVideoChanged ${format.formatId} & ${"${format.formatPixel}p"} & ${format.formatName}")
+            logConsole.d("onQualityVideoChanged ${format.formatId} & ${"${format.formatPixel}p"} & ${format.formatName}")
             currentFormatId = format.formatId
             currentQFormat = format
             binding.tvQuality.text = format.formatName ?: "Auto"

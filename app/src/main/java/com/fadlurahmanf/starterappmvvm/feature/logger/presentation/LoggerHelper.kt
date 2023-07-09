@@ -10,19 +10,19 @@ import java.io.File
 import java.io.FileWriter
 import java.util.Calendar
 
-fun loge(message: String) {
-    Log.e("DEFAULT_TAG", message)
-    if (isLoggerFileExist() && isDevFlavor()) {
-        appendTextToLogger(loggerFile(), "DEBUG ERROR", message)
-    }
-}
+//fun loge(message: String) {
+//    Log.e("DEFAULT_TAG", message)
+//    if (isLoggerFileExist() && isDevFlavor()) {
+//        appendTextToLogger(loggerFile(), "DEBUG ERROR", message)
+//    }
+//}
 
-fun logd(message: String) {
-    Log.d("DEFAULT_TAG", message)
-    if (isLoggerFileExist() && isDevFlavor()) {
-        appendTextToLogger(loggerFile(), "DEBUG INFO", message)
-    }
-}
+//fun logd(message: String) {
+//    Log.d("DEFAULT_TAG", message)
+//    if (isLoggerFileExist() && isDevFlavor()) {
+//        appendTextToLogger(loggerFile(), "DEBUG INFO", message)
+//    }
+//}
 
 fun loge(tag: String, message: String) {
     Log.e("DEFAULT_TAG", message)
@@ -31,12 +31,12 @@ fun loge(tag: String, message: String) {
     }
 }
 
-fun logd(tag: String, message: String) {
-    Log.d("DEFAULT_TAG", message)
-    if (isLoggerFileExist() && isDevFlavor()) {
-        appendTextToLogger(loggerFile(), tag, message)
-    }
-}
+//fun logd(tag: String, message: String) {
+//    Log.d("DEFAULT_TAG", message)
+//    if (isLoggerFileExist() && isDevFlavor()) {
+//        appendTextToLogger(loggerFile(), tag, message)
+//    }
+//}
 
 private fun appendTextToLogger(file: File, tag: String, message: String) {
     val writer = FileWriter(file, true)
@@ -68,21 +68,21 @@ private fun isLoggerFileExist(): Boolean {
 @Suppress("KotlinConstantConditions")
 private fun isDevFlavor(): Boolean = BuildConfig.FLAVOR == "dev"
 
-fun createNewLoggerFile() {
-    if (isDevFlavor()) {
-        val loggerFile = loggerFile()
-        if (!loggerFile.exists()) {
-            loggerFile.createNewFile()
-            Log.d("DEFAULT_TAG", "CREATED NEW LOGGER FILE ${loggerFile.path}")
-            newTextToLogger(loggerFile())
-        } else {
-            Log.d("DEFAULT_TAG", "ALREADY EXIST")
-            newTextToLogger(loggerFile())
-        }
-    } else {
-        Log.d("DEFAULT_TAG", "NO NEED TO CREATE LOGGER FILE, FLAVOR IS ${BuildConfig.FLAVOR}")
-    }
-}
+//fun createNewLoggerFile() {
+//    if (isDevFlavor()) {
+//        val loggerFile = loggerFile()
+//        if (!loggerFile.exists()) {
+//            loggerFile.createNewFile()
+//            Log.d("DEFAULT_TAG", "CREATED NEW LOGGER FILE ${loggerFile.path}")
+//            newTextToLogger(loggerFile())
+//        } else {
+//            Log.d("DEFAULT_TAG", "ALREADY EXIST")
+//            newTextToLogger(loggerFile())
+//        }
+//    } else {
+//        Log.d("DEFAULT_TAG", "NO NEED TO CREATE LOGGER FILE, FLAVOR IS ${BuildConfig.FLAVOR}")
+//    }
+//}
 
 
 fun Context.cLoge(tag: String, message: String) {

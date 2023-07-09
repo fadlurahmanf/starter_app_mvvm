@@ -10,7 +10,7 @@ import android.os.Bundle
 import android.os.IBinder
 import androidx.core.content.ContextCompat
 import com.fadlurahmanf.starterappmvvm.core.external.constant.NotificationConstant
-import com.fadlurahmanf.starterappmvvm.feature.logger.presentation.logd
+import com.fadlurahmanf.starterappmvvm.core.external.constant.logConsole
 
 class MediaPlayerService:Service() {
     companion object{
@@ -68,7 +68,7 @@ class MediaPlayerService:Service() {
                 putExtra(SEEK_TO_POSITION, position)
             }
             ContextCompat.startForegroundService(context, intent)
-            logd("serviceSeekTo $position")
+            logConsole.d("serviceSeekTo $position")
         }
     }
 
@@ -137,7 +137,7 @@ class MediaPlayerService:Service() {
                     val seekToPosition = intent.getLongExtra(SEEK_TO_POSITION, 0L)
                     mediaPlayer?.seekTo(seekToPosition.toInt())
                     mediaPlayer?.setOnSeekCompleteListener {
-                        logd("setOnSeekCompleteListener $seekToPosition dan ${it.currentPosition}")
+                        logConsole.d("setOnSeekCompleteListener $seekToPosition dan ${it.currentPosition}")
                         val state = if (mediaPlayer?.isPlaying == true) MediaPlayerNotificationHelper.STATE_PLAYING else MediaPlayerNotificationHelper.STATE_PAUSED
                         val data = getBasedBundle().apply {
                             putString(MediaPlayerNotificationHelper.EXTRA_STATE, state)

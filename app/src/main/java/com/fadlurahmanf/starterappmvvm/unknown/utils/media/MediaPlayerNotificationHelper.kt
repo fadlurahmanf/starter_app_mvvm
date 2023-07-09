@@ -13,7 +13,7 @@ import android.support.v4.media.session.PlaybackStateCompat
 import androidx.core.app.NotificationCompat
 import androidx.media.session.MediaButtonReceiver
 import com.fadlurahmanf.starterappmvvm.R
-import com.fadlurahmanf.starterappmvvm.feature.logger.presentation.logd
+import com.fadlurahmanf.starterappmvvm.core.external.constant.logConsole
 
 class MediaPlayerNotificationHelper(
     var context: Context
@@ -64,7 +64,7 @@ class MediaPlayerNotificationHelper(
         mediaSession.setCallback(object : MediaSessionCompat.Callback() {
             override fun onSeekTo(pos: Long) {
                 super.onSeekTo(pos)
-                logd("audioSeekTo: $pos")
+                logConsole.d("audioSeekTo: $pos")
                 val intent = MediaPlayerReceiver.getSeekToIntent(context, pos)
                 context.sendBroadcast(intent)
             }

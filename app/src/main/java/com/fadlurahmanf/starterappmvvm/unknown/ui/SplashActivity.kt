@@ -1,19 +1,16 @@
 package com.fadlurahmanf.starterappmvvm.unknown.ui
 
 import android.content.Intent
-import android.content.pm.PackageManager
 import androidx.camera.core.ExperimentalGetImage
-import androidx.core.content.ContextCompat
 import com.fadlurahmanf.starterappmvvm.BaseApp
 import com.fadlurahmanf.starterappmvvm.BuildConfig
 import com.fadlurahmanf.starterappmvvm.core.domain.common.BaseActivity
+import com.fadlurahmanf.starterappmvvm.core.external.constant.logConsole
 import com.fadlurahmanf.starterappmvvm.unknown.utils.language.TranslationHelper
 import com.fadlurahmanf.starterappmvvm.unknown.data.storage.example.LanguageSpStorage
 import com.fadlurahmanf.starterappmvvm.databinding.ActivitySplashBinding
 import com.fadlurahmanf.starterappmvvm.unknown.di.component.CoreComponent
 import com.fadlurahmanf.starterappmvvm.unknown.ui.example.activity.FirstExampleActivity
-import com.fadlurahmanf.starterappmvvm.feature.logger.presentation.createNewLoggerFile
-import com.fadlurahmanf.starterappmvvm.feature.logger.presentation.logd
 import com.google.firebase.messaging.FirebaseMessaging
 import java.util.*
 import javax.inject.Inject
@@ -27,25 +24,13 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>(ActivitySplashBinding
     lateinit var languageSpStorage: LanguageSpStorage
 
     override fun initSetup() {
-        if (ContextCompat.checkSelfPermission(
-                this,
-                android.Manifest.permission.WRITE_EXTERNAL_STORAGE
-            ) == PackageManager.PERMISSION_GRANTED
-        ) {
-            println("MASUK MASUK SINI GRANTED")
-            createNewLoggerFile()
-        } else {
-            println("GA GRANTED NIH")
-        }
-        PackageManager.PERMISSION_GRANTED
-        createNewLoggerFile()
         val type = BuildConfig.BUILD_TYPE
         binding.tvEnv.text = type
 
         FirebaseMessaging.getInstance().token.addOnSuccessListener {
-            logd("FCM TOKEN: $it")
+            logConsole.d("FCM TOKEN: $it")
         }.addOnFailureListener {
-            logd("ON FAILURE FCM TOKEN: ${it.message}")
+            logConsole.d("ON FAILURE FCM TOKEN: ${it.message}")
         }
 
         val local = TranslationHelper.getCurrentLocale(this)
