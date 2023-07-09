@@ -40,6 +40,7 @@ import com.fadlurahmanf.starterappmvvm.unknown.ui.core.activity.VideoPlayerActiv
 import com.fadlurahmanf.starterappmvvm.unknown.utils.analytic.AnalyticHelper
 import com.fadlurahmanf.starterappmvvm.feature.download.domain.services.DownloadService
 import com.fadlurahmanf.starterappmvvm.feature.download.domain.usecases.DownloadNotificationImpl
+import com.fadlurahmanf.starterappmvvm.feature.notification.domain.usecases.NotificationImpl
 import com.fadlurahmanf.starterappmvvm.unknown.utils.media.MediaPlayerService
 import com.fadlurahmanf.starterappmvvm.unknown.utils.call.CallBroadcastReceiver
 import com.fadlurahmanf.starterappmvvm.unknown.utils.notification.NotificationHelper
@@ -61,6 +62,7 @@ class FirstExampleActivity :
     lateinit var galleryImpl: GalleryImpl
 
     lateinit var notificationHelper: NotificationHelper
+    lateinit var notificationImpl: NotificationImpl
 
     private var isVisibleBtnPdfFromFile: Boolean = true
 
@@ -98,6 +100,7 @@ class FirstExampleActivity :
         }
 
         notificationHelper = NotificationHelper(this)
+        notificationImpl = NotificationImpl(this)
         binding.btnChangeLanguage.setOnClickListener {
             AnalyticHelper.logEvent(this, AnalyticEvent.btn_change_language)
             val local = TranslationHelper.getCurrentLocale(this)
@@ -213,30 +216,11 @@ class FirstExampleActivity :
         }
 
         binding.btnShowNotifPicture.setOnClickListener {
-            val imageUrl = "https://raw.githubusercontent.com/TutorialsBuzz/cdn/main/android.jpg"
-
-            val builder = notificationHelper.builder
-            builder.setContentTitle("Example Image Notification")
-                .setPriority(NotificationCompat.PRIORITY_HIGH)
-                .setContentText("Example Image Notification")
-
-            Glide.with(this)
-                .asBitmap()
-                .load(imageUrl)
-                .into(object : CustomTarget<Bitmap>() {
-                    override fun onResourceReady(
-                        resource: Bitmap,
-                        transition: Transition<in Bitmap>?
-                    ) {
-                        builder.setLargeIcon(resource)
-                        builder.setStyle(NotificationCompat.BigPictureStyle().bigPicture(resource))
-                        notificationHelper.notificationManager
-                            .notify(Random.nextInt(999), builder.build())
-                    }
-
-                    override fun onLoadCleared(placeholder: Drawable?) {}
-
-                })
+            notificationImpl.showImageNotification(
+                title = "Example Image Notification",
+                body = "Example Image Body Notification",
+                imageUrl = "https://raw.githubusercontent.com/TutorialsBuzz/cdn/main/android.jpg"
+            )
         }
 
         binding.btnShowNotif1Action.setOnClickListener {
@@ -251,7 +235,7 @@ class FirstExampleActivity :
                 .addAction(R.drawable.ic_launcher_background, "SNOOZE", snoozePendingIntent)
 
             with(NotificationManagerCompat.from(this)) {
-//                notify(Random.nextInt(999), builder.build())
+                notify(Random.nextInt(999), builder.build())
             }
         }
 

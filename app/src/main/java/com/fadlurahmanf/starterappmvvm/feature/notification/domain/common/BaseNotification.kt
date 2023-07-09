@@ -3,11 +3,17 @@ package com.fadlurahmanf.starterappmvvm.feature.notification.domain.common
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Context
+import android.graphics.Bitmap
+import android.graphics.drawable.Drawable
 import android.os.Build
 import androidx.core.app.NotificationCompat
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.target.CustomTarget
+import com.bumptech.glide.request.transition.Transition
 import com.fadlurahmanf.starterappmvvm.R
 import com.fadlurahmanf.starterappmvvm.core.domain.receiver.NotificationReceiver
 import com.fadlurahmanf.starterappmvvm.core.data.constant.AppKey
+import kotlin.random.Random
 
 abstract class BaseNotification(var context: Context) {
     abstract val channelId: String
@@ -52,23 +58,53 @@ abstract class BaseNotification(var context: Context) {
     }
 
     open fun showNotification(
-        id: Int? = null,
+        id: Int = defaultNotificationId,
         title: String,
         body: String
     ) {
         notificationManager().notify(
-            id ?: defaultNotificationId,
-            notificationBuilder(id ?: defaultNotificationId, title, body).build()
+            id,
+            notificationBuilder(id, title, body).build()
         )
     }
 
     open fun showNotification(
-        id: Int? = null,
+        id: Int = defaultNotificationId,
         builder: NotificationCompat.Builder
     ) {
         notificationManager().notify(
-            id ?: defaultNotificationId,
+            id,
             builder.build()
         )
+    }
+
+    fun showImageNotification(
+        id: Int = defaultNotificationId,
+        title: String,
+        body: String,
+        imageUrl: String
+    ) {
+        val builder = notificationBuilder(id, title, body)
+        Glide.with(context)
+            .asBitmap()
+            .load(imageUrl)
+            .into(object : CustomTarget<Bitmap>() {
+                override fun onResourceReady(
+                    resource: Bitmap,
+                    transition: Transition<in Bitmap>?
+                ) {
+                    builder.setLargeIcon(resource)
+                    builder.setStyle(NotificationCompat.BigPictureStyle().bigPicture(resource))
+                    notificationManager()
+                        .notify(id, builder.build())
+                }
+
+                override fun onLoadCleared(placeholder: Drawable?) {}
+
+            })
+    }
+
+    fun showActionNotification(){
+
     }
 }

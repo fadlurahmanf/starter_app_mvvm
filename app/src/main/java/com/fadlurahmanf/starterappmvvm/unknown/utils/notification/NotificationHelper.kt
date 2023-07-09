@@ -8,6 +8,7 @@ import android.os.Build
 import androidx.core.app.NotificationCompat
 import com.fadlurahmanf.starterappmvvm.R
 
+@Deprecated("DEPRECATE CHANTE TO NOTIFICATION IMPL")
 class NotificationHelper(
     var context: Context
 ) {
