@@ -106,6 +106,12 @@
             android:id="@+id/button_pick_image_from_gallery"
             android:text="Pick Image From Gallery"/>
 
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/button_pick_multiple_image_from_gallery"
+            android:text="Pick Multiple Image From Gallery"/>
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

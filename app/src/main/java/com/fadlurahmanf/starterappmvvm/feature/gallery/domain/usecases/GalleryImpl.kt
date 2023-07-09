@@ -1,5 +1,9 @@
 package com.fadlurahmanf.starterappmvvm.feature.gallery.domain.usecases
 
+import android.content.Context
+import android.content.Intent
+import android.net.Uri
+import androidx.activity.result.contract.ActivityResultContracts
 import com.fadlurahmanf.starterappmvvm.core.data.constant.logConsole
 import com.fadlurahmanf.starterappmvvm.feature.gallery.data.dto.GalleryAlbumModel
 import com.fadlurahmanf.starterappmvvm.feature.gallery.data.dto.GalleryItemModel
@@ -7,7 +11,8 @@ import com.fadlurahmanf.starterappmvvm.feature.gallery.domain.datasource.Gallery
 import javax.inject.Inject
 
 class GalleryImpl @Inject constructor(
-    private val galleryDatasource: GalleryDatasource
+    private val galleryDatasource: GalleryDatasource,
+    private val context: Context
 ) {
     /**
      * filtering extension, only extension inside list will return
@@ -188,5 +193,22 @@ class GalleryImpl @Inject constructor(
             logConsole.e("GET ALL PHOTOS IN ALBUM: ${e.message}")
             throw e
         }
+    }
+
+    fun getIntentNativePickImage(title: String = "Pilih 1 foto"): Intent {
+        val intent = Intent()
+            .setType("image/*")
+            .setAction(Intent.ACTION_GET_CONTENT)
+            .addCategory(Intent.CATEGORY_OPENABLE)
+        return Intent.createChooser(intent, title)
+    }
+
+    fun getIntentNativePickMultipleImage(title: String = "Pilih beberapa foto"): Intent {
+        val intent = Intent()
+            .setType("image/*")
+            .putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
+            .setAction(Intent.ACTION_GET_CONTENT)
+            .addCategory(Intent.CATEGORY_OPENABLE)
+        return Intent.createChooser(intent, title)
     }
 }

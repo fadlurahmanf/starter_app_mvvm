@@ -6,6 +6,7 @@ import android.app.PendingIntent.FLAG_IMMUTABLE
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
+import android.net.Uri
 import android.os.Build
 import android.view.View
 import androidx.activity.result.ActivityResultCallback
@@ -29,6 +30,7 @@ import com.fadlurahmanf.starterappmvvm.unknown.data.storage.example.LanguageSpSt
 import com.fadlurahmanf.starterappmvvm.databinding.ActivityFirstExampleBinding
 import com.fadlurahmanf.starterappmvvm.feature.gallery.data.dto.ImageModel
 import com.fadlurahmanf.starterappmvvm.feature.gallery.data.dto.ImageOrigin
+import com.fadlurahmanf.starterappmvvm.feature.gallery.domain.usecases.GalleryImpl
 import com.fadlurahmanf.starterappmvvm.unknown.di.component.ExampleComponent
 import com.fadlurahmanf.starterappmvvm.unknown.dto.model.core.PdfModel
 import com.fadlurahmanf.starterappmvvm.unknown.dto.model.core.PdfOrigin
@@ -53,9 +55,27 @@ class FirstExampleActivity :
     @Inject
     lateinit var languageSpStorage: LanguageSpStorage
 
+    @Inject
+    lateinit var galleryImpl: GalleryImpl
+
     lateinit var notificationHelper: NotificationHelper
 
     private var isVisibleBtnPdfFromFile: Boolean = true
+
+    private val pickImageResult = registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
+        uri?.let {
+            val intent = Intent(this, ImageViewerActivity::class.java)
+            intent.putExtra(
+                ImageViewerActivity.IMAGE,
+                ImageModel(origin = ImageOrigin.URI, path = it.toString())
+            )
+            startActivity(intent)
+        }
+    }
+
+    private val pickMultipleImageResult = registerForActivityResult(ActivityResultContracts.GetMultipleContents()) { uris ->
+        // todo get multiple
+    }
 
     override fun initSetup() {
         isVisibleBtnPdfFromFile = remoteConfig().getBoolean("btn_pdf_from_file")
@@ -130,15 +150,33 @@ class FirstExampleActivity :
          * reference: https://developer.android.com/training/data-storage/shared/photopicker
          * */
         binding.buttonPickImageFromGallery.setOnClickListener {
-            // alternative:
-            // pickMediaLauncher.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
-            val intent = Intent()
-                .setType("image/*")
-                // .putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true) /** add this line if you want to pick multiple */
-                .setAction(Intent.ACTION_GET_CONTENT)
-                .addCategory(Intent.CATEGORY_OPENABLE)
-            @Suppress("DEPRECATION")
-            startActivityForResult(Intent.createChooser(intent, "Select Multiple File"), 121)
+            /**
+             * alternative
+             * */
+//             pickMediaLauncher.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
+
+            /**
+             * alternative
+             * */
+//            val intent = galleryImpl.getIntentNativePickImage()
+//            startActivityForResult(intent, 121)
+
+            pickMultipleImageResult.launch("image/*")
+        }
+
+        binding.buttonPickMultipleImageFromGallery.setOnClickListener {
+            /**
+             * alternative
+             * */
+//             pickMediaLauncher.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
+
+            /**
+             * alternative
+             * */
+//            val intent = galleryImpl.getIntentNativePickImage()
+//            startActivityForResult(intent, 121)
+
+            pickMultipleImageResult.launch("image/*")
         }
 
         binding.buttonImageViewer.setOnClickListener {
