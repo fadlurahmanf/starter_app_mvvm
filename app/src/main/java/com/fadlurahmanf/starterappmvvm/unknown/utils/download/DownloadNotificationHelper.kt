@@ -11,7 +11,7 @@ import androidx.core.app.NotificationCompat
 import com.fadlurahmanf.starterappmvvm.R
 
 class DownloadNotificationHelper(var context: Context) {
-    companion object{
+    companion object {
         const val DOWNLOAD_CHANNEL_ID = "DOWNLOAD_CHANNEL_ID"
         const val DOWNLOAD_CHANNEL = "Download"
         const val DOWNLOAD_CHANNEL_DESCRIPTION = "Download Description"
@@ -27,19 +27,21 @@ class DownloadNotificationHelper(var context: Context) {
         createDownloadChannel()
     }
 
-    private fun createDownloadChannel(){
+    private fun createDownloadChannel() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val importance = NotificationManager.IMPORTANCE_LOW
-            val channel = NotificationChannel(DOWNLOAD_CHANNEL_ID, DOWNLOAD_CHANNEL, importance).apply {
-                description = DOWNLOAD_CHANNEL_DESCRIPTION
-                setSound(null, null)
-            }
-            val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            val channel =
+                NotificationChannel(DOWNLOAD_CHANNEL_ID, DOWNLOAD_CHANNEL, importance).apply {
+                    description = DOWNLOAD_CHANNEL_DESCRIPTION
+                    setSound(null, null)
+                }
+            val notificationManager =
+                context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
             notificationManager.createNotificationChannel(channel)
         }
     }
 
-    fun prepareDownload(): Notification{
+    fun prepareDownload(): Notification {
         createDownloadChannel()
         val builder = NotificationCompat.Builder(context, DOWNLOAD_CHANNEL_ID)
             .setSmallIcon(R.drawable.il_logo_bankmas)
@@ -53,7 +55,8 @@ class DownloadNotificationHelper(var context: Context) {
     }
 
     fun showDownload(data: Bundle) {
-        notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        notificationManager =
+            context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         createDownloadChannel()
         val progress = data.getInt(EXTRA_CURRENT_PROGRESS_SIZE)
         val total = data.getInt(EXTRA_TOTAL_SIZE)
@@ -63,9 +66,9 @@ class DownloadNotificationHelper(var context: Context) {
             .setContentTitle("tffajari - Download")
             .setContentText("tffajari - Download Progress")
 
-        if (progress > total){
-            builder.setProgress(1, 1,false)
-        }else{
+        if (progress > total) {
+            builder.setProgress(1, 1, false)
+        } else {
             builder.setProgress(total, progress, false)
         }
 
