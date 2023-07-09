@@ -6,7 +6,7 @@ import android.provider.MediaStore
 import com.fadlurahmanf.starterappmvvm.core.external.constant.logConsole
 import com.fadlurahmanf.starterappmvvm.feature.gallery.data.dto.GalleryAlbumModel
 import com.fadlurahmanf.starterappmvvm.feature.gallery.data.dto.GalleryItemModel
-import com.fadlurahmanf.starterappmvvm.unknown.utils.gallery.GalleryHelper
+import com.fadlurahmanf.starterappmvvm.feature.gallery.domain.usecases.GalleryHelper
 import javax.inject.Inject
 
 class GalleryDatasource @Inject constructor(

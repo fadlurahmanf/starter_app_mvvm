@@ -1,4 +1,4 @@
-package com.fadlurahmanf.starterappmvvm.unknown.utils.gallery
+package com.fadlurahmanf.starterappmvvm.feature.gallery.domain.usecases
 
 import android.content.ContentUris
 import android.content.Context

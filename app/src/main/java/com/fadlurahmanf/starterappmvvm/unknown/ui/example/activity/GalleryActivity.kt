@@ -4,7 +4,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.fadlurahmanf.starterappmvvm.core.domain.common.BaseActivity
 import com.fadlurahmanf.starterappmvvm.databinding.ActivityGalleryBinding
 import com.fadlurahmanf.starterappmvvm.feature.gallery.data.dto.GalleryAlbumModel
-import com.fadlurahmanf.starterappmvvm.unknown.utils.gallery.GalleryHelper
+import com.fadlurahmanf.starterappmvvm.feature.gallery.domain.usecases.GalleryHelper
 import com.fadlurahmanf.starterappmvvm.unknown.utils.gallery.recyclerview.AlbumRecyclerView
 import com.fadlurahmanf.starterappmvvm.unknown.utils.gallery.recyclerview.GalleryRecyclerView
 
