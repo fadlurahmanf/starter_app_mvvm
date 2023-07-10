@@ -11,16 +11,15 @@ import android.os.Handler
 import android.os.IBinder
 import android.os.Looper
 import androidx.core.content.ContextCompat
-import com.fadlurahmanf.starterappmvvm.core.data.constant.AppConstant
 import com.fadlurahmanf.starterappmvvm.core.data.constant.logConsole
-import com.fadlurahmanf.starterappmvvm.feature.download.domain.usecases.DownloadNotificationImpl
+import com.fadlurahmanf.starterappmvvm.feature.download.domain.usecases.NotificationDownload
 import com.fadlurahmanf.starterappmvvm.feature.notification.data.constant.NotificationConstant
 import java.io.File
 import kotlin.random.Random
 
 class DownloadService : Service() {
     private lateinit var downloadManager: DownloadManager
-    private lateinit var notificationImpl: DownloadNotificationImpl
+    private lateinit var notificationImpl: NotificationDownload
     private lateinit var handler: Handler
     private var downloadId: Long = 0L
     private val notificationId: Int = NotificationConstant.DEFAULT_DOWNLOAD_NOTIFICATION_ID
@@ -58,7 +57,7 @@ class DownloadService : Service() {
         super.onCreate()
         downloadManager =
             applicationContext.getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
-        notificationImpl = DownloadNotificationImpl(applicationContext)
+        notificationImpl = NotificationDownload(applicationContext)
         handler = Handler(Looper.getMainLooper())
     }
 
@@ -125,9 +124,9 @@ class DownloadService : Service() {
                                 cursor.getInt(cursor.getColumnIndexOrThrow(DownloadManager.COLUMN_BYTES_DOWNLOADED_SO_FAR))
                             val data = Bundle()
                             data.apply {
-                                putInt(DownloadNotificationImpl.EXTRA_TOTAL_SIZE, totalSize)
+                                putInt(NotificationDownload.EXTRA_TOTAL_SIZE, totalSize)
                                 putInt(
-                                    DownloadNotificationImpl.EXTRA_CURRENT_PROGRESS_SIZE,
+                                    NotificationDownload.EXTRA_CURRENT_PROGRESS_SIZE,
                                     currentSize
                                 )
                             }

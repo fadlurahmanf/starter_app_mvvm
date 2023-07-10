@@ -8,8 +8,9 @@ import com.fadlurahmanf.starterappmvvm.feature.notification.domain.common.BaseNo
 import com.fadlurahmanf.starterappmvvm.feature.notification.domain.receiver.NotificationReceiver
 import com.fadlurahmanf.starterappmvvm.feature.notification.data.constant.NotificationConstant
 import com.fadlurahmanf.starterappmvvm.feature.notification.data.dto.model.ContentNotificationModel
+import javax.inject.Inject
 
-class DownloadNotificationImpl(context: Context) : BaseNotification(context) {
+class NotificationDownload @Inject constructor(context: Context) : BaseNotification(context) {
 
     override val channelId: String
         get() = NotificationConstant.DOWNLOAD_CHANNEL_ID
