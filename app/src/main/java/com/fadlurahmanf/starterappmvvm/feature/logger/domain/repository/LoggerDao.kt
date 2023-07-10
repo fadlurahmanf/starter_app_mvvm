@@ -1,4 +1,4 @@
-package com.fadlurahmanf.starterappmvvm.feature.logger.domain.repositories
+package com.fadlurahmanf.starterappmvvm.feature.logger.domain.repository
 
 import androidx.room.Dao
 import androidx.room.Insert

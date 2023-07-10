@@ -4,9 +4,8 @@ import android.app.PendingIntent
 import android.content.Context
 import android.os.Bundle
 import androidx.core.app.NotificationCompat
-import com.fadlurahmanf.starterappmvvm.core.data.constant.AppConstant
 import com.fadlurahmanf.starterappmvvm.feature.notification.domain.common.BaseNotification
-import com.fadlurahmanf.starterappmvvm.core.domain.receiver.NotificationReceiver
+import com.fadlurahmanf.starterappmvvm.feature.notification.domain.receiver.NotificationReceiver
 import com.fadlurahmanf.starterappmvvm.feature.notification.data.constant.NotificationConstant
 import com.fadlurahmanf.starterappmvvm.feature.notification.data.dto.model.ContentNotificationModel
 

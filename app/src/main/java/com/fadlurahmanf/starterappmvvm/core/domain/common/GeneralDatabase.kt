@@ -6,7 +6,7 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.fadlurahmanf.starterappmvvm.core.data.constant.AppConstant
 import com.fadlurahmanf.starterappmvvm.feature.logger.data.dto.entity.LoggerEntity
-import com.fadlurahmanf.starterappmvvm.feature.logger.domain.repositories.LoggerDao
+import com.fadlurahmanf.starterappmvvm.feature.logger.domain.repository.LoggerDao
 import com.fadlurahmanf.starterappmvvm.unknown.data.room.dao.SurahDao
 import com.fadlurahmanf.starterappmvvm.unknown.dto.response.example.SurahResponse
 

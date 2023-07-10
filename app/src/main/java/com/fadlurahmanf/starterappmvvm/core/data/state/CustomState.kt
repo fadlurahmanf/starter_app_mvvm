@@ -1,6 +1,6 @@
 package com.fadlurahmanf.starterappmvvm.core.data.state
 
-import com.fadlurahmanf.starterappmvvm.unknown.dto.exception.CustomException
+import com.fadlurahmanf.starterappmvvm.core.data.dto.exception.CustomException
 
 sealed class CustomState<out T: Any>{
     object Idle : CustomState<Nothing>()

@@ -1,7 +1,7 @@
 package com.fadlurahmanf.starterappmvvm.feature.logger.domain.usecases
 
 import com.fadlurahmanf.starterappmvvm.feature.logger.data.dto.entity.LoggerEntity
-import com.fadlurahmanf.starterappmvvm.feature.logger.domain.repositories.LoggerRoomDatasource
+import com.fadlurahmanf.starterappmvvm.feature.logger.domain.repository.LoggerRoomDatasource
 import javax.inject.Inject
 
 class LoggerImpl @Inject constructor(

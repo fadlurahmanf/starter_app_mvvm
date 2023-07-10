@@ -1,9 +1,9 @@
-package com.fadlurahmanf.starterappmvvm.unknown.dto.exception
+package com.fadlurahmanf.starterappmvvm.core.data.dto.exception
 
 import android.content.Context
 import com.fadlurahmanf.starterappmvvm.R
 import com.fadlurahmanf.starterappmvvm.core.data.constant.ExceptionConstant
-import com.fadlurahmanf.starterappmvvm.feature.logger.presentation.cLoge
+import com.fadlurahmanf.starterappmvvm.core.data.constant.logConsole
 import okio.IOException
 
 class CustomException(
@@ -44,7 +44,7 @@ class CustomException(
                 }
             }
         } catch (e: Exception) {
-            context.cLoge(e)
+            logConsole.e("${e.message}")
             return context.getString(R.string.exception_general)
         }
     }

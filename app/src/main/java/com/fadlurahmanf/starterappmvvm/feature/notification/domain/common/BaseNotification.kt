@@ -11,8 +11,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
 import com.fadlurahmanf.starterappmvvm.R
-import com.fadlurahmanf.starterappmvvm.core.domain.receiver.NotificationReceiver
-import com.fadlurahmanf.starterappmvvm.core.data.constant.AppConstant
+import com.fadlurahmanf.starterappmvvm.feature.notification.domain.receiver.NotificationReceiver
 import com.fadlurahmanf.starterappmvvm.feature.notification.data.constant.NotificationConstant
 import com.fadlurahmanf.starterappmvvm.feature.notification.data.dto.model.NotificationActionModel
 

@@ -4,8 +4,6 @@ import android.app.AlarmManager
 import android.app.PendingIntent
 import android.app.PendingIntent.FLAG_IMMUTABLE
 import android.content.Intent
-import android.graphics.Bitmap
-import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Build
 import android.view.View
@@ -13,10 +11,6 @@ import androidx.activity.result.ActivityResultCallback
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.camera.core.ExperimentalGetImage
 import androidx.core.app.NotificationCompat
-import androidx.core.app.NotificationManagerCompat
-import com.bumptech.glide.Glide
-import com.bumptech.glide.request.target.CustomTarget
-import com.bumptech.glide.request.transition.Transition
 import com.chuckerteam.chucker.api.Chucker
 import com.fadlurahmanf.starterappmvvm.BaseApp
 import com.fadlurahmanf.starterappmvvm.BuildConfig
@@ -25,9 +19,10 @@ import com.fadlurahmanf.starterappmvvm.core.domain.common.BaseActivity
 import com.fadlurahmanf.starterappmvvm.core.data.constant.AnalyticEvent
 import com.fadlurahmanf.starterappmvvm.core.data.constant.BuildFlavorConstant
 import com.fadlurahmanf.starterappmvvm.core.data.constant.logConsole
+import com.fadlurahmanf.starterappmvvm.databinding.ActivityExampleBinding
+import com.fadlurahmanf.starterappmvvm.feature.notification.domain.receiver.NotificationReceiver
 import com.fadlurahmanf.starterappmvvm.unknown.utils.language.TranslationHelper
 import com.fadlurahmanf.starterappmvvm.unknown.data.storage.example.LanguageSpStorage
-import com.fadlurahmanf.starterappmvvm.databinding.ActivityFirstExampleBinding
 import com.fadlurahmanf.starterappmvvm.feature.gallery.data.dto.ImageModel
 import com.fadlurahmanf.starterappmvvm.feature.gallery.data.dto.ImageOrigin
 import com.fadlurahmanf.starterappmvvm.feature.gallery.domain.usecases.GalleryImpl
@@ -39,21 +34,21 @@ import com.fadlurahmanf.starterappmvvm.unknown.ui.core.activity.PdfViewerActivit
 import com.fadlurahmanf.starterappmvvm.unknown.ui.core.activity.VideoPlayerActivity
 import com.fadlurahmanf.starterappmvvm.unknown.utils.analytic.AnalyticHelper
 import com.fadlurahmanf.starterappmvvm.feature.download.domain.services.DownloadService
-import com.fadlurahmanf.starterappmvvm.feature.download.domain.usecases.DownloadNotificationImpl
+import com.fadlurahmanf.starterappmvvm.feature.notification.data.constant.NotificationConstant
+import com.fadlurahmanf.starterappmvvm.feature.notification.data.dto.model.ContentNotificationModel
 import com.fadlurahmanf.starterappmvvm.feature.notification.data.dto.model.NotificationActionModel
 import com.fadlurahmanf.starterappmvvm.feature.notification.domain.usecases.NotificationImpl
 import com.fadlurahmanf.starterappmvvm.unknown.utils.media.MediaPlayerService
 import com.fadlurahmanf.starterappmvvm.unknown.utils.call.CallBroadcastReceiver
-import com.fadlurahmanf.starterappmvvm.unknown.utils.notification.NotificationHelper
+import com.fadlurahmanf.starterappmvvm.feature.notification.domain.usecases.NotificationHelper
 import com.google.firebase.messaging.FirebaseMessaging
 import java.util.*
 import javax.inject.Inject
-import kotlin.math.roundToInt
 import kotlin.random.Random
 
 @ExperimentalGetImage
-class FirstExampleActivity :
-    BaseActivity<ActivityFirstExampleBinding>(ActivityFirstExampleBinding::inflate) {
+class ExampleActivity :
+    BaseActivity<ActivityExampleBinding>(ActivityExampleBinding::inflate) {
     lateinit var component: ExampleComponent
 
     @Inject
@@ -179,7 +174,7 @@ class FirstExampleActivity :
             /**
              * alternative
              * */
-//             pickMediaLauncher.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
+//            pickMediaLauncher.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
 
             /**
              * alternative
@@ -199,43 +194,6 @@ class FirstExampleActivity :
             FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
         } else {
             PendingIntent.FLAG_UPDATE_CURRENT
-        }
-
-        binding.btnShowNotif.setOnClickListener {
-            AnalyticHelper.logEvent(this, AnalyticEvent.btn_show_notif_click)
-            val intent = Intent(this, LoginActivity::class.java)
-            val pendingIntent = PendingIntent.getActivity(this, 0, intent, pendingIntentFlag)
-            val builder = notificationHelper.builder
-            builder.setContentTitle("Example Title Notification")
-                .setPriority(NotificationCompat.PRIORITY_HIGH)
-                .setAutoCancel(true)
-                .setContentText("Example Body Notification")
-                .setContentIntent(pendingIntent)
-
-            notificationHelper.notificationManager
-                .notify(Random.nextInt(999), builder.build())
-        }
-
-        binding.btnShowNotifPicture.setOnClickListener {
-            notificationImpl.showImageNotification(
-                title = "Example Image Notification",
-                body = "Example Image Body Notification",
-                imageUrl = "https://raw.githubusercontent.com/TutorialsBuzz/cdn/main/android.jpg"
-            )
-        }
-
-        binding.btnShowNotif1Action.setOnClickListener {
-            val intent = Intent(this, CallBroadcastReceiver::class.java).apply {
-                action = "SNOOZE"
-            }
-            val snoozePendingIntent = PendingIntent.getBroadcast(this, 0, intent, FLAG_IMMUTABLE)
-            notificationImpl.showActionNotification(
-                title = "ACTION NOTIFICATION",
-                body = "BODY NOTIFICATION",
-                actions = listOf(NotificationActionModel(
-                    icon = R.drawable.ic_launcher_background, "SNOOZE", snoozePendingIntent
-                ))
-            )
         }
 
         binding.btnIncomingCallNotification.setOnClickListener {

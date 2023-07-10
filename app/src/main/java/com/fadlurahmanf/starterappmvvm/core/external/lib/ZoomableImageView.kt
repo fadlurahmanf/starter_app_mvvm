@@ -1,4 +1,4 @@
-package com.fadlurahmanf.starterappmvvm.core.lib
+package com.fadlurahmanf.starterappmvvm.core.external.lib
 
 import android.content.Context
 import android.graphics.Matrix

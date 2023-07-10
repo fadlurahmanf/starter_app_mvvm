@@ -27,15 +27,13 @@ class DownloadService : Service() {
 
     companion object {
         private const val ACTION_DOWNLOAD = "com.fadlurahmanf.download.DOWNLOAD"
+
         const val DOWNLOAD_URL = "DOWNLOAD_URL"
         const val DOWNLOAD_FILE_NAME = "DOWNLOAD_FILE_NAME"
         fun startService(
             context: Context,
             url: String,
-            /**
-             * file name should include extension
-             * */
-            fileName: String,
+            fileName: String, // file name should include extension
         ) {
             val intent = Intent(context, DownloadService::class.java)
             intent.apply {

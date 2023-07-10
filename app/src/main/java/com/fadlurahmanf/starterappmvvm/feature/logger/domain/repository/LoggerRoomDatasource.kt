@@ -1,4 +1,4 @@
-package com.fadlurahmanf.starterappmvvm.feature.logger.domain.repositories
+package com.fadlurahmanf.starterappmvvm.feature.logger.domain.repository
 
 import android.content.Context
 import com.fadlurahmanf.starterappmvvm.core.domain.common.GeneralDatabase

@@ -17,7 +17,6 @@
         android:name="com.google.android.gms.permission.AD_ID"
         tools:node="remove" />
 
-
     <uses-feature android:name="android.hardware.camera.any" />
     <uses-feature android:name="android.hardware.camera.autofocus" />
 
@@ -31,7 +30,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.StarterAppMvvm"
         android:usesCleartextTraffic="true">
-
+        <activity
+            android:name=".feature.notification.presentation.ExampleNotificationActivity"
+            android:exported="false" />
         <activity
             android:name="com.facebook.FacebookActivity"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
@@ -48,7 +49,6 @@
                 <data android:scheme="@string/fb_login_protocol_scheme" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".unknown.ui.example.activity.GalleryActivity"
             android:exported="false">
@@ -117,7 +117,7 @@
             android:name=".unknown.ui.core.activity.PdfViewerActivity"
             android:exported="false" />
         <activity
-            android:name=".unknown.ui.example.activity.FirstExampleActivity"
+            android:name=".unknown.ui.example.activity.ExampleActivity"
             android:configChanges="orientation|screenSize" />
         <activity
             android:name=".unknown.ui.SplashActivity"
@@ -150,12 +150,12 @@
                 <action android:name="com.fadlurahmanf.callkit.ACTION_ENDED_CALL" />
             </intent-filter>
         </receiver>
-
         <receiver
-            android:name=".core.domain.receiver.NotificationReceiver"
+            android:name=".feature.notification.domain.receiver.NotificationReceiver"
             android:exported="true">
             <intent-filter>
-                <action android:name="com.fadlurahmanf.notification.CLICK" />
+                <action android:name="com.fadlurahmanf.notification.NOTIFICATION_CLICK" />
+                <action android:name="com.fadlurahmanf.notification.ACTION_CLICK" />
             </intent-filter>
         </receiver>
 
@@ -185,7 +185,7 @@
         </receiver>
 
         <service
-            android:name=".unknown.utils.fcm.FCMService"
+            android:name=".core.domain.service.FCMService"
             android:exported="true">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
@@ -198,7 +198,6 @@
         <meta-data
             android:name="com.facebook.sdk.ClientToken"
             android:value="@string/facebook_client_token" />
-
     </application>
 
 </manifest>
