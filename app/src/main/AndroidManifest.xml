@@ -163,7 +163,7 @@
             android:name=".unknown.utils.call.CallNotificationPlayerService"
             android:exported="true" />
         <service
-            android:name=".feature.download.domain.services.DownloadService"
+            android:name=".feature.download.domain.service.DownloadService"
             android:exported="true">
             <intent-filter>
                 <action android:name="com.fadlurahmanf.download.DOWNLOAD" />

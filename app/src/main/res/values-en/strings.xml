@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">starter app mvvm</string>
     <string name="change_language">Change Language</string>
     <string name="exception_unauthorized">Your Token is not valid</string>
     <string name="exception_offline">Seems like you didn\'t have connection. Please try gain later</string>
     <string name="exception_general">something happened, please try again later</string>
+    <string name="download_failed_desc">Download failed</string>
+    <string name="download_url_not_valid_desc">URL Download not valid</string>
 </resources>

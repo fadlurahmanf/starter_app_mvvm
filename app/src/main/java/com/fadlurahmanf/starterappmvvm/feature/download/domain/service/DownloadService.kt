@@ -1,9 +1,10 @@
-package com.fadlurahmanf.starterappmvvm.feature.download.domain.services
+package com.fadlurahmanf.starterappmvvm.feature.download.domain.service
 
 import android.app.DownloadManager
 import android.app.Service
 import android.content.Context
 import android.content.Intent
+import android.database.Cursor
 import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
@@ -11,6 +12,7 @@ import android.os.Handler
 import android.os.IBinder
 import android.os.Looper
 import androidx.core.content.ContextCompat
+import com.fadlurahmanf.starterappmvvm.R
 import com.fadlurahmanf.starterappmvvm.core.data.constant.logConsole
 import com.fadlurahmanf.starterappmvvm.feature.download.domain.usecases.NotificationDownload
 import com.fadlurahmanf.starterappmvvm.feature.notification.data.constant.NotificationConstant
@@ -78,7 +80,7 @@ class DownloadService : Service() {
         val urlDownload = intent?.extras?.getString(DOWNLOAD_URL)
         val downloadFileName = intent?.extras?.getString(DOWNLOAD_FILE_NAME)
         if (urlDownload.isNullOrEmpty()) {
-            showError("Download URL tidak valid")
+            showError(applicationContext.getString(R.string.download_url_not_valid_desc))
             stopSelf()
             return
         }
@@ -102,46 +104,41 @@ class DownloadService : Service() {
                 val cursor =
                     downloadManager.query(DownloadManager.Query().setFilterById(downloadId))
                 if (cursor.moveToFirst()) {
-                    val status: Int
-                    if (cursor.getColumnIndex(DownloadManager.COLUMN_STATUS) >= 0) {
-                        status =
-                            cursor.getInt(cursor.getColumnIndexOrThrow(DownloadManager.COLUMN_STATUS))
-                        if (status == DownloadManager.STATUS_SUCCESSFUL
-                            || status == DownloadManager.STATUS_FAILED
-                        ) {
-                            handler.removeCallbacks(this)
-                            stopSelf()
-                            return
-                        }
+                    val status: Int = getStatus(cursor)
+                    if (status == DownloadManager.STATUS_SUCCESSFUL) {
+                        handler.removeCallbacks(this)
+                        stopSelf()
+                        return
+                    } else if (status == DownloadManager.STATUS_FAILED) {
+                        showError(applicationContext.getString(R.string.download_failed_desc))
+                        handler.removeCallbacks(this)
+                        stopSelf()
+                        return
                     }
-                    val totalSize: Int
-                    if (cursor.getColumnIndex(DownloadManager.COLUMN_TOTAL_SIZE_BYTES) >= 0) {
-                        totalSize =
-                            cursor.getInt(cursor.getColumnIndexOrThrow(DownloadManager.COLUMN_TOTAL_SIZE_BYTES))
-                        val currentSize: Int
-                        if (cursor.getColumnIndex(DownloadManager.COLUMN_BYTES_DOWNLOADED_SO_FAR) >= 0) {
-                            currentSize =
-                                cursor.getInt(cursor.getColumnIndexOrThrow(DownloadManager.COLUMN_BYTES_DOWNLOADED_SO_FAR))
-                            val data = Bundle()
-                            data.apply {
-                                putInt(NotificationDownload.EXTRA_TOTAL_SIZE, totalSize)
-                                putInt(
-                                    NotificationDownload.EXTRA_CURRENT_PROGRESS_SIZE,
-                                    currentSize
-                                )
-                            }
-                            if(totalSize < currentSize){
-                                notificationImpl.showNotification(title = "DOWNLOAD", body = "Downloading")
-                            }else{
-                                notificationImpl.showDownload(data)
-                            }
+                    val totalSize: Int = getTotal(cursor)
+                    val progress: Int = getProgress(cursor)
+                    if (totalSize >= 0 && progress >= 0) {
+                        val data = Bundle()
+                        data.apply {
+                            putInt(NotificationDownload.EXTRA_TOTAL_SIZE, totalSize)
+                            putInt(
+                                NotificationDownload.EXTRA_CURRENT_PROGRESS_SIZE,
+                                progress
+                            )
+                        }
+                        if (totalSize < progress) {
+                            notificationImpl.showNotification(
+                                title = "DOWNLOAD",
+                                body = "Downloading"
+                            )
+                        } else {
+                            notificationImpl.showDownload(data)
                         }
                     }
                 }
                 handler.postDelayed(this, 2000)
             } catch (e: Throwable) {
                 showError("${e.message}")
-                logConsole.e("DOWNLOAD FAILED: ${e.message}")
                 stopSelf()
                 handler.removeCallbacks(this)
                 return
@@ -149,10 +146,37 @@ class DownloadService : Service() {
         }
     }
 
+    private fun getStatus(cursor: Cursor): Int {
+        var status: Int = -1
+        if (cursor.getColumnIndex(DownloadManager.COLUMN_STATUS) >= 0) {
+            status = cursor.getInt(cursor.getColumnIndexOrThrow(DownloadManager.COLUMN_STATUS))
+        }
+        return status
+    }
+
+    private fun getTotal(cursor: Cursor): Int {
+        var totalSize: Int = -1
+        if (cursor.getColumnIndex(DownloadManager.COLUMN_TOTAL_SIZE_BYTES) >= 0) {
+            totalSize =
+                cursor.getInt(cursor.getColumnIndexOrThrow(DownloadManager.COLUMN_TOTAL_SIZE_BYTES))
+        }
+        return totalSize
+    }
+
+    private fun getProgress(cursor: Cursor): Int {
+        var progress: Int = -1
+        if (cursor.getColumnIndex(DownloadManager.COLUMN_BYTES_DOWNLOADED_SO_FAR) >= 0) {
+            progress =
+                cursor.getInt(cursor.getColumnIndexOrThrow(DownloadManager.COLUMN_BYTES_DOWNLOADED_SO_FAR))
+        }
+        return progress
+    }
+
     fun showError(message: String) {
+        logConsole.e("DOWNLOAD FAILED: $message")
         notificationImpl.showNotification(
             id = Random.nextInt(1000),
-            title = "Download Failed",
+            title = "Download",
             body = message
         )
     }

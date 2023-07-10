@@ -10,17 +10,14 @@ import android.view.View
 import androidx.activity.result.ActivityResultCallback
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.camera.core.ExperimentalGetImage
-import androidx.core.app.NotificationCompat
 import com.chuckerteam.chucker.api.Chucker
 import com.fadlurahmanf.starterappmvvm.BaseApp
 import com.fadlurahmanf.starterappmvvm.BuildConfig
-import com.fadlurahmanf.starterappmvvm.R
 import com.fadlurahmanf.starterappmvvm.core.domain.common.BaseActivity
 import com.fadlurahmanf.starterappmvvm.core.data.constant.AnalyticEvent
 import com.fadlurahmanf.starterappmvvm.core.data.constant.BuildFlavorConstant
 import com.fadlurahmanf.starterappmvvm.core.data.constant.logConsole
 import com.fadlurahmanf.starterappmvvm.databinding.ActivityExampleBinding
-import com.fadlurahmanf.starterappmvvm.feature.notification.domain.receiver.NotificationReceiver
 import com.fadlurahmanf.starterappmvvm.unknown.utils.language.TranslationHelper
 import com.fadlurahmanf.starterappmvvm.unknown.data.storage.example.LanguageSpStorage
 import com.fadlurahmanf.starterappmvvm.feature.gallery.data.dto.ImageModel
@@ -33,10 +30,7 @@ import com.fadlurahmanf.starterappmvvm.unknown.ui.core.activity.ImageViewerActiv
 import com.fadlurahmanf.starterappmvvm.unknown.ui.core.activity.PdfViewerActivity
 import com.fadlurahmanf.starterappmvvm.unknown.ui.core.activity.VideoPlayerActivity
 import com.fadlurahmanf.starterappmvvm.unknown.utils.analytic.AnalyticHelper
-import com.fadlurahmanf.starterappmvvm.feature.download.domain.services.DownloadService
-import com.fadlurahmanf.starterappmvvm.feature.notification.data.constant.NotificationConstant
-import com.fadlurahmanf.starterappmvvm.feature.notification.data.dto.model.ContentNotificationModel
-import com.fadlurahmanf.starterappmvvm.feature.notification.data.dto.model.NotificationActionModel
+import com.fadlurahmanf.starterappmvvm.feature.download.domain.service.DownloadService
 import com.fadlurahmanf.starterappmvvm.feature.notification.domain.usecases.NotificationImpl
 import com.fadlurahmanf.starterappmvvm.unknown.utils.media.MediaPlayerService
 import com.fadlurahmanf.starterappmvvm.unknown.utils.call.CallBroadcastReceiver
@@ -44,7 +38,6 @@ import com.fadlurahmanf.starterappmvvm.feature.notification.domain.usecases.Noti
 import com.google.firebase.messaging.FirebaseMessaging
 import java.util.*
 import javax.inject.Inject
-import kotlin.random.Random
 
 @ExperimentalGetImage
 class ExampleActivity :

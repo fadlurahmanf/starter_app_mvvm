@@ -1,9 +1,11 @@
 <resources>
-    <string name="app_name">starter app mvvm</string>
+    <string name="app_name" translatable="false">Starter App MVVM</string>
     <string name="change_language">Change Language</string>
     <string name="exception_unauthorized">token tidak valid</string>
     <string name="exception_offline">Seems like you didn\'t have connection. Please try gain later</string>
     <string name="exception_general">something happened, please try again later</string>
+    <string name="download_failed_desc">Download failed</string>
+    <string name="download_url_not_valid_desc">URL Download not valid</string>
 
     <string name="facebook_app_id" translatable="false">763313698734021</string>
     <string name="fb_login_protocol_scheme" translatable="false">fb763313698734021</string>
