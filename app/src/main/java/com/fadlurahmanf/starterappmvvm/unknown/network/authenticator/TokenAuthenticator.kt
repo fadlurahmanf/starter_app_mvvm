@@ -6,8 +6,8 @@ import com.chuckerteam.chucker.api.ChuckerCollector
 import com.chuckerteam.chucker.api.ChuckerInterceptor
 import com.chuckerteam.chucker.api.RetentionManager
 import com.fadlurahmanf.starterappmvvm.BuildConfig
+import com.fadlurahmanf.starterappmvvm.core.data.constant.AppConstant
 import com.fadlurahmanf.starterappmvvm.core.data.constant.BuildFlavorConstant
-import com.fadlurahmanf.starterappmvvm.core.data.constant.SpKey
 import com.fadlurahmanf.starterappmvvm.unknown.data.api.path.example.AuthApi
 import com.google.gson.JsonObject
 import okhttp3.*
@@ -24,7 +24,7 @@ class TokenAuthenticator(
         Log.d("TokenAuthenticator", "authenticate: ${response.body?.string()}")
         val request = response.request
 
-        val refreshToken = sharedPreference().getString(SpKey.REFRESH_TOKEN, "")
+        val refreshToken = sharedPreference().getString(AppConstant.Sp.REFRESH_TOKEN, "")
         val body = JsonObject()
         body.addProperty("token", refreshToken)
         val refreshTokenResponse = api().refreshToken(body).execute()
@@ -35,10 +35,10 @@ class TokenAuthenticator(
             && refreshTokenResponse.body()?.data?.refreshToken != null
         ) {
             sharedPreference().edit()
-                .putString(SpKey.ACCESS_TOKEN, refreshTokenResponse.body()?.data?.accessToken)
+                .putString(AppConstant.Sp.ACCESS_TOKEN, refreshTokenResponse.body()?.data?.accessToken)
                 .apply()
             sharedPreference().edit()
-                .putString(SpKey.REFRESH_TOKEN, refreshTokenResponse.body()?.data?.refreshToken)
+                .putString(AppConstant.Sp.REFRESH_TOKEN, refreshTokenResponse.body()?.data?.refreshToken)
                 .apply()
             request.newBuilder()
                 .header("Authorization", "Bearer ${refreshTokenResponse.body()?.data?.accessToken}")
@@ -49,7 +49,7 @@ class TokenAuthenticator(
     }
 
     private fun sharedPreference() = context
-        .getSharedPreferences(SpKey.SP_KEY, Context.MODE_PRIVATE)
+        .getSharedPreferences(AppConstant.Sp.SP_KEY, Context.MODE_PRIVATE)
 
     private val type = BuildConfig.BUILD_TYPE
     private fun chuckerInterceptor(): ChuckerInterceptor {

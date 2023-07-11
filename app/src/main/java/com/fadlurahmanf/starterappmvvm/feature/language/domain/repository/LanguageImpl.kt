@@ -6,5 +6,5 @@ import java.util.Locale
 interface LanguageImpl {
     fun isSupportedLanguage(code: String): Boolean
     fun changeLanguage(context: Context, code: String)
-    fun getCurrentLanguage(context: Context): Locale
+    fun getCurrentLocale(context: Context): Locale
 }

@@ -22,4 +22,13 @@ object AppConstant {
         const val DEFAULT_NOTIFICATION_ID = 0
         const val DEFAULT_DOWNLOAD_NOTIFICATION_ID = 1
     }
+
+    // shared preference
+    object Sp {
+        const val SP_KEY = "SP_KEY"
+        const val LANGUAGE_CODE = "LANGUAGE_CODE"
+
+        const val ACCESS_TOKEN = "ACCESS_TOKEN"
+        const val REFRESH_TOKEN = "REFRESH_TOKEN"
+    }
 }

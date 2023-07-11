@@ -7,8 +7,9 @@ import com.fadlurahmanf.starterappmvvm.BuildConfig
 import com.fadlurahmanf.starterappmvvm.core.domain.common.BaseActivity
 import com.fadlurahmanf.starterappmvvm.core.data.constant.logConsole
 import com.fadlurahmanf.starterappmvvm.feature.language.presentation.TranslationHelper
-import com.fadlurahmanf.starterappmvvm.unknown.data.storage.example.LanguageSpStorage
+import com.fadlurahmanf.starterappmvvm.feature.language.data.storage.LanguageSpStorage
 import com.fadlurahmanf.starterappmvvm.databinding.ActivitySplashBinding
+import com.fadlurahmanf.starterappmvvm.feature.language.domain.interactor.LanguageInteractor
 import com.fadlurahmanf.starterappmvvm.unknown.di.component.CoreComponent
 import com.fadlurahmanf.starterappmvvm.unknown.ui.example.activity.ExampleActivity
 import com.google.firebase.messaging.FirebaseMessaging
@@ -21,7 +22,7 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>(ActivitySplashBinding
     lateinit var component: CoreComponent
 
     @Inject
-    lateinit var languageSpStorage: LanguageSpStorage
+    lateinit var languageInteractor: LanguageInteractor
 
     override fun initSetup() {
         val type = BuildConfig.BUILD_TYPE
@@ -33,14 +34,10 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>(ActivitySplashBinding
             logConsole.d("ON FAILURE FCM TOKEN: ${it.message}")
         }
 
-        val local = TranslationHelper.getCurrentLocale(this)
-        if (languageSpStorage.languageId == null) {
-            languageSpStorage.languageId = "en"
-            TranslationHelper.changeLanguage(this, "en")
-            recreate()
-            return
-        } else if (languageSpStorage.languageId != local.language) {
-            TranslationHelper.changeLanguage(this, languageSpStorage.languageId!!)
+        val local = languageInteractor.getCurrentLocale(this)
+        val storage = languageInteractor.getStorageLocale()
+        if (local.language != storage.language) {
+            languageInteractor.changeLanguage(this, storage.language)
             recreate()
             return
         }

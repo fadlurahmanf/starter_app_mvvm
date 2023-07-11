@@ -2,7 +2,7 @@ package com.fadlurahmanf.starterappmvvm.feature.sp.domain.common
 
 import android.content.Context
 import android.content.SharedPreferences
-import com.fadlurahmanf.starterappmvvm.core.data.constant.SpKey
+import com.fadlurahmanf.starterappmvvm.core.data.constant.AppConstant
 import com.google.gson.Gson
 import org.json.JSONArray
 
@@ -15,7 +15,7 @@ abstract class BasePreference(context: Context) {
     }
 
     companion object {
-        const val SP_KEY: String = SpKey.SP_KEY
+        const val SP_KEY: String = AppConstant.Sp.SP_KEY
     }
 
     protected fun saveString(key: String, value: String) {

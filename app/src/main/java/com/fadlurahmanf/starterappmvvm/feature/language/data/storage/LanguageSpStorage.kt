@@ -1,23 +1,23 @@
-package com.fadlurahmanf.starterappmvvm.unknown.data.storage.example
+package com.fadlurahmanf.starterappmvvm.feature.language.data.storage
 
 import android.content.Context
+import com.fadlurahmanf.starterappmvvm.core.data.constant.AppConstant
 import com.fadlurahmanf.starterappmvvm.feature.sp.domain.common.BasePreference
-import com.fadlurahmanf.starterappmvvm.core.data.constant.SpKey
 import javax.inject.Inject
 
 class LanguageSpStorage @Inject constructor(
     context: Context
 ) : BasePreference(context) {
-    var languageId: String? = null
+    var languageCode: String? = null
         get() {
-            return getString(SpKey.LANGUAGE_ID)
+            return getString(AppConstant.Sp.LANGUAGE_CODE)
         }
         set(value) {
             field = if (value != null) {
-                saveString(SpKey.LANGUAGE_ID, value)
+                saveString(AppConstant.Sp.LANGUAGE_CODE, value)
                 value
             } else {
-                clearData(SpKey.LANGUAGE_ID)
+                clearData(AppConstant.Sp.LANGUAGE_CODE)
                 null
             }
         }

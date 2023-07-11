@@ -1,8 +1,8 @@
 package com.fadlurahmanf.starterappmvvm.unknown.data.storage.example
 
 import android.content.Context
+import com.fadlurahmanf.starterappmvvm.core.data.constant.AppConstant
 import com.fadlurahmanf.starterappmvvm.feature.sp.domain.common.BasePreference
-import com.fadlurahmanf.starterappmvvm.core.data.constant.SpKey
 import javax.inject.Inject
 
 class AuthSpStorage @Inject constructor(
@@ -10,28 +10,28 @@ class AuthSpStorage @Inject constructor(
 ): BasePreference(context) {
     var accessToken:String? = null
     get() {
-        field = getString(SpKey.ACCESS_TOKEN)
+        field = getString(AppConstant.Sp.ACCESS_TOKEN)
         return field
     }set(value) {
         field = if (value != null){
-            saveString(SpKey.ACCESS_TOKEN, value)
+            saveString(AppConstant.Sp.ACCESS_TOKEN, value)
             value
         }else{
-            clearData(SpKey.ACCESS_TOKEN)
+            clearData(AppConstant.Sp.ACCESS_TOKEN)
             null
         }
     }
 
     var refreshToken:String? = null
         get() {
-            field = getString(SpKey.REFRESH_TOKEN)
+            field = getString(AppConstant.Sp.REFRESH_TOKEN)
             return field
         }set(value) {
         field = if (value != null){
-            saveString(SpKey.REFRESH_TOKEN, value)
+            saveString(AppConstant.Sp.REFRESH_TOKEN, value)
             value
         }else{
-            clearData(SpKey.REFRESH_TOKEN)
+            clearData(AppConstant.Sp.REFRESH_TOKEN)
             null
         }
     }

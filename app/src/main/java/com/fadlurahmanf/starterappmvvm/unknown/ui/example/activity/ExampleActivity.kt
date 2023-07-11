@@ -19,7 +19,7 @@ import com.fadlurahmanf.starterappmvvm.core.data.constant.BuildFlavorConstant
 import com.fadlurahmanf.starterappmvvm.core.data.constant.logConsole
 import com.fadlurahmanf.starterappmvvm.databinding.ActivityExampleBinding
 import com.fadlurahmanf.starterappmvvm.feature.language.presentation.TranslationHelper
-import com.fadlurahmanf.starterappmvvm.unknown.data.storage.example.LanguageSpStorage
+import com.fadlurahmanf.starterappmvvm.feature.language.data.storage.LanguageSpStorage
 import com.fadlurahmanf.starterappmvvm.feature.gallery.data.dto.model.ImageModel
 import com.fadlurahmanf.starterappmvvm.feature.gallery.data.constant.ImageOrigin
 import com.fadlurahmanf.starterappmvvm.feature.gallery.domain.interactor.FetchGalleryInteractor
@@ -32,6 +32,7 @@ import com.fadlurahmanf.starterappmvvm.core.presentation.VideoPlayerActivity
 import com.fadlurahmanf.starterappmvvm.unknown.utils.analytic.AnalyticHelper
 import com.fadlurahmanf.starterappmvvm.feature.download.domain.service.DownloadService
 import com.fadlurahmanf.starterappmvvm.feature.gallery.presentation.ExampleGalleryActivity
+import com.fadlurahmanf.starterappmvvm.feature.language.presentation.ExampleLanguageActivity
 import com.fadlurahmanf.starterappmvvm.feature.notification.domain.usecases.NotificationImpl
 import com.fadlurahmanf.starterappmvvm.unknown.utils.media.MediaPlayerService
 import com.fadlurahmanf.starterappmvvm.unknown.utils.call.CallBroadcastReceiver
@@ -92,16 +93,8 @@ class ExampleActivity :
         notificationHelper = NotificationHelper(this)
         notificationImpl = NotificationImpl(this)
         binding.btnChangeLanguage.setOnClickListener {
-            AnalyticHelper.logEvent(this, AnalyticEvent.btn_change_language)
-            val local = TranslationHelper.getCurrentLocale(this)
-            if (local.language == "en") {
-                TranslationHelper.changeLanguage(this, "in")
-                languageSpStorage.languageId = "in"
-            } else {
-                TranslationHelper.changeLanguage(this, "en")
-                languageSpStorage.languageId = "in"
-            }
-            recreate()
+            val intent = Intent(this, ExampleLanguageActivity::class.java)
+            startActivity(intent)
         }
 
 
