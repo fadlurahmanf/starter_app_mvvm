@@ -8,8 +8,8 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.fadlurahmanf.starterappmvvm.R
-import com.fadlurahmanf.starterappmvvm.feature.gallery.data.dto.GalleryAlbumModel
-import com.fadlurahmanf.starterappmvvm.feature.gallery.data.dto.GalleryItemModel
+import com.fadlurahmanf.starterappmvvm.feature.gallery.data.dto.model.GalleryAlbumModel
+import com.fadlurahmanf.starterappmvvm.feature.gallery.data.dto.model.GalleryItemModel
 
 class AlbumRecyclerView():RecyclerView.Adapter<AlbumRecyclerView.ViewHolder>() {
     private var list:ArrayList<GalleryAlbumModel> = arrayListOf()

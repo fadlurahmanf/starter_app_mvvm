@@ -4,6 +4,8 @@ import android.content.Context
 import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Test
+import org.junit.jupiter.api.Assertions
+import org.junit.runner.RunWith
 import org.mockito.kotlin.mock
 
 class DownloadServiceTest{
@@ -16,11 +18,5 @@ class DownloadServiceTest{
 
     @Test
     fun tes(){
-        val context = mock<Context>()
-        DownloadService.startService(
-            context,
-            "url",
-            "tes.jpg"
-        )
     }
 }

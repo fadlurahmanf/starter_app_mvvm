@@ -7,30 +7,33 @@ import okhttp3.Response
 import retrofit2.HttpException
 import java.net.UnknownHostException
 
-class ExceptionInterceptor: Interceptor {
+class ExceptionInterceptor : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
         try {
             val request = chain.request()
             val response = chain.proceed(request)
-            if (response.code == 401){
+            if (response.code == 401) {
                 throw CustomException(
                     rawMessage = ExceptionConstant.unauthorized
                 )
             }
             return response
-        }catch (e:Exception){
+        } catch (e: Throwable) {
             when (e) {
                 is HttpException -> {
                     throw CustomException()
                 }
+
                 is UnknownHostException -> {
                     throw CustomException(
                         rawMessage = ExceptionConstant.offline
                     )
                 }
+
                 is CustomException -> {
                     throw e
                 }
+
                 else -> {
                     throw CustomException(
                         rawMessage = e.message

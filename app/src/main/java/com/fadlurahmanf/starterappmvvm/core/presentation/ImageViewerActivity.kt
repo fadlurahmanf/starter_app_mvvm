@@ -1,11 +1,11 @@
-package com.fadlurahmanf.starterappmvvm.unknown.ui.core.activity
+package com.fadlurahmanf.starterappmvvm.core.presentation
 
 import android.net.Uri
 import com.bumptech.glide.Glide
 import com.fadlurahmanf.starterappmvvm.core.domain.common.BaseActivity
 import com.fadlurahmanf.starterappmvvm.databinding.ActivityImageViewerBinding
-import com.fadlurahmanf.starterappmvvm.feature.gallery.data.dto.ImageModel
-import com.fadlurahmanf.starterappmvvm.feature.gallery.data.dto.ImageOrigin
+import com.fadlurahmanf.starterappmvvm.feature.gallery.data.dto.model.ImageModel
+import com.fadlurahmanf.starterappmvvm.feature.gallery.data.constant.ImageOrigin
 
 class ImageViewerActivity :
     BaseActivity<ActivityImageViewerBinding>(ActivityImageViewerBinding::inflate) {

@@ -15,14 +15,14 @@ import androidx.core.content.ContextCompat
 import com.fadlurahmanf.starterappmvvm.R
 import com.fadlurahmanf.starterappmvvm.core.data.constant.logConsole
 import com.fadlurahmanf.starterappmvvm.core.data.dto.exception.CustomException
-import com.fadlurahmanf.starterappmvvm.feature.download.domain.usecases.NotificationDownload
+import com.fadlurahmanf.starterappmvvm.feature.download.external.helper.DownloadNotificationHelper
 import com.fadlurahmanf.starterappmvvm.feature.notification.data.constant.NotificationConstant
 import java.io.File
 import kotlin.random.Random
 
 class DownloadService : Service() {
     private lateinit var downloadManager: DownloadManager
-    private lateinit var notificationImpl: NotificationDownload
+    private lateinit var notificationImpl: DownloadNotificationHelper
     private lateinit var handler: Handler
     private var downloadId: Long = 0L
     private val notificationId: Int = NotificationConstant.DEFAULT_DOWNLOAD_NOTIFICATION_ID
@@ -60,7 +60,7 @@ class DownloadService : Service() {
         super.onCreate()
         downloadManager =
             applicationContext.getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
-        notificationImpl = NotificationDownload(applicationContext)
+        notificationImpl = DownloadNotificationHelper(applicationContext)
         handler = Handler(Looper.getMainLooper())
     }
 
@@ -129,9 +129,9 @@ class DownloadService : Service() {
                     if (totalSize >= 0 && progress >= 0) {
                         val data = Bundle()
                         data.apply {
-                            putInt(NotificationDownload.EXTRA_TOTAL_SIZE, totalSize)
+                            putInt(DownloadNotificationHelper.EXTRA_TOTAL_SIZE, totalSize)
                             putInt(
-                                NotificationDownload.EXTRA_CURRENT_PROGRESS_SIZE,
+                                DownloadNotificationHelper.EXTRA_CURRENT_PROGRESS_SIZE,
                                 progress
                             )
                         }

@@ -1,18 +1,14 @@
 package com.fadlurahmanf.starterappmvvm.feature.gallery.domain.usecases
 
-import android.content.Context
 import android.content.Intent
-import android.net.Uri
-import androidx.activity.result.contract.ActivityResultContracts
 import com.fadlurahmanf.starterappmvvm.core.data.constant.logConsole
-import com.fadlurahmanf.starterappmvvm.feature.gallery.data.dto.GalleryAlbumModel
-import com.fadlurahmanf.starterappmvvm.feature.gallery.data.dto.GalleryItemModel
-import com.fadlurahmanf.starterappmvvm.feature.gallery.domain.datasource.GalleryDatasource
+import com.fadlurahmanf.starterappmvvm.feature.gallery.data.dto.model.GalleryAlbumModel
+import com.fadlurahmanf.starterappmvvm.feature.gallery.data.dto.model.GalleryItemModel
+import com.fadlurahmanf.starterappmvvm.feature.gallery.domain.repository.GalleryDatasource
 import javax.inject.Inject
 
-class GalleryImpl @Inject constructor(
+class FetchGalleryUseCase @Inject constructor(
     private val galleryDatasource: GalleryDatasource,
-    private val context: Context
 ) {
     /**
      * filtering extension, only extension inside list will return

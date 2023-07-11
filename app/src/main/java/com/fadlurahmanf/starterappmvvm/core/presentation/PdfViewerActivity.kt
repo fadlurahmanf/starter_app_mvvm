@@ -1,4 +1,4 @@
-package com.fadlurahmanf.starterappmvvm.unknown.ui.core.activity
+package com.fadlurahmanf.starterappmvvm.core.presentation
 
 import android.content.Intent
 import android.net.Uri

@@ -50,7 +50,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".unknown.ui.example.activity.GalleryActivity"
+            android:name=".feature.gallery.presentation.ExampleGalleryActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -64,7 +64,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".unknown.ui.core.activity.VideoPlayerActivity"
+            android:name=".core.presentation.VideoPlayerActivity"
             android:configChanges="screenSize|smallestScreenSize|screenLayout|orientation"
             android:exported="false"
             android:launchMode="singleTask"
@@ -111,10 +111,10 @@
             android:name=".unknown.ui.example.activity.SecondExampleActivity"
             android:exported="false" />
         <activity
-            android:name=".unknown.ui.core.activity.ImageViewerActivity"
+            android:name=".core.presentation.ImageViewerActivity"
             android:exported="false" />
         <activity
-            android:name=".unknown.ui.core.activity.PdfViewerActivity"
+            android:name=".core.presentation.PdfViewerActivity"
             android:exported="false" />
         <activity
             android:name=".unknown.ui.example.activity.ExampleActivity"

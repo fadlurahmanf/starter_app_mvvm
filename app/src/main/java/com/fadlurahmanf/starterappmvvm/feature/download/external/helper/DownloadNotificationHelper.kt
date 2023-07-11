@@ -1,4 +1,4 @@
-package com.fadlurahmanf.starterappmvvm.feature.download.domain.usecases
+package com.fadlurahmanf.starterappmvvm.feature.download.external.helper
 
 import android.app.PendingIntent
 import android.content.Context
@@ -8,9 +8,8 @@ import com.fadlurahmanf.starterappmvvm.feature.notification.domain.common.BaseNo
 import com.fadlurahmanf.starterappmvvm.feature.notification.domain.receiver.NotificationReceiver
 import com.fadlurahmanf.starterappmvvm.feature.notification.data.constant.NotificationConstant
 import com.fadlurahmanf.starterappmvvm.feature.notification.data.dto.model.ContentNotificationModel
-import javax.inject.Inject
 
-class NotificationDownload @Inject constructor(context: Context) : BaseNotification(context) {
+class DownloadNotificationHelper (context: Context) : BaseNotification(context) {
 
     override val channelId: String
         get() = NotificationConstant.DOWNLOAD_CHANNEL_ID

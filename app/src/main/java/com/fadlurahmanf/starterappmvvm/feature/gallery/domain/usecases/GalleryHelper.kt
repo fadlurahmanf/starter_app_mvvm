@@ -4,8 +4,8 @@ import android.content.ContentUris
 import android.content.Context
 import android.provider.MediaStore
 import android.util.Log
-import com.fadlurahmanf.starterappmvvm.feature.gallery.data.dto.GalleryAlbumModel
-import com.fadlurahmanf.starterappmvvm.feature.gallery.data.dto.GalleryItemModel
+import com.fadlurahmanf.starterappmvvm.feature.gallery.data.dto.model.GalleryAlbumModel
+import com.fadlurahmanf.starterappmvvm.feature.gallery.data.dto.model.GalleryItemModel
 import java.lang.Exception
 
 @Deprecated("DEPRECATED ")

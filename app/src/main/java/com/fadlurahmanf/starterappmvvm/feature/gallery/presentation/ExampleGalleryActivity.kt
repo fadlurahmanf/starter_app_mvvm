@@ -1,14 +1,14 @@
-package com.fadlurahmanf.starterappmvvm.unknown.ui.example.activity
+package com.fadlurahmanf.starterappmvvm.feature.gallery.presentation
 
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.fadlurahmanf.starterappmvvm.core.domain.common.BaseActivity
-import com.fadlurahmanf.starterappmvvm.databinding.ActivityGalleryBinding
-import com.fadlurahmanf.starterappmvvm.feature.gallery.data.dto.GalleryAlbumModel
+import com.fadlurahmanf.starterappmvvm.databinding.ActivityExampleGalleryBinding
+import com.fadlurahmanf.starterappmvvm.feature.gallery.data.dto.model.GalleryAlbumModel
 import com.fadlurahmanf.starterappmvvm.feature.gallery.domain.usecases.GalleryHelper
 import com.fadlurahmanf.starterappmvvm.unknown.utils.gallery.recyclerview.AlbumRecyclerView
 import com.fadlurahmanf.starterappmvvm.unknown.utils.gallery.recyclerview.GalleryRecyclerView
 
-class GalleryActivity: BaseActivity<ActivityGalleryBinding>(ActivityGalleryBinding::inflate) {
+class ExampleGalleryActivity: BaseActivity<ActivityExampleGalleryBinding>(ActivityExampleGalleryBinding::inflate) {
     private var albums:ArrayList<GalleryAlbumModel> = arrayListOf()
     private lateinit var aRecyclerView: AlbumRecyclerView
     private lateinit var gRecyclerView: GalleryRecyclerView

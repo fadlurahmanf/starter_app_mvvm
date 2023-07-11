@@ -4,14 +4,13 @@ import androidx.lifecycle.MutableLiveData
 import com.fadlurahmanf.starterappmvvm.core.data.state.CustomState
 import com.fadlurahmanf.starterappmvvm.core.domain.common.BaseViewModel
 import com.fadlurahmanf.starterappmvvm.core.external.extension.toErrorState
-import com.fadlurahmanf.starterappmvvm.feature.gallery.data.dto.GalleryAlbumModel
-import com.fadlurahmanf.starterappmvvm.feature.gallery.data.dto.GalleryItemModel
-import com.fadlurahmanf.starterappmvvm.feature.gallery.domain.datasource.GalleryDatasource
-import com.fadlurahmanf.starterappmvvm.feature.gallery.domain.usecases.GalleryImpl
+import com.fadlurahmanf.starterappmvvm.feature.gallery.data.dto.model.GalleryAlbumModel
+import com.fadlurahmanf.starterappmvvm.feature.gallery.data.dto.model.GalleryItemModel
+import com.fadlurahmanf.starterappmvvm.feature.gallery.domain.usecases.FetchGalleryUseCase
 import javax.inject.Inject
 
 class GalleryViewModel @Inject constructor(
-    private val galleryImpl: GalleryImpl
+    private val fetchGalleryUseCase: FetchGalleryUseCase
 ) : BaseViewModel() {
     private var _getAlbumState = MutableLiveData<CustomState<ArrayList<GalleryAlbumModel>>>()
     val albumState get() = _getAlbumState
@@ -19,7 +18,7 @@ class GalleryViewModel @Inject constructor(
         try {
             _getAlbumState.value = CustomState.Idle
             _getAlbumState.value = CustomState.Loading
-            _getAlbumState.value = CustomState.Success(data = galleryImpl.getAll())
+            _getAlbumState.value = CustomState.Success(data = fetchGalleryUseCase.getAll())
         } catch (e: Throwable) {
             _getAlbumState.value = e.toErrorState()
         }
@@ -31,7 +30,7 @@ class GalleryViewModel @Inject constructor(
         try {
             _getItemState.value = CustomState.Idle
             _getItemState.value = CustomState.Loading
-            val data = galleryImpl.getPhotos()
+            val data = fetchGalleryUseCase.getPhotos()
             _getItemState.value = CustomState.Success(data = data)
         } catch (e: Throwable) {
             _getItemState.value = e.toErrorState()

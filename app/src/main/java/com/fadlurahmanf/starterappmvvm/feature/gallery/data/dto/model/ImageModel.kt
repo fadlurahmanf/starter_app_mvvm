@@ -1,6 +1,7 @@
-package com.fadlurahmanf.starterappmvvm.feature.gallery.data.dto
+package com.fadlurahmanf.starterappmvvm.feature.gallery.data.dto.model
 
 import android.os.Parcelable
+import com.fadlurahmanf.starterappmvvm.feature.gallery.data.constant.ImageOrigin
 import kotlinx.parcelize.Parcelize
 
 @Parcelize

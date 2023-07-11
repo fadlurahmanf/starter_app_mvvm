@@ -20,17 +20,18 @@ import com.fadlurahmanf.starterappmvvm.core.data.constant.logConsole
 import com.fadlurahmanf.starterappmvvm.databinding.ActivityExampleBinding
 import com.fadlurahmanf.starterappmvvm.unknown.utils.language.TranslationHelper
 import com.fadlurahmanf.starterappmvvm.unknown.data.storage.example.LanguageSpStorage
-import com.fadlurahmanf.starterappmvvm.feature.gallery.data.dto.ImageModel
-import com.fadlurahmanf.starterappmvvm.feature.gallery.data.dto.ImageOrigin
-import com.fadlurahmanf.starterappmvvm.feature.gallery.domain.usecases.GalleryImpl
+import com.fadlurahmanf.starterappmvvm.feature.gallery.data.dto.model.ImageModel
+import com.fadlurahmanf.starterappmvvm.feature.gallery.data.constant.ImageOrigin
+import com.fadlurahmanf.starterappmvvm.feature.gallery.domain.usecases.FetchGalleryUseCase
 import com.fadlurahmanf.starterappmvvm.unknown.di.component.ExampleComponent
 import com.fadlurahmanf.starterappmvvm.unknown.dto.model.core.PdfModel
 import com.fadlurahmanf.starterappmvvm.unknown.dto.model.core.PdfOrigin
-import com.fadlurahmanf.starterappmvvm.unknown.ui.core.activity.ImageViewerActivity
-import com.fadlurahmanf.starterappmvvm.unknown.ui.core.activity.PdfViewerActivity
-import com.fadlurahmanf.starterappmvvm.unknown.ui.core.activity.VideoPlayerActivity
+import com.fadlurahmanf.starterappmvvm.core.presentation.ImageViewerActivity
+import com.fadlurahmanf.starterappmvvm.core.presentation.PdfViewerActivity
+import com.fadlurahmanf.starterappmvvm.core.presentation.VideoPlayerActivity
 import com.fadlurahmanf.starterappmvvm.unknown.utils.analytic.AnalyticHelper
 import com.fadlurahmanf.starterappmvvm.feature.download.domain.service.DownloadService
+import com.fadlurahmanf.starterappmvvm.feature.gallery.presentation.ExampleGalleryActivity
 import com.fadlurahmanf.starterappmvvm.feature.notification.domain.usecases.NotificationImpl
 import com.fadlurahmanf.starterappmvvm.unknown.utils.media.MediaPlayerService
 import com.fadlurahmanf.starterappmvvm.unknown.utils.call.CallBroadcastReceiver
@@ -48,7 +49,7 @@ class ExampleActivity :
     lateinit var languageSpStorage: LanguageSpStorage
 
     @Inject
-    lateinit var galleryImpl: GalleryImpl
+    lateinit var fetchGalleryUseCase: FetchGalleryUseCase
 
     lateinit var notificationHelper: NotificationHelper
     lateinit var notificationImpl: NotificationImpl
@@ -253,7 +254,7 @@ class ExampleActivity :
 
         binding.btnGoToGallery.setOnClickListener {
             AnalyticHelper.logEvent(this, AnalyticEvent.btn_gallery_click)
-            val intent = Intent(this, GalleryActivity::class.java)
+            val intent = Intent(this, ExampleGalleryActivity::class.java)
             startActivity(intent)
         }
     }
