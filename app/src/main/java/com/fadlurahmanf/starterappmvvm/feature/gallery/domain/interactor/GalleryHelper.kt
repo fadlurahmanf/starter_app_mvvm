@@ -1,4 +1,4 @@
-package com.fadlurahmanf.starterappmvvm.feature.gallery.domain.usecases
+package com.fadlurahmanf.starterappmvvm.feature.gallery.domain.interactor
 
 import android.content.ContentUris
 import android.content.Context

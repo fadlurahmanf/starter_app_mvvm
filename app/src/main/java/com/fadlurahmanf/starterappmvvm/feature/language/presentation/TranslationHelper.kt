@@ -1,8 +1,9 @@
-package com.fadlurahmanf.starterappmvvm.unknown.utils.language
+package com.fadlurahmanf.starterappmvvm.feature.language.presentation
 
 import android.content.Context
 import java.util.Locale
 
+@Deprecated("DEPRECATED")
 class TranslationHelper {
     companion object {
         fun getCurrentLocale(context: Context): Locale {

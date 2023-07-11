@@ -18,11 +18,11 @@ import com.fadlurahmanf.starterappmvvm.core.data.constant.AnalyticEvent
 import com.fadlurahmanf.starterappmvvm.core.data.constant.BuildFlavorConstant
 import com.fadlurahmanf.starterappmvvm.core.data.constant.logConsole
 import com.fadlurahmanf.starterappmvvm.databinding.ActivityExampleBinding
-import com.fadlurahmanf.starterappmvvm.unknown.utils.language.TranslationHelper
+import com.fadlurahmanf.starterappmvvm.feature.language.presentation.TranslationHelper
 import com.fadlurahmanf.starterappmvvm.unknown.data.storage.example.LanguageSpStorage
 import com.fadlurahmanf.starterappmvvm.feature.gallery.data.dto.model.ImageModel
 import com.fadlurahmanf.starterappmvvm.feature.gallery.data.constant.ImageOrigin
-import com.fadlurahmanf.starterappmvvm.feature.gallery.domain.usecases.FetchGalleryUseCase
+import com.fadlurahmanf.starterappmvvm.feature.gallery.domain.interactor.FetchGalleryInteractor
 import com.fadlurahmanf.starterappmvvm.unknown.di.component.ExampleComponent
 import com.fadlurahmanf.starterappmvvm.unknown.dto.model.core.PdfModel
 import com.fadlurahmanf.starterappmvvm.unknown.dto.model.core.PdfOrigin
@@ -49,7 +49,7 @@ class ExampleActivity :
     lateinit var languageSpStorage: LanguageSpStorage
 
     @Inject
-    lateinit var fetchGalleryUseCase: FetchGalleryUseCase
+    lateinit var fetchGalleryInteractor: FetchGalleryInteractor
 
     lateinit var notificationHelper: NotificationHelper
     lateinit var notificationImpl: NotificationImpl

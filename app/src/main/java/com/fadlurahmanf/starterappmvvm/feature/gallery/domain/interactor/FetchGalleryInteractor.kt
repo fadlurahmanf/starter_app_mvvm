@@ -1,4 +1,4 @@
-package com.fadlurahmanf.starterappmvvm.feature.gallery.domain.usecases
+package com.fadlurahmanf.starterappmvvm.feature.gallery.domain.interactor
 
 import android.content.Intent
 import com.fadlurahmanf.starterappmvvm.core.data.constant.logConsole
@@ -7,7 +7,7 @@ import com.fadlurahmanf.starterappmvvm.feature.gallery.data.dto.model.GalleryIte
 import com.fadlurahmanf.starterappmvvm.feature.gallery.domain.repository.GalleryDatasource
 import javax.inject.Inject
 
-class FetchGalleryUseCase @Inject constructor(
+class FetchGalleryInteractor @Inject constructor(
     private val galleryDatasource: GalleryDatasource,
 ) {
     /**
