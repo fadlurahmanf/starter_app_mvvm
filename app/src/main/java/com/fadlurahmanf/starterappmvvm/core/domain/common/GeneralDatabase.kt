@@ -13,16 +13,14 @@ import com.fadlurahmanf.starterappmvvm.unknown.dto.response.example.SurahRespons
 @Database(
     entities = [
         SurahResponse::class,
-        LoggerEntity::class
     ], version = GeneralDatabase.VERSION,
     exportSchema = false
 )
 abstract class GeneralDatabase : RoomDatabase() {
     abstract fun surahDao(): SurahDao
-    abstract fun loggerDao(): LoggerDao
 
     companion object {
-        const val VERSION = 4
+        const val VERSION = 1
 
         @Volatile
         private var INSTANCE: GeneralDatabase? = null
@@ -33,6 +31,36 @@ abstract class GeneralDatabase : RoomDatabase() {
                     GeneralDatabase::class.java,
                     AppConstant.RoomDB.core
                 ).fallbackToDestructiveMigration()
+                    .build()
+                INSTANCE = instance
+                instance
+            }
+        }
+    }
+}
+
+@Database(
+    entities = [
+        LoggerEntity::class
+    ], version = GeneralDatabase.VERSION,
+    exportSchema = false
+)
+abstract class LoggerDatabase : RoomDatabase() {
+    abstract fun loggerDao(): LoggerDao
+
+    companion object {
+        const val VERSION = 1
+
+        @Volatile
+        private var INSTANCE: LoggerDatabase? = null
+        fun getDatabase(context: Context): LoggerDatabase {
+            return INSTANCE ?: synchronized(this) {
+                val instance = Room.databaseBuilder(
+                    context.applicationContext,
+                    LoggerDatabase::class.java,
+                    AppConstant.RoomDB.logger
+                ).fallbackToDestructiveMigration()
+                    .allowMainThreadQueries()
                     .build()
                 INSTANCE = instance
                 instance

@@ -16,9 +16,9 @@ interface LoggerDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(logger:LoggerEntity)
 
-    @Query("SELECT * FROM ${AppConstant.RoomTable.logger}")
+    @Query("SELECT * FROM ${AppConstant.RoomTable.logger} ORDER BY date DESC")
     fun getAll(): Single<List<LoggerEntity>>
 
     @Query("DELETE FROM ${AppConstant.RoomTable.logger}")
-    fun remove()
+    fun delete()
 }

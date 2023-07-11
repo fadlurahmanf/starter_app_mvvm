@@ -91,6 +91,11 @@ class ExampleActivity :
         }
 
         binding.btnLogger.setOnClickListener {
+
+            logConsole.e("TES ERROR")
+            logConsole.d("TES DEBUG")
+            logConsole.w("TES WARN")
+            logConsole.i("TES INFO")
             val intent = Intent(this, LogHistoryActivity::class.java)
             startActivity(intent)
         }

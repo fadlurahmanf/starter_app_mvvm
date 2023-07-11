@@ -11,19 +11,24 @@ class LoggerInteractor @Inject constructor(
     fun insert(entity: LoggerEntity) {
         try {
             loggerRoomDatasource.insert(entity)
-        } catch (_: Throwable) {
+            println("MASUK $entity")
+        } catch (e: Throwable) {
+            println("MASUK SINI ${e.message}")
         }
     }
 
     // get all in text
-    fun getAll(): Observable<List<String>> {
+    fun getAll(): Observable<List<LoggerEntity>> {
         try {
             return loggerRoomDatasource.getAll().toObservable()
-                .map { list ->
-                    list.map { entity ->
-                        "[${entity.date}][${entity.type}]: ${entity.message}"
-                    }
-                }
+        } catch (e: Throwable) {
+            throw e
+        }
+    }
+
+    fun deleteLogs() {
+        try {
+            return loggerRoomDatasource.deleteAll()
         } catch (e: Throwable) {
             throw e
         }

@@ -8,16 +8,22 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.fadlurahmanf.starterappmvvm.R
+import com.fadlurahmanf.starterappmvvm.feature.logger.data.dto.entity.LoggerEntity
 
 class LogHistoryAdapter : RecyclerView.Adapter<LogHistoryAdapter.ViewHolder>() {
-    private val list = arrayListOf<String>()
+    private val list = arrayListOf<LoggerEntity>()
 
     private lateinit var context: Context
 
-    fun setList(list: List<String>) {
+    fun setList(list: List<LoggerEntity>) {
         this.list.clear()
         this.list.addAll(list)
-        notifyItemRangeInserted(0, list.size - 1)
+        notifyDataSetChanged()
+    }
+
+    fun clearList() {
+        this.list.clear()
+        notifyDataSetChanged()
     }
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -33,15 +39,30 @@ class LogHistoryAdapter : RecyclerView.Adapter<LogHistoryAdapter.ViewHolder>() {
     override fun getItemCount(): Int = list.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val text = list[position]
+        val entity = list[position]
+        val text = "[${entity.date}][${entity.type}]: ${entity.message}"
         holder.textView.text = text
 
-        if (text.contentEquals("[ERROR]")) {
-            holder.textView.setTextColor(ContextCompat.getColor(context, R.color.red))
-        } else if (text.contentEquals("[WARN]")) {
-            holder.textView.setTextColor(ContextCompat.getColor(context, R.color.yellow))
-        } else if (text.contentEquals("[INFO]")) {
-            holder.textView.setTextColor(ContextCompat.getColor(context, R.color.blue))
+        when (entity.type) {
+            "ERROR" -> {
+                holder.textView.setTextColor(ContextCompat.getColor(context, R.color.red))
+                holder.textView.setBackgroundColor(ContextCompat.getColor(context, R.color.white))
+            }
+
+            "WARN" -> {
+                holder.textView.setTextColor(ContextCompat.getColor(context, R.color.yellow))
+                holder.textView.setBackgroundColor(ContextCompat.getColor(context, R.color.black))
+            }
+
+            "INFO" -> {
+                holder.textView.setTextColor(ContextCompat.getColor(context, R.color.blue))
+                holder.textView.setBackgroundColor(ContextCompat.getColor(context, R.color.white))
+            }
+
+            else -> {
+                holder.textView.setTextColor(ContextCompat.getColor(context, R.color.black))
+                holder.textView.setBackgroundColor(ContextCompat.getColor(context, R.color.white))
+            }
         }
     }
 }

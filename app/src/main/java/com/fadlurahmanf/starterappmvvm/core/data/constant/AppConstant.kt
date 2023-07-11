@@ -3,6 +3,7 @@ package com.fadlurahmanf.starterappmvvm.core.data.constant
 object AppConstant {
     object RoomDB {
         const val core = "core_db"
+        const val logger = "logger_db"
     }
 
     object RoomTable {
