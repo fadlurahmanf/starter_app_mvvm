@@ -30,6 +30,7 @@ import com.fadlurahmanf.starterappmvvm.feature.gallery.domain.interactor.FetchGa
 import com.fadlurahmanf.starterappmvvm.feature.gallery.presentation.ExampleGalleryActivity
 import com.fadlurahmanf.starterappmvvm.feature.language.data.storage.LanguageSpStorage
 import com.fadlurahmanf.starterappmvvm.feature.language.presentation.ExampleLanguageActivity
+import com.fadlurahmanf.starterappmvvm.feature.logger.presentation.LogHistoryActivity
 import com.fadlurahmanf.starterappmvvm.feature.notification.domain.usecases.NotificationHelper
 import com.fadlurahmanf.starterappmvvm.feature.notification.domain.usecases.NotificationImpl
 import com.fadlurahmanf.starterappmvvm.unknown.di.component.ExampleComponent
@@ -90,7 +91,8 @@ class ExampleActivity :
         }
 
         binding.btnLogger.setOnClickListener {
-            logConsole.i("TES TES", true)
+            val intent = Intent(this, LogHistoryActivity::class.java)
+            startActivity(intent)
         }
 
         notificationHelper = NotificationHelper(this)

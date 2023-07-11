@@ -31,6 +31,9 @@
         android:theme="@style/Theme.StarterAppMvvm"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".feature.logger.presentation.LogHistoryActivity"
+            android:exported="false" />
+        <activity
             android:name=".feature.language.presentation.ExampleLanguageActivity"
             android:exported="false" />
         <activity

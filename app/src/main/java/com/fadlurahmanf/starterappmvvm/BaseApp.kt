@@ -8,8 +8,8 @@ import com.facebook.FacebookSdk
 import com.fadlurahmanf.starterappmvvm.feature.notification.domain.usecases.NotificationImpl
 import com.fadlurahmanf.starterappmvvm.core.data.constant.logConsole
 import com.fadlurahmanf.starterappmvvm.feature.logger.domain.repository.LoggerRoomDatasource
-import com.fadlurahmanf.starterappmvvm.feature.logger.domain.usecases.LoggerImpl
-import com.fadlurahmanf.starterappmvvm.feature.logger.presentation.LogConsole
+import com.fadlurahmanf.starterappmvvm.feature.logger.domain.interactor.LoggerInteractor
+import com.fadlurahmanf.starterappmvvm.feature.logger.presentation.handler.LogConsole
 import com.fadlurahmanf.starterappmvvm.unknown.di.component.ApplicationComponent
 import com.fadlurahmanf.starterappmvvm.unknown.di.component.DaggerApplicationComponent
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig
@@ -48,7 +48,7 @@ class BaseApp : Application() {
 
     private fun setupLogConsole() {
         logConsole = LogConsole(
-            loggerImpl = LoggerImpl(LoggerRoomDatasource(applicationContext)),
+            loggerInteractor = LoggerInteractor(LoggerRoomDatasource(applicationContext)),
             notificationImpl = NotificationImpl(applicationContext)
         )
     }
