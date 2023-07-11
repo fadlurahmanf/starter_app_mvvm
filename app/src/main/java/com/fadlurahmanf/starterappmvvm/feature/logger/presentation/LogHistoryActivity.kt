@@ -37,14 +37,14 @@ class LogHistoryActivity :
         binding.tvDelete.setOnClickListener {
             list.clear()
             displayedList.clear()
-            adapter.setList(displayedList)
+            adapter.clearList()
             viewModel.deleteLogs()
         }
 
         binding.tvAll.setOnClickListener {
             displayedList.clear()
             displayedList.addAll(list)
-            adapter.setList(displayedList)
+            adapter.resetList(displayedList)
         }
 
         binding.tvDebug.setOnClickListener { _ ->
@@ -52,7 +52,7 @@ class LogHistoryActivity :
             displayedList.addAll(list.filter {
                 it.type == "DEBUG"
             }.toList())
-            adapter.setList(displayedList)
+            adapter.resetList(displayedList)
         }
 
         binding.tvError.setOnClickListener {
@@ -60,7 +60,7 @@ class LogHistoryActivity :
             displayedList.addAll(list.filter {
                 it.type == "ERROR"
             }.toList())
-            adapter.setList(displayedList)
+            adapter.resetList(displayedList)
         }
 
         binding.tvInfo.setOnClickListener {
@@ -68,7 +68,7 @@ class LogHistoryActivity :
             displayedList.addAll(list.filter {
                 it.type == "INFO"
             }.toList())
-            adapter.setList(displayedList)
+            adapter.resetList(displayedList)
         }
 
         binding.tvWarn.setOnClickListener {
@@ -76,7 +76,7 @@ class LogHistoryActivity :
             displayedList.addAll(list.filter {
                 it.type == "WARN"
             }.toList())
-            adapter.setList(displayedList)
+            adapter.resetList(displayedList)
         }
     }
 
