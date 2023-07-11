@@ -18,7 +18,7 @@ import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings
 class BaseApp : Application() {
 
     lateinit var applicationComponent: ApplicationComponent
-    lateinit var remoteConfig:FirebaseRemoteConfig
+    lateinit var remoteConfig: FirebaseRemoteConfig
 
     override fun onCreate() {
         super.onCreate()
@@ -27,7 +27,8 @@ class BaseApp : Application() {
         setupAppsFlyer()
         initRemoteConfigFirebase()
     }
-    private fun initRemoteConfigFirebase(){
+
+    private fun initRemoteConfigFirebase() {
         remoteConfig = FirebaseRemoteConfig.getInstance()
 
         val configSettings = FirebaseRemoteConfigSettings.Builder()
@@ -51,6 +52,7 @@ class BaseApp : Application() {
             notificationImpl = NotificationImpl(applicationContext)
         )
     }
+
     private fun setupAppsFlyer() {
         if (BuildConfig.BUILD_TYPE.contains("debug", ignoreCase = true)) {
             AppsFlyerLib.getInstance().setDebugLog(true)

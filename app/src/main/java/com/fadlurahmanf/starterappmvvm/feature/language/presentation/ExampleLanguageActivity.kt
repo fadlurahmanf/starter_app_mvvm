@@ -1,11 +1,7 @@
 package com.fadlurahmanf.starterappmvvm.feature.language.presentation
 
 import android.content.res.Configuration
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
-import com.fadlurahmanf.starterappmvvm.R
 import com.fadlurahmanf.starterappmvvm.core.data.constant.AnalyticEvent
-import com.fadlurahmanf.starterappmvvm.core.data.constant.logConsole
 import com.fadlurahmanf.starterappmvvm.core.domain.common.BaseActivity
 import com.fadlurahmanf.starterappmvvm.databinding.ActivityExampleLanguageBinding
 import com.fadlurahmanf.starterappmvvm.feature.language.domain.interactor.LanguageInteractor
@@ -25,6 +21,7 @@ class ExampleLanguageActivity :
     }
 
     override fun initSetup() {
+
         binding.btnChangeLanguage.setOnClickListener {
             AnalyticHelper.logEvent(this, AnalyticEvent.btn_change_language)
             val local = languageInteractor.getCurrentLocale(this)

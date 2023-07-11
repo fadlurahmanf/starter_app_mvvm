@@ -11,221 +11,228 @@
         android:layout_height="match_parent"
         android:gravity="center"
         android:orientation="vertical">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Show Loading"/>
+            android:text="Show Loading" />
 
         <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:id="@+id/btn_show_loading"
-            android:text="Show Loading"/>
-
-        <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="Show Loading" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Logging" />
+
+        <Button
             android:id="@+id/btn_logger"
-            android:text="Logging"/>
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Logging" />
 
         <TextView
+            android:id="@+id/tv_change_language"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/change_language"/>
+            android:text="@string/change_language" />
 
         <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:id="@+id/btn_change_language"
-            android:text="Change language"/>
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Change language" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="example of using encrypt decrypt"/>
+            android:text="example of using encrypt decrypt" />
 
         <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:id="@+id/btn_encrypt"
-            android:text="Encrypt Decrypt Text"/>
-
-        <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="Encrypt Decrypt Text" />
+
+        <Button
             android:id="@+id/button2"
-            android:text="Get Testimonial From Api"/>
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Get Testimonial From Api" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Login"/>
+            android:text="Login" />
 
         <Button
+            android:id="@+id/btn_go_to_login"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="go to login"
-            android:id="@+id/btn_go_to_login"/>
+            android:text="go to login" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Chucker Interceptor"/>
+            android:text="Chucker Interceptor" />
 
         <Button
+            android:id="@+id/btn_see_log_chucker"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="See Log Chucker"
-            android:id="@+id/btn_see_log_chucker"/>
+            android:text="See Log Chucker" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="PDF Viewer"/>
+            android:text="PDF Viewer" />
 
         <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:id="@+id/button_pick_pdf"
-            android:text="Pdf From File"/>
-
-        <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="Pdf From File" />
+
+        <Button
             android:id="@+id/button_pdf"
-            android:text="Pdf From Internet"/>
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Pdf From Internet" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Pick Image From Gallery"/>
+            android:text="Pick Image From Gallery" />
 
         <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:id="@+id/button_pick_image_from_gallery"
-            android:text="Pick Image From Gallery"/>
-
-        <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="Pick Image From Gallery" />
+
+        <Button
             android:id="@+id/button_pick_multiple_image_from_gallery"
-            android:text="Pick Multiple Image From Gallery"/>
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Pick Multiple Image From Gallery" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Image Vewer"/>
+            android:text="Image Vewer" />
 
         <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:id="@+id/button_image_viewer"
-            android:text="Image Viewer"/>
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Image Viewer" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Simple Notification"/>
+            android:text="Simple Notification" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Incoming Call Notification"/>
+            android:text="Incoming Call Notification" />
 
         <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:id="@+id/btn_incoming_call_notification"
-            android:text="Incoming Call"/>
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Incoming Call" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Incoming Call Notification Schedule"/>
+            android:text="Incoming Call Notification Schedule" />
 
         <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:id="@+id/btn_schedule_incoming_notification"
-            android:text="Incoming Call"/>
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Incoming Call" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Download"/>
+            android:text="Download" />
 
         <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:id="@+id/btn_download"
-            android:text="Download"/>
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Download" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Play Audio Foreground"/>
+            android:text="Play Audio Foreground" />
 
         <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:id="@+id/btn_play_audio_foreground"
-            android:text="Play Audio Foreground"/>
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Play Audio Foreground" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="QRIS"/>
+            android:text="QRIS" />
 
         <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:id="@+id/btn_qris"
-            android:text="Scan Qris"/>
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Scan Qris" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="GET NEW TOKEN"/>
+            android:text="GET NEW TOKEN" />
 
         <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:id="@+id/btn_get_token"
-            android:text="GET FCM TOKEN"/>
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="GET FCM TOKEN" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="PLAY REMOTE VIDEO"/>
+            android:text="PLAY REMOTE VIDEO" />
 
         <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:id="@+id/btn_play_remote_video"
-            android:text="PLAY REMOTE VIDEO"/>
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="PLAY REMOTE VIDEO" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="GO TO NSD"/>
+            android:text="GO TO NSD" />
 
         <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:id="@+id/btn_go_to_nsd"
-            android:text="NSD"/>
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="NSD" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="GO TO GAKKERY"/>
+            android:text="GO TO GAKKERY" />
 
         <Button
+            android:id="@+id/btn_go_to_gallery"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/btn_go_to_gallery"
-            android:text="Gallery"/>
+            android:text="Gallery" />
     </LinearLayout>
 
 </ScrollView>

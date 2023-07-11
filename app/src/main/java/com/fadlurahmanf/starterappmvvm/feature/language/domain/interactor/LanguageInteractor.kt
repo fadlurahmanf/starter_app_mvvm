@@ -2,7 +2,9 @@ package com.fadlurahmanf.starterappmvvm.feature.language.domain.interactor
 
 import android.content.Context
 import com.fadlurahmanf.starterappmvvm.R
+import com.fadlurahmanf.starterappmvvm.core.data.dto.event.RxEvent
 import com.fadlurahmanf.starterappmvvm.core.data.dto.exception.CustomException
+import com.fadlurahmanf.starterappmvvm.core.external.helper.RxBus
 import com.fadlurahmanf.starterappmvvm.feature.language.data.storage.LanguageSpStorage
 import com.fadlurahmanf.starterappmvvm.feature.language.domain.repository.LanguageRepositoryImpl
 import java.util.Locale
@@ -26,6 +28,7 @@ class LanguageInteractor @Inject constructor(
         if (languageRepositoryImpl.isSupportedLanguage(code)) {
             languageRepositoryImpl.changeLanguage(context, code)
             languageSpStorage.languageCode = code
+            RxBus.publish(RxEvent.ChangeLanguageEvent(code))
         } else {
             throw CustomException(idRawMessage = R.string.exception_general)
         }

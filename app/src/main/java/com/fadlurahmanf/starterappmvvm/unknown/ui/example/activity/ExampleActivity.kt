@@ -13,30 +13,31 @@ import androidx.camera.core.ExperimentalGetImage
 import com.chuckerteam.chucker.api.Chucker
 import com.fadlurahmanf.starterappmvvm.BaseApp
 import com.fadlurahmanf.starterappmvvm.BuildConfig
-import com.fadlurahmanf.starterappmvvm.core.domain.common.BaseActivity
+import com.fadlurahmanf.starterappmvvm.R
 import com.fadlurahmanf.starterappmvvm.core.data.constant.AnalyticEvent
 import com.fadlurahmanf.starterappmvvm.core.data.constant.BuildFlavorConstant
 import com.fadlurahmanf.starterappmvvm.core.data.constant.logConsole
-import com.fadlurahmanf.starterappmvvm.databinding.ActivityExampleBinding
-import com.fadlurahmanf.starterappmvvm.feature.language.presentation.TranslationHelper
-import com.fadlurahmanf.starterappmvvm.feature.language.data.storage.LanguageSpStorage
-import com.fadlurahmanf.starterappmvvm.feature.gallery.data.dto.model.ImageModel
-import com.fadlurahmanf.starterappmvvm.feature.gallery.data.constant.ImageOrigin
-import com.fadlurahmanf.starterappmvvm.feature.gallery.domain.interactor.FetchGalleryInteractor
-import com.fadlurahmanf.starterappmvvm.unknown.di.component.ExampleComponent
-import com.fadlurahmanf.starterappmvvm.unknown.dto.model.core.PdfModel
-import com.fadlurahmanf.starterappmvvm.unknown.dto.model.core.PdfOrigin
+import com.fadlurahmanf.starterappmvvm.core.data.dto.event.RxEvent
+import com.fadlurahmanf.starterappmvvm.core.domain.common.BaseActivity
 import com.fadlurahmanf.starterappmvvm.core.presentation.ImageViewerActivity
 import com.fadlurahmanf.starterappmvvm.core.presentation.PdfViewerActivity
 import com.fadlurahmanf.starterappmvvm.core.presentation.VideoPlayerActivity
-import com.fadlurahmanf.starterappmvvm.unknown.utils.analytic.AnalyticHelper
+import com.fadlurahmanf.starterappmvvm.databinding.ActivityExampleBinding
 import com.fadlurahmanf.starterappmvvm.feature.download.domain.service.DownloadService
+import com.fadlurahmanf.starterappmvvm.feature.gallery.data.constant.ImageOrigin
+import com.fadlurahmanf.starterappmvvm.feature.gallery.data.dto.model.ImageModel
+import com.fadlurahmanf.starterappmvvm.feature.gallery.domain.interactor.FetchGalleryInteractor
 import com.fadlurahmanf.starterappmvvm.feature.gallery.presentation.ExampleGalleryActivity
+import com.fadlurahmanf.starterappmvvm.feature.language.data.storage.LanguageSpStorage
 import com.fadlurahmanf.starterappmvvm.feature.language.presentation.ExampleLanguageActivity
-import com.fadlurahmanf.starterappmvvm.feature.notification.domain.usecases.NotificationImpl
-import com.fadlurahmanf.starterappmvvm.unknown.utils.media.MediaPlayerService
-import com.fadlurahmanf.starterappmvvm.unknown.utils.call.CallBroadcastReceiver
 import com.fadlurahmanf.starterappmvvm.feature.notification.domain.usecases.NotificationHelper
+import com.fadlurahmanf.starterappmvvm.feature.notification.domain.usecases.NotificationImpl
+import com.fadlurahmanf.starterappmvvm.unknown.di.component.ExampleComponent
+import com.fadlurahmanf.starterappmvvm.unknown.dto.model.core.PdfModel
+import com.fadlurahmanf.starterappmvvm.unknown.dto.model.core.PdfOrigin
+import com.fadlurahmanf.starterappmvvm.unknown.utils.analytic.AnalyticHelper
+import com.fadlurahmanf.starterappmvvm.unknown.utils.call.CallBroadcastReceiver
+import com.fadlurahmanf.starterappmvvm.unknown.utils.media.MediaPlayerService
 import com.google.firebase.messaging.FirebaseMessaging
 import java.util.*
 import javax.inject.Inject
@@ -45,9 +46,6 @@ import javax.inject.Inject
 class ExampleActivity :
     BaseActivity<ActivityExampleBinding>(ActivityExampleBinding::inflate) {
     lateinit var component: ExampleComponent
-
-    @Inject
-    lateinit var languageSpStorage: LanguageSpStorage
 
     @Inject
     lateinit var fetchGalleryInteractor: FetchGalleryInteractor
@@ -76,6 +74,11 @@ class ExampleActivity :
                 println("URI: ${it.path}")
             }
         }
+
+    override fun onLanguageChange(event: RxEvent.ChangeLanguageEvent) {
+        super.onLanguageChange(event)
+        binding.tvChangeLanguage.text = getString(R.string.change_language)
+    }
 
     override fun initSetup() {
         isVisibleBtnPdfFromFile = remoteConfig().getBoolean("btn_pdf_from_file")

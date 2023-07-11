@@ -13,6 +13,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.viewbinding.ViewBinding
 import com.chuckerteam.chucker.api.Chucker
 import com.fadlurahmanf.starterappmvvm.BaseApp
+import com.fadlurahmanf.starterappmvvm.core.data.dto.event.RxEvent
+import com.fadlurahmanf.starterappmvvm.core.external.helper.RxBus
 import com.fadlurahmanf.starterappmvvm.unknown.di.component.ApplicationComponent
 import com.fadlurahmanf.starterappmvvm.unknown.ui.core.dialog.DefaultLoadingDialog
 import com.google.android.material.snackbar.Snackbar
@@ -21,11 +23,11 @@ import io.reactivex.rxjava3.disposables.Disposable
 
 typealias InflateActivity<T> = (LayoutInflater) -> T
 
-abstract class BaseActivity<VB: ViewBinding>(
+abstract class BaseActivity<VB : ViewBinding>(
     var inflate: InflateActivity<VB>
-): AppCompatActivity() {
+) : AppCompatActivity() {
 
-    private var _binding:VB ?= null
+    private var _binding: VB? = null
     val binding get() = _binding!!
 
     private var _appComponent: ApplicationComponent? = null
@@ -47,16 +49,17 @@ abstract class BaseActivity<VB: ViewBinding>(
         currentAcceleration = SensorManager.GRAVITY_EARTH
         lastAcceleration = SensorManager.GRAVITY_EARTH
         sensorManager = getSystemService(SENSOR_SERVICE) as SensorManager
-        sensorManager!!.registerListener(sensorListener, sensorManager!!.getDefaultSensor(Sensor.TYPE_ACCELEROMETER),
+        sensorManager!!.registerListener(
+            sensorListener, sensorManager!!.getDefaultSensor(Sensor.TYPE_ACCELEROMETER),
             SensorManager.SENSOR_DELAY_NORMAL
         )
     }
 
-    open fun internalSetup(){}
+    open fun internalSetup() {}
 
     abstract fun initSetup()
 
-    private fun setLayout(){
+    private fun setLayout() {
         _binding = inflate.invoke(layoutInflater)
         setContentView(binding.root)
     }
@@ -65,17 +68,17 @@ abstract class BaseActivity<VB: ViewBinding>(
 
     fun addSubscription(disposable: Disposable) = CompositeDisposable().add(disposable)
 
-    fun removeStatusBar(){
+    fun removeStatusBar() {
         window.setFlags(
             WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
             WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
         )
     }
 
-    private var loadingDialog: DefaultLoadingDialog?= null
-    fun showLoadingDialog(isCancelable:Boolean = false){
+    private var loadingDialog: DefaultLoadingDialog? = null
+    fun showLoadingDialog(isCancelable: Boolean = false) {
         dismissLoadingDialog()
-        if (loadingDialog == null){
+        if (loadingDialog == null) {
             loadingDialog = DefaultLoadingDialog()
             loadingDialog!!.arguments = Bundle().apply {
                 putBoolean(DefaultLoadingDialog.IS_CANCELABLE, isCancelable)
@@ -84,16 +87,16 @@ abstract class BaseActivity<VB: ViewBinding>(
         }
     }
 
-    fun dismissLoadingDialog(){
-        if (loadingDialog != null){
+    fun dismissLoadingDialog() {
+        if (loadingDialog != null) {
             loadingDialog?.dismiss()
             loadingDialog = null
         }
     }
 
     private var mSnackbar: Snackbar? = null
-    fun showSnackBar(view: View?, message:String, duration: Int = Snackbar.LENGTH_SHORT){
-        if (mSnackbar != null){
+    fun showSnackBar(view: View?, message: String, duration: Int = Snackbar.LENGTH_SHORT) {
+        if (mSnackbar != null) {
             mSnackbar?.dismiss()
             mSnackbar = null
         }
@@ -102,8 +105,8 @@ abstract class BaseActivity<VB: ViewBinding>(
     }
 
     private var mToast: Toast? = null
-    fun showToast(message: String){
-        if (mToast != null){
+    fun showToast(message: String) {
+        if (mToast != null) {
             mToast?.cancel()
             mToast = null
         }
@@ -113,6 +116,7 @@ abstract class BaseActivity<VB: ViewBinding>(
 
     override fun onResume() {
         super.onResume()
+        listenRxBus()
     }
 
     override fun onStart() {
@@ -151,6 +155,18 @@ abstract class BaseActivity<VB: ViewBinding>(
                 startActivity(intent)
             }
         }
+
         override fun onAccuracyChanged(sensor: Sensor, accuracy: Int) {}
+    }
+
+    private val compositeDisposable = CompositeDisposable()
+
+    open fun onLanguageChange(event: RxEvent.ChangeLanguageEvent) {}
+
+    private fun listenRxBus() {
+        compositeDisposable.add(RxBus.listen(RxEvent.ChangeLanguageEvent::class.java).subscribe {
+            onLanguageChange(it)
+            compositeDisposable.clear()
+        })
     }
 }
