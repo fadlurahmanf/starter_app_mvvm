@@ -6,4 +6,8 @@
     <string name="exception_general">something happened, please try again later</string>
     <string name="download_failed_desc">Download failed</string>
     <string name="download_url_not_valid_desc">URL Download not valid</string>
+    <string name="oops">Oops…</string>
+
+    <string name="download">Download</string>
+    <string name="downloading">Downloading</string>
 </resources>

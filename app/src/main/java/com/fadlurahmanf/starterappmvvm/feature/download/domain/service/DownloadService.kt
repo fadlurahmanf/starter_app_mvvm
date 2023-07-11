@@ -14,6 +14,7 @@ import android.os.Looper
 import androidx.core.content.ContextCompat
 import com.fadlurahmanf.starterappmvvm.R
 import com.fadlurahmanf.starterappmvvm.core.data.constant.logConsole
+import com.fadlurahmanf.starterappmvvm.core.data.dto.exception.CustomException
 import com.fadlurahmanf.starterappmvvm.feature.download.domain.usecases.NotificationDownload
 import com.fadlurahmanf.starterappmvvm.feature.notification.data.constant.NotificationConstant
 import java.io.File
@@ -80,7 +81,11 @@ class DownloadService : Service() {
         val urlDownload = intent?.extras?.getString(DOWNLOAD_URL)
         val downloadFileName = intent?.extras?.getString(DOWNLOAD_FILE_NAME)
         if (urlDownload.isNullOrEmpty()) {
-            showError(applicationContext.getString(R.string.download_url_not_valid_desc))
+            showError(
+                CustomException(
+                    idRawMessage = R.string.download_url_not_valid_desc
+                )
+            )
             stopSelf()
             return
         }
@@ -110,7 +115,11 @@ class DownloadService : Service() {
                         stopSelf()
                         return
                     } else if (status == DownloadManager.STATUS_FAILED) {
-                        showError(applicationContext.getString(R.string.download_failed_desc))
+                        showError(
+                            CustomException(
+                                idRawMessage = R.string.download_failed_desc
+                            )
+                        )
                         handler.removeCallbacks(this)
                         stopSelf()
                         return
@@ -128,8 +137,8 @@ class DownloadService : Service() {
                         }
                         if (totalSize < progress) {
                             notificationImpl.showNotification(
-                                title = "DOWNLOAD",
-                                body = "Downloading"
+                                title = applicationContext.getString(R.string.download),
+                                body = applicationContext.getString(R.string.downloading)
                             )
                         } else {
                             notificationImpl.showDownload(data)
@@ -138,7 +147,11 @@ class DownloadService : Service() {
                 }
                 handler.postDelayed(this, 2000)
             } catch (e: Throwable) {
-                showError("${e.message}")
+                showError(
+                    CustomException(
+                        rawMessage = e.message
+                    )
+                )
                 stopSelf()
                 handler.removeCallbacks(this)
                 return
@@ -172,12 +185,12 @@ class DownloadService : Service() {
         return progress
     }
 
-    fun showError(message: String) {
-        logConsole.e("DOWNLOAD FAILED: $message")
+    fun showError(e: CustomException) {
+        logConsole.e("DOWNLOAD FAILED: ${e.toProperException(applicationContext)}")
         notificationImpl.showNotification(
             id = Random.nextInt(1000),
-            title = "Download",
-            body = message
+            title = e.title ?: "-",
+            body = e.message ?: "-"
         )
     }
 

@@ -6,4 +6,8 @@
     <string name="exception_general">Ada kendala, silahkan coba lagi nanti</string>
     <string name="download_failed_desc">Download gagal</string>
     <string name="download_url_not_valid_desc">URL Download tidak valid</string>
+    <string name="oops">Ups…</string>
+
+    <string name="download">Unduk</string>
+    <string name="downloading">Sedang mengunduh</string>
 </resources>
