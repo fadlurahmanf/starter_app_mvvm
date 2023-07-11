@@ -1,5 +1,6 @@
 package com.fadlurahmanf.starterappmvvm.core.external.extension
 
+import com.fadlurahmanf.starterappmvvm.core.data.constant.SdfConstant
 import java.text.SimpleDateFormat
 import java.util.*
 import java.util.concurrent.TimeUnit
@@ -79,7 +80,7 @@ fun Date.formatDate4(): String? {
  * */
 fun Date.formatDate5(): String? {
     return try {
-        val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+        val sdf = SdfConstant.sdf1
         sdf.format(this)
     } catch (e: Exception) {
         null

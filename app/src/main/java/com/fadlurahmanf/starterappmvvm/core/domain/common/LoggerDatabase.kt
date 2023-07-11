@@ -4,31 +4,35 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
 import com.fadlurahmanf.starterappmvvm.core.data.constant.AppConstant
-import com.fadlurahmanf.starterappmvvm.unknown.data.room.dao.SurahDao
-import com.fadlurahmanf.starterappmvvm.unknown.dto.response.example.SurahResponse
+import com.fadlurahmanf.starterappmvvm.core.data.converter.DateConverter
+import com.fadlurahmanf.starterappmvvm.feature.logger.data.dto.entity.LoggerEntity
+import com.fadlurahmanf.starterappmvvm.feature.logger.domain.repository.LoggerDao
 
 @Database(
     entities = [
-        SurahResponse::class,
+        LoggerEntity::class
     ], version = GeneralDatabase.VERSION,
     exportSchema = false
 )
-abstract class GeneralDatabase : RoomDatabase() {
-    abstract fun surahDao(): SurahDao
+@TypeConverters(value = [DateConverter::class])
+abstract class LoggerDatabase : RoomDatabase() {
+    abstract fun loggerDao(): LoggerDao
 
     companion object {
         const val VERSION = 5
 
         @Volatile
-        private var INSTANCE: GeneralDatabase? = null
-        fun getDatabase(context: Context): GeneralDatabase {
+        private var INSTANCE: LoggerDatabase? = null
+        fun getDatabase(context: Context): LoggerDatabase {
             return INSTANCE ?: synchronized(this) {
                 val instance = Room.databaseBuilder(
                     context.applicationContext,
-                    GeneralDatabase::class.java,
-                    AppConstant.RoomDB.core
+                    LoggerDatabase::class.java,
+                    AppConstant.RoomDB.logger
                 ).fallbackToDestructiveMigration()
+                    .allowMainThreadQueries()
                     .build()
                 INSTANCE = instance
                 instance
@@ -36,4 +40,3 @@ abstract class GeneralDatabase : RoomDatabase() {
         }
     }
 }
-

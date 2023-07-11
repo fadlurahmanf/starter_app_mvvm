@@ -16,9 +16,14 @@ class LogHistoryAdapter : RecyclerView.Adapter<LogHistoryAdapter.ViewHolder>() {
     private lateinit var context: Context
 
     fun setList(list: List<LoggerEntity>) {
-        this.list.clear()
         this.list.addAll(list)
-        notifyDataSetChanged()
+        notifyItemRangeInserted(0, this.list.size)
+    }
+
+    fun resetList(){
+        val total = this.list.size
+        this.list.clear()
+        notifyItemRangeRemoved(0, total)
     }
 
     fun clearList() {

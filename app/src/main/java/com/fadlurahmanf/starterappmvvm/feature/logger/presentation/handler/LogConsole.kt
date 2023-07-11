@@ -12,7 +12,7 @@ class LogConsole(
     private val notificationImpl: NotificationImpl
 ) {
 
-    private fun createDate() = Calendar.getInstance().time.formatDate5()
+    private fun createDate() = Calendar.getInstance().time
 
     private fun log(type: String, message: String, showNotification: Boolean) {
         loggerInteractor.insert(

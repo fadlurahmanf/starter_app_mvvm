@@ -31,10 +31,22 @@ class LogHistoryActivity :
         initObserver()
         initAction()
         viewModel.getAllHistory()
-//        viewModel.deleteLogs()
     }
 
     private fun initAction() {
+        binding.tvDelete.setOnClickListener {
+            list.clear()
+            displayedList.clear()
+            adapter.setList(displayedList)
+            viewModel.deleteLogs()
+        }
+
+        binding.tvAll.setOnClickListener {
+            displayedList.clear()
+            displayedList.addAll(list)
+            adapter.setList(displayedList)
+        }
+
         binding.tvDebug.setOnClickListener { _ ->
             displayedList.clear()
             displayedList.addAll(list.filter {
