@@ -1,10 +1,10 @@
-package com.fadlurahmanf.starterappmvvm.feature.sp.presentation
+package com.fadlurahmanf.starterappmvvm.core.sp.presentation
 
 import com.fadlurahmanf.starterappmvvm.core.unknown.data.constant.logConsole
 import com.fadlurahmanf.starterappmvvm.core.unknown.domain.common.BaseActivity
 import com.fadlurahmanf.starterappmvvm.databinding.ActivityExampleSpBinding
-import com.fadlurahmanf.starterappmvvm.feature.sp.data.dto.model.ExampleModelSp
-import com.fadlurahmanf.starterappmvvm.feature.sp.data.storage.ExampleSpStorage
+import com.fadlurahmanf.starterappmvvm.core.sp.data.dto.model.ExampleModelSp
+import com.fadlurahmanf.starterappmvvm.core.sp.data.storage.ExampleSpStorage
 import com.fadlurahmanf.starterappmvvm.unknown.di.component.ExampleComponent
 import javax.inject.Inject
 

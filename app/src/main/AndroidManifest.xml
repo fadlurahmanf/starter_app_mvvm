@@ -31,7 +31,7 @@
         android:theme="@style/Theme.StarterAppMvvm"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".feature.sp.presentation.ExampleSPActivity"
+            android:name=".core.sp.presentation.ExampleSPActivity"
             android:exported="false" />
         <activity
             android:name=".feature.logger.presentation.LogHistoryActivity"

@@ -1,4 +1,4 @@
-package com.fadlurahmanf.starterappmvvm.feature.sp.data.dto.model
+package com.fadlurahmanf.starterappmvvm.core.sp.data.dto.model
 
 data class ExampleModelSp(
     val string: String,

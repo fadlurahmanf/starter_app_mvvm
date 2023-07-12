@@ -1,10 +1,10 @@
-package com.fadlurahmanf.starterappmvvm.feature.sp.data.storage
+package com.fadlurahmanf.starterappmvvm.core.sp.data.storage
 
 import android.content.Context
 import com.fadlurahmanf.starterappmvvm.feature.encrypt.presentation.CryptoRSA
-import com.fadlurahmanf.starterappmvvm.feature.sp.data.constant.SpConstant
-import com.fadlurahmanf.starterappmvvm.feature.sp.data.dto.model.ExampleModelSp
-import com.fadlurahmanf.starterappmvvm.feature.sp.domain.common.BasePreference
+import com.fadlurahmanf.starterappmvvm.core.sp.data.constant.SpConstant
+import com.fadlurahmanf.starterappmvvm.core.sp.data.dto.model.ExampleModelSp
+import com.fadlurahmanf.starterappmvvm.core.sp.domain.common.BasePreference
 import javax.inject.Inject
 
 class ExampleSpStorage @Inject constructor(

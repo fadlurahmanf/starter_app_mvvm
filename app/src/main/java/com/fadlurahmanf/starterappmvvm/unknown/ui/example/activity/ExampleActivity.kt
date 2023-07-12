@@ -31,7 +31,7 @@ import com.fadlurahmanf.starterappmvvm.feature.gallery.presentation.ExampleGalle
 import com.fadlurahmanf.starterappmvvm.feature.language.presentation.ExampleLanguageActivity
 import com.fadlurahmanf.starterappmvvm.feature.logger.presentation.LogHistoryActivity
 import com.fadlurahmanf.starterappmvvm.feature.notification.domain.usecases.NotificationImpl
-import com.fadlurahmanf.starterappmvvm.feature.sp.presentation.ExampleSPActivity
+import com.fadlurahmanf.starterappmvvm.core.sp.presentation.ExampleSPActivity
 import com.fadlurahmanf.starterappmvvm.unknown.di.component.ExampleComponent
 import com.fadlurahmanf.starterappmvvm.unknown.dto.model.core.PdfModel
 import com.fadlurahmanf.starterappmvvm.unknown.dto.model.core.PdfOrigin

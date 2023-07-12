@@ -1,4 +1,4 @@
-package com.fadlurahmanf.starterappmvvm.feature.sp.data.constant
+package com.fadlurahmanf.starterappmvvm.core.sp.data.constant
 
 import com.fadlurahmanf.starterappmvvm.core.unknown.data.constant.AppConstant
 
