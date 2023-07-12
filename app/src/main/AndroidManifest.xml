@@ -31,6 +31,9 @@
         android:theme="@style/Theme.StarterAppMvvm"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".core.room.presentation.ExampleRoomActivity"
+            android:exported="false" />
+        <activity
             android:name=".core.sp.presentation.ExampleSPActivity"
             android:exported="false" />
         <activity

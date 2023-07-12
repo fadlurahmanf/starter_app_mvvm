@@ -1,5 +1,6 @@
 package com.fadlurahmanf.starterappmvvm.unknown.di.component
 
+import com.fadlurahmanf.starterappmvvm.core.room.presentation.ExampleRoomActivity
 import com.fadlurahmanf.starterappmvvm.feature.language.presentation.ExampleLanguageActivity
 import com.fadlurahmanf.starterappmvvm.feature.logger.presentation.LogHistoryActivity
 import com.fadlurahmanf.starterappmvvm.feature.notification.presentation.ExampleNotificationActivity
@@ -22,6 +23,7 @@ interface ExampleComponent {
     fun inject(activity: ExampleNotificationActivity)
     fun inject(activity: ExampleLanguageActivity)
     fun inject(activity: ExampleSPActivity)
+    fun inject(activity: ExampleRoomActivity)
     fun inject(activity: SecondExampleActivity)
     fun inject(activity: LoginActivity)
     fun inject(activity: LogHistoryActivity)

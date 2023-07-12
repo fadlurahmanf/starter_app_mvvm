@@ -1,10 +1,11 @@
-package com.fadlurahmanf.starterappmvvm.core.unknown.domain.common
+package com.fadlurahmanf.starterappmvvm.core.room.domain.common
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
+import com.fadlurahmanf.starterappmvvm.core.room.data.constant.RoomConstant
 import com.fadlurahmanf.starterappmvvm.core.unknown.data.constant.AppConstant
 import com.fadlurahmanf.starterappmvvm.core.unknown.data.converter.DateConverter
 import com.fadlurahmanf.starterappmvvm.feature.logger.data.dto.entity.LoggerEntity
@@ -21,7 +22,7 @@ abstract class LoggerDatabase : RoomDatabase() {
     abstract fun loggerDao(): LoggerDao
 
     companion object {
-        const val VERSION = 5
+        const val VERSION = RoomConstant.DBVersion.logger
 
         @Volatile
         private var INSTANCE: LoggerDatabase? = null

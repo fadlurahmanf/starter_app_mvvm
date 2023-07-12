@@ -1,8 +1,7 @@
 package com.fadlurahmanf.starterappmvvm.feature.logger.domain.repository
 
 import android.content.Context
-import com.fadlurahmanf.starterappmvvm.core.unknown.domain.common.GeneralDatabase
-import com.fadlurahmanf.starterappmvvm.core.unknown.domain.common.LoggerDatabase
+import com.fadlurahmanf.starterappmvvm.core.room.domain.common.LoggerDatabase
 import com.fadlurahmanf.starterappmvvm.feature.logger.data.dto.entity.LoggerEntity
 import javax.inject.Inject
 

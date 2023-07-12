@@ -14,6 +14,7 @@ import com.chuckerteam.chucker.api.Chucker
 import com.fadlurahmanf.starterappmvvm.BaseApp
 import com.fadlurahmanf.starterappmvvm.BuildConfig
 import com.fadlurahmanf.starterappmvvm.R
+import com.fadlurahmanf.starterappmvvm.core.room.presentation.ExampleRoomActivity
 import com.fadlurahmanf.starterappmvvm.core.unknown.data.constant.AnalyticEvent
 import com.fadlurahmanf.starterappmvvm.core.unknown.data.constant.BuildFlavorConstant
 import com.fadlurahmanf.starterappmvvm.core.unknown.data.constant.logConsole
@@ -112,6 +113,11 @@ class ExampleActivity :
 
         binding.btnSpStorage.setOnClickListener {
             val intent = Intent(this, ExampleSPActivity::class.java)
+            startActivity(intent)
+        }
+
+        binding.btnRoom.setOnClickListener {
+            val intent = Intent(this, ExampleRoomActivity::class.java)
             startActivity(intent)
         }
 

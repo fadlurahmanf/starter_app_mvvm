@@ -1,5 +1,6 @@
 package com.fadlurahmanf.starterappmvvm.feature.logger.domain.interactor
 
+import android.util.Log
 import com.fadlurahmanf.starterappmvvm.feature.logger.data.dto.entity.LoggerEntity
 import com.fadlurahmanf.starterappmvvm.feature.logger.domain.repository.LoggerRoomDatasource
 import io.reactivex.rxjava3.core.Observable
@@ -11,9 +12,8 @@ class LoggerInteractor @Inject constructor(
     fun insert(entity: LoggerEntity) {
         try {
             loggerRoomDatasource.insert(entity)
-            println("MASUK $entity")
         } catch (e: Throwable) {
-            println("MASUK SINI ${e.message}")
+            Log.e("LOG CONSOLE", "ERROR INSERT LOG ${e.message}")
         }
     }
 
