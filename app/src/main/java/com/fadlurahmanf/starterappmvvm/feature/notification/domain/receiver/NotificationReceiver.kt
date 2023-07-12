@@ -7,7 +7,7 @@ import android.content.Intent
 import android.os.Build
 import com.fadlurahmanf.starterappmvvm.core.unknown.data.constant.logConsole
 import com.fadlurahmanf.starterappmvvm.feature.notification.data.dto.model.ContentNotificationModel
-import com.fadlurahmanf.starterappmvvm.unknown.ui.example.activity.LoginActivity
+import com.fadlurahmanf.starterappmvvm.core.network.presentation.LoginActivity
 
 class NotificationReceiver : BroadcastReceiver() {
     companion object {

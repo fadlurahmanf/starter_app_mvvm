@@ -8,7 +8,7 @@ import com.chuckerteam.chucker.api.RetentionManager
 import com.fadlurahmanf.starterappmvvm.BuildConfig
 import com.fadlurahmanf.starterappmvvm.core.unknown.data.constant.AppConstant
 import com.fadlurahmanf.starterappmvvm.core.unknown.data.constant.BuildFlavorConstant
-import com.fadlurahmanf.starterappmvvm.unknown.data.api.path.example.AuthApi
+import com.fadlurahmanf.starterappmvvm.core.network.data.api.IdentityApi
 import com.google.gson.JsonObject
 import okhttp3.*
 import okhttp3.logging.HttpLoggingInterceptor
@@ -21,13 +21,12 @@ class TokenAuthenticator(
     private var context: Context
 ) : Authenticator {
     override fun authenticate(route: Route?, response: Response): Request {
-        Log.d("TokenAuthenticator", "authenticate: ${response.body?.string()}")
         val request = response.request
 
         val refreshToken = sharedPreference().getString(AppConstant.Sp.REFRESH_TOKEN, "")
         val body = JsonObject()
         body.addProperty("token", refreshToken)
-        val refreshTokenResponse = api().refreshToken(body).execute()
+        val refreshTokenResponse = api().refreshToken2(body).execute()
 
         return if (refreshTokenResponse.isSuccessful
             && refreshTokenResponse.body()?.code == "200"
@@ -35,10 +34,16 @@ class TokenAuthenticator(
             && refreshTokenResponse.body()?.data?.refreshToken != null
         ) {
             sharedPreference().edit()
-                .putString(AppConstant.Sp.ACCESS_TOKEN, refreshTokenResponse.body()?.data?.accessToken)
+                .putString(
+                    AppConstant.Sp.ACCESS_TOKEN,
+                    refreshTokenResponse.body()?.data?.accessToken
+                )
                 .apply()
             sharedPreference().edit()
-                .putString(AppConstant.Sp.REFRESH_TOKEN, refreshTokenResponse.body()?.data?.refreshToken)
+                .putString(
+                    AppConstant.Sp.REFRESH_TOKEN,
+                    refreshTokenResponse.body()?.data?.refreshToken
+                )
                 .apply()
             request.newBuilder()
                 .header("Authorization", "Bearer ${refreshTokenResponse.body()?.data?.accessToken}")
@@ -86,5 +91,5 @@ class TokenAuthenticator(
         .addConverterFactory(GsonConverterFactory.create())
         .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
         .build()
-        .create(AuthApi::class.java)
+        .create(IdentityApi::class.java)
 }

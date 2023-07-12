@@ -15,6 +15,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textAllCaps="true"
             android:text="Show Loading" />
 
         <Button
@@ -26,6 +27,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textAllCaps="true"
             android:text="Logging" />
 
         <Button
@@ -38,6 +40,7 @@
             android:id="@+id/tv_change_language"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textAllCaps="true"
             android:text="@string/change_language" />
 
         <Button
@@ -79,22 +82,23 @@
             android:layout_height="wrap_content"
             android:text="ROOM" />
 
-        <Button
-            android:id="@+id/button2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Get Testimonial From Api" />
-
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textAllCaps="true"
             android:text="Login" />
 
         <Button
             android:id="@+id/btn_go_to_login"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="go to login" />
+            android:text="LOGIN" />
+
+        <Button
+            android:id="@+id/button2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Get Testimonial From Api" />
 
         <TextView
             android:layout_width="wrap_content"

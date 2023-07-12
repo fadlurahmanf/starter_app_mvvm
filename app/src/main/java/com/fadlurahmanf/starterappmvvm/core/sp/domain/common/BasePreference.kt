@@ -4,8 +4,8 @@ import android.content.Context
 import android.content.SharedPreferences
 import com.fadlurahmanf.starterappmvvm.core.unknown.data.constant.logConsole
 import com.fadlurahmanf.starterappmvvm.core.unknown.data.dto.exception.CustomException
-import com.fadlurahmanf.starterappmvvm.feature.encrypt.data.model.CryptoKey
-import com.fadlurahmanf.starterappmvvm.feature.encrypt.presentation.CryptoRSA
+import com.fadlurahmanf.starterappmvvm.core.encrypt.data.model.CryptoKey
+import com.fadlurahmanf.starterappmvvm.core.encrypt.presentation.CryptoRSA
 import com.fadlurahmanf.starterappmvvm.core.sp.data.constant.SpConstant
 import com.google.gson.Gson
 

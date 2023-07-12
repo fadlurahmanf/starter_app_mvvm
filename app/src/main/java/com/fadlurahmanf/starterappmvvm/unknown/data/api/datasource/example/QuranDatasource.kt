@@ -2,7 +2,7 @@ package com.fadlurahmanf.starterappmvvm.unknown.data.api.datasource.example
 
 import android.content.Context
 import com.fadlurahmanf.starterappmvvm.unknown.data.api.path.example.QuranAPI
-import com.fadlurahmanf.starterappmvvm.unknown.network.AbstractQuranNetwork
+import com.fadlurahmanf.starterappmvvm.core.network.domain.common.AbstractQuranNetwork
 import javax.inject.Inject
 
 class QuranDatasource @Inject constructor(

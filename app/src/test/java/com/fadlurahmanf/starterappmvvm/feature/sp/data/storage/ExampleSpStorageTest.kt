@@ -1,8 +1,8 @@
 package com.fadlurahmanf.starterappmvvm.feature.sp.data.storage
 
 import android.content.Context
-import com.fadlurahmanf.starterappmvvm.feature.encrypt.data.model.CryptoKey
-import com.fadlurahmanf.starterappmvvm.feature.encrypt.presentation.CryptoRSA
+import com.fadlurahmanf.starterappmvvm.core.encrypt.data.model.CryptoKey
+import com.fadlurahmanf.starterappmvvm.core.encrypt.presentation.CryptoRSA
 import com.fadlurahmanf.starterappmvvm.core.sp.data.dto.model.ExampleModelSp
 import com.fadlurahmanf.starterappmvvm.core.sp.data.storage.ExampleSpStorage
 import com.github.ivanshafran.sharedpreferencesmock.SPMockBuilder

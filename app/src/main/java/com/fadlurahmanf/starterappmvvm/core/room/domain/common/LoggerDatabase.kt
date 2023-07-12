@@ -8,8 +8,8 @@ import androidx.room.TypeConverters
 import com.fadlurahmanf.starterappmvvm.core.room.data.constant.RoomConstant
 import com.fadlurahmanf.starterappmvvm.core.unknown.data.constant.AppConstant
 import com.fadlurahmanf.starterappmvvm.core.unknown.data.converter.DateConverter
-import com.fadlurahmanf.starterappmvvm.feature.logger.data.dto.entity.LoggerEntity
-import com.fadlurahmanf.starterappmvvm.feature.logger.data.dao.LoggerDao
+import com.fadlurahmanf.starterappmvvm.core.logger.data.dto.entity.LoggerEntity
+import com.fadlurahmanf.starterappmvvm.core.logger.data.dao.LoggerDao
 
 @Database(
     entities = [

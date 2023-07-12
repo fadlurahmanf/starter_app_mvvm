@@ -30,7 +30,8 @@ import com.fadlurahmanf.starterappmvvm.feature.gallery.data.dto.model.ImageModel
 import com.fadlurahmanf.starterappmvvm.feature.gallery.domain.interactor.FetchGalleryInteractor
 import com.fadlurahmanf.starterappmvvm.feature.gallery.presentation.ExampleGalleryActivity
 import com.fadlurahmanf.starterappmvvm.feature.language.presentation.ExampleLanguageActivity
-import com.fadlurahmanf.starterappmvvm.feature.logger.presentation.LogHistoryActivity
+import com.fadlurahmanf.starterappmvvm.core.logger.presentation.LogHistoryActivity
+import com.fadlurahmanf.starterappmvvm.core.network.presentation.LoginActivity
 import com.fadlurahmanf.starterappmvvm.feature.notification.domain.usecases.NotificationImpl
 import com.fadlurahmanf.starterappmvvm.core.sp.presentation.ExampleSPActivity
 import com.fadlurahmanf.starterappmvvm.unknown.di.component.ExampleComponent

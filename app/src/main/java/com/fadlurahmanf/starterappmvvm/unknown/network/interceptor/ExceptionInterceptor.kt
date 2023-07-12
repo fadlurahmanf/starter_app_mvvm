@@ -19,6 +19,7 @@ class ExceptionInterceptor : Interceptor {
             }
             return response
         } catch (e: Throwable) {
+            println("MASUK MASUK ${e.message}")
             when (e) {
                 is HttpException -> {
                     throw CustomException()
