@@ -10,6 +10,21 @@ class ExampleSpStorage @Inject constructor(
     context: Context
 ) : BasePreference(context) {
 
+    var exampleRawString: String? = null
+        get() {
+            field = getRawString(SpConstant.EXAMPLE_RAW_STRING)
+            return field
+        }
+        set(value) {
+            field = if (value != null) {
+                saveRawString(SpConstant.EXAMPLE_RAW_STRING, value)
+                value
+            } else {
+                clearData(SpConstant.EXAMPLE_RAW_STRING)
+                null
+            }
+        }
+
     var exampleString: String? = null
         get() {
             field = getString(SpConstant.EXAMPLE_STRING)

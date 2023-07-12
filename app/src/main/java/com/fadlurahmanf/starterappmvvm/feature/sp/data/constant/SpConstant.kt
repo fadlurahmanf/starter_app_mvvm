@@ -12,6 +12,8 @@ object SpConstant {
     const val PRIVATE_KEY = AppConstant.Sp.PRIVATE_KEY
     const val PUBLIC_KEY = AppConstant.Sp.PUBLIC_KEY
 
+    const val EXAMPLE_RAW_STRING = "EXAMPLE_RAW_STRING"
+
     const val EXAMPLE_STRING = "EXAMPLE_STRING"
     const val EXAMPLE_INT = "EXAMPLE_INT"
     const val EXAMPLE_LONG = "EXAMPLE_LONG"

@@ -39,7 +39,7 @@ abstract class BasePreference(val context: Context) {
     /**
      * input plain text string, later will be saved without encrypted
      * */
-    private fun saveRawString(key: String, value: String) {
+    protected fun saveRawString(key: String, value: String) {
         try {
             sharedPreferences.edit().putString(key, value).apply()
         } catch (e: Throwable) {
