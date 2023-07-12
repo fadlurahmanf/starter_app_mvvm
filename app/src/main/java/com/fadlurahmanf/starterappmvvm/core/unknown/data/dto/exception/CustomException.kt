@@ -5,6 +5,7 @@ import androidx.annotation.StringRes
 import com.fadlurahmanf.starterappmvvm.R
 import com.fadlurahmanf.starterappmvvm.core.unknown.data.constant.ExceptionConstant
 import com.fadlurahmanf.starterappmvvm.core.unknown.data.constant.logConsole
+import java.io.IOException
 
 class CustomException(
     var httpStatusCode: Int? = null,
@@ -14,8 +15,7 @@ class CustomException(
     override var message: String? = null,
     var title: String? = null,
     var data: HashMap<String, Any>? = null,
-) : Throwable(message = message) {
-
+) : IOException(message) {
     fun copyWith(
         httpStatusCode: Int? = null,
         statusCode: String? = null,

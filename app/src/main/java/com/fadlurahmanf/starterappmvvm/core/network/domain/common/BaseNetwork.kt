@@ -43,10 +43,9 @@ abstract class BaseNetwork<T>(var context: Context) {
     open fun okHttpClientBuilder(builder: OkHttpClient.Builder): OkHttpClient.Builder {
         val p0 = builder.addNetworkInterceptor(bodyLoggingInterceptor())
         if (type != BuildFlavorConstant.production) {
-            p0.addNetworkInterceptor(chuckerInterceptor())
+            p0.addInterceptor(chuckerInterceptor())
         }
-        return p0.addNetworkInterceptor(ContentTypeInterceptor())
-            .addNetworkInterceptor(ExceptionInterceptor())
+        return p0.addInterceptor(ExceptionInterceptor())
     }
 
     private fun provideClient(timeOut: Long): OkHttpClient {

@@ -5,13 +5,16 @@ import com.fadlurahmanf.starterappmvvm.core.unknown.data.dto.exception.CustomExc
 import okhttp3.Interceptor
 import okhttp3.Response
 import retrofit2.HttpException
+import java.io.IOException
 import java.net.UnknownHostException
 
 class ExceptionInterceptor : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
         try {
+            println("MASUK REQUEST")
             val request = chain.request()
             val response = chain.proceed(request)
+            println("MASUK RESPONE")
             if (response.code == 401) {
                 throw CustomException(
                     rawMessage = ExceptionConstant.unauthorized
@@ -19,7 +22,6 @@ class ExceptionInterceptor : Interceptor {
             }
             return response
         } catch (e: Throwable) {
-            println("MASUK MASUK ${e.message}")
             when (e) {
                 is HttpException -> {
                     throw CustomException()

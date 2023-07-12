@@ -44,17 +44,6 @@ abstract class BaseActivity<VB : ViewBinding>(
 
     fun remoteConfig() = (this.application as BaseApp).remoteConfig
 
-    private fun initShakingListener() {
-        acceleration = 10f
-        currentAcceleration = SensorManager.GRAVITY_EARTH
-        lastAcceleration = SensorManager.GRAVITY_EARTH
-        sensorManager = getSystemService(SENSOR_SERVICE) as SensorManager
-        sensorManager!!.registerListener(
-            sensorListener, sensorManager!!.getDefaultSensor(Sensor.TYPE_ACCELEROMETER),
-            SensorManager.SENSOR_DELAY_NORMAL
-        )
-    }
-
     open fun internalSetup() {}
 
     abstract fun initSetup()
@@ -65,8 +54,6 @@ abstract class BaseActivity<VB : ViewBinding>(
     }
 
     abstract fun inject()
-
-    fun addSubscription(disposable: Disposable) = CompositeDisposable().add(disposable)
 
     fun removeStatusBar() {
         window.setFlags(
@@ -117,46 +104,6 @@ abstract class BaseActivity<VB : ViewBinding>(
     override fun onResume() {
         super.onResume()
         listenRxBus()
-    }
-
-    override fun onStart() {
-        super.onStart()
-        initShakingListener()
-    }
-
-    override fun onPause() {
-        super.onPause()
-    }
-
-    override fun onStop() {
-        sensorManager!!.unregisterListener(sensorListener)
-        super.onStop()
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-    }
-
-    private var sensorManager: SensorManager? = null
-    private var acceleration = 0f
-    private var currentAcceleration = 0f
-    private var lastAcceleration = 0f
-    private val sensorListener: SensorEventListener = object : SensorEventListener {
-        override fun onSensorChanged(event: SensorEvent) {
-            val x = event.values[0]
-            val y = event.values[1]
-            val z = event.values[2]
-            lastAcceleration = currentAcceleration
-            currentAcceleration = Math.sqrt((x * x + y * y + z * z).toDouble()).toFloat()
-            val delta: Float = currentAcceleration - lastAcceleration
-            acceleration = acceleration * 0.9f + delta
-            if (acceleration > 35) {
-                val intent = Chucker.getLaunchIntent(this@BaseActivity)
-                startActivity(intent)
-            }
-        }
-
-        override fun onAccuracyChanged(sensor: Sensor, accuracy: Int) {}
     }
 
     private val compositeDisposable = CompositeDisposable()
