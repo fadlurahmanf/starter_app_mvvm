@@ -49,13 +49,24 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="example of using encrypt decrypt" />
+            android:text="ENCRYPT DECRYPT" />
 
         <Button
             android:id="@+id/btn_encrypt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Encrypt Decrypt Text" />
+            android:text="Encrypt Decrypt" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="SP STORAGE" />
+
+        <Button
+            android:id="@+id/btn_sp_storage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="SP STORAGE" />
 
         <Button
             android:id="@+id/button2"

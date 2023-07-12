@@ -9,7 +9,7 @@ import com.fadlurahmanf.starterappmvvm.feature.notification.domain.receiver.Noti
 import com.fadlurahmanf.starterappmvvm.feature.notification.data.constant.NotificationConstant
 import com.fadlurahmanf.starterappmvvm.feature.notification.data.dto.model.ContentNotificationModel
 
-class DownloadNotificationHelper (context: Context) : BaseNotification(context) {
+class DownloadNotificationHelper(context: Context) : BaseNotification(context) {
 
     override val channelId: String
         get() = NotificationConstant.DOWNLOAD_CHANNEL_ID

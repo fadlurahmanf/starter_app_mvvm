@@ -31,5 +31,8 @@ object AppConstant {
 
         const val ACCESS_TOKEN = "ACCESS_TOKEN"
         const val REFRESH_TOKEN = "REFRESH_TOKEN"
+
+        const val PRIVATE_KEY = "PRIVATE_KEY"
+        const val PUBLIC_KEY = "PUBLIC_KEY"
     }
 }

@@ -15,16 +15,17 @@ import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
+
 abstract class BaseNetwork<T>(var context: Context) {
 
-    var service:T ?= null
+    var service: T? = null
 
     private fun loggingInterceptor(): HttpLoggingInterceptor {
         return HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.HEADERS)
             .setLevel(HttpLoggingInterceptor.Level.BODY)
     }
 
-    private val type:String = BuildConfig.FLAVOR
+    private val type: String = BuildConfig.FLAVOR
     private fun chuckerInterceptor(): ChuckerInterceptor {
 
         val chuckerCollector = ChuckerCollector(
@@ -40,9 +41,9 @@ abstract class BaseNetwork<T>(var context: Context) {
             .build()
     }
 
-    open fun okHttpClientBuilder(builder: OkHttpClient.Builder): OkHttpClient.Builder{
+    open fun okHttpClientBuilder(builder: OkHttpClient.Builder): OkHttpClient.Builder {
         val p0 = builder.addInterceptor(loggingInterceptor())
-        if (type != BuildFlavorConstant.production){
+        if (type != BuildFlavorConstant.production) {
             p0.addInterceptor(chuckerInterceptor())
         }
         return p0.addInterceptor(ContentTypeInterceptor())
@@ -58,7 +59,7 @@ abstract class BaseNetwork<T>(var context: Context) {
     }
 
 
-    private fun providesRetrofitBuilder(): Retrofit.Builder{
+    private fun providesRetrofitBuilder(): Retrofit.Builder {
         return Retrofit.Builder()
     }
 
@@ -70,7 +71,7 @@ abstract class BaseNetwork<T>(var context: Context) {
             .build()
     }
 
-    open fun networkService(timeOut:Long):T{
+    open fun networkService(timeOut: Long): T {
         val retrofit = provideRetrofit(timeOut)
         service = retrofit.create(getApi())
         return service!!

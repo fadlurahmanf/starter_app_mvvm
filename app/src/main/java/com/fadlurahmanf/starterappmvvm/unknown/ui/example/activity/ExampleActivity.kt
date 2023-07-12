@@ -33,6 +33,7 @@ import com.fadlurahmanf.starterappmvvm.feature.language.presentation.ExampleLang
 import com.fadlurahmanf.starterappmvvm.feature.logger.presentation.LogHistoryActivity
 import com.fadlurahmanf.starterappmvvm.feature.notification.domain.usecases.NotificationHelper
 import com.fadlurahmanf.starterappmvvm.feature.notification.domain.usecases.NotificationImpl
+import com.fadlurahmanf.starterappmvvm.feature.sp.presentation.ExampleSPActivity
 import com.fadlurahmanf.starterappmvvm.unknown.di.component.ExampleComponent
 import com.fadlurahmanf.starterappmvvm.unknown.dto.model.core.PdfModel
 import com.fadlurahmanf.starterappmvvm.unknown.dto.model.core.PdfOrigin
@@ -51,7 +52,6 @@ class ExampleActivity :
     @Inject
     lateinit var fetchGalleryInteractor: FetchGalleryInteractor
 
-    lateinit var notificationHelper: NotificationHelper
     lateinit var notificationImpl: NotificationImpl
 
     private var isVisibleBtnPdfFromFile: Boolean = true
@@ -86,12 +86,13 @@ class ExampleActivity :
         binding.buttonPickPdf.visibility =
             if (isVisibleBtnPdfFromFile) View.VISIBLE else View.INVISIBLE
 
+        notificationImpl = NotificationImpl(this)
+
         binding.btnShowLoading.setOnClickListener {
             showLoadingDialog()
         }
 
         binding.btnLogger.setOnClickListener {
-
             logConsole.e("TES ERROR")
             logConsole.d("TES DEBUG")
             logConsole.w("TES WARN")
@@ -100,10 +101,19 @@ class ExampleActivity :
             startActivity(intent)
         }
 
-        notificationHelper = NotificationHelper(this)
-        notificationImpl = NotificationImpl(this)
         binding.btnChangeLanguage.setOnClickListener {
             val intent = Intent(this, ExampleLanguageActivity::class.java)
+            startActivity(intent)
+        }
+
+        binding.btnEncrypt.setOnClickListener {
+            AnalyticHelper.logEvent(this, AnalyticEvent.btn_encrypt_click)
+            val intent = Intent(this, ExampleEncryptDecryptActivity::class.java)
+            startActivity(intent)
+        }
+
+        binding.btnSpStorage.setOnClickListener {
+            val intent = Intent(this, ExampleSPActivity::class.java)
             startActivity(intent)
         }
 
@@ -127,12 +137,6 @@ class ExampleActivity :
             } else {
                 showSnackBar(binding.root, "only in dev or staging")
             }
-        }
-
-        binding.btnEncrypt.setOnClickListener {
-            AnalyticHelper.logEvent(this, AnalyticEvent.btn_encrypt_click)
-            val intent = Intent(this, ExampleEncryptDecryptActivity::class.java)
-            startActivity(intent)
         }
 
         binding.buttonPickPdf.setOnClickListener {
