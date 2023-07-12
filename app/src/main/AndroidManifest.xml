@@ -103,10 +103,10 @@
             android:name=".unknown.ui.example.activity.ExampleEncryptDecryptActivity"
             android:exported="false" />
         <activity
-            android:name=".core.network.presentation.AfterLoginActivity"
+            android:name=".core.network.presentation.ExampleAfterLoginActivity"
             android:exported="false" />
         <activity
-            android:name=".core.network.presentation.LoginActivity"
+            android:name=".core.network.presentation.ExampleLoginActivity"
             android:exported="false" />
         <activity
             android:name=".unknown.ui.notification.FullScreenNotificationActivity"

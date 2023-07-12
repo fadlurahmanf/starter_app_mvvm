@@ -31,7 +31,7 @@ import com.fadlurahmanf.starterappmvvm.feature.gallery.domain.interactor.FetchGa
 import com.fadlurahmanf.starterappmvvm.feature.gallery.presentation.ExampleGalleryActivity
 import com.fadlurahmanf.starterappmvvm.feature.language.presentation.ExampleLanguageActivity
 import com.fadlurahmanf.starterappmvvm.core.logger.presentation.LogHistoryActivity
-import com.fadlurahmanf.starterappmvvm.core.network.presentation.LoginActivity
+import com.fadlurahmanf.starterappmvvm.core.network.presentation.ExampleLoginActivity
 import com.fadlurahmanf.starterappmvvm.feature.notification.domain.usecases.NotificationImpl
 import com.fadlurahmanf.starterappmvvm.core.sp.presentation.ExampleSPActivity
 import com.fadlurahmanf.starterappmvvm.unknown.di.component.ExampleComponent
@@ -131,7 +131,7 @@ class ExampleActivity :
 
         binding.btnGoToLogin.setOnClickListener {
             AnalyticHelper.logEvent(this, AnalyticEvent.btn_login_click)
-            val intent = Intent(this, LoginActivity::class.java)
+            val intent = Intent(this, ExampleLoginActivity::class.java)
             startActivity(intent)
         }
 

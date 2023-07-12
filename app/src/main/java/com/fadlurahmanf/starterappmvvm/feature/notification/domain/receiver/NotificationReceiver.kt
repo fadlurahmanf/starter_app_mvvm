@@ -7,7 +7,7 @@ import android.content.Intent
 import android.os.Build
 import com.fadlurahmanf.starterappmvvm.core.unknown.data.constant.logConsole
 import com.fadlurahmanf.starterappmvvm.feature.notification.data.dto.model.ContentNotificationModel
-import com.fadlurahmanf.starterappmvvm.core.network.presentation.LoginActivity
+import com.fadlurahmanf.starterappmvvm.core.network.presentation.ExampleLoginActivity
 
 class NotificationReceiver : BroadcastReceiver() {
     companion object {
@@ -104,7 +104,7 @@ class NotificationReceiver : BroadcastReceiver() {
 
             // TODO: ADD TYPE
             else -> {
-                val newIntent = Intent(context, LoginActivity::class.java)
+                val newIntent = Intent(context, ExampleLoginActivity::class.java)
                 newIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
                 context?.startActivity(newIntent)
             }

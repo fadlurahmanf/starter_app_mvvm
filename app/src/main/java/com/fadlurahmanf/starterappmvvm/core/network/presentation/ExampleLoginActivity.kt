@@ -1,16 +1,48 @@
 package com.fadlurahmanf.starterappmvvm.core.network.presentation
 
+import android.content.Intent
 import com.fadlurahmanf.starterappmvvm.core.unknown.domain.common.BaseActivity
 import com.fadlurahmanf.starterappmvvm.core.unknown.data.state.CustomState
-import com.fadlurahmanf.starterappmvvm.databinding.ActivityAfterLoginBinding
 import com.fadlurahmanf.starterappmvvm.unknown.di.component.ExampleComponent
-import com.fadlurahmanf.starterappmvvm.core.network.presentation.viewmodel.AfterLoginViewModel
+import com.fadlurahmanf.starterappmvvm.core.network.presentation.viewmodel.LoginViewModel
+import com.fadlurahmanf.starterappmvvm.databinding.ActivityExampleLoginBinding
 import javax.inject.Inject
 
-class AfterLoginActivity : BaseActivity<ActivityAfterLoginBinding>(ActivityAfterLoginBinding::inflate) {
+class ExampleLoginActivity : BaseActivity<ActivityExampleLoginBinding>(ActivityExampleLoginBinding::inflate) {
+
     override fun initSetup() {
         observe()
         initAction()
+    }
+
+    private fun observe() {
+        viewModel.loginState.observe(this) {
+            when (it) {
+                is CustomState.Loading -> {
+                    dismissLoadingDialog()
+                    showLoadingDialog()
+                }
+
+                is CustomState.Success -> {
+                    dismissLoadingDialog()
+                    goToAfterLoginActivity()
+                }
+
+                is CustomState.Error -> {
+                    dismissLoadingDialog()
+                    showSnackBar(binding.root, message = it.exception.toProperMessage(this))
+                }
+
+                else -> {
+                    dismissLoadingDialog()
+                }
+            }
+        }
+    }
+
+    private fun goToAfterLoginActivity() {
+        val intent = Intent(this, ExampleAfterLoginActivity::class.java)
+        startActivity(intent)
     }
 
     private lateinit var component: ExampleComponent
@@ -20,34 +52,11 @@ class AfterLoginActivity : BaseActivity<ActivityAfterLoginBinding>(ActivityAfter
     }
 
     @Inject
-    lateinit var viewModel: AfterLoginViewModel
+    lateinit var viewModel: LoginViewModel
 
-    private fun observe(){
-        viewModel.favoriteState.observe(this){
-            when(it){
-                is CustomState.Loading -> {
-                    dismissLoadingDialog()
-                    showLoadingDialog()
-                }
-                is CustomState.Success -> {
-                    dismissLoadingDialog()
-                    showSnackBar(binding.root, message = "SUKSES")
-                }
-                is CustomState.Error -> {
-                    dismissLoadingDialog()
-                    showSnackBar(binding.root, message = it.exception.toProperMessage(this))
-                }
-                else -> {
-                    dismissLoadingDialog()
-                }
-            }
+    private fun initAction() {
+        binding.btnLogin.setOnClickListener {
+            viewModel.login()
         }
     }
-
-    private fun initAction(){
-        binding.btnGetFavorite.setOnClickListener {
-            viewModel.getFavorite()
-        }
-    }
-
 }

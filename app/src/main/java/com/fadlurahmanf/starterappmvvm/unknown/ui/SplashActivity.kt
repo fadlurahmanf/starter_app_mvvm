@@ -4,13 +4,12 @@ import android.content.Intent
 import androidx.camera.core.ExperimentalGetImage
 import com.fadlurahmanf.starterappmvvm.BaseApp
 import com.fadlurahmanf.starterappmvvm.BuildConfig
-import com.fadlurahmanf.starterappmvvm.core.network.presentation.LoginActivity
+import com.fadlurahmanf.starterappmvvm.core.network.presentation.ExampleLoginActivity
 import com.fadlurahmanf.starterappmvvm.core.unknown.domain.common.BaseActivity
 import com.fadlurahmanf.starterappmvvm.core.unknown.data.constant.logConsole
 import com.fadlurahmanf.starterappmvvm.databinding.ActivitySplashBinding
 import com.fadlurahmanf.starterappmvvm.feature.language.domain.interactor.LanguageInteractor
 import com.fadlurahmanf.starterappmvvm.unknown.di.component.CoreComponent
-import com.fadlurahmanf.starterappmvvm.unknown.ui.example.activity.ExampleActivity
 import com.google.firebase.messaging.FirebaseMessaging
 import java.util.*
 import javax.inject.Inject
@@ -42,7 +41,7 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>(ActivitySplashBinding
         }
 
         Timer().schedule(1) {
-            val intent = Intent(this@SplashActivity, LoginActivity::class.java)
+            val intent = Intent(this@SplashActivity, ExampleLoginActivity::class.java)
             startActivity(intent)
             finish()
         }

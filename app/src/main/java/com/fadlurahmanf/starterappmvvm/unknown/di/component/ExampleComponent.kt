@@ -5,9 +5,9 @@ import com.fadlurahmanf.starterappmvvm.feature.language.presentation.ExampleLang
 import com.fadlurahmanf.starterappmvvm.core.logger.presentation.LogHistoryActivity
 import com.fadlurahmanf.starterappmvvm.feature.notification.presentation.ExampleNotificationActivity
 import com.fadlurahmanf.starterappmvvm.core.sp.presentation.ExampleSPActivity
-import com.fadlurahmanf.starterappmvvm.core.network.presentation.AfterLoginActivity
+import com.fadlurahmanf.starterappmvvm.core.network.presentation.ExampleAfterLoginActivity
 import com.fadlurahmanf.starterappmvvm.unknown.ui.example.activity.ExampleActivity
-import com.fadlurahmanf.starterappmvvm.core.network.presentation.LoginActivity
+import com.fadlurahmanf.starterappmvvm.core.network.presentation.ExampleLoginActivity
 import com.fadlurahmanf.starterappmvvm.unknown.ui.example.activity.SecondExampleActivity
 import dagger.Subcomponent
 
@@ -25,7 +25,7 @@ interface ExampleComponent {
     fun inject(activity: ExampleSPActivity)
     fun inject(activity: ExampleRoomActivity)
     fun inject(activity: SecondExampleActivity)
-    fun inject(activity: LoginActivity)
+    fun inject(activity: ExampleLoginActivity)
     fun inject(activity: LogHistoryActivity)
-    fun inject(activity: AfterLoginActivity)
+    fun inject(activity: ExampleAfterLoginActivity)
 }
