@@ -5,11 +5,19 @@ import com.fadlurahmanf.starterappmvvm.core.encrypt.data.exception.CryptoExcepti
 import com.fadlurahmanf.starterappmvvm.core.encrypt.domain.common.AESMethod
 import com.fadlurahmanf.starterappmvvm.core.encrypt.domain.common.BaseEncrypt
 import com.fadlurahmanf.starterappmvvm.core.encrypt.domain.common.PaddingScheme
+import java.util.Random
 import javax.crypto.Cipher
 import javax.crypto.spec.IvParameterSpec
 import javax.crypto.spec.SecretKeySpec
 
 class CryptoAES : BaseEncrypt() {
+
+    fun generateKey(): String {
+        return List(32, init = {
+            Random().nextInt(9).toString()
+        }).joinToString("")
+    }
+
     fun encrypt(
         plainText: String,
         secretKey: String,
@@ -57,16 +65,16 @@ class CryptoAES : BaseEncrypt() {
                 cipher.doFinal(padPlaintext(plainText).toByteArray())
             }
 
-            PaddingScheme.PKCS1 -> {
-                throw CryptoException(message = "NO SUPPORTED PADDING")
-            }
-
             PaddingScheme.PKCS5 -> {
                 cipher.doFinal(plainText.toByteArray())
             }
 
             PaddingScheme.PKCS7 -> {
                 cipher.doFinal(plainText.toByteArray())
+            }
+
+            else -> {
+                throw CryptoException(message = "NOT SUPPORTED PADDING")
             }
         }
         return encode(encryptedBytes)
@@ -83,16 +91,16 @@ class CryptoAES : BaseEncrypt() {
                 cipher.doFinal(padPlaintext(plainText).toByteArray())
             }
 
-            PaddingScheme.PKCS1 -> {
-                throw CryptoException(message = "NO SUPPORTED PADDING")
-            }
-
             PaddingScheme.PKCS5 -> {
                 cipher.doFinal(plainText.toByteArray())
             }
 
             PaddingScheme.PKCS7 -> {
                 cipher.doFinal(plainText.toByteArray())
+            }
+
+            else -> {
+                throw CryptoException(message = "NO SUPPORTED PADDING")
             }
         }
         return encode(encryptedBytes)

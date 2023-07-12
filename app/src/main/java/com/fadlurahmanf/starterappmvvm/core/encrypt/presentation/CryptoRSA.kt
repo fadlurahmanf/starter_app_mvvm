@@ -3,6 +3,8 @@ package com.fadlurahmanf.starterappmvvm.core.encrypt.presentation
 import com.fadlurahmanf.starterappmvvm.core.encrypt.data.exception.CryptoException
 import com.fadlurahmanf.starterappmvvm.core.encrypt.data.model.CryptoKey
 import com.fadlurahmanf.starterappmvvm.core.encrypt.domain.common.BaseEncrypt
+import com.fadlurahmanf.starterappmvvm.core.encrypt.domain.common.PaddingScheme
+import com.fadlurahmanf.starterappmvvm.core.unknown.data.constant.logConsole
 import java.security.KeyFactory
 import java.security.KeyPairGenerator
 import java.security.PrivateKey
@@ -15,7 +17,7 @@ class CryptoRSA : BaseEncrypt() {
 
     fun generateKey(): CryptoKey {
         val keyGen = KeyPairGenerator.getInstance("RSA")
-        keyGen.initialize(1024)
+        keyGen.initialize(2048)
         val keyPair = keyGen.generateKeyPair()
         val publicKey = encode(keyPair.public.encoded)
         val privateKey = encode(keyPair.private.encoded)
@@ -33,10 +35,14 @@ class CryptoRSA : BaseEncrypt() {
         val data = decode(encodedPrivateKey.toByteArray())
         val spec = PKCS8EncodedKeySpec(data)
         val fact: KeyFactory = KeyFactory.getInstance("RSA")
-        return  fact.generatePrivate(spec)
+        return fact.generatePrivate(spec)
     }
 
-    fun encrypt(plainText: String, encodedPublicKey: String): String? {
+    fun encrypt(
+        plainText: String,
+        encodedPublicKey: String,
+        paddingScheme: PaddingScheme = PaddingScheme.PKCS1
+    ): String? {
         return try {
             if (plainText.isEmpty()) {
                 throw CryptoException(message = "TEXT CANNOT BE EMPTY")
@@ -46,20 +52,25 @@ class CryptoRSA : BaseEncrypt() {
                 throw CryptoException(message = "KEY CANNOT BE EMPTY")
             }
 
-            val cipher = Cipher.getInstance("RSA/ECB/PKCS1Padding")
+            val cipher = Cipher.getInstance("RSA/ECB/${getPaddingScheme(paddingScheme)}")
             cipher.init(Cipher.ENCRYPT_MODE, loadPublicKey(encodedPublicKey))
             val encryptedBytes = cipher.doFinal(plainText.toByteArray())
             return encode(encryptedBytes)
         } catch (e: CryptoException) {
+            logConsole.e("ENCRYPT RSA: ${e.message}")
             null
         } catch (e: Throwable) {
-            println("masuk sini ${e.message}")
+            logConsole.e("ENCRYPT RSA: ${e.message}")
             null
         }
     }
 
 
-    fun decrypt(encrypted: String, encodedPrivateKey: String): String? {
+    fun decrypt(
+        encrypted: String,
+        encodedPrivateKey: String,
+        paddingScheme: PaddingScheme = PaddingScheme.PKCS1
+    ): String? {
         return try {
             if (encrypted.isEmpty()) {
                 throw CryptoException(message = "TEXT CANNOT BE EMPTY")
@@ -69,10 +80,14 @@ class CryptoRSA : BaseEncrypt() {
                 throw CryptoException(message = "KEY CANNOT BE EMPTY")
             }
 
-            val cipher = Cipher.getInstance("RSA/ECB/PKCS1Padding")
+            val cipher = Cipher.getInstance("RSA/ECB/${getPaddingScheme(paddingScheme)}")
             cipher.init(Cipher.DECRYPT_MODE, loadPrivateKey(encodedPrivateKey))
             return String(cipher.doFinal(decode(encrypted)))
+        } catch (e: CryptoException) {
+            logConsole.e("ENCRYPT RSA: ${e.message}")
+            null
         } catch (e: Throwable) {
+            logConsole.e("ENCRYPT RSA: ${e.message}")
             null
         }
     }

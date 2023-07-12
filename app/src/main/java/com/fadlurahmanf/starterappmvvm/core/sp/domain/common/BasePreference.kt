@@ -5,32 +5,32 @@ import android.content.SharedPreferences
 import com.fadlurahmanf.starterappmvvm.core.unknown.data.constant.logConsole
 import com.fadlurahmanf.starterappmvvm.core.unknown.data.dto.exception.CustomException
 import com.fadlurahmanf.starterappmvvm.core.encrypt.data.model.CryptoKey
+import com.fadlurahmanf.starterappmvvm.core.encrypt.presentation.CryptoAES
 import com.fadlurahmanf.starterappmvvm.core.encrypt.presentation.CryptoRSA
 import com.fadlurahmanf.starterappmvvm.core.sp.data.constant.SpConstant
 import com.google.gson.Gson
 
-abstract class BasePreference(context: Context, private val crypto: CryptoRSA) {
+abstract class BasePreference(
+    context: Context,
+    private val cryptoAES: CryptoAES
+) {
 
     private val sharedPreferences: SharedPreferences =
         context.getSharedPreferences(SP_KEY, Context.MODE_PRIVATE)
-    private val cryptoKey: CryptoKey
+    private var aesSecretKey: String
 
     companion object {
         const val SP_KEY: String = SpConstant.SP_KEY
-        private const val PRIVATE_KEY: String = SpConstant.PRIVATE_KEY
-        private const val PUBLIC_KEY: String = SpConstant.PUBLIC_KEY
+        private const val AES_KEY: String = SpConstant.AES_KEY
     }
 
     init {
-        val privateKey = getRawString(PRIVATE_KEY, null)
-        val publicKey = getRawString(PUBLIC_KEY, null)
-        cryptoKey = if (privateKey != null && publicKey != null) {
-            CryptoKey(privateKey, publicKey)
+        val aesKey = getRawString(AES_KEY, null)
+        if (aesKey != null) {
+            aesSecretKey = aesKey
         } else {
-            val key = crypto.generateKey()
-            saveRawString(PRIVATE_KEY, key.privateKey)
-            saveRawString(PUBLIC_KEY, key.publicKey)
-            key
+            aesSecretKey = cryptoAES.generateKey()
+            saveRawString(AES_KEY, aesSecretKey)
         }
     }
 
@@ -52,8 +52,8 @@ abstract class BasePreference(context: Context, private val crypto: CryptoRSA) {
         if (value.isEmpty()) {
             throw CustomException()
         }
-        val encrypted = crypto.encrypt(value, cryptoKey.publicKey)
-        sharedPreferences.edit().putString(key, encrypted).apply()
+        val encryptedAES = cryptoAES.encrypt(value, aesSecretKey)
+        sharedPreferences.edit().putString(key, encryptedAES).apply()
     }
 
     /**
@@ -87,7 +87,7 @@ abstract class BasePreference(context: Context, private val crypto: CryptoRSA) {
         if (raw.isNullOrEmpty()) {
             throw CustomException()
         }
-        return crypto.decrypt(raw, cryptoKey.privateKey)
+        return cryptoAES.decrypt(raw, aesSecretKey)
     }
 
     /**

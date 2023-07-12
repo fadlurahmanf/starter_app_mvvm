@@ -11,10 +11,8 @@ import java.net.UnknownHostException
 class ExceptionInterceptor : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
         try {
-            println("MASUK REQUEST")
             val request = chain.request()
             val response = chain.proceed(request)
-            println("MASUK RESPONE")
             if (response.code == 401) {
                 throw CustomException(
                     rawMessage = ExceptionConstant.unauthorized

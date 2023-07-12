@@ -1,7 +1,7 @@
 package com.fadlurahmanf.starterappmvvm.core.sp.data.storage
 
 import android.content.Context
-import com.fadlurahmanf.starterappmvvm.core.encrypt.presentation.CryptoRSA
+import com.fadlurahmanf.starterappmvvm.core.encrypt.presentation.CryptoAES
 import com.fadlurahmanf.starterappmvvm.core.sp.data.constant.SpConstant
 import com.fadlurahmanf.starterappmvvm.core.sp.data.dto.model.ExampleModelSp
 import com.fadlurahmanf.starterappmvvm.core.sp.domain.common.BasePreference
@@ -9,8 +9,8 @@ import javax.inject.Inject
 
 class ExampleSpStorage @Inject constructor(
     context: Context,
-    crypto: CryptoRSA
-) : BasePreference(context, crypto) {
+    cryptoAES: CryptoAES,
+) : BasePreference(context, cryptoAES) {
 
     var exampleRawString: String? = null
         get() {

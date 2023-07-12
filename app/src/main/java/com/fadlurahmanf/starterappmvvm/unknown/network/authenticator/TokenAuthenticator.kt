@@ -26,7 +26,7 @@ class TokenAuthenticator(
         val refreshToken = sharedPreference().getString(AppConstant.Sp.REFRESH_TOKEN, "")
         val body = JsonObject()
         body.addProperty("token", refreshToken)
-        val refreshTokenResponse = api().refreshToken2(body).execute()
+        val refreshTokenResponse = api().syncRefreshToken(body).execute()
 
         return if (refreshTokenResponse.isSuccessful
             && refreshTokenResponse.body()?.code == "200"

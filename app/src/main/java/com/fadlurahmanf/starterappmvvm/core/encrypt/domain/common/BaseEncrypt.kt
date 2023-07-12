@@ -14,6 +14,7 @@ enum class PaddingScheme {
     PKCS1,
     PKCS5,
     PKCS7,
+    PKCS8,
 }
 
 abstract class BaseEncrypt {
@@ -44,12 +45,20 @@ abstract class BaseEncrypt {
 
     open fun getPaddingScheme(scheme: PaddingScheme): String {
         return when (scheme) {
-            PaddingScheme.PKCS7 -> {
-                "PKCS7Padding"
+            PaddingScheme.PKCS1 -> {
+                "PKCS1Padding"
             }
 
             PaddingScheme.PKCS5 -> {
                 "PKCS5Padding"
+            }
+
+            PaddingScheme.PKCS7 -> {
+                "PKCS7Padding"
+            }
+
+            PaddingScheme.PKCS8 -> {
+                "PKCS8Padding"
             }
 
             PaddingScheme.NoPadding -> {

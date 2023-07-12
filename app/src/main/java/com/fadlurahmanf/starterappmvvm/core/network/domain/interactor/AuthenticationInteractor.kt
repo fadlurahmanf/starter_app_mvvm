@@ -1,10 +1,10 @@
 package com.fadlurahmanf.starterappmvvm.core.network.domain.interactor
 
 import com.fadlurahmanf.starterappmvvm.core.network.data.dto.request.LoginRequest
+import com.fadlurahmanf.starterappmvvm.core.network.data.dto.request.RefreshTokenRequest
 import com.fadlurahmanf.starterappmvvm.core.network.domain.repository.IdentityRemoteDatasource
 import com.fadlurahmanf.starterappmvvm.unknown.data.storage.example.AuthSpStorage
 import com.fadlurahmanf.starterappmvvm.unknown.dto.response.example.LoginResponse
-import com.google.gson.JsonObject
 import javax.inject.Inject
 
 class AuthenticationInteractor @Inject constructor(
@@ -24,5 +24,5 @@ class AuthenticationInteractor @Inject constructor(
         }
     }
 
-    fun syncRefreshToken(request: LoginRequest) = identityRemoteDataSource.syncRefreshToken(request)
+    fun refreshToken(request: RefreshTokenRequest) = identityRemoteDataSource.refreshToken(request)
 }

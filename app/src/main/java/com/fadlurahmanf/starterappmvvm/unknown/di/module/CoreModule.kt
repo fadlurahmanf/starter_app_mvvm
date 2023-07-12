@@ -1,5 +1,6 @@
 package com.fadlurahmanf.starterappmvvm.unknown.di.module
 
+import com.fadlurahmanf.starterappmvvm.core.encrypt.presentation.CryptoAES
 import com.fadlurahmanf.starterappmvvm.core.encrypt.presentation.CryptoRSA
 import dagger.Module
 import dagger.Provides
@@ -9,5 +10,10 @@ class CoreModule {
     @Provides
     fun provideCryptoRSA(): CryptoRSA {
         return CryptoRSA()
+    }
+
+    @Provides
+    fun provideCryptoAES(): CryptoAES {
+        return CryptoAES()
     }
 }

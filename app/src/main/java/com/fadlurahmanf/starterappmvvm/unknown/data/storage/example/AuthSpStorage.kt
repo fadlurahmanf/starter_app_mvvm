@@ -1,6 +1,7 @@
 package com.fadlurahmanf.starterappmvvm.unknown.data.storage.example
 
 import android.content.Context
+import com.fadlurahmanf.starterappmvvm.core.encrypt.presentation.CryptoAES
 import com.fadlurahmanf.starterappmvvm.core.unknown.data.constant.AppConstant
 import com.fadlurahmanf.starterappmvvm.core.encrypt.presentation.CryptoRSA
 import com.fadlurahmanf.starterappmvvm.core.sp.domain.common.BasePreference
@@ -8,8 +9,8 @@ import javax.inject.Inject
 
 class AuthSpStorage @Inject constructor(
     context: Context,
-    crypto: CryptoRSA
-) : BasePreference(context, crypto) {
+    cryptoAES: CryptoAES
+) : BasePreference(context, cryptoAES) {
     var accessToken: String? = null
         get() {
             field = getString(AppConstant.Sp.ACCESS_TOKEN)

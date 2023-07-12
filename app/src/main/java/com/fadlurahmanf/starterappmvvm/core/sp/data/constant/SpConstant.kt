@@ -9,8 +9,7 @@ object SpConstant {
     const val ACCESS_TOKEN = AppConstant.Sp.ACCESS_TOKEN
     const val REFRESH_TOKEN = AppConstant.Sp.REFRESH_TOKEN
 
-    const val PRIVATE_KEY = AppConstant.Sp.PRIVATE_KEY
-    const val PUBLIC_KEY = AppConstant.Sp.PUBLIC_KEY
+    const val AES_KEY = "AES_KEY"
 
     const val EXAMPLE_RAW_STRING = "EXAMPLE_RAW_STRING"
 
