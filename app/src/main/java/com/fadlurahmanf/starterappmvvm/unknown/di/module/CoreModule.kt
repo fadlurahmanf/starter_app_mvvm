@@ -1,7 +1,13 @@
 package com.fadlurahmanf.starterappmvvm.unknown.di.module
 
-import com.fadlurahmanf.starterappmvvm.unknown.di.component.CoreComponent
+import com.fadlurahmanf.starterappmvvm.feature.encrypt.presentation.CryptoRSA
 import dagger.Module
+import dagger.Provides
+@Module
+class CoreModule {
 
-@Module(subcomponents = [CoreComponent::class])
-class CoreModule {}
+    @Provides
+    fun provideCryptoRSA(): CryptoRSA {
+        return CryptoRSA()
+    }
+}

@@ -2,12 +2,14 @@ package com.fadlurahmanf.starterappmvvm.unknown.data.storage.example
 
 import android.content.Context
 import com.fadlurahmanf.starterappmvvm.core.data.constant.AppConstant
+import com.fadlurahmanf.starterappmvvm.feature.encrypt.presentation.CryptoRSA
 import com.fadlurahmanf.starterappmvvm.feature.sp.domain.common.BasePreference
 import javax.inject.Inject
 
 class AuthSpStorage @Inject constructor(
-    context: Context
-) : BasePreference(context) {
+    context: Context,
+    crypto: CryptoRSA
+) : BasePreference(context, crypto) {
     var accessToken: String? = null
         get() {
             field = getString(AppConstant.Sp.ACCESS_TOKEN)

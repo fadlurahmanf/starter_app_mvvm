@@ -8,14 +8,12 @@ import com.fadlurahmanf.starterappmvvm.feature.encrypt.data.model.CryptoKey
 import com.fadlurahmanf.starterappmvvm.feature.encrypt.presentation.CryptoRSA
 import com.fadlurahmanf.starterappmvvm.feature.sp.data.constant.SpConstant
 import com.google.gson.Gson
-import org.json.JSONArray
 
-abstract class BasePreference(val context: Context) {
+abstract class BasePreference(context: Context, private val crypto: CryptoRSA) {
 
     private val sharedPreferences: SharedPreferences =
         context.getSharedPreferences(SP_KEY, Context.MODE_PRIVATE)
-    private var rsa: CryptoRSA = CryptoRSA()
-    private var cryptoKey: CryptoKey
+    private val cryptoKey: CryptoKey
 
     companion object {
         const val SP_KEY: String = SpConstant.SP_KEY
@@ -29,7 +27,7 @@ abstract class BasePreference(val context: Context) {
         cryptoKey = if (privateKey != null && publicKey != null) {
             CryptoKey(privateKey, publicKey)
         } else {
-            val key = rsa.generateKey()
+            val key = crypto.generateKey()
             saveRawString(PRIVATE_KEY, key.privateKey)
             saveRawString(PUBLIC_KEY, key.publicKey)
             key
@@ -54,7 +52,7 @@ abstract class BasePreference(val context: Context) {
         if (value.isEmpty()) {
             throw CustomException()
         }
-        val encrypted = rsa.encrypt(value, cryptoKey.publicKey)
+        val encrypted = crypto.encrypt(value, cryptoKey.publicKey)
         sharedPreferences.edit().putString(key, encrypted).apply()
     }
 
@@ -89,7 +87,7 @@ abstract class BasePreference(val context: Context) {
         if (raw.isNullOrEmpty()) {
             throw CustomException()
         }
-        return rsa.decrypt(raw, cryptoKey.privateKey)
+        return crypto.decrypt(raw, cryptoKey.privateKey)
     }
 
     /**
@@ -247,10 +245,9 @@ abstract class BasePreference(val context: Context) {
             if (decrypted.isNullOrEmpty()) {
                 throw CustomException()
             }
-            val jsonArray = JSONArray(decrypted)
-            for (i in 0 until jsonArray.length()) {
-                val row = jsonArray.getJSONObject(i)
-                list.add(Gson().fromJson(row.toString(), classOfT))
+            val decryptedJSONArray = Gson().fromJson<ArrayList<T>>(decrypted, ArrayList::class.java)
+            decryptedJSONArray.forEach {
+                list.add(Gson().fromJson(Gson().toJson(it), classOfT))
             }
             list
         } catch (e: Throwable) {
