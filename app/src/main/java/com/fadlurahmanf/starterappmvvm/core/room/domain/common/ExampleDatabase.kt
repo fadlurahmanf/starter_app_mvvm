@@ -4,9 +4,11 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
 import com.fadlurahmanf.starterappmvvm.core.room.data.constant.RoomConstant
 import com.fadlurahmanf.starterappmvvm.core.room.data.dao.ExampleDao
 import com.fadlurahmanf.starterappmvvm.core.room.data.dto.entity.ExampleRoomEntity
+import com.fadlurahmanf.starterappmvvm.core.room.external.AddOnConverter
 
 @Database(
     entities = [
@@ -14,6 +16,7 @@ import com.fadlurahmanf.starterappmvvm.core.room.data.dto.entity.ExampleRoomEnti
     ], version = ExampleDatabase.VERSION,
     exportSchema = false
 )
+@TypeConverters(value = [AddOnConverter::class])
 abstract class ExampleDatabase : RoomDatabase() {
     abstract fun exampleDao(): ExampleDao
 

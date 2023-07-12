@@ -10,5 +10,11 @@ data class ExampleRoomEntity(
     @PrimaryKey(autoGenerate = true)
     var id: Int? = null,
     @ColumnInfo(name = "example_string")
-    var exampleString: String? = null
+    var exampleString: String? = null,
+    @ColumnInfo(name = "add_on_string")
+    var addOn: AddOnExampleRoomEntity? = null
+)
+
+data class AddOnExampleRoomEntity(
+    var addOnString: String? = null
 )

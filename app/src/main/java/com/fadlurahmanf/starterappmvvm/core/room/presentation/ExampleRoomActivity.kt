@@ -3,6 +3,7 @@ package com.fadlurahmanf.starterappmvvm.core.room.presentation
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.fadlurahmanf.starterappmvvm.R
+import com.fadlurahmanf.starterappmvvm.core.room.data.dto.entity.AddOnExampleRoomEntity
 import com.fadlurahmanf.starterappmvvm.core.room.data.dto.entity.ExampleRoomEntity
 import com.fadlurahmanf.starterappmvvm.core.room.presentation.viewmodel.ExampleRoomViewModel
 import com.fadlurahmanf.starterappmvvm.core.unknown.domain.common.BaseActivity
@@ -20,7 +21,10 @@ class ExampleRoomActivity :
         binding.btnInsert.setOnClickListener {
             viewModel.insert(
                 ExampleRoomEntity(
-                    exampleString = "TES TES"
+                    exampleString = "TES TES",
+                    addOn = AddOnExampleRoomEntity(
+                        addOnString = "ADD ON NIH"
+                    )
                 )
             )
         }
