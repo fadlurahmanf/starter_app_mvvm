@@ -1,7 +1,7 @@
 package com.fadlurahmanf.starterappmvvm.unknown.ui.core.dialog
 
 import com.fadlurahmanf.starterappmvvm.BaseApp
-import com.fadlurahmanf.starterappmvvm.core.domain.common.BaseDialog
+import com.fadlurahmanf.starterappmvvm.core.unknown.domain.common.BaseDialog
 import com.fadlurahmanf.starterappmvvm.databinding.DialogDefaultLoadingBinding
 import com.fadlurahmanf.starterappmvvm.unknown.di.component.CoreComponent
 

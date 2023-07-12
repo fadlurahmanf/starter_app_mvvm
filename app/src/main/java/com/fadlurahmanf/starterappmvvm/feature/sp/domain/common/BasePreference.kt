@@ -2,8 +2,8 @@ package com.fadlurahmanf.starterappmvvm.feature.sp.domain.common
 
 import android.content.Context
 import android.content.SharedPreferences
-import com.fadlurahmanf.starterappmvvm.core.data.constant.logConsole
-import com.fadlurahmanf.starterappmvvm.core.data.dto.exception.CustomException
+import com.fadlurahmanf.starterappmvvm.core.unknown.data.constant.logConsole
+import com.fadlurahmanf.starterappmvvm.core.unknown.data.dto.exception.CustomException
 import com.fadlurahmanf.starterappmvvm.feature.encrypt.data.model.CryptoKey
 import com.fadlurahmanf.starterappmvvm.feature.encrypt.presentation.CryptoRSA
 import com.fadlurahmanf.starterappmvvm.feature.sp.data.constant.SpConstant

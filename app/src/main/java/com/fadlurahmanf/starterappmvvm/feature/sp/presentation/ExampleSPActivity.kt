@@ -1,7 +1,7 @@
 package com.fadlurahmanf.starterappmvvm.feature.sp.presentation
 
-import com.fadlurahmanf.starterappmvvm.core.data.constant.logConsole
-import com.fadlurahmanf.starterappmvvm.core.domain.common.BaseActivity
+import com.fadlurahmanf.starterappmvvm.core.unknown.data.constant.logConsole
+import com.fadlurahmanf.starterappmvvm.core.unknown.domain.common.BaseActivity
 import com.fadlurahmanf.starterappmvvm.databinding.ActivityExampleSpBinding
 import com.fadlurahmanf.starterappmvvm.feature.sp.data.dto.model.ExampleModelSp
 import com.fadlurahmanf.starterappmvvm.feature.sp.data.storage.ExampleSpStorage

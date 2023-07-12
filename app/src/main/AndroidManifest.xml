@@ -73,7 +73,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".core.presentation.VideoPlayerActivity"
+            android:name=".core.unknown.presentation.VideoPlayerActivity"
             android:configChanges="screenSize|smallestScreenSize|screenLayout|orientation"
             android:exported="false"
             android:launchMode="singleTask"
@@ -121,10 +121,10 @@
             android:configChanges="locale"
             android:exported="false" />
         <activity
-            android:name=".core.presentation.ImageViewerActivity"
+            android:name=".core.unknown.presentation.ImageViewerActivity"
             android:exported="false" />
         <activity
-            android:name=".core.presentation.PdfViewerActivity"
+            android:name=".core.unknown.presentation.PdfViewerActivity"
             android:exported="false" />
         <activity
             android:name=".unknown.ui.example.activity.ExampleActivity"
@@ -195,7 +195,7 @@
         </receiver>
 
         <service
-            android:name=".core.domain.service.FCMService"
+            android:name=".core.unknown.domain.service.FCMService"
             android:exported="true">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />

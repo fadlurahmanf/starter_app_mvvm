@@ -4,21 +4,16 @@ import android.app.DownloadManager
 import android.app.Service
 import android.content.Context
 import android.content.Intent
-import android.database.Cursor
-import android.net.Uri
-import android.os.Bundle
-import android.os.Environment
 import android.os.Handler
 import android.os.IBinder
 import android.os.Looper
 import androidx.core.content.ContextCompat
 import com.fadlurahmanf.starterappmvvm.R
-import com.fadlurahmanf.starterappmvvm.core.data.constant.logConsole
-import com.fadlurahmanf.starterappmvvm.core.data.dto.exception.CustomException
+import com.fadlurahmanf.starterappmvvm.core.unknown.data.constant.logConsole
+import com.fadlurahmanf.starterappmvvm.core.unknown.data.dto.exception.CustomException
 import com.fadlurahmanf.starterappmvvm.feature.download.external.helper.DownloadHelper
 import com.fadlurahmanf.starterappmvvm.feature.download.external.helper.DownloadNotificationHelper
 import com.fadlurahmanf.starterappmvvm.feature.notification.data.constant.NotificationConstant
-import java.io.File
 import kotlin.random.Random
 
 class DownloadService : Service() {

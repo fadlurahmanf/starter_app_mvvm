@@ -1,7 +1,7 @@
 package com.fadlurahmanf.starterappmvvm.feature.gallery.domain.interactor
 
 import android.content.Intent
-import com.fadlurahmanf.starterappmvvm.core.data.constant.logConsole
+import com.fadlurahmanf.starterappmvvm.core.unknown.data.constant.logConsole
 import com.fadlurahmanf.starterappmvvm.feature.gallery.data.dto.model.GalleryAlbumModel
 import com.fadlurahmanf.starterappmvvm.feature.gallery.data.dto.model.GalleryItemModel
 import com.fadlurahmanf.starterappmvvm.feature.gallery.domain.repository.GalleryDatasource

@@ -1,11 +1,11 @@
 package com.fadlurahmanf.starterappmvvm.unknown.ui.example.viewmodel
 
 import androidx.lifecycle.MutableLiveData
-import com.fadlurahmanf.starterappmvvm.core.domain.common.BaseViewModel
-import com.fadlurahmanf.starterappmvvm.core.data.state.CustomState
+import com.fadlurahmanf.starterappmvvm.core.unknown.domain.common.BaseViewModel
+import com.fadlurahmanf.starterappmvvm.core.unknown.data.state.CustomState
 import com.fadlurahmanf.starterappmvvm.unknown.data.repository.example.CIFRepository
 import com.fadlurahmanf.starterappmvvm.unknown.dto.response.example.FavoriteResponse
-import com.fadlurahmanf.starterappmvvm.core.external.extension.toErrorState
+import com.fadlurahmanf.starterappmvvm.core.unknown.external.extension.toErrorState
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers
 import javax.inject.Inject

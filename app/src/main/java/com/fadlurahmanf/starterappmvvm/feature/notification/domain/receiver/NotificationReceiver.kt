@@ -5,7 +5,7 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.os.Build
-import com.fadlurahmanf.starterappmvvm.core.data.constant.logConsole
+import com.fadlurahmanf.starterappmvvm.core.unknown.data.constant.logConsole
 import com.fadlurahmanf.starterappmvvm.feature.notification.data.dto.model.ContentNotificationModel
 import com.fadlurahmanf.starterappmvvm.unknown.ui.example.activity.LoginActivity
 

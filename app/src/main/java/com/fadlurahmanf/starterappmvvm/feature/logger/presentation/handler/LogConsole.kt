@@ -2,7 +2,7 @@ package com.fadlurahmanf.starterappmvvm.feature.logger.presentation.handler
 
 import android.util.Log
 import com.fadlurahmanf.starterappmvvm.feature.notification.domain.usecases.NotificationImpl
-import com.fadlurahmanf.starterappmvvm.core.external.extension.formatDate5
+import com.fadlurahmanf.starterappmvvm.core.unknown.external.extension.formatDate5
 import com.fadlurahmanf.starterappmvvm.feature.logger.data.dto.entity.LoggerEntity
 import com.fadlurahmanf.starterappmvvm.feature.logger.domain.interactor.LoggerInteractor
 import java.util.Calendar

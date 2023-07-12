@@ -1,6 +1,6 @@
 package com.fadlurahmanf.starterappmvvm.feature.sp.data.constant
 
-import com.fadlurahmanf.starterappmvvm.core.data.constant.AppConstant
+import com.fadlurahmanf.starterappmvvm.core.unknown.data.constant.AppConstant
 
 object SpConstant {
     const val SP_KEY = AppConstant.Sp.SP_KEY

@@ -1,8 +1,8 @@
 package com.fadlurahmanf.starterappmvvm.feature.language.presentation
 
 import android.content.res.Configuration
-import com.fadlurahmanf.starterappmvvm.core.data.constant.AnalyticEvent
-import com.fadlurahmanf.starterappmvvm.core.domain.common.BaseActivity
+import com.fadlurahmanf.starterappmvvm.core.unknown.data.constant.AnalyticEvent
+import com.fadlurahmanf.starterappmvvm.core.unknown.domain.common.BaseActivity
 import com.fadlurahmanf.starterappmvvm.databinding.ActivityExampleLanguageBinding
 import com.fadlurahmanf.starterappmvvm.feature.language.domain.interactor.LanguageInteractor
 import com.fadlurahmanf.starterappmvvm.unknown.di.component.ExampleComponent

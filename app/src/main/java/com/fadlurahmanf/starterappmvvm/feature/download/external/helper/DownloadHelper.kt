@@ -7,7 +7,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
 import com.fadlurahmanf.starterappmvvm.R
-import com.fadlurahmanf.starterappmvvm.core.data.dto.exception.CustomException
+import com.fadlurahmanf.starterappmvvm.core.unknown.data.dto.exception.CustomException
 import java.io.File
 
 class DownloadHelper(

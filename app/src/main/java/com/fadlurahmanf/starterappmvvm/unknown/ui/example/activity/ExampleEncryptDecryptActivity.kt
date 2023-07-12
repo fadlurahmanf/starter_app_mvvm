@@ -4,7 +4,7 @@ import com.fadlurahmanf.starterappmvvm.feature.encrypt.presentation.CryptoRSA
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
-import com.fadlurahmanf.starterappmvvm.core.domain.common.BaseActivity
+import com.fadlurahmanf.starterappmvvm.core.unknown.domain.common.BaseActivity
 import com.fadlurahmanf.starterappmvvm.feature.encrypt.presentation.RSAHelper
 import com.fadlurahmanf.starterappmvvm.databinding.ActivityExampleEncryptDecryptBinding
 import com.fadlurahmanf.starterappmvvm.feature.encrypt.domain.common.AESMethod

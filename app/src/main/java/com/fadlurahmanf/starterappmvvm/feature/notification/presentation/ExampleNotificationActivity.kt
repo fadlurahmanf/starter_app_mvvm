@@ -1,8 +1,8 @@
 package com.fadlurahmanf.starterappmvvm.feature.notification.presentation
 
 import com.fadlurahmanf.starterappmvvm.R
-import com.fadlurahmanf.starterappmvvm.core.data.constant.AnalyticEvent
-import com.fadlurahmanf.starterappmvvm.core.domain.common.BaseActivity
+import com.fadlurahmanf.starterappmvvm.core.unknown.data.constant.AnalyticEvent
+import com.fadlurahmanf.starterappmvvm.core.unknown.domain.common.BaseActivity
 import com.fadlurahmanf.starterappmvvm.databinding.ActivityExampleNotificationBinding
 import com.fadlurahmanf.starterappmvvm.feature.notification.data.constant.NotificationConstant
 import com.fadlurahmanf.starterappmvvm.feature.notification.data.dto.model.ContentNotificationModel

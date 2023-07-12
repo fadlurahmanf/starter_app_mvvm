@@ -1,6 +1,6 @@
 package com.fadlurahmanf.starterappmvvm.feature.encrypt.presentation
 
-import com.fadlurahmanf.starterappmvvm.core.data.constant.logConsole
+import com.fadlurahmanf.starterappmvvm.core.unknown.data.constant.logConsole
 import com.fadlurahmanf.starterappmvvm.feature.encrypt.data.model.CryptoKey
 import com.fadlurahmanf.starterappmvvm.feature.encrypt.domain.common.BaseEncrypt
 import org.bouncycastle.jce.provider.BouncyCastleProvider

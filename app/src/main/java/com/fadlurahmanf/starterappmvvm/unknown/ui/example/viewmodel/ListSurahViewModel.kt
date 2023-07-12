@@ -2,10 +2,10 @@ package com.fadlurahmanf.starterappmvvm.unknown.ui.example.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.fadlurahmanf.starterappmvvm.core.domain.common.BaseViewModel
-import com.fadlurahmanf.starterappmvvm.core.data.state.CustomState
+import com.fadlurahmanf.starterappmvvm.core.unknown.domain.common.BaseViewModel
+import com.fadlurahmanf.starterappmvvm.core.unknown.data.state.CustomState
 import com.fadlurahmanf.starterappmvvm.unknown.data.repository.example.QuranRepository
-import com.fadlurahmanf.starterappmvvm.core.data.dto.exception.CustomException
+import com.fadlurahmanf.starterappmvvm.core.unknown.data.dto.exception.CustomException
 import com.fadlurahmanf.starterappmvvm.unknown.dto.response.example.SurahResponse
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers

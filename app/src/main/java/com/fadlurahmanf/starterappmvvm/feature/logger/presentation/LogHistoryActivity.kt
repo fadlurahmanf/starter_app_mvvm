@@ -1,9 +1,9 @@
 package com.fadlurahmanf.starterappmvvm.feature.logger.presentation
 
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.fadlurahmanf.starterappmvvm.core.data.constant.logConsole
-import com.fadlurahmanf.starterappmvvm.core.data.state.CustomState
-import com.fadlurahmanf.starterappmvvm.core.domain.common.BaseActivity
+import com.fadlurahmanf.starterappmvvm.core.unknown.data.constant.logConsole
+import com.fadlurahmanf.starterappmvvm.core.unknown.data.state.CustomState
+import com.fadlurahmanf.starterappmvvm.core.unknown.domain.common.BaseActivity
 import com.fadlurahmanf.starterappmvvm.databinding.ActivityLogHistoryBinding
 import com.fadlurahmanf.starterappmvvm.feature.logger.data.dto.entity.LoggerEntity
 import com.fadlurahmanf.starterappmvvm.feature.logger.presentation.rv.LogHistoryAdapter

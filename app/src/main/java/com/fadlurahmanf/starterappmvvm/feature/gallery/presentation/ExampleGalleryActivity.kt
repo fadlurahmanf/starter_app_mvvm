@@ -1,7 +1,7 @@
 package com.fadlurahmanf.starterappmvvm.feature.gallery.presentation
 
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.fadlurahmanf.starterappmvvm.core.domain.common.BaseActivity
+import com.fadlurahmanf.starterappmvvm.core.unknown.domain.common.BaseActivity
 import com.fadlurahmanf.starterappmvvm.databinding.ActivityExampleGalleryBinding
 import com.fadlurahmanf.starterappmvvm.feature.gallery.data.dto.model.GalleryAlbumModel
 import com.fadlurahmanf.starterappmvvm.feature.gallery.domain.interactor.GalleryHelper

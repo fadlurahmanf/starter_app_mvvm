@@ -1,7 +1,7 @@
 package com.fadlurahmanf.starterappmvvm.unknown.data.storage.example
 
 import android.content.Context
-import com.fadlurahmanf.starterappmvvm.core.data.constant.AppConstant
+import com.fadlurahmanf.starterappmvvm.core.unknown.data.constant.AppConstant
 import com.fadlurahmanf.starterappmvvm.feature.encrypt.presentation.CryptoRSA
 import com.fadlurahmanf.starterappmvvm.feature.sp.domain.common.BasePreference
 import javax.inject.Inject

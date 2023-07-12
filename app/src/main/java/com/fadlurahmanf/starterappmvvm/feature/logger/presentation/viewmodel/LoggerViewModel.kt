@@ -2,15 +2,12 @@ package com.fadlurahmanf.starterappmvvm.feature.logger.presentation.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.viewModelScope
-import com.fadlurahmanf.starterappmvvm.core.data.constant.logConsole
-import com.fadlurahmanf.starterappmvvm.core.data.state.CustomState
-import com.fadlurahmanf.starterappmvvm.core.domain.common.BaseViewModel
-import com.fadlurahmanf.starterappmvvm.core.external.extension.toErrorState
+import com.fadlurahmanf.starterappmvvm.core.unknown.data.state.CustomState
+import com.fadlurahmanf.starterappmvvm.core.unknown.domain.common.BaseViewModel
+import com.fadlurahmanf.starterappmvvm.core.unknown.external.extension.toErrorState
 import com.fadlurahmanf.starterappmvvm.feature.logger.data.dto.entity.LoggerEntity
 import com.fadlurahmanf.starterappmvvm.feature.logger.domain.interactor.LoggerInteractor
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
-import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.schedulers.Schedulers
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers

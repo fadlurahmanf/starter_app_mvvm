@@ -5,8 +5,8 @@ import android.net.nsd.NsdManager
 import android.net.nsd.NsdManager.ResolveListener
 import android.net.nsd.NsdServiceInfo
 import android.provider.Settings.Secure
-import com.fadlurahmanf.starterappmvvm.core.domain.common.BaseActivity
-import com.fadlurahmanf.starterappmvvm.core.data.constant.logConsole
+import com.fadlurahmanf.starterappmvvm.core.unknown.domain.common.BaseActivity
+import com.fadlurahmanf.starterappmvvm.core.unknown.data.constant.logConsole
 import com.fadlurahmanf.starterappmvvm.databinding.ActivityNetworkServiceDiscoveryBinding
 import okio.IOException
 import java.io.BufferedReader

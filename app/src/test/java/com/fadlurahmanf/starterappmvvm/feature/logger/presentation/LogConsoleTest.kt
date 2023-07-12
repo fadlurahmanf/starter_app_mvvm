@@ -1,7 +1,7 @@
 package com.fadlurahmanf.starterappmvvm.feature.logger.presentation
 
 import com.fadlurahmanf.starterappmvvm.feature.notification.domain.usecases.NotificationImpl
-import com.fadlurahmanf.starterappmvvm.core.data.constant.AppConstant
+import com.fadlurahmanf.starterappmvvm.core.unknown.data.constant.AppConstant
 import com.fadlurahmanf.starterappmvvm.feature.logger.data.dto.entity.LoggerEntity
 import com.fadlurahmanf.starterappmvvm.feature.logger.domain.interactor.LoggerInteractor
 import com.fadlurahmanf.starterappmvvm.feature.logger.presentation.handler.LogConsole
