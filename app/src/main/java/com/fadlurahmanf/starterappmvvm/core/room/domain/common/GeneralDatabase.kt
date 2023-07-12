@@ -29,7 +29,7 @@ abstract class GeneralDatabase : RoomDatabase() {
                 val instance = Room.databaseBuilder(
                     context.applicationContext,
                     GeneralDatabase::class.java,
-                    AppConstant.RoomDB.core
+                    RoomConstant.DB.general
                 ).fallbackToDestructiveMigration()
                     .build()
                 INSTANCE = instance

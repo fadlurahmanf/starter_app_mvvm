@@ -9,12 +9,12 @@ import com.fadlurahmanf.starterappmvvm.core.room.data.constant.RoomConstant
 import com.fadlurahmanf.starterappmvvm.core.unknown.data.constant.AppConstant
 import com.fadlurahmanf.starterappmvvm.core.unknown.data.converter.DateConverter
 import com.fadlurahmanf.starterappmvvm.feature.logger.data.dto.entity.LoggerEntity
-import com.fadlurahmanf.starterappmvvm.feature.logger.domain.repository.LoggerDao
+import com.fadlurahmanf.starterappmvvm.feature.logger.data.dao.LoggerDao
 
 @Database(
     entities = [
         LoggerEntity::class
-    ], version = GeneralDatabase.VERSION,
+    ], version = LoggerDatabase.VERSION,
     exportSchema = false
 )
 @TypeConverters(value = [DateConverter::class])
@@ -31,7 +31,7 @@ abstract class LoggerDatabase : RoomDatabase() {
                 val instance = Room.databaseBuilder(
                     context.applicationContext,
                     LoggerDatabase::class.java,
-                    AppConstant.RoomDB.logger
+                    RoomConstant.DB.logger
                 ).fallbackToDestructiveMigration()
                     .allowMainThreadQueries()
                     .build()

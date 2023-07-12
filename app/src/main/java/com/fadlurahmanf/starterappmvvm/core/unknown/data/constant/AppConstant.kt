@@ -1,15 +1,15 @@
 package com.fadlurahmanf.starterappmvvm.core.unknown.data.constant
 
 object AppConstant {
-    object RoomDB {
-        const val core = "core_db"
-        const val logger = "logger_db"
-    }
-
-    object RoomTable {
-        const val surah = "surah_table"
-        const val logger = "logger_table"
-    }
+//    object RoomDB {
+//        const val core = "core_db"
+//        const val logger = "logger_db"
+//    }
+//
+//    object RoomTable {
+//        const val surah = "surah_table"
+//        const val logger = "logger_table"
+//    }
 
     object Notification {
         const val GENERAL_CHANNEL_ID = "GENERAL"

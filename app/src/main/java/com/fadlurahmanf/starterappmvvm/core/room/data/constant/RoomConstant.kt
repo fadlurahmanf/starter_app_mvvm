@@ -9,9 +9,13 @@ object RoomConstant {
 
     object DB {
         const val example = "example_db"
+        const val general = "general_db"
+        const val logger = "logger_db"
     }
 
     object Table {
         const val example = "example_table"
+        const val logger = "logger_table"
+        const val surah = "surah_table"
     }
 }
