@@ -5,7 +5,7 @@ import com.fadlurahmanf.starterappmvvm.core.network.data.dto.request.LoginReques
 import com.fadlurahmanf.starterappmvvm.core.unknown.domain.common.BaseViewModel
 import com.fadlurahmanf.starterappmvvm.core.unknown.data.state.CustomState
 import com.fadlurahmanf.starterappmvvm.core.network.domain.interactor.AuthenticationInteractor
-import com.fadlurahmanf.starterappmvvm.unknown.dto.response.example.LoginResponse
+import com.fadlurahmanf.starterappmvvm.core.network.data.dto.response.LoginResponse
 import com.fadlurahmanf.starterappmvvm.core.unknown.external.extension.toErrorState
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers

@@ -1,4 +1,4 @@
-package com.fadlurahmanf.starterappmvvm.unknown.dto.response.example
+package com.fadlurahmanf.starterappmvvm.core.network.data.dto.response
 
 data class LoginResponse(
     var type:String? = null,

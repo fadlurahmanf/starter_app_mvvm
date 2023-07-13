@@ -11,7 +11,7 @@ import com.fadlurahmanf.starterappmvvm.core.unknown.data.state.CustomState
 import com.fadlurahmanf.starterappmvvm.core.unknown.external.helper.RxBus
 import com.fadlurahmanf.starterappmvvm.unknown.data.storage.example.AuthSpStorage
 import com.fadlurahmanf.starterappmvvm.unknown.dto.response.core.BaseResponse
-import com.fadlurahmanf.starterappmvvm.unknown.dto.response.example.LoginResponse
+import com.fadlurahmanf.starterappmvvm.core.network.data.dto.response.LoginResponse
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.schedulers.Schedulers

@@ -31,6 +31,9 @@
         android:theme="@style/Theme.StarterAppMvvm"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".core.network.presentation.ExampleSwitchDomainActivity"
+            android:exported="false" />
+        <activity
             android:name=".core.network.presentation.ExampleAfterLogin2Activity"
             android:exported="false" />
         <activity

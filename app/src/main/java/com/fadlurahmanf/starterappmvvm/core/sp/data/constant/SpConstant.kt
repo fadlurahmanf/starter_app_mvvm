@@ -8,6 +8,7 @@ object SpConstant {
 
     const val ACCESS_TOKEN = "ACCESS_TOKEN"
     const val REFRESH_TOKEN = "REFRESH_TOKEN"
+    const val GUEST_TOKEN = "GUEST_TOKEN"
 
     const val AES_KEY = "AES_KEY"
 

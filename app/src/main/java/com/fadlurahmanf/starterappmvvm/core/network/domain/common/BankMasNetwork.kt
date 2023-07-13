@@ -26,6 +26,6 @@ abstract class BankMasNetwork<T>(context: Context, private val cryptoAES: Crypto
 
     override fun okHttpClientBuilder(builder: OkHttpClient.Builder): OkHttpClient.Builder {
         return super.okHttpClientBuilder(builder)
-            .addInterceptor(BankMasInterceptor())
+            .addInterceptor(BankMasInterceptor(context, cryptoAES))
     }
 }

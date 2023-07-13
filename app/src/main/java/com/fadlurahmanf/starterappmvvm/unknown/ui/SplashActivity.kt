@@ -5,6 +5,7 @@ import androidx.camera.core.ExperimentalGetImage
 import com.fadlurahmanf.starterappmvvm.BaseApp
 import com.fadlurahmanf.starterappmvvm.BuildConfig
 import com.fadlurahmanf.starterappmvvm.core.network.presentation.ExampleLoginActivity
+import com.fadlurahmanf.starterappmvvm.core.network.presentation.ExampleSwitchDomainActivity
 import com.fadlurahmanf.starterappmvvm.core.unknown.domain.common.BaseActivity
 import com.fadlurahmanf.starterappmvvm.core.unknown.data.constant.logConsole
 import com.fadlurahmanf.starterappmvvm.databinding.ActivitySplashBinding
@@ -41,7 +42,7 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>(ActivitySplashBinding
         }
 
         Timer().schedule(1500) {
-            val intent = Intent(this@SplashActivity, ExampleLoginActivity::class.java)
+            val intent = Intent(this@SplashActivity, ExampleSwitchDomainActivity::class.java)
             startActivity(intent)
             finish()
         }

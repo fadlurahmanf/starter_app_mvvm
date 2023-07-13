@@ -1,14 +1,14 @@
 package com.fadlurahmanf.starterappmvvm.core.network.data.api
 
+import com.fadlurahmanf.starterappmvvm.core.network.data.dto.request.CreateGuestTokenRequest
 import com.fadlurahmanf.starterappmvvm.core.network.data.dto.request.LoginRequest
 import com.fadlurahmanf.starterappmvvm.core.network.data.dto.request.RefreshTokenRequest
+import com.fadlurahmanf.starterappmvvm.core.network.data.dto.response.CreateGuestTokenResponse
 import com.fadlurahmanf.starterappmvvm.unknown.dto.response.core.BaseResponse
-import com.fadlurahmanf.starterappmvvm.unknown.dto.response.example.LoginResponse
-import com.google.gson.JsonObject
+import com.fadlurahmanf.starterappmvvm.core.network.data.dto.response.LoginResponse
 import io.reactivex.rxjava3.core.Observable
 import retrofit2.Call
 import retrofit2.http.Body
-import retrofit2.http.Header
 import retrofit2.http.POST
 
 interface IdentityApi {
@@ -16,6 +16,11 @@ interface IdentityApi {
     fun login(
         @Body body: LoginRequest
     ): Observable<BaseResponse<LoginResponse>>
+
+    @POST("guest/session/create")
+    fun createGuestToken(
+        @Body body: CreateGuestTokenRequest
+    ): Observable<BaseResponse<CreateGuestTokenResponse>>
 
     @POST("auth/refresh")
     fun syncRefreshToken(

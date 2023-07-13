@@ -3,5 +3,7 @@
     <entry>
         <key>btn_pdf_from_file</key>
         <value>true</value>
+        <key>TYPE_TOKEN</key>
+        <value>GUEST</value>
     </entry>
 </defaultsMap>

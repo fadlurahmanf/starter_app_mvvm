@@ -41,4 +41,19 @@ class AuthSpStorage @Inject constructor(
                 null
             }
         }
+
+    var guestToken: String? = null
+        get() {
+            field = getString(SpConstant.GUEST_TOKEN)
+            return field
+        }
+        set(value) {
+            field = if (value != null) {
+                saveString(SpConstant.GUEST_TOKEN, value)
+                value
+            } else {
+                clearData(SpConstant.GUEST_TOKEN)
+                null
+            }
+        }
 }

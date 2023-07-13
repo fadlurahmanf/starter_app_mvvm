@@ -74,7 +74,7 @@ class TokenAuthenticator(
 
     private fun client(): OkHttpClient {
         val clientBuilder = OkHttpClient.Builder()
-            .addInterceptor(BankMasInterceptor())
+            .addInterceptor(BankMasInterceptor(context, cryptoAES))
         if (type != BuildFlavorConstant.production) {
             clientBuilder.addInterceptor(chuckerInterceptor())
         }
