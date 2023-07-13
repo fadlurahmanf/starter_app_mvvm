@@ -13,10 +13,10 @@ import java.lang.Exception
 @ExperimentalGetImage
 class QRCodeAnalyzer(
     var qrisListener: QrisListener
-): ImageAnalysis.Analyzer {
+) : ImageAnalysis.Analyzer {
     override fun analyze(image: ImageProxy) {
         val mediaImage = image.image
-        if (mediaImage != null){
+        if (mediaImage != null) {
             val inputImage = InputImage.fromMediaImage(mediaImage, image.imageInfo.rotationDegrees)
 
             val options = BarcodeScannerOptions.Builder()
@@ -27,12 +27,13 @@ class QRCodeAnalyzer(
 
             scanner.process(inputImage)
                 .addOnSuccessListener { barcodes ->
-                    for (barcode in barcodes){
-                        if(barcode.rawValue != null){
+                    for (barcode in barcodes) {
+                        if (barcode.rawValue != null) {
                             logConsole.d("top: ${barcode.boundingBox?.top}")
                             logConsole.d("bottom: ${barcode.boundingBox?.bottom}")
-                            if ((barcode.boundingBox?.top?:0) > 75
-                                && (barcode.boundingBox?.bottom?:0) < 450){
+                            if ((barcode.boundingBox?.top ?: 0) > 75
+                                && (barcode.boundingBox?.bottom ?: 0) < 450
+                            ) {
                                 qrisListener.onSuccessGetQris(barcode.rawValue!!)
                             }
                         }
@@ -45,8 +46,8 @@ class QRCodeAnalyzer(
         }
     }
 
-    interface QrisListener{
-        fun onSuccessGetQris(value:String)
-        fun onFailedGetQris(exception: Exception)
+    interface QrisListener {
+        fun onSuccessGetQris(value: String)
+        fun onFailedGetQris(e: Exception)
     }
 }

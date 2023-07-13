@@ -30,6 +30,7 @@ android {
         buildConfigField "String", "BASE_QURAN_URL", localProperties["BASE_QURAN_URL"]
         buildConfigField "String", "IDENTITY_PREFIX", localProperties["IDENTITY_PREFIX"]
         buildConfigField "String", "CIF_PREFIX", localProperties["CIF_PREFIX"]
+        buildConfigField "String", "TRANSACTION_PREFIX", localProperties["TRANSACTION_PREFIX"]
         buildConfigField "String", "KONG_BASIC_AUTH", localProperties["KONG_BASIC_AUTH"]
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"

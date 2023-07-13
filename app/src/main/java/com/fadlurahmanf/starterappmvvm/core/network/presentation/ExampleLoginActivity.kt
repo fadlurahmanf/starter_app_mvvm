@@ -6,6 +6,7 @@ import com.fadlurahmanf.starterappmvvm.core.unknown.data.state.CustomState
 import com.fadlurahmanf.starterappmvvm.unknown.di.component.ExampleComponent
 import com.fadlurahmanf.starterappmvvm.core.network.presentation.viewmodel.LoginViewModel
 import com.fadlurahmanf.starterappmvvm.databinding.ActivityExampleLoginBinding
+import com.fadlurahmanf.starterappmvvm.feature.qris.presentation.QrisActivity
 import javax.inject.Inject
 
 class ExampleLoginActivity : BaseActivity<ActivityExampleLoginBinding>(ActivityExampleLoginBinding::inflate) {
@@ -41,7 +42,7 @@ class ExampleLoginActivity : BaseActivity<ActivityExampleLoginBinding>(ActivityE
     }
 
     private fun goToAfterLoginActivity() {
-        val intent = Intent(this, ExampleAfterLoginActivity::class.java)
+        val intent = Intent(this, QrisActivity::class.java)
         startActivity(intent)
     }
 

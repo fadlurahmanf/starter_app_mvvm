@@ -10,3 +10,10 @@ abstract class AbstractCifNetwork<T>(context: Context, cryptoAES: CryptoAES) :
         return "${super.getBaseUrl()}${BuildConfig.CIF_PREFIX}"
     }
 }
+
+abstract class AbstractTransactionNetwork<T>(context: Context, cryptoAES: CryptoAES) :
+    AbstractBankMasAfterLoginNetwork<T>(context, cryptoAES) {
+    override fun getBaseUrl(): String {
+        return "${super.getBaseUrl()}${BuildConfig.TRANSACTION_PREFIX}"
+    }
+}
