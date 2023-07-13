@@ -87,7 +87,7 @@ class TokenAuthenticator(
     }
 
     private fun api() = Retrofit.Builder()
-        .baseUrl(BuildConfig.BASE_URL + BuildConfig.IDENTITY_PREFIX)
+        .baseUrl(BuildConfig.BASIC_URL + BuildConfig.IDENTITY_PREFIX)
         .client(client())
         .addConverterFactory(GsonConverterFactory.create())
         .addCallAdapterFactory(RxJava3CallAdapterFactory.create())

@@ -4,6 +4,7 @@ import android.content.Context
 import com.fadlurahmanf.starterappmvvm.core.encrypt.presentation.CryptoAES
 import com.fadlurahmanf.starterappmvvm.core.unknown.data.constant.AppConstant
 import com.fadlurahmanf.starterappmvvm.core.encrypt.presentation.CryptoRSA
+import com.fadlurahmanf.starterappmvvm.core.sp.data.constant.SpConstant
 import com.fadlurahmanf.starterappmvvm.core.sp.domain.common.BasePreference
 import javax.inject.Inject
 
@@ -13,30 +14,30 @@ class AuthSpStorage @Inject constructor(
 ) : BasePreference(context, cryptoAES) {
     var accessToken: String? = null
         get() {
-            field = getString(AppConstant.Sp.ACCESS_TOKEN)
+            field = getString(SpConstant.ACCESS_TOKEN)
             return field
         }
         set(value) {
             field = if (value != null) {
-                saveString(AppConstant.Sp.ACCESS_TOKEN, value)
+                saveString(SpConstant.ACCESS_TOKEN, value)
                 value
             } else {
-                clearData(AppConstant.Sp.ACCESS_TOKEN)
+                clearData(SpConstant.ACCESS_TOKEN)
                 null
             }
         }
 
     var refreshToken: String? = null
         get() {
-            field = getString(AppConstant.Sp.REFRESH_TOKEN)
+            field = getString(SpConstant.REFRESH_TOKEN)
             return field
         }
         set(value) {
             field = if (value != null) {
-                saveString(AppConstant.Sp.REFRESH_TOKEN, value)
+                saveString(SpConstant.REFRESH_TOKEN, value)
                 value
             } else {
-                clearData(AppConstant.Sp.REFRESH_TOKEN)
+                clearData(SpConstant.REFRESH_TOKEN)
                 null
             }
         }

@@ -60,14 +60,15 @@ android {
     productFlavors {
         dev {
             applicationIdSuffix ".dev"
-            buildConfigField "String", "BASE_URL", localProperties["DEV_URL"]
+            buildConfigField "String", "BASIC_URL", localProperties["BASIC_DEV_URL"]
+            buildConfigField "String", "GUEST_URL", localProperties["GUEST_DEV_URL"]
         }
         staging {
             applicationIdSuffix ".staging"
-            buildConfigField "String", "BASE_URL", localProperties["STAGING_URL"]
+            buildConfigField "String", "BASIC_URL", localProperties["STAGING_URL"]
         }
         production {
-            buildConfigField "String", "BASE_URL", localProperties["STAGING_URL"]
+            buildConfigField "String", "BASIC_URL", localProperties["STAGING_URL"]
         }
     }
     compileOptions {

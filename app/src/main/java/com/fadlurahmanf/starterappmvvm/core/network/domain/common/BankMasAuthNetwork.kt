@@ -8,10 +8,13 @@ import com.fadlurahmanf.starterappmvvm.core.network.data.interceptor.BankMasAfte
 import com.fadlurahmanf.starterappmvvm.core.network.data.interceptor.BankMasInterceptor
 import okhttp3.OkHttpClient
 
+/**
+ * Abstract network bank mas after login
+ **/
 abstract class BankMasAuthNetwork<T>(context: Context, private val cryptoAES: CryptoAES) :
     BaseNetwork<T>(context) {
     override fun getBaseUrl(): String {
-        return BuildConfig.BASE_URL
+        return BuildConfig.BASIC_URL
     }
 
     override fun okHttpClientBuilder(builder: OkHttpClient.Builder): OkHttpClient.Builder {

@@ -6,6 +6,6 @@ import com.fadlurahmanf.starterappmvvm.core.encrypt.presentation.CryptoAES
 
 abstract class IdentityNetwork<T>(context: Context, cryptoAES: CryptoAES) : BankMasNetwork<T>(context, cryptoAES) {
     override fun getBaseUrl(): String {
-        return "${BuildConfig.BASE_URL}${BuildConfig.IDENTITY_PREFIX}"
+        return "${super.getBaseUrl()}${BuildConfig.IDENTITY_PREFIX}"
     }
 }

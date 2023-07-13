@@ -3,11 +3,11 @@ package com.fadlurahmanf.starterappmvvm.core.sp.data.constant
 import com.fadlurahmanf.starterappmvvm.core.unknown.data.constant.AppConstant
 
 object SpConstant {
-    const val SP_KEY = AppConstant.Sp.SP_KEY
-    const val LANGUAGE_CODE = AppConstant.Sp.LANGUAGE_CODE
+    const val SP_KEY = "SP_KEY"
+    const val LANGUAGE_CODE = "LANGUAGE_CODE"
 
-    const val ACCESS_TOKEN = AppConstant.Sp.ACCESS_TOKEN
-    const val REFRESH_TOKEN = AppConstant.Sp.REFRESH_TOKEN
+    const val ACCESS_TOKEN = "ACCESS_TOKEN"
+    const val REFRESH_TOKEN = "REFRESH_TOKEN"
 
     const val AES_KEY = "AES_KEY"
 

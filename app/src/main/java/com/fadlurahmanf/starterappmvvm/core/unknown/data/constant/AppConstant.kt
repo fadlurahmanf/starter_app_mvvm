@@ -15,15 +15,14 @@ object AppConstant {
         const val DEFAULT_DOWNLOAD_NOTIFICATION_ID = 1
     }
 
-    // shared preference
-    object Sp {
-        const val SP_KEY = "SP_KEY"
-        const val LANGUAGE_CODE = "LANGUAGE_CODE"
+    // RemoteConfig Key
+    object RCK {
+        const val TYPE_TOKEN = "TYPE_TOKEN"
+    }
 
-        const val ACCESS_TOKEN = "ACCESS_TOKEN"
-        const val REFRESH_TOKEN = "REFRESH_TOKEN"
-
-        const val PRIVATE_KEY = "PRIVATE_KEY_RSA"
-        const val PUBLIC_KEY = "PUBLIC_KEY_RSA"
+    // RemoteConfig Value
+    object RCV {
+        const val BASIC = "BASIC"
+        const val GUEST = "GUEST"
     }
 }
