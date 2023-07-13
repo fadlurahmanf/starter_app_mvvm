@@ -22,7 +22,7 @@ class ExampleRoomViewModel @Inject constructor(
     }
 
     fun getAll() {
-        disposable().add(
+        compositeDisposable().add(
             roomInteractor.getAll().subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ list ->

@@ -5,8 +5,10 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.fadlurahmanf.starterappmvvm.core.network.data.dto.request.RefreshTokenRequest
 import com.fadlurahmanf.starterappmvvm.core.network.domain.interactor.AuthenticationInteractor
+import com.fadlurahmanf.starterappmvvm.core.unknown.data.constant.logConsole
+import com.fadlurahmanf.starterappmvvm.core.unknown.data.dto.event.RxEvent
 import com.fadlurahmanf.starterappmvvm.core.unknown.data.state.CustomState
-import com.fadlurahmanf.starterappmvvm.core.unknown.external.extension.toErrorState
+import com.fadlurahmanf.starterappmvvm.core.unknown.external.helper.RxBus
 import com.fadlurahmanf.starterappmvvm.unknown.data.storage.example.AuthSpStorage
 import com.fadlurahmanf.starterappmvvm.unknown.dto.response.core.BaseResponse
 import com.fadlurahmanf.starterappmvvm.unknown.dto.response.example.LoginResponse
@@ -18,33 +20,44 @@ abstract class BaseAfterLoginViewModel(
     private val authenticationInteractor: AuthenticationInteractor,
     private val authSpStorage: AuthSpStorage
 ) : BaseViewModel() {
-    private var _refreshTokenState = MutableLiveData<CustomState<LoginResponse>>()
-    val refreshTokenState get():LiveData<CustomState<LoginResponse>> = _refreshTokenState
+    private var _refreshTokenState = MutableLiveData<CustomState<BaseResponse<LoginResponse>>>()
+    val refreshTokenState get():LiveData<CustomState<BaseResponse<LoginResponse>>> = _refreshTokenState
+
+    init {
+        listenActionRefreshToken()
+    }
 
     fun refreshToken() {
-        _refreshTokenState.value = CustomState.Idle
-        _refreshTokenState.value = CustomState.Loading
         val request = RefreshTokenRequest(authSpStorage.refreshToken ?: "")
-        disposable().add(authenticationInteractor.refreshToken(request).observeOn(Schedulers.io())
+        compositeDisposable().add(authenticationInteractor.refreshToken(request)
+            .observeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
-                {
-                    if (isSuccess(response = it)) {
-                        _refreshTokenState.value = CustomState.Success(data = it.data!!)
-                    } else {
-                        _refreshTokenState.value = it.message?.toErrorState()
+                { baseResponse ->
+                    baseResponse.data?.let { loginResponse ->
+                        authenticationInteractor.saveAuthToken(loginResponse)
+                        RxBus.publish(RxEvent.ResetTimerAfterLogin())
                     }
                 },
                 {
-                    _refreshTokenState.value = it.toErrorState()
+                    println("MASUK ERROR ${it.message}")
                 },
                 {}
             ))
     }
+
+    private fun listenActionRefreshToken() {
+        logConsole.d("listenActionRefreshToken")
+        compositeDisposable().add(RxBus.listen(RxEvent.RefreshToken::class.java).subscribe {
+            logConsole.d("EVENT RefreshToken")
+            refreshToken()
+            compositeDisposable().clear()
+        })
+    }
 }
 
 abstract class BaseViewModel : ViewModel() {
-    fun disposable() = CompositeDisposable()
+    fun compositeDisposable() = CompositeDisposable()
 
     fun <T> isSuccess(response: BaseResponse<T>) = response.code == "200"
             && response.message == "SUCCESS"

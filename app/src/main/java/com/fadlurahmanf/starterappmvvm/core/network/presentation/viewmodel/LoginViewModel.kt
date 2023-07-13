@@ -29,7 +29,7 @@ class LoginViewModel @Inject constructor(
             activationId = "69ed4697-5258-48ab-bfa6-e3f19264f417",
             clientTimeMilis = System.currentTimeMillis().toString()
         )
-        disposable().add(authenticationInteractor.login(request)
+        compositeDisposable().add(authenticationInteractor.login(request)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(

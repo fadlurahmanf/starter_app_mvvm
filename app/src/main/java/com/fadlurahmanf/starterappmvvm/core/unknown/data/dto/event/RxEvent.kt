@@ -6,4 +6,7 @@ class RxEvent {
     )
 
     class ForceLogoutEvent
+
+    class RefreshToken
+    class ResetTimerAfterLogin
 }

@@ -2,16 +2,12 @@ package com.fadlurahmanf.starterappmvvm.core.unknown.domain.common
 
 import android.content.Intent
 import android.os.CountDownTimer
-import android.view.GestureDetector
 import android.view.MotionEvent
 import androidx.viewbinding.ViewBinding
-import com.fadlurahmanf.starterappmvvm.core.network.presentation.viewmodel.AfterLoginViewModel
-import com.fadlurahmanf.starterappmvvm.core.network.presentation.viewmodel.BaseAfterLoginViewModel
 import com.fadlurahmanf.starterappmvvm.core.unknown.data.constant.logConsole
 import com.fadlurahmanf.starterappmvvm.core.unknown.data.dto.event.RxEvent
 import com.fadlurahmanf.starterappmvvm.core.unknown.external.helper.RxBus
 import com.fadlurahmanf.starterappmvvm.unknown.ui.SplashActivity
-import javax.inject.Inject
 
 abstract class BaseAfterLoginActivity<VB : ViewBinding>(inflate: InflateActivity<VB>) :
     BaseActivity<VB>(inflate) {
@@ -24,7 +20,7 @@ abstract class BaseAfterLoginActivity<VB : ViewBinding>(inflate: InflateActivity
         timer.start()
     }
 
-    private fun restartTimer() {
+    private fun resetTimer() {
         timer.cancel()
         currentMillis = defaultMillis
         timer.start()
@@ -41,12 +37,18 @@ abstract class BaseAfterLoginActivity<VB : ViewBinding>(inflate: InflateActivity
             startActivity(intent)
             finish()
         })
+
+        compositeDisposable.add(RxBus.listen(RxEvent.ResetTimerAfterLogin::class.java).subscribe {
+            logConsole.d("EVENT RESET TIMER")
+            resetTimer()
+        })
     }
 
     override fun onTouchEvent(event: MotionEvent?): Boolean {
         return if (event?.action == MotionEvent.ACTION_DOWN) {
             if (currentMillis < 5000L) {
-                restartTimer()
+                logConsole.d("TRIGGER ACTION REFRESH TOKEN")
+                RxBus.publish(RxEvent.RefreshToken())
             }
             true
         } else {

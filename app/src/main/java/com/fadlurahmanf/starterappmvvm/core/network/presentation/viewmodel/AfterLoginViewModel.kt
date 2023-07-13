@@ -23,7 +23,7 @@ class AfterLoginViewModel @Inject constructor(
     fun getFavorite() {
         _favoritesState.value = CustomState.Idle
         _favoritesState.value = CustomState.Loading
-        disposable().add(favoriteInteractor.getFavorites()
+        compositeDisposable().add(favoriteInteractor.getFavorites()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(

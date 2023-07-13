@@ -24,7 +24,7 @@ class LoggerViewModel @Inject constructor(
         _state.value = CustomState.Idle
         _state.value = CustomState.Loading
 
-        disposable().add(
+        compositeDisposable().add(
             loggerInteractor.getAll().subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread()).subscribe({
                     _state.value = CustomState.Success(data = it)
@@ -35,7 +35,7 @@ class LoggerViewModel @Inject constructor(
     }
 
     fun dispose() {
-        disposable().dispose()
+        compositeDisposable().dispose()
     }
 
     fun deleteLogs() {
