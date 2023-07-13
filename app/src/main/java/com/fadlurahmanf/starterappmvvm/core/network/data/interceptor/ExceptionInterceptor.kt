@@ -1,6 +1,7 @@
 package com.fadlurahmanf.starterappmvvm.core.network.data.interceptor
 
 import com.fadlurahmanf.starterappmvvm.core.unknown.data.constant.ExceptionConstant
+import com.fadlurahmanf.starterappmvvm.core.unknown.data.constant.logConsole
 import com.fadlurahmanf.starterappmvvm.core.unknown.data.dto.exception.CustomException
 import okhttp3.Interceptor
 import okhttp3.Response
@@ -20,6 +21,7 @@ class ExceptionInterceptor : Interceptor {
             }
             return response
         } catch (e: Throwable) {
+            logConsole.e("EXCEPTION INTERCEPTOR: ${e.message}")
             when (e) {
                 is HttpException -> {
                     throw CustomException()

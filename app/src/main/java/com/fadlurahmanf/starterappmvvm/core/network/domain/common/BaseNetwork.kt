@@ -1,12 +1,11 @@
 package com.fadlurahmanf.starterappmvvm.core.network.domain.common
 
 import android.content.Context
-import com.chuckerteam.chucker.api.ChuckerCollector
-import com.chuckerteam.chucker.api.ChuckerInterceptor
-import com.chuckerteam.chucker.api.RetentionManager
 import com.fadlurahmanf.starterappmvvm.BuildConfig
 import com.fadlurahmanf.starterappmvvm.core.network.data.interceptor.ExceptionInterceptor
+import com.fadlurahmanf.starterappmvvm.core.network.external.ChuckerHelper
 import com.fadlurahmanf.starterappmvvm.core.unknown.data.constant.BuildFlavorConstant
+import okhttp3.CertificatePinner
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -23,27 +22,19 @@ abstract class BaseNetwork<T>(var context: Context) {
     }
 
     private val type: String = BuildConfig.FLAVOR
-    private fun chuckerInterceptor(): ChuckerInterceptor {
-
-        val chuckerCollector = ChuckerCollector(
-            context = context,
-            showNotification = type != BuildFlavorConstant.production,
-            retentionPeriod = RetentionManager.Period.ONE_HOUR
-        )
-
-        return ChuckerInterceptor.Builder(context)
-            .collector(chuckerCollector)
-            .maxContentLength(Long.MAX_VALUE)
-            .alwaysReadResponseBody(true)
-            .build()
-    }
 
     open fun okHttpClientBuilder(builder: OkHttpClient.Builder): OkHttpClient.Builder {
-        val p0 = builder.addNetworkInterceptor(bodyLoggingInterceptor())
+        val p0 = builder
+            .addNetworkInterceptor(bodyLoggingInterceptor())
         if (type != BuildFlavorConstant.production) {
-            p0.addInterceptor(chuckerInterceptor())
+            p0.addInterceptor(ChuckerHelper.provideInterceptor(context))
         }
         return p0.addInterceptor(ExceptionInterceptor())
+            .certificatePinner(
+                CertificatePinner.Builder().add(
+                    "guest.bankmas.my.id", "sha256/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA="
+                ).build()
+            )
     }
 
     private fun provideClient(timeOut: Long): OkHttpClient {
