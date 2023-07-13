@@ -1,5 +1,6 @@
 package com.fadlurahmanf.starterappmvvm.core.network.presentation
 
+import android.content.Intent
 import com.fadlurahmanf.starterappmvvm.core.unknown.domain.common.BaseActivity
 import com.fadlurahmanf.starterappmvvm.core.unknown.data.state.CustomState
 import com.fadlurahmanf.starterappmvvm.unknown.di.component.ExampleComponent
@@ -22,10 +23,6 @@ class ExampleAfterLoginActivity : BaseAfterLoginActivity<ActivityExampleAfterLog
 
     @Inject
     lateinit var viewModel: AfterLoginViewModel
-
-    override fun inject1() {
-
-    }
 
     private fun observe(){
         viewModel.favoriteState.observe(this){
@@ -52,7 +49,11 @@ class ExampleAfterLoginActivity : BaseAfterLoginActivity<ActivityExampleAfterLog
     private fun initAction(){
         binding.btnGetFavorite.setOnClickListener {
             viewModel.getFavorite()
-            viewModel.refreshToken()
+        }
+
+        binding.btnNextScreen.setOnClickListener {
+            val intent = Intent(this, ExampleAfterLogin2Activity::class.java)
+            startActivity(intent)
         }
     }
 

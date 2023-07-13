@@ -40,7 +40,7 @@ abstract class BaseAfterLoginViewModel(
                     }
                 },
                 {
-                    println("MASUK ERROR ${it.message}")
+                    logConsole.e("ERROR REFRESH TOKEN: ${it.message}")
                 },
                 {}
             ))

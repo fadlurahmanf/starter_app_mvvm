@@ -12,10 +12,12 @@ import com.fadlurahmanf.starterappmvvm.unknown.ui.SplashActivity
 abstract class BaseAfterLoginActivity<VB : ViewBinding>(inflate: InflateActivity<VB>) :
     BaseActivity<VB>(inflate) {
 
-    abstract fun inject1()
-
     override fun onResume() {
         super.onResume()
+        resumeTimer()
+    }
+
+    private fun resumeTimer() {
         timer.cancel()
         timer.start()
     }

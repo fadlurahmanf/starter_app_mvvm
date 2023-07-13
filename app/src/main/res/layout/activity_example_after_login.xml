@@ -14,4 +14,10 @@
         android:id="@+id/btn_get_favorite"
         android:text="get favorite"/>
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btn_next_screen"
+        android:text="go to screen 2"/>
+
 </LinearLayout>
