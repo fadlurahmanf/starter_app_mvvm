@@ -7,6 +7,7 @@ import androidx.camera.core.ImageAnalysis.STRATEGY_KEEP_ONLY_LATEST
 import androidx.camera.core.Preview
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.content.ContextCompat
+import com.fadlurahmanf.starterappmvvm.core.unknown.data.constant.logConsole
 import com.fadlurahmanf.starterappmvvm.core.unknown.domain.common.BaseActivity
 import com.fadlurahmanf.starterappmvvm.databinding.ActivityQrisBinding
 import com.fadlurahmanf.starterappmvvm.unknown.utils.qrcode.QRCodeAnalyzer
@@ -29,6 +30,8 @@ class QrisActivity : BaseActivity<ActivityQrisBinding>(ActivityQrisBinding::infl
         val cameraProviderFuture = ProcessCameraProvider.getInstance(this)
         val qrisListener = object : QRCodeAnalyzer.QrisListener{
             override fun onSuccessGetQris(value: String) {
+                logConsole.d("VALUE: $value")
+                showSnackBar(binding.root, "SUCCESS NIH")
                 if (!isSuccessGetQris){
                     isSuccessGetQris = true
                     val intent = Intent()

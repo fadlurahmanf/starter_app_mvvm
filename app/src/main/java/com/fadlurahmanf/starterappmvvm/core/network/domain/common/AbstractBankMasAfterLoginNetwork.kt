@@ -10,8 +10,8 @@ import okhttp3.OkHttpClient
 /**
  * Abstract network bank mas after login
  **/
-abstract class BankMasAfterLoginNetwork<T>(context: Context, private val cryptoAES: CryptoAES) :
-    BankMasNetwork<T>(context, cryptoAES) {
+abstract class AbstractBankMasAfterLoginNetwork<T>(context: Context, private val cryptoAES: CryptoAES) :
+    AbstractBankMasNetwork<T>(context, cryptoAES) {
     override fun getBaseUrl(): String {
         return BuildConfig.BASIC_URL
     }

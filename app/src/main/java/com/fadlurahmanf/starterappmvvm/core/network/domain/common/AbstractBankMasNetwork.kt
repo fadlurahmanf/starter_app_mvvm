@@ -12,7 +12,7 @@ import okhttp3.OkHttpClient
 /**
  * Abstract network bank mas before login
  **/
-abstract class BankMasNetwork<T>(context: Context, private val cryptoAES: CryptoAES) :
+abstract class AbstractBankMasNetwork<T>(context: Context, private val cryptoAES: CryptoAES) :
     BaseNetwork<T>(context) {
     override fun getBaseUrl(): String {
         // checking if remote config is guest or basic

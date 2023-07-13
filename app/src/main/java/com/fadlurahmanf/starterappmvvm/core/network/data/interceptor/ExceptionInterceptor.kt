@@ -22,7 +22,7 @@ class ExceptionInterceptor : Interceptor {
             }
             return response
         } catch (e: Throwable) {
-            logConsole.e("EXCEPTION INTERCEPTOR: ${e.message}")
+            logConsole.e("ERROR ExceptionInterceptor: ${e.message}")
             when (e) {
                 is HttpException -> {
                     throw CustomException()

@@ -43,7 +43,7 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>(ActivitySplashBinding
         }
 
         Timer().schedule(1500) {
-            val intent = Intent(this@SplashActivity, ExampleSwitchDomainActivity::class.java)
+            val intent = Intent(this@SplashActivity, ExampleActivity::class.java)
             startActivity(intent)
             finish()
         }

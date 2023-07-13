@@ -131,10 +131,9 @@ class ExampleActivity :
         }
 
         binding.btnGoToLogin.setOnClickListener {
-//            AnalyticHelper.logEvent(this, AnalyticEvent.btn_login_click)
-//            val intent = Intent(this, ExampleLoginActivity::class.java)
-//            startActivity(intent)
-            println("MASUK SINI ${cacheDir.absolutePath}")
+            AnalyticHelper.logEvent(this, AnalyticEvent.btn_login_click)
+            val intent = Intent(this, ExampleLoginActivity::class.java)
+            startActivity(intent)
         }
 
         binding.btnSeeLogChucker.setOnClickListener {

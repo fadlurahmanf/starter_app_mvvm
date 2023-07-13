@@ -11,6 +11,8 @@ import com.fadlurahmanf.starterappmvvm.unknown.ui.example.activity.ExampleActivi
 import com.fadlurahmanf.starterappmvvm.core.network.presentation.ExampleLoginActivity
 import com.fadlurahmanf.starterappmvvm.core.network.presentation.ExampleSwitchDomainActivity
 import com.fadlurahmanf.starterappmvvm.core.unknown.domain.common.BaseAfterLoginActivity
+import com.fadlurahmanf.starterappmvvm.feature.qris.ExampleQrisActivity
+import com.fadlurahmanf.starterappmvvm.unknown.ui.example.activity.QrisActivity
 import com.fadlurahmanf.starterappmvvm.unknown.ui.example.activity.SecondExampleActivity
 import dagger.Subcomponent
 
@@ -21,11 +23,14 @@ interface ExampleComponent {
     interface Factory {
         fun create(): ExampleComponent
     }
+
     fun inject(activity: ExampleActivity)
     fun inject(activity: ExampleNotificationActivity)
     fun inject(activity: ExampleLanguageActivity)
     fun inject(activity: ExampleSPActivity)
     fun inject(activity: ExampleRoomActivity)
+    fun inject(activity: ExampleQrisActivity)
+    fun inject(activity: QrisActivity)
     fun inject(activity: ExampleSwitchDomainActivity)
     fun inject(activity: SecondExampleActivity)
     fun inject(activity: ExampleLoginActivity)

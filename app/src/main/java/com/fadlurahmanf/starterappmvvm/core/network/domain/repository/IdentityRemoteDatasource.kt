@@ -6,13 +6,13 @@ import com.fadlurahmanf.starterappmvvm.core.network.data.api.IdentityApi
 import com.fadlurahmanf.starterappmvvm.core.network.data.dto.request.CreateGuestTokenRequest
 import com.fadlurahmanf.starterappmvvm.core.network.data.dto.request.LoginRequest
 import com.fadlurahmanf.starterappmvvm.core.network.data.dto.request.RefreshTokenRequest
-import com.fadlurahmanf.starterappmvvm.core.network.domain.common.IdentityNetwork
+import com.fadlurahmanf.starterappmvvm.core.network.domain.common.AbstractIdentityNetwork
 import javax.inject.Inject
 
 class IdentityRemoteDatasource @Inject constructor(
     context: Context,
     cryptoAES: CryptoAES
-): IdentityNetwork<IdentityApi>(context, cryptoAES) {
+): AbstractIdentityNetwork<IdentityApi>(context, cryptoAES) {
     override fun getApi(): Class<IdentityApi> {
         return IdentityApi::class.java
     }
