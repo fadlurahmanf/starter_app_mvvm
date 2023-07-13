@@ -6,6 +6,7 @@ import com.fadlurahmanf.starterappmvvm.BuildConfig
 import com.fadlurahmanf.starterappmvvm.core.encrypt.presentation.CryptoAES
 import com.fadlurahmanf.starterappmvvm.core.network.data.interceptor.BankMasInterceptor
 import com.fadlurahmanf.starterappmvvm.core.unknown.data.constant.AppConstant
+import okhttp3.CertificatePinner
 import okhttp3.OkHttpClient
 
 /**
@@ -26,5 +27,18 @@ abstract class BankMasNetwork<T>(context: Context, private val cryptoAES: Crypto
     override fun okHttpClientBuilder(builder: OkHttpClient.Builder): OkHttpClient.Builder {
         return super.okHttpClientBuilder(builder)
             .addInterceptor(BankMasInterceptor(context, cryptoAES))
+            .certificatePinner(certificatePinner())
+    }
+
+    private fun certificatePinner(): CertificatePinner {
+        return CertificatePinner
+            .Builder()
+            .add("guest.bankmas.my.id", "sha256/wWNGHPC/VLetRp8oYOfMA5OKj1BIbXsrHHvvC/zhdYg=")
+            .add("guest.bankmas.my.id", "sha256/jQJTbIh0grw0/1TkHSumWb+Fs0Ggogr621gT3PvPKG0=")
+            .add("guest.bankmas.my.id", "sha256/C5+lpZ7tcVwmwQIMcRtPbsQtWLABXhQzejna0wHFr8M=")
+            .add("api.bankmas.my.id", "sha256//tIqWQyKa1eSahlaRjGHRPSqjm60JN/EI+ZiJBUbjG8=")
+            .add("api.bankmas.my.id", "sha256/jQJTbIh0grw0/1TkHSumWb+Fs0Ggogr621gT3PvPKG0=")
+            .add("api.bankmas.my.id", "sha256/C5+lpZ7tcVwmwQIMcRtPbsQtWLABXhQzejna0wHFr8M=")
+            .build()
     }
 }

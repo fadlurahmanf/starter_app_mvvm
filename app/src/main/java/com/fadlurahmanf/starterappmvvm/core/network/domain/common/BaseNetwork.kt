@@ -25,21 +25,8 @@ abstract class BaseNetwork<T>(var context: Context) {
 
     private val type: String = BuildConfig.FLAVOR
 
-    private fun certificatePinner(): CertificatePinner {
-        return CertificatePinner
-            .Builder()
-            .add("guest.bankmas.my.id", "sha256/wWNGHPC/VLetRp8oYOfMA5OKj1BIbXsrHHvvC/zhdYg=")
-            .add("guest.bankmas.my.id", "sha256/jQJTbIh0grw0/1TkHSumWb+Fs0Ggogr621gT3PvPKG0=")
-            .add("guest.bankmas.my.id", "sha256/C5+lpZ7tcVwmwQIMcRtPbsQtWLABXhQzejna0wHFr8M=")
-            .add("api.bankmas.my.id", "sha256//tIqWQyKa1eSahlaRjGHRPSqjm60JN/EI+ZiJBUbjG8=")
-            .add("api.bankmas.my.id", "sha256/jQJTbIh0grw0/1TkHSumWb+Fs0Ggogr621gT3PvPKG0=")
-            .add("api.bankmas.my.id", "sha256/C5+lpZ7tcVwmwQIMcRtPbsQtWLABXhQzejna0wHFr8M=")
-            .build()
-    }
-
     open fun okHttpClientBuilder(builder: OkHttpClient.Builder): OkHttpClient.Builder {
         val p0 = builder
-            .certificatePinner(certificatePinner())
             .addNetworkInterceptor(bodyLoggingInterceptor())
         if (type != BuildFlavorConstant.production) {
             p0.addInterceptor(ChuckerHelper.provideInterceptor(context))

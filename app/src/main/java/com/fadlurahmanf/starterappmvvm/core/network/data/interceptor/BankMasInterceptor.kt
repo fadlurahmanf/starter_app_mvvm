@@ -20,6 +20,7 @@ open class BankMasInterceptor(private val context: Context, private val cryptoAE
     private fun addHeader(oriRequest: Request): Request {
         val request = oriRequest.newBuilder()
         val remoteConfig = (context.applicationContext as BaseApp).remoteConfig
+        request.removeHeader("Authorization")
         if (remoteConfig.getString(AppConstant.RCK.TYPE_TOKEN) == AppConstant.RCV.GUEST) {
             val authSpStorage = AuthSpStorage(context, cryptoAES)
             request.addHeader("Authorization", "Bearer ${authSpStorage.guestToken}")
