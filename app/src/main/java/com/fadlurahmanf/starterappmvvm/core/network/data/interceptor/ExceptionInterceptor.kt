@@ -8,6 +8,7 @@ import okhttp3.Response
 import retrofit2.HttpException
 import java.io.IOException
 import java.net.UnknownHostException
+import javax.net.ssl.SSLPeerUnverifiedException
 
 class ExceptionInterceptor : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
@@ -34,6 +35,10 @@ class ExceptionInterceptor : Interceptor {
                 }
 
                 is CustomException -> {
+                    throw e
+                }
+
+                is SSLPeerUnverifiedException -> {
                     throw e
                 }
 

@@ -11,12 +11,12 @@ import com.fadlurahmanf.starterappmvvm.core.unknown.data.dto.exception.CustomExc
 import java.io.File
 
 class DownloadHelper(
-    private val applicationContext: Context
+    private val context: Context
 ) {
     private var downloadManager: DownloadManager =
-        applicationContext.getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
+        context.getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
     private var notificationImpl: DownloadNotificationHelper =
-        DownloadNotificationHelper(applicationContext)
+        DownloadNotificationHelper(context)
 
     fun getDownloadId(urlDownload: String, downloadFileName: String): Long {
         if (urlDownload.isEmpty() || downloadFileName.isEmpty()) {
@@ -61,8 +61,8 @@ class DownloadHelper(
                 }
                 if (totalSize < progress) {
                     notificationImpl.showNotification(
-                        title = applicationContext.getString(R.string.download),
-                        body = applicationContext.getString(R.string.downloading)
+                        title = context.getString(R.string.download),
+                        body = context.getString(R.string.downloading)
                     )
                 } else {
                     notificationImpl.showDownload(data)

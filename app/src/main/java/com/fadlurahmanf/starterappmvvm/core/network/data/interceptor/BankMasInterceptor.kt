@@ -5,6 +5,7 @@ import com.fadlurahmanf.starterappmvvm.BaseApp
 import com.fadlurahmanf.starterappmvvm.BuildConfig
 import com.fadlurahmanf.starterappmvvm.core.encrypt.presentation.CryptoAES
 import com.fadlurahmanf.starterappmvvm.core.unknown.data.constant.AppConstant
+import com.fadlurahmanf.starterappmvvm.core.unknown.data.constant.logConsole
 import com.fadlurahmanf.starterappmvvm.unknown.data.storage.example.AuthSpStorage
 import okhttp3.Interceptor
 import okhttp3.Request

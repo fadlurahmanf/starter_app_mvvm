@@ -6,6 +6,7 @@ import android.app.PendingIntent.FLAG_IMMUTABLE
 import android.content.Intent
 import android.net.Uri
 import android.os.Build
+import android.os.Environment
 import android.view.View
 import androidx.activity.result.ActivityResultCallback
 import androidx.activity.result.contract.ActivityResultContracts
@@ -130,9 +131,10 @@ class ExampleActivity :
         }
 
         binding.btnGoToLogin.setOnClickListener {
-            AnalyticHelper.logEvent(this, AnalyticEvent.btn_login_click)
-            val intent = Intent(this, ExampleLoginActivity::class.java)
-            startActivity(intent)
+//            AnalyticHelper.logEvent(this, AnalyticEvent.btn_login_click)
+//            val intent = Intent(this, ExampleLoginActivity::class.java)
+//            startActivity(intent)
+            println("MASUK SINI ${cacheDir.absolutePath}")
         }
 
         binding.btnSeeLogChucker.setOnClickListener {

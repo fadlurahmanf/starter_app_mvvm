@@ -1,6 +1,5 @@
 package com.fadlurahmanf.starterappmvvm.core.network.domain.common
 
-import android.app.Application
 import android.content.Context
 import com.fadlurahmanf.starterappmvvm.BaseApp
 import com.fadlurahmanf.starterappmvvm.BuildConfig
