@@ -6,7 +6,6 @@ import android.app.PendingIntent.FLAG_IMMUTABLE
 import android.content.Intent
 import android.net.Uri
 import android.os.Build
-import android.os.Environment
 import android.view.View
 import androidx.activity.result.ActivityResultCallback
 import androidx.activity.result.contract.ActivityResultContracts
@@ -35,6 +34,7 @@ import com.fadlurahmanf.starterappmvvm.core.logger.presentation.LogHistoryActivi
 import com.fadlurahmanf.starterappmvvm.core.network.presentation.ExampleLoginActivity
 import com.fadlurahmanf.starterappmvvm.feature.notification.domain.usecases.NotificationImpl
 import com.fadlurahmanf.starterappmvvm.core.sp.presentation.ExampleSPActivity
+import com.fadlurahmanf.starterappmvvm.feature.qris.presentation.QrisActivity
 import com.fadlurahmanf.starterappmvvm.unknown.di.component.ExampleComponent
 import com.fadlurahmanf.starterappmvvm.unknown.dto.model.core.PdfModel
 import com.fadlurahmanf.starterappmvvm.unknown.dto.model.core.PdfOrigin
@@ -136,6 +136,11 @@ class ExampleActivity :
             startActivity(intent)
         }
 
+        binding.btnQris.setOnClickListener {
+            AnalyticHelper.logEvent(this, AnalyticEvent.btn_qris_click)
+            cameraPermissionLauncher.launch(android.Manifest.permission.CAMERA)
+        }
+
         binding.btnSeeLogChucker.setOnClickListener {
             if (BuildConfig.FLAVOR != BuildFlavorConstant.production) {
                 val intent = Chucker.getLaunchIntent(this)
@@ -174,7 +179,7 @@ class ExampleActivity :
 //            val intent = galleryImpl.getIntentNativePickImage()
 //            startActivityForResult(intent, 121)
 
-            pickMultipleImageResult.launch("image/*")
+            pickImageResult.launch("image/*")
         }
 
         binding.buttonPickMultipleImageFromGallery.setOnClickListener {
@@ -240,11 +245,6 @@ class ExampleActivity :
                 this,
                 "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"
             )
-        }
-
-        binding.btnQris.setOnClickListener {
-            AnalyticHelper.logEvent(this, AnalyticEvent.btn_qris_click)
-            cameraPermissionLauncher.launch(android.Manifest.permission.CAMERA)
         }
 
         binding.btnGetToken.setOnClickListener {

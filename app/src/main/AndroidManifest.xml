@@ -31,7 +31,7 @@
         android:theme="@style/Theme.StarterAppMvvm"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".feature.qris.ExampleQrisActivity"
+            android:name=".feature.qris.presentation.ExampleQrisActivity"
             android:exported="false" />
         <activity
             android:name=".core.network.presentation.ExampleSwitchDomainActivity"
@@ -96,7 +96,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".unknown.ui.example.activity.QrisActivity"
+            android:name=".feature.qris.presentation.QrisActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"

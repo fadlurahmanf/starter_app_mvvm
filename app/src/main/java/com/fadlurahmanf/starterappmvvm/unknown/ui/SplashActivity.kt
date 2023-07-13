@@ -10,6 +10,7 @@ import com.fadlurahmanf.starterappmvvm.core.unknown.domain.common.BaseActivity
 import com.fadlurahmanf.starterappmvvm.core.unknown.data.constant.logConsole
 import com.fadlurahmanf.starterappmvvm.databinding.ActivitySplashBinding
 import com.fadlurahmanf.starterappmvvm.feature.language.domain.interactor.LanguageInteractor
+import com.fadlurahmanf.starterappmvvm.feature.qris.presentation.QrisActivity
 import com.fadlurahmanf.starterappmvvm.unknown.di.component.CoreComponent
 import com.fadlurahmanf.starterappmvvm.unknown.ui.example.activity.ExampleActivity
 import com.google.firebase.messaging.FirebaseMessaging
@@ -43,7 +44,7 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>(ActivitySplashBinding
         }
 
         Timer().schedule(1500) {
-            val intent = Intent(this@SplashActivity, ExampleActivity::class.java)
+            val intent = Intent(this@SplashActivity, QrisActivity::class.java)
             startActivity(intent)
             finish()
         }

@@ -26,12 +26,12 @@ class QrisOverlayView(context: Context, attrs: AttributeSet): View(context, attr
         val eraser = Paint()
         eraser.isAntiAlias = true
         eraser.style = Paint.Style.FILL
-        eraser.color = Color.RED
+        eraser.color = Color.WHITE
         eraser.xfermode = PorterDuffXfermode(PorterDuff.Mode.CLEAR)
 
-        val width = width.toFloat() - viewportMargin
-        val height = width * 0.7.toFloat()
-        val frame = RectF(viewportMargin.toFloat() - 2, viewportMargin.toFloat() + 250, width + 4, height + 250)
+        val width = width.toFloat()
+        val height = (width * 0.7).toFloat()
+        val frame = RectF((width * 0.1).toFloat(), 250f, (width * 0.9).toFloat(), height + 250)
         val path = Path()
         val stroke = Paint()
         stroke.isAntiAlias = true

@@ -1,13 +1,9 @@
-package com.fadlurahmanf.starterappmvvm.feature.qris
+package com.fadlurahmanf.starterappmvvm.feature.qris.presentation
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
-import com.fadlurahmanf.starterappmvvm.R
 import com.fadlurahmanf.starterappmvvm.core.unknown.domain.common.BaseActivity
 import com.fadlurahmanf.starterappmvvm.databinding.ActivityExampleQrisBinding
 import com.fadlurahmanf.starterappmvvm.unknown.di.component.ExampleComponent
-import com.fadlurahmanf.starterappmvvm.unknown.ui.example.activity.QrisActivity
 
 class ExampleQrisActivity : BaseActivity<ActivityExampleQrisBinding>(ActivityExampleQrisBinding::inflate) {
 

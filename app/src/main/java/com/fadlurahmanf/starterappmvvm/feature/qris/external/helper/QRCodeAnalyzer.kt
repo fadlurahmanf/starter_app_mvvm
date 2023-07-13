@@ -1,4 +1,4 @@
-package com.fadlurahmanf.starterappmvvm.unknown.utils.qrcode
+package com.fadlurahmanf.starterappmvvm.feature.qris.external.helper
 
 import androidx.camera.core.ExperimentalGetImage
 import androidx.camera.core.ImageAnalysis

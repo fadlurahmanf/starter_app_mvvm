@@ -1,6 +1,5 @@
 package com.fadlurahmanf.starterappmvvm.unknown.di.component
 
-import androidx.viewbinding.ViewBinding
 import com.fadlurahmanf.starterappmvvm.core.room.presentation.ExampleRoomActivity
 import com.fadlurahmanf.starterappmvvm.feature.language.presentation.ExampleLanguageActivity
 import com.fadlurahmanf.starterappmvvm.core.logger.presentation.LogHistoryActivity
@@ -10,9 +9,8 @@ import com.fadlurahmanf.starterappmvvm.core.network.presentation.ExampleAfterLog
 import com.fadlurahmanf.starterappmvvm.unknown.ui.example.activity.ExampleActivity
 import com.fadlurahmanf.starterappmvvm.core.network.presentation.ExampleLoginActivity
 import com.fadlurahmanf.starterappmvvm.core.network.presentation.ExampleSwitchDomainActivity
-import com.fadlurahmanf.starterappmvvm.core.unknown.domain.common.BaseAfterLoginActivity
-import com.fadlurahmanf.starterappmvvm.feature.qris.ExampleQrisActivity
-import com.fadlurahmanf.starterappmvvm.unknown.ui.example.activity.QrisActivity
+import com.fadlurahmanf.starterappmvvm.feature.qris.presentation.ExampleQrisActivity
+import com.fadlurahmanf.starterappmvvm.feature.qris.presentation.QrisActivity
 import com.fadlurahmanf.starterappmvvm.unknown.ui.example.activity.SecondExampleActivity
 import dagger.Subcomponent
 
