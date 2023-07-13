@@ -6,8 +6,8 @@ import com.chuckerteam.chucker.api.ChuckerInterceptor
 import com.chuckerteam.chucker.api.RetentionManager
 import com.fadlurahmanf.starterappmvvm.BuildConfig
 import com.fadlurahmanf.starterappmvvm.core.unknown.data.constant.BuildFlavorConstant
-import com.fadlurahmanf.starterappmvvm.unknown.network.interceptor.ContentTypeInterceptor
-import com.fadlurahmanf.starterappmvvm.unknown.network.interceptor.ExceptionInterceptor
+import com.fadlurahmanf.starterappmvvm.core.network.data.interceptor.ContentTypeInterceptor
+import com.fadlurahmanf.starterappmvvm.core.network.data.interceptor.ExceptionInterceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit

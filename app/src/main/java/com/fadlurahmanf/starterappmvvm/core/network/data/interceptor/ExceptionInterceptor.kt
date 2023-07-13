@@ -1,4 +1,4 @@
-package com.fadlurahmanf.starterappmvvm.unknown.network.interceptor
+package com.fadlurahmanf.starterappmvvm.core.network.data.interceptor
 
 import com.fadlurahmanf.starterappmvvm.core.unknown.data.constant.ExceptionConstant
 import com.fadlurahmanf.starterappmvvm.core.unknown.data.dto.exception.CustomException

@@ -1,4 +1,4 @@
-package com.fadlurahmanf.starterappmvvm.unknown.network.authenticator
+package com.fadlurahmanf.starterappmvvm.core.network.data.authenticator
 
 import android.content.Context
 import com.chuckerteam.chucker.api.ChuckerCollector
@@ -10,7 +10,7 @@ import com.fadlurahmanf.starterappmvvm.core.network.data.api.IdentityApi
 import com.fadlurahmanf.starterappmvvm.core.network.data.dto.request.RefreshTokenRequest
 import com.fadlurahmanf.starterappmvvm.core.unknown.data.constant.BuildFlavorConstant
 import com.fadlurahmanf.starterappmvvm.unknown.data.storage.example.AuthSpStorage
-import com.fadlurahmanf.starterappmvvm.unknown.network.interceptor.BankMasInterceptor
+import com.fadlurahmanf.starterappmvvm.core.network.data.interceptor.BankMasInterceptor
 import okhttp3.Authenticator
 import okhttp3.OkHttpClient
 import okhttp3.Request

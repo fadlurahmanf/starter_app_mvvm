@@ -1,4 +1,4 @@
-package com.fadlurahmanf.starterappmvvm.unknown.network.interceptor
+package com.fadlurahmanf.starterappmvvm.core.network.data.interceptor
 
 import android.content.Context
 import com.fadlurahmanf.starterappmvvm.BuildConfig
