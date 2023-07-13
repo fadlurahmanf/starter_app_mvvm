@@ -4,7 +4,8 @@ import android.content.Context
 import com.fadlurahmanf.starterappmvvm.BuildConfig
 import com.fadlurahmanf.starterappmvvm.core.encrypt.presentation.CryptoAES
 import com.fadlurahmanf.starterappmvvm.unknown.network.authenticator.TokenAuthenticator
-import com.fadlurahmanf.starterappmvvm.unknown.network.interceptor.BankMasAuthInterceptor
+import com.fadlurahmanf.starterappmvvm.unknown.network.interceptor.BankMasAfterLoginInterceptor
+import com.fadlurahmanf.starterappmvvm.unknown.network.interceptor.BankMasInterceptor
 import okhttp3.OkHttpClient
 
 abstract class BankMasAuthNetwork<T>(context: Context, private val cryptoAES: CryptoAES) :
@@ -15,7 +16,7 @@ abstract class BankMasAuthNetwork<T>(context: Context, private val cryptoAES: Cr
 
     override fun okHttpClientBuilder(builder: OkHttpClient.Builder): OkHttpClient.Builder {
         return super.okHttpClientBuilder(builder)
-            .addInterceptor(BankMasAuthInterceptor(context, cryptoAES))
-            .authenticator(TokenAuthenticator(context))
+            .addInterceptor(BankMasAfterLoginInterceptor(context, cryptoAES))
+            .authenticator(TokenAuthenticator(context, cryptoAES))
     }
 }

@@ -11,6 +11,6 @@ import retrofit2.http.Headers
 interface CIFApi {
     @GET("favorite")
     fun getFavorite(
-        @Header("TES-TES") tesHeader:Boolean
+        @Header("TESTING-REFRESH-TOKEN") tesHeader:String
     ) : Observable<BaseResponse<List<FavoriteResponse>>>
 }

@@ -19,6 +19,6 @@ class CIFRemoteDatasource @Inject constructor(
     }
 
     fun getFavorite(): Observable<BaseResponse<List<FavoriteResponse>>> {
-        return networkService(30).getFavorite(true)
+        return networkService(30).getFavorite("true")
     }
 }

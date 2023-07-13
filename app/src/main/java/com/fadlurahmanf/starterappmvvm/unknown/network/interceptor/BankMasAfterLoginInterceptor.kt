@@ -10,15 +10,30 @@ import okhttp3.Response
 open class BankMasAfterLoginInterceptor(
     private val context: Context,
     private val cryptoAES: CryptoAES,
-) :
-    Interceptor {
+) : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
         return chain.proceed(addHeader(chain.request()))
     }
 
     private fun addHeader(oriRequest: Request): Request {
+        println("MASUK SINI ${oriRequest.headers.size}")
         val authSpStorage = AuthSpStorage(context, cryptoAES)
         val accessToken = authSpStorage.accessToken
-        return oriRequest.newBuilder().addHeader("Authorization", "Bearer $accessToken").build()
+        val headers = hashMapOf<String, String>()
+        headers["Authorization"] = "Bearer $accessToken"
+        oriRequest.headers.forEach {
+            println("MASUK HEADER ${it.first} dan ${it.second}")
+            headers[it.first] = it.second
+        }
+        val newRequest = oriRequest.newBuilder()
+        headers.forEach { pair ->
+            newRequest.removeHeader(pair.key)
+            newRequest.addHeader(pair.key, pair.value)
+        }
+        if (headers["TESTING-REFRESH-TOKEN"] == "true") {
+            newRequest.removeHeader("Authorization")
+            newRequest.addHeader("Authorization", "Bearer DEBUG_TOKEN")
+        }
+        return newRequest.build()
     }
 }

@@ -19,7 +19,7 @@ interface IdentityApi {
 
     @POST("auth/refresh")
     fun syncRefreshToken(
-        @Body body: JsonObject
+        @Body body: RefreshTokenRequest
     ): Call<BaseResponse<LoginResponse>>
 
     @POST("auth/refresh")

@@ -8,18 +8,14 @@ import okhttp3.Interceptor
 import okhttp3.Request
 import okhttp3.Response
 
-open class BankMasAuthInterceptor(
-    private val context: Context,
-    private val cryptoAES: CryptoAES,
-) :
-    Interceptor {
+open class BankMasInterceptor : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
         return chain.proceed(addHeader(chain.request()))
     }
 
     private fun addHeader(oriRequest: Request): Request {
-        val authSpStorage = AuthSpStorage(context, cryptoAES)
-        val accessToken = authSpStorage.accessToken
-        return oriRequest.newBuilder().addHeader("Authorization", "Bearer $accessToken").build()
+        val request = oriRequest.newBuilder()
+        request.addHeader("Authorization", "Basic ${BuildConfig.KONG_BASIC_AUTH}")
+        return request.build()
     }
 }
