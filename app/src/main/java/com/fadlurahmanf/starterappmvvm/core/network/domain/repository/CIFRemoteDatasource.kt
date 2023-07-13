@@ -18,7 +18,7 @@ class CIFRemoteDatasource @Inject constructor(
         return CIFApi::class.java
     }
 
-    fun getFavorite(): Observable<BaseResponse<List<FavoriteResponse>>> {
-        return networkService(30).getFavorite("true")
+    fun getFavorite(debugForceRefreshToken: Boolean): Observable<BaseResponse<List<FavoriteResponse>>> {
+        return networkService(30).getFavorite(if (debugForceRefreshToken) "true" else "false")
     }
 }

@@ -20,10 +20,10 @@ class AfterLoginViewModel @Inject constructor(
     private var _favoritesState = MutableLiveData<CustomState<List<FavoriteResponse>>>()
     val favoriteState get() = _favoritesState
 
-    fun getFavorite() {
+    fun getFavorite(debugForceRefreshToken:Boolean) {
         _favoritesState.value = CustomState.Idle
         _favoritesState.value = CustomState.Loading
-        compositeDisposable().add(favoriteInteractor.getFavorites()
+        compositeDisposable().add(favoriteInteractor.getFavorites(debugForceRefreshToken)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(

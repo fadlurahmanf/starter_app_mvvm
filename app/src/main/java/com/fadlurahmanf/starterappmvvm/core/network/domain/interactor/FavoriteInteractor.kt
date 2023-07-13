@@ -9,7 +9,7 @@ import javax.inject.Inject
 class FavoriteInteractor @Inject constructor(
     private var cifRemoteDatasource: CIFRemoteDatasource,
 ){
-    fun getFavorites(): Observable<BaseResponse<List<FavoriteResponse>>> {
-        return cifRemoteDatasource.getFavorite()
+    fun getFavorites(debugForceRefreshToken: Boolean): Observable<BaseResponse<List<FavoriteResponse>>> {
+        return cifRemoteDatasource.getFavorite(debugForceRefreshToken)
     }
 }

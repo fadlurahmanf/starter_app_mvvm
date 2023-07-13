@@ -5,7 +5,7 @@ import com.fadlurahmanf.starterappmvvm.BuildConfig
 import com.fadlurahmanf.starterappmvvm.core.encrypt.presentation.CryptoAES
 
 abstract class CIFNetwork<T>(context: Context, cryptoAES: CryptoAES) :
-    BankMasAuthNetwork<T>(context, cryptoAES) {
+    BankMasAfterLoginNetwork<T>(context, cryptoAES) {
     override fun getBaseUrl(): String {
         return "${super.getBaseUrl()}${BuildConfig.CIF_PREFIX}"
     }

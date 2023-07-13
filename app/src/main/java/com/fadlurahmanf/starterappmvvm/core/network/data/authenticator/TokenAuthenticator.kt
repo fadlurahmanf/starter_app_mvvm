@@ -4,6 +4,7 @@ import android.content.Context
 import com.chuckerteam.chucker.api.ChuckerCollector
 import com.chuckerteam.chucker.api.ChuckerInterceptor
 import com.chuckerteam.chucker.api.RetentionManager
+import com.fadlurahmanf.starterappmvvm.BaseApp
 import com.fadlurahmanf.starterappmvvm.BuildConfig
 import com.fadlurahmanf.starterappmvvm.core.encrypt.presentation.CryptoAES
 import com.fadlurahmanf.starterappmvvm.core.network.data.api.IdentityApi
@@ -11,6 +12,8 @@ import com.fadlurahmanf.starterappmvvm.core.network.data.dto.request.RefreshToke
 import com.fadlurahmanf.starterappmvvm.core.unknown.data.constant.BuildFlavorConstant
 import com.fadlurahmanf.starterappmvvm.unknown.data.storage.example.AuthSpStorage
 import com.fadlurahmanf.starterappmvvm.core.network.data.interceptor.BankMasInterceptor
+import com.fadlurahmanf.starterappmvvm.core.network.external.ChuckerHelper
+import com.fadlurahmanf.starterappmvvm.core.unknown.data.constant.AppConstant
 import okhttp3.Authenticator
 import okhttp3.OkHttpClient
 import okhttp3.Request
@@ -32,7 +35,7 @@ class TokenAuthenticator(
         val refreshToken = authSpStorage.refreshToken
         if (refreshToken != null) {
             val refreshTokenRequest = RefreshTokenRequest(refreshToken)
-            val refreshTokenResponse = api().syncRefreshToken(refreshTokenRequest).execute()
+            val refreshTokenResponse = identityApi().syncRefreshToken(refreshTokenRequest).execute()
             val body = refreshTokenResponse.body()
             if (refreshTokenResponse.isSuccessful && (body?.data?.accessToken?.isEmpty() == false || body?.data?.refreshToken?.isEmpty() == false)) {
                 val accessToken = body.data?.accessToken
@@ -58,25 +61,12 @@ class TokenAuthenticator(
     }
 
     private val type = BuildConfig.BUILD_TYPE
-    private fun chuckerInterceptor(): ChuckerInterceptor {
-        val chuckerCollector = ChuckerCollector(
-            context = context,
-            showNotification = type != BuildFlavorConstant.production,
-            retentionPeriod = RetentionManager.Period.ONE_HOUR
-        )
-
-        return ChuckerInterceptor.Builder(context)
-            .collector(chuckerCollector)
-            .maxContentLength(Long.MAX_VALUE)
-            .alwaysReadResponseBody(true)
-            .build()
-    }
 
     private fun client(): OkHttpClient {
         val clientBuilder = OkHttpClient.Builder()
             .addInterceptor(BankMasInterceptor(context, cryptoAES))
         if (type != BuildFlavorConstant.production) {
-            clientBuilder.addInterceptor(chuckerInterceptor())
+            clientBuilder.addInterceptor(ChuckerHelper.provideInterceptor(context))
         }
         return clientBuilder
             .addNetworkInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
@@ -86,11 +76,20 @@ class TokenAuthenticator(
             .build()
     }
 
-    private fun api() = Retrofit.Builder()
-        .baseUrl(BuildConfig.BASIC_URL + BuildConfig.IDENTITY_PREFIX)
-        .client(client())
-        .addConverterFactory(GsonConverterFactory.create())
-        .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
-        .build()
-        .create(IdentityApi::class.java)
+    private fun identityApi(): IdentityApi {
+        val remoteConfig = (context.applicationContext as BaseApp).remoteConfig
+        val baseUrl =
+            if (remoteConfig.getString(AppConstant.RCK.TYPE_TOKEN) == AppConstant.RCV.GUEST) {
+                BuildConfig.GUEST_URL
+            } else {
+                BuildConfig.BASIC_URL
+            }
+        return Retrofit.Builder()
+            .baseUrl(baseUrl + BuildConfig.IDENTITY_PREFIX)
+            .client(client())
+            .addConverterFactory(GsonConverterFactory.create())
+            .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
+            .build()
+            .create(IdentityApi::class.java)
+    }
 }

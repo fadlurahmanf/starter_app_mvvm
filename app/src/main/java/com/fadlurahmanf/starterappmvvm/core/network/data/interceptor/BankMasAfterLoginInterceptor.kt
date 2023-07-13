@@ -16,13 +16,11 @@ open class BankMasAfterLoginInterceptor(
     }
 
     private fun addHeader(oriRequest: Request): Request {
-        println("MASUK SINI ${oriRequest.headers.size}")
         val authSpStorage = AuthSpStorage(context, cryptoAES)
         val accessToken = authSpStorage.accessToken
         val headers = hashMapOf<String, String>()
         headers["Authorization"] = "Bearer $accessToken"
         oriRequest.headers.forEach {
-            println("MASUK HEADER ${it.first} dan ${it.second}")
             headers[it.first] = it.second
         }
         val newRequest = oriRequest.newBuilder()

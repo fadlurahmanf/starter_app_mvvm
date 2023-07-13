@@ -9,7 +9,8 @@ import com.fadlurahmanf.starterappmvvm.core.unknown.domain.common.BaseAfterLogin
 import com.fadlurahmanf.starterappmvvm.databinding.ActivityExampleAfterLoginBinding
 import javax.inject.Inject
 
-class ExampleAfterLoginActivity : BaseAfterLoginActivity<ActivityExampleAfterLoginBinding>(ActivityExampleAfterLoginBinding::inflate) {
+class ExampleAfterLoginActivity :
+    BaseAfterLoginActivity<ActivityExampleAfterLoginBinding>(ActivityExampleAfterLoginBinding::inflate) {
     override fun initSetup() {
         observe()
         initAction()
@@ -24,21 +25,24 @@ class ExampleAfterLoginActivity : BaseAfterLoginActivity<ActivityExampleAfterLog
     @Inject
     lateinit var viewModel: AfterLoginViewModel
 
-    private fun observe(){
-        viewModel.favoriteState.observe(this){
-            when(it){
+    private fun observe() {
+        viewModel.favoriteState.observe(this) {
+            when (it) {
                 is CustomState.Loading -> {
                     dismissLoadingDialog()
                     showLoadingDialog()
                 }
+
                 is CustomState.Success -> {
                     dismissLoadingDialog()
                     showSnackBar(binding.root, message = "SUKSES")
                 }
+
                 is CustomState.Error -> {
                     dismissLoadingDialog()
                     showSnackBar(binding.root, message = it.exception.toProperMessage(this))
                 }
+
                 else -> {
                     dismissLoadingDialog()
                 }
@@ -46,9 +50,13 @@ class ExampleAfterLoginActivity : BaseAfterLoginActivity<ActivityExampleAfterLog
         }
     }
 
-    private fun initAction(){
-        binding.btnGetFavorite.setOnClickListener {
-            viewModel.getFavorite()
+    private fun initAction() {
+        binding.btnGetFavoriteNormal.setOnClickListener {
+            viewModel.getFavorite(false)
+        }
+
+        binding.btnGetFavoriteForceRefreshToken.setOnClickListener {
+            viewModel.getFavorite(true)
         }
 
         binding.btnNextScreen.setOnClickListener {

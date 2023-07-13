@@ -11,8 +11,14 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/btn_get_favorite"
-        android:text="get favorite"/>
+        android:id="@+id/btn_get_favorite_normal"
+        android:text="get favorite normal "/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btn_get_favorite_force_refresh_token"
+        android:text="get favorite force refresh token"/>
 
     <Button
         android:layout_width="wrap_content"

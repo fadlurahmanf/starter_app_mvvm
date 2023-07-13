@@ -156,7 +156,7 @@ dependencies {
     implementation "androidx.camera:camera-view:1.0.0-alpha28"
     implementation "com.google.mlkit:barcode-scanning:17.0.3"
 
-    implementation "com.google.firebase:firebase-messaging:23.1.1"
+    implementation "com.google.firebase:firebase-messaging:23.1.2"
 
     def exoplayer_version = "2.18.2"
     implementation "com.google.android.exoplayer:exoplayer-core:$exoplayer_version"

@@ -59,8 +59,8 @@ abstract class BaseAfterLoginActivity<VB : ViewBinding>(inflate: InflateActivity
     }
 }
 
-private val defaultMillis: Long = 10000L
-private var currentMillis: Long = 10000L
+private val defaultMillis: Long = 6000000L
+private var currentMillis: Long = 6000000L
 
 private val timer = object : CountDownTimer(currentMillis, 1000) {
     override fun onTick(millisUntilFinished: Long) {
