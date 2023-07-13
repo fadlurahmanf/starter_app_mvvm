@@ -8,6 +8,7 @@ import com.google.gson.JsonObject
 import io.reactivex.rxjava3.core.Observable
 import retrofit2.Call
 import retrofit2.http.Body
+import retrofit2.http.Header
 import retrofit2.http.POST
 
 interface IdentityApi {
@@ -23,6 +24,6 @@ interface IdentityApi {
 
     @POST("auth/refresh")
     fun refreshToken(
-        @Body body: RefreshTokenRequest
+        @Body body: RefreshTokenRequest,
     ): Observable<BaseResponse<LoginResponse>>
 }

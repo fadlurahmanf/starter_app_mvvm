@@ -3,7 +3,7 @@ package com.fadlurahmanf.starterappmvvm.core.network.presentation.viewmodel
 import androidx.lifecycle.MutableLiveData
 import com.fadlurahmanf.starterappmvvm.core.network.domain.interactor.AuthenticationInteractor
 import com.fadlurahmanf.starterappmvvm.core.unknown.data.state.CustomState
-import com.fadlurahmanf.starterappmvvm.core.network.domain.interactor.CIFRepository
+import com.fadlurahmanf.starterappmvvm.core.network.domain.interactor.FavoriteInteractor
 import com.fadlurahmanf.starterappmvvm.core.unknown.domain.common.BaseAfterLoginViewModel
 import com.fadlurahmanf.starterappmvvm.unknown.dto.response.example.FavoriteResponse
 import com.fadlurahmanf.starterappmvvm.core.unknown.external.extension.toErrorState
@@ -13,7 +13,7 @@ import io.reactivex.rxjava3.schedulers.Schedulers
 import javax.inject.Inject
 
 class AfterLoginViewModel @Inject constructor(
-    private val cifRepository: CIFRepository,
+    private val favoriteInteractor: FavoriteInteractor,
     private val authenticationInteractor: AuthenticationInteractor,
     private val authSpStorage: AuthSpStorage,
 ) : BaseAfterLoginViewModel(authenticationInteractor, authSpStorage) {
@@ -23,7 +23,7 @@ class AfterLoginViewModel @Inject constructor(
     fun getFavorite() {
         _favoritesState.value = CustomState.Idle
         _favoritesState.value = CustomState.Loading
-        disposable().add(cifRepository.getFavorites()
+        disposable().add(favoriteInteractor.getFavorites()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
