@@ -4,4 +4,6 @@ class RxEvent {
     data class ChangeLanguageEvent(
         val languageCode: String
     )
+
+    class ForceLogoutEvent
 }

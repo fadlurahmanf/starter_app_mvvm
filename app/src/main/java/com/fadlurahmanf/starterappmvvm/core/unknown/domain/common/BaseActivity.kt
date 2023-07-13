@@ -1,9 +1,5 @@
 package com.fadlurahmanf.starterappmvvm.core.unknown.domain.common
 
-import android.hardware.Sensor
-import android.hardware.SensorEvent
-import android.hardware.SensorEventListener
-import android.hardware.SensorManager
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,7 +7,6 @@ import android.view.WindowManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewbinding.ViewBinding
-import com.chuckerteam.chucker.api.Chucker
 import com.fadlurahmanf.starterappmvvm.BaseApp
 import com.fadlurahmanf.starterappmvvm.core.unknown.data.dto.event.RxEvent
 import com.fadlurahmanf.starterappmvvm.core.unknown.external.helper.RxBus
@@ -19,7 +14,6 @@ import com.fadlurahmanf.starterappmvvm.unknown.di.component.ApplicationComponent
 import com.fadlurahmanf.starterappmvvm.unknown.ui.core.dialog.DefaultLoadingDialog
 import com.google.android.material.snackbar.Snackbar
 import io.reactivex.rxjava3.disposables.CompositeDisposable
-import io.reactivex.rxjava3.disposables.Disposable
 
 typealias InflateActivity<T> = (LayoutInflater) -> T
 
@@ -103,14 +97,14 @@ abstract class BaseActivity<VB : ViewBinding>(
 
     override fun onResume() {
         super.onResume()
-        listenRxBus()
+        listenEvent()
     }
 
-    private val compositeDisposable = CompositeDisposable()
+    val compositeDisposable = CompositeDisposable()
 
     open fun onLanguageChange(event: RxEvent.ChangeLanguageEvent) {}
 
-    private fun listenRxBus() {
+    open fun listenEvent() {
         compositeDisposable.add(RxBus.listen(RxEvent.ChangeLanguageEvent::class.java).subscribe {
             onLanguageChange(it)
             compositeDisposable.clear()

@@ -51,7 +51,6 @@ class ExampleAfterLoginActivity : BaseAfterLoginActivity<ActivityExampleAfterLog
 
     private fun initAction(){
         binding.btnGetFavorite.setOnClickListener {
-//            viewModel.refreshToken()
             viewModel.getFavorite()
         }
     }

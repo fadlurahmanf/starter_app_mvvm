@@ -41,7 +41,7 @@ abstract class BasePreference(
         try {
             sharedPreferences.edit().putString(key, value).apply()
         } catch (e: Throwable) {
-            logConsole.e("SAVE RAW STRING: ${e.message}")
+            logConsole.e("SAVE RAW STRING $key: ${e.message}")
         }
     }
 
@@ -63,7 +63,7 @@ abstract class BasePreference(
         try {
             saveEncryptedString(key, value)
         } catch (e: Throwable) {
-            logConsole.e("SAVE STRING: ${e.message}")
+            logConsole.e("SAVE STRING $key: ${e.message}")
         }
     }
 
@@ -74,7 +74,7 @@ abstract class BasePreference(
         return try {
             sharedPreferences.getString(key, default)
         } catch (e: Throwable) {
-            logConsole.e("GET RAW STRING: ${e.message}")
+            logConsole.e("GET RAW STRING $key: ${e.message}")
             null
         }
     }
@@ -97,7 +97,7 @@ abstract class BasePreference(
         return try {
             getDecryptedString(key)
         } catch (e: Throwable) {
-            logConsole.e("GET STRING: ${e.message}")
+            logConsole.e("GET STRING $key: ${e.message}")
             null
         }
     }
@@ -107,7 +107,7 @@ abstract class BasePreference(
         try {
             sharedPreferences.edit().putInt(key, value).apply()
         } catch (e: Throwable) {
-            logConsole.e("SAVE INT: ${e.message}")
+            logConsole.e("SAVE INT $key: ${e.message}")
         }
     }
 
@@ -116,7 +116,7 @@ abstract class BasePreference(
         try {
             saveEncryptedString(key, value.toString())
         } catch (e: Throwable) {
-            logConsole.e("SAVE INT: ${e.message}")
+            logConsole.e("SAVE INT $key: ${e.message}")
         }
     }
 
@@ -125,7 +125,7 @@ abstract class BasePreference(
         return try {
             sharedPreferences.getInt(key, default)
         } catch (e: Throwable) {
-            logConsole.e("GET RAW: ${e.message}")
+            logConsole.e("GET RAW INT $key: ${e.message}")
             default
         }
     }
@@ -135,7 +135,7 @@ abstract class BasePreference(
             val decrypted = getDecryptedString(key)
             return decrypted?.toInt()
         } catch (e: Throwable) {
-            logConsole.e("GET INT: ${e.message}")
+            logConsole.e("GET INT $key: ${e.message}")
             null
         }
     }
@@ -145,7 +145,7 @@ abstract class BasePreference(
         try {
             sharedPreferences.edit().putLong(key, value).apply()
         } catch (e: Throwable) {
-            logConsole.e("SAVE RAW LONG: ${e.message}")
+            logConsole.e("SAVE RAW LONG $key: ${e.message}")
         }
     }
 
@@ -153,7 +153,7 @@ abstract class BasePreference(
         try {
             saveEncryptedString(key, value.toString())
         } catch (e: Throwable) {
-            logConsole.e("SAVE LONG: ${e.message}")
+            logConsole.e("SAVE LONG $key: ${e.message}")
         }
     }
 
@@ -170,7 +170,7 @@ abstract class BasePreference(
             val decrypted = getDecryptedString(key)
             decrypted?.toLong()
         } catch (e: Throwable) {
-            logConsole.e("GET LONG: ${e.message}")
+            logConsole.e("GET LONG $key: ${e.message}")
             null
         }
     }
@@ -179,7 +179,7 @@ abstract class BasePreference(
         try {
             sharedPreferences.edit()?.putFloat(key, value)?.apply()
         } catch (e: Throwable) {
-            logConsole.e("SAVE RAW FLOAT: ${e.message}")
+            logConsole.e("SAVE RAW FLOAT $key: ${e.message}")
         }
     }
 
@@ -187,7 +187,16 @@ abstract class BasePreference(
         try {
             saveEncryptedString(key, value.toString())
         } catch (e: Throwable) {
-            logConsole.e("SAVE FLOAT: ${e.message}")
+            logConsole.e("SAVE FLOAT $key: ${e.message}")
+        }
+    }
+
+    protected fun getRawFloat(key: String, default: Float): Float? {
+        return try {
+            sharedPreferences.getFloat(key, default)
+        } catch (e: Throwable) {
+            logConsole.e("GET RAW FLOAT $key: ${e.message}")
+            null
         }
     }
 
@@ -196,7 +205,7 @@ abstract class BasePreference(
             val decrypted = getDecryptedString(key)
             decrypted?.toFloat()
         } catch (e: Throwable) {
-            logConsole.e("GET FLOAT: ${e.message}")
+            logConsole.e("GET FLOAT $key: ${e.message}")
             null
         }
     }
@@ -209,7 +218,7 @@ abstract class BasePreference(
             }
             saveEncryptedString(key, json)
         } catch (e: Throwable) {
-            logConsole.e("SAVE DATA: ${e.message}")
+            logConsole.e("SAVE DATA $key: ${e.message}")
         }
     }
 
@@ -221,7 +230,7 @@ abstract class BasePreference(
             }
             return Gson().fromJson(decrypted, classOfT)
         } catch (e: Throwable) {
-            logConsole.e("GET DATA: ${e.message}")
+            logConsole.e("GET DATA $key: ${e.message}")
             null
         }
     }
@@ -234,7 +243,7 @@ abstract class BasePreference(
             }
             saveEncryptedString(key, json)
         } catch (e: Throwable) {
-            logConsole.e("SAVE LIST DATA: ${e.message}")
+            logConsole.e("SAVE LIST DATA $key: ${e.message}")
         }
     }
 
@@ -251,7 +260,7 @@ abstract class BasePreference(
             }
             list
         } catch (e: Throwable) {
-            logConsole.e("GET LIST DATA: ${e.message}")
+            logConsole.e("GET LIST DATA $key: ${e.message}")
             null
         }
     }
@@ -263,7 +272,7 @@ abstract class BasePreference(
         try {
             sharedPreferences.edit().remove(key).apply()
         } catch (e: Throwable) {
-            logConsole.e("CLEAR DATA: ${e.message}")
+            logConsole.e("CLEAR DATA $key: ${e.message}")
         }
     }
 }

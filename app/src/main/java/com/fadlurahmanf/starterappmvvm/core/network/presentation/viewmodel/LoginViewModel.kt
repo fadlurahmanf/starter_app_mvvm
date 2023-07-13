@@ -24,9 +24,9 @@ class LoginViewModel @Inject constructor(
             nik = "3511101010101010",
             deviceId = "154adc5da72877dcfcc1eb8447434a6c67c9a402d68015aa8c31a074b0a7e82e",
             deviceToken = "fKhNx61jcUDnukmPFT-gB4:APA91bFBlL5a_LLWlda1JEU36_AYEOyTPM3poy-pz8yylxRlVc96FvnaPetkEOgyLKgRdhOgitz0Tztye0IV2J3n0RaGeidkC7lhbQRo2ZkEzvT6FHupwLiVJcFhD22Jlywvf0bJsMc0",
-            password = "FdsbJm07MJ79U1j7g0pItw==",
+            password = "dfjZVW2OVvA/ujatBEs3QA==",
             phoneNumber = "081283602320",
-            activationId = "ffe9383c-6432-4bf7-9828-65ddd4dde8c9",
+            activationId = "69ed4697-5258-48ab-bfa6-e3f19264f417",
             clientTimeMilis = System.currentTimeMillis().toString()
         )
         disposable().add(authenticationInteractor.login(request)
