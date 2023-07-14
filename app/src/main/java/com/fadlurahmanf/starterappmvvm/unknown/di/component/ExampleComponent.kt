@@ -9,6 +9,7 @@ import com.fadlurahmanf.starterappmvvm.core.network.presentation.ExampleAfterLog
 import com.fadlurahmanf.starterappmvvm.unknown.ui.example.activity.ExampleActivity
 import com.fadlurahmanf.starterappmvvm.core.network.presentation.ExampleLoginActivity
 import com.fadlurahmanf.starterappmvvm.core.network.presentation.ExampleSwitchDomainActivity
+import com.fadlurahmanf.starterappmvvm.feature.mlkit.presentation.ExampleFaceDetectorActivity
 import com.fadlurahmanf.starterappmvvm.feature.mlkit.presentation.ExampleImageLabelingActivity
 import com.fadlurahmanf.starterappmvvm.feature.qris.presentation.ExampleQrisActivity
 import com.fadlurahmanf.starterappmvvm.feature.qris.presentation.QrisActivity
@@ -32,6 +33,7 @@ interface ExampleComponent {
     fun inject(activity: QrisActivity)
     fun inject(activity: ExampleSwitchDomainActivity)
     fun inject(activity: ExampleImageLabelingActivity)
+    fun inject(activity: ExampleFaceDetectorActivity)
     fun inject(activity: SecondExampleActivity)
     fun inject(activity: ExampleLoginActivity)
     fun inject(activity: LogHistoryActivity)

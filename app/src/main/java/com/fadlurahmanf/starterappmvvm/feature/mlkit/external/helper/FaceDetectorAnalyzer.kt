@@ -4,12 +4,15 @@ import androidx.camera.core.ExperimentalGetImage
 import androidx.camera.core.ImageAnalysis
 import androidx.camera.core.ImageProxy
 import com.google.mlkit.vision.common.InputImage
+import com.google.mlkit.vision.face.Face
+import com.google.mlkit.vision.face.FaceDetection
+import com.google.mlkit.vision.face.FaceDetectorOptions
 import com.google.mlkit.vision.label.ImageLabel
 import com.google.mlkit.vision.label.ImageLabeling
 import com.google.mlkit.vision.label.defaults.ImageLabelerOptions
 import java.lang.Exception
 
-class ImageLabelAnalyzer(
+class FaceDetectorAnalyzer(
     private val listener: Listener
 ) : ImageAnalysis.Analyzer {
 
@@ -17,22 +20,27 @@ class ImageLabelAnalyzer(
     override fun analyze(image: ImageProxy) {
         val mediaImage = image.image
         if (mediaImage != null) {
-            val labeler = ImageLabeling.getClient(ImageLabelerOptions.DEFAULT_OPTIONS)
-            labeler.process(
+            val highAccuracyOpts = FaceDetectorOptions.Builder()
+                .setPerformanceMode(FaceDetectorOptions.PERFORMANCE_MODE_ACCURATE)
+                .setLandmarkMode(FaceDetectorOptions.LANDMARK_MODE_ALL)
+                .setClassificationMode(FaceDetectorOptions.CLASSIFICATION_MODE_ALL)
+                .build()
+            val detector = FaceDetection.getClient(highAccuracyOpts)
+            detector.process(
                 InputImage.fromMediaImage(
                     mediaImage,
                     image.imageInfo.rotationDegrees
                 )
-            ).addOnSuccessListener { labels ->
-                listener.onSuccessGetLabels(labels.toList(), image)
+            ).addOnSuccessListener { faces ->
+                listener.onSuccessGetFaces(faces.toList(), image)
             }.addOnFailureListener {
-                listener.onFailedGetLabels(it)
+                listener.onFailedGetFaces(it)
             }
         }
     }
 
     interface Listener {
-        fun onSuccessGetLabels(labels: List<ImageLabel>, image: ImageProxy)
-        fun onFailedGetLabels(e: Exception)
+        fun onSuccessGetFaces(labels: List<Face>, image: ImageProxy)
+        fun onFailedGetFaces(e: Exception)
     }
 }
