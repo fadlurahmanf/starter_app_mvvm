@@ -31,6 +31,9 @@
         android:theme="@style/Theme.StarterAppMvvm"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".feature.mlkit.presentation.ExampleImageLabelingActivity"
+            android:exported="false" />
+        <activity
             android:name=".feature.qris.presentation.ExampleQrisActivity"
             android:exported="false" />
         <activity
