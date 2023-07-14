@@ -1,5 +1,7 @@
 package com.fadlurahmanf.starterappmvvm.feature.mlkit.presentation
 
+import android.os.Handler
+import android.os.Looper
 import androidx.camera.core.CameraSelector
 import androidx.camera.core.ImageAnalysis
 import androidx.camera.core.ImageProxy
@@ -29,17 +31,26 @@ class ExampleImageLabelingActivity :
         }
     }
 
+    private val handler = Handler(Looper.getMainLooper())
+    private lateinit var image: ImageProxy
+    private lateinit var labels: List<ImageLabel>
+    private val onSuccessRunnable = object : Runnable {
+        override fun run() {
+            labels.forEach {
+                logConsole.d("ON SUCCESS IMAGE LABELING ${it.text} DAN ${it.confidence}")
+            }
+            handler.postDelayed(this, 3000)
+            image.close()
+        }
+
+    }
+
     private val listener = object : ImageLabelAnalyzer.Listener {
         override fun onSuccessGetLabels(labels: List<ImageLabel>, image: ImageProxy) {
-            val isContainObject = labels.firstOrNull()?.text?.contains("Mobile phone")
-            if (isContainObject == true) {
-                val detectedObject = labels.first {
-                    it.text.contains("Mobile phone")
-                }
-                println("MASUK SUCCESS ${detectedObject.text} DAN ${detectedObject.confidence}")
-            } else {
-                image.close()
-            }
+            this@ExampleImageLabelingActivity.image = image
+            this@ExampleImageLabelingActivity.labels = labels
+            handler.removeCallbacks(onSuccessRunnable)
+            handler.postDelayed(onSuccessRunnable, 3000)
         }
 
         override fun onFailed(e: Exception) {
