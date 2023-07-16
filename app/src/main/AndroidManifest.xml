@@ -31,6 +31,9 @@
         android:theme="@style/Theme.StarterAppMvvm"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".feature.nsd.presentation.ExampleNsdActivity"
+            android:exported="false" />
+        <activity
             android:name=".feature.mlkit.presentation.ExampleFaceDetectorActivity"
             android:exported="false" />
         <activity

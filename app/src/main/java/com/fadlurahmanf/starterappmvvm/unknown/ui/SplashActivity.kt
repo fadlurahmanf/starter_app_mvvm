@@ -12,6 +12,7 @@ import com.fadlurahmanf.starterappmvvm.databinding.ActivitySplashBinding
 import com.fadlurahmanf.starterappmvvm.feature.language.domain.interactor.LanguageInteractor
 import com.fadlurahmanf.starterappmvvm.feature.mlkit.presentation.ExampleFaceDetectorActivity
 import com.fadlurahmanf.starterappmvvm.feature.mlkit.presentation.ExampleImageLabelingActivity
+import com.fadlurahmanf.starterappmvvm.feature.nsd.presentation.ExampleNsdActivity
 import com.fadlurahmanf.starterappmvvm.feature.qris.presentation.QrisActivity
 import com.fadlurahmanf.starterappmvvm.unknown.di.component.CoreComponent
 import com.fadlurahmanf.starterappmvvm.unknown.ui.example.activity.ExampleActivity
@@ -46,7 +47,7 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>(ActivitySplashBinding
         }
 
         Timer().schedule(1500) {
-            val intent = Intent(this@SplashActivity, QrisActivity::class.java)
+            val intent = Intent(this@SplashActivity, ExampleNsdActivity::class.java)
             startActivity(intent)
             finish()
         }
