@@ -46,7 +46,7 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>(ActivitySplashBinding
         }
 
         Timer().schedule(1500) {
-            val intent = Intent(this@SplashActivity, ExampleFaceDetectorActivity::class.java)
+            val intent = Intent(this@SplashActivity, QrisActivity::class.java)
             startActivity(intent)
             finish()
         }

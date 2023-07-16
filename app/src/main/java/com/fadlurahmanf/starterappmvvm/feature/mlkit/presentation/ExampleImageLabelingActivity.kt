@@ -49,7 +49,6 @@ class ExampleImageLabelingActivity :
 
         override fun onFailedGetLabels(e: Exception) {
             logConsole.e("ERROR GET LABELS: ${e.message}")
-            println("MASUK ERROR ${e.message}")
         }
 
     }
