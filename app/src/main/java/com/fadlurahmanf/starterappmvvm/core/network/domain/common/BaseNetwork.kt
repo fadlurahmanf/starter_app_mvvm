@@ -19,7 +19,6 @@ abstract class BaseNetwork<T>(var context: Context) {
     var service: T? = null
 
     private fun bodyLoggingInterceptor(): HttpLoggingInterceptor {
-        logConsole.d("MASUK bodyLoggingInterceptor")
         return HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
     }
 

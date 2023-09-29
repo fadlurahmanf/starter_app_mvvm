@@ -86,23 +86,7 @@ abstract class BaseNotification(var context: Context) {
         imageUrl: String
     ) {
         val builder = notificationBuilder(id, title, body)
-        Glide.with(context)
-            .asBitmap()
-            .load(imageUrl)
-            .into(object : CustomTarget<Bitmap>() {
-                override fun onResourceReady(
-                    resource: Bitmap,
-                    transition: Transition<in Bitmap>?
-                ) {
-                    builder.setLargeIcon(resource)
-                    builder.setStyle(NotificationCompat.BigPictureStyle().bigPicture(resource))
-                    notificationManager()
-                        .notify(id, builder.build())
-                }
 
-                override fun onLoadCleared(placeholder: Drawable?) {}
-
-            })
     }
 
     fun showActionNotification(
